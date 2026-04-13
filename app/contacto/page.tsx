@@ -440,8 +440,8 @@ function ContactInfo() {
         <InfoCard
           icon="✉️"
           title="Email directo"
-          value="hola@tecnozero.cl"
-          href="mailto:hola@tecnozero.cl"
+          value="contacto@tecnozero.cl"
+          href="mailto:contacto@tecnozero.cl"
         />
         <InfoCard
           icon="📱"

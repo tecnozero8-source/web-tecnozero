@@ -147,7 +147,7 @@ export function Footer() {
           <div style={{ display: "flex", flexDirection: "column" as const, gap: "8px" }}>
             {[
               { icon: MapPin, text: "La Serena, Región de Coquimbo, Chile", href: null },
-              { icon: Mail,   text: "hola@tecnozero.cl",   href: "mailto:hola@tecnozero.cl" },
+              { icon: Mail,   text: "contacto@tecnozero.cl",   href: "mailto:contacto@tecnozero.cl" },
               { icon: Phone,  text: "(+569) 8869 3864",    href: "tel:+56988693864" },
             ].map(({ icon: Icon, text, href }) => (
               href ? (
