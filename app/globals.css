@@ -1,0 +1,476 @@
+@import "tailwindcss";
+
+/* ══════════════════════════════════════════
+   PALETA OFICIAL TECNOZERO
+   Azul Marino   #0957C3  PANTONE 2132 C
+   Cyan          #1FB3E5  PANTONE 115-6 C
+   Rojo RPA      #E53535  Badge R·P·A
+   Amber Papaya  #F5A020  Badge PAPAYA·BOTS
+   ══════════════════════════════════════════ */
+
+@theme {
+  --color-brand-blue:   #0957C3;
+  --color-brand-cyan:   #1FB3E5;
+  --color-brand-lime:   #D4F040;
+  --color-brand-red:    #E53535;
+  --color-brand-amber:  #F5A020;
+  --color-brand-violet: #6D4FE8;
+  --color-bg-deep:      #060C18;
+  --color-bg-mid:       #0B1425;
+  --color-bg-surface:   #0F1D35;
+  --color-bg-hover:     #162240;
+  --color-text-primary:   #F0F4FA;
+  --color-text-secondary: #8FA3BF;
+  --color-text-muted:     #4A607A;
+}
+
+/* ══════════════════════════════════════════
+   VARIABLES CSS
+   ══════════════════════════════════════════ */
+:root {
+  --bg-deep:       #060C18;
+  --bg-mid:        #0B1425;
+  --bg-surface:    #0F1D35;
+  --bg-hover:      #162240;
+
+  --brand-blue:    #0957C3;
+  --brand-cyan:    #1FB3E5;
+  --cyan-bright:   #3DC8F5;
+  --cyan-soft:     rgba(31, 179, 229, 0.10);
+  --cyan-border:   rgba(31, 179, 229, 0.20);
+  --cyan-glow:     rgba(31, 179, 229, 0.06);
+
+  --blue-soft:     rgba(9, 87, 195, 0.15);
+  --blue-border:   rgba(9, 87, 195, 0.30);
+
+  --lime:          #D4F040;
+  --lime-hover:    #C4E030;
+
+  --red-rpa:       #E53535;
+  --red-soft:      rgba(229, 53, 53, 0.10);
+  --red-border:    rgba(229, 53, 53, 0.20);
+
+  --amber:         #F5A020;
+  --amber-soft:    rgba(245, 160, 32, 0.10);
+  --amber-border:  rgba(245, 160, 32, 0.22);
+
+  --violet:        #6D4FE8;
+  --violet-soft:   rgba(109, 79, 232, 0.10);
+  --violet-border: rgba(109, 79, 232, 0.22);
+
+  --green-ok:      #22C55E;
+  --green-soft:    rgba(34, 197, 94, 0.10);
+
+  --text-primary:   #F0F4FA;
+  --text-secondary: #8FA3BF;
+  --text-muted:     #4A607A;
+  --text-on-light:  #0B1E3D;
+
+  --border:        rgba(255, 255, 255, 0.06);
+  --border-md:     rgba(255, 255, 255, 0.10);
+  --border-strong: rgba(255, 255, 255, 0.16);
+}
+
+/* ══════════════════════════════════════════
+   RESET BASE — mobile first
+   ══════════════════════════════════════════ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  background-color: var(--bg-deep);
+  color: var(--text-primary);
+  font-family: var(--font-display), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.6;
+  min-height: 100dvh;
+}
+
+/* ── Reset de imágenes ── */
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* ══════════════════════════════════════════
+   KEYFRAMES — Animaciones globales
+   ══════════════════════════════════════════ */
+
+@keyframes tz-float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-8px); }
+}
+
+@keyframes tz-pulse-glow {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50%       { opacity: 0.9; transform: scale(1.08); }
+}
+
+@keyframes tz-shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes tz-flow-dash {
+  to { stroke-dashoffset: -40; }
+}
+
+@keyframes tz-rotate-slow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes tz-fade-in-up {
+  from { opacity: 0; transform: translateY(24px); filter: blur(4px); }
+  to   { opacity: 1; transform: translateY(0);    filter: blur(0); }
+}
+
+/* Reducir motion para accesibilidad */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ── LINKS — reset completo, sin subrayado bajo ninguna circunstancia ──
+   Usamos !important porque Tailwind v4 inyecta su preflight
+   con mayor especificidad y sobreescribe las reglas sin !important.
+   Cada componente define su propio color via style inline.      */
+a,
+a:link,
+a:visited,
+a:hover,
+a:focus,
+a:active {
+  text-decoration: none !important;
+  text-decoration-line: none !important;
+  text-underline-offset: unset !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
+  color: inherit;
+}
+
+/* ── Botones ── */
+button {
+  cursor: pointer;
+  font-family: inherit;
+  border: none;
+  background: none;
+}
+
+/* ── Listas ── */
+ul, ol {
+  list-style: none;
+}
+
+/* ══════════════════════════════════════════
+   TIPOGRAFÍA
+   ══════════════════════════════════════════ */
+.font-display {
+  font-family: var(--font-display), system-ui, sans-serif;
+}
+
+.display-xl {
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-size: clamp(2.5rem, 7vw, 6rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+}
+
+.display-lg {
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-size: clamp(1.8rem, 4vw, 4rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+
+.stat-number {
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ══════════════════════════════════════════
+   CARDS
+   ══════════════════════════════════════════ */
+.card-tz {
+  background: var(--bg-mid);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  transition: border-color 0.25s ease, background 0.25s ease;
+}
+.card-tz:hover {
+  border-color: var(--border-md);
+  background: var(--bg-hover);
+}
+
+.card-cyan {
+  background: var(--cyan-glow);
+  border: 1px solid var(--cyan-border);
+  border-radius: 1rem;
+}
+
+.card-blue {
+  background: var(--blue-soft);
+  border: 1px solid var(--blue-border);
+  border-radius: 1rem;
+}
+
+.card-amber {
+  background: var(--amber-soft);
+  border: 1px solid var(--amber-border);
+  border-radius: 1rem;
+}
+
+.card-violet {
+  background: var(--violet-soft);
+  border: 1px solid var(--violet-border);
+  border-radius: 1rem;
+}
+
+.glass-industrial {
+  background: rgba(31, 179, 229, 0.04);
+  backdrop-filter: blur(24px) saturate(160%);
+  border: 1px solid var(--cyan-border);
+  box-shadow:
+    inset 0 1px 0 rgba(31, 179, 229, 0.08),
+    0 24px 48px -12px rgba(0, 0, 0, 0.6);
+}
+
+/* ══════════════════════════════════════════
+   BADGES
+   ══════════════════════════════════════════ */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 99px;
+}
+.badge-rpa    { background: var(--red-rpa); color: #fff; }
+.badge-ia     { background: var(--blue-soft); color: var(--cyan-bright); border: 1px solid var(--cyan-border); }
+.badge-papaya { background: var(--amber-soft); color: var(--amber); border: 1px solid var(--amber-border); }
+.badge-mining { background: var(--amber-soft); color: var(--amber); border: 1px solid var(--amber-border); }
+.badge-titan  { background: var(--violet-soft); color: #A78BFA; border: 1px solid var(--violet-border); }
+.badge-ok     { background: var(--green-soft); color: var(--green-ok); border: 1px solid rgba(34,197,94,0.25); }
+
+/* ══════════════════════════════════════════
+   BOTONES
+   ══════════════════════════════════════════ */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.875rem 1.75rem;
+  background: var(--lime);
+  color: #050C1A;
+  font-weight: 700;
+  font-size: 0.9rem;
+  border-radius: 99px;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.1s ease;
+  white-space: nowrap;
+}
+.btn-primary:hover  { background: var(--lime-hover); }
+.btn-primary:active { transform: scale(0.98); }
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.875rem 1.75rem;
+  background: transparent;
+  color: var(--text-primary);
+  font-weight: 500;
+  font-size: 0.9rem;
+  border-radius: 99px;
+  border: 1px solid var(--border-md);
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease;
+  white-space: nowrap;
+}
+.btn-secondary:hover {
+  border-color: var(--cyan-border);
+  color: var(--cyan-bright);
+}
+
+.btn-cyan {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.875rem 1.75rem;
+  background: var(--cyan-soft);
+  color: var(--cyan-bright);
+  font-weight: 600;
+  font-size: 0.9rem;
+  border-radius: 99px;
+  border: 1px solid var(--cyan-border);
+  cursor: pointer;
+  transition: background 0.2s ease;
+  white-space: nowrap;
+}
+.btn-cyan:hover { background: rgba(31, 179, 229, 0.16); }
+
+/* ══════════════════════════════════════════
+   LAYOUT HELPERS — mobile first
+   ══════════════════════════════════════════ */
+.container-tz {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+@media (min-width: 640px)  { .container-tz { padding: 0 32px; } }
+@media (min-width: 1024px) { .container-tz { padding: 0 48px; } }
+
+/* ══════════════════════════════════════════
+   DECORATIVOS
+   ══════════════════════════════════════════ */
+.bg-grid {
+  background-image:
+    linear-gradient(rgba(31, 179, 229, 1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(31, 179, 229, 1) 1px, transparent 1px);
+  background-size: 64px 64px;
+  opacity: 0.018;
+  pointer-events: none;
+}
+
+.divider-brand {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(31,179,229,0.4), transparent);
+}
+
+.divider-blue {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(9,87,195,0.5), transparent);
+}
+
+/* ══════════════════════════════════════════
+   NAVBAR RESPONSIVE
+   ══════════════════════════════════════════ */
+@media (max-width: 679px) {
+  .nav-desktop  { display: none !important; }
+  .nav-hamburger { display: flex !important; }
+}
+
+@media (min-width: 680px) {
+  .nav-hamburger { display: none !important; }
+}
+
+/* ══════════════════════════════════════════
+   SCROLLBAR — on-brand
+   ══════════════════════════════════════════ */
+::-webkit-scrollbar       { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg-deep); }
+::-webkit-scrollbar-thumb {
+  background: rgba(31, 179, 229, 0.2);
+  border-radius: 99px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(31, 179, 229, 0.4);
+}
+/* Clases Tecnozero — anulan preflight de Tailwind v4 */
+.tz-logo,
+.tz-nav-link,
+.tz-cta,
+.tz-mobile-link,
+.tz-mobile-cta {
+  text-decoration: none !important;
+  text-decoration-line: none !important;
+  border-bottom: none !important;
+}
+
+/* ══════════════════════════════════════════
+   SELECCIÓN DE TEXTO
+   ══════════════════════════════════════════ */
+::selection {
+  background: rgba(31, 179, 229, 0.22);
+  color: var(--text-primary);
+}
+
+/* ══════════════════════════════════════════
+   RESPONSIVE — Mobile-first breakpoints
+   ══════════════════════════════════════════ */
+
+/* Soluciones: horizontal card → single column, hide visual panel */
+@media (max-width: 767px) {
+  .sol-card {
+    grid-template-columns: 1fr !important;
+  }
+  .sol-card-visual {
+    display: none !important;
+  }
+  .sol-card > div:first-child {
+    padding: 28px !important;
+  }
+}
+
+/* Casos: 3-col → 1-col */
+@media (max-width: 767px) {
+  .caso-card {
+    grid-template-columns: 1fr !important;
+  }
+  .caso-sidebar {
+    display: none !important;
+  }
+  .caso-metricas {
+    border-top: 1px solid rgba(255,255,255,0.06) !important;
+    border-left: none !important;
+  }
+}
+
+/* CTA card: 2-col → 1-col */
+@media (max-width: 767px) {
+  .cta-inner-card {
+    grid-template-columns: 1fr !important;
+  }
+  .cta-left {
+    border-right: none !important;
+    border-bottom: 1px solid rgba(255,255,255,0.12) !important;
+    padding: 36px 28px !important;
+  }
+  .cta-inner-card > div:last-child {
+    padding: 36px 28px !important;
+  }
+}
+
+/* Section paddings on mobile */
+@media (max-width: 639px) {
+  .section-tz {
+    padding: 64px 20px !important;
+  }
+  .container-tz {
+    padding: 0 20px !important;
+  }
+}
+
+/* Footer grid: 1 col on mobile */
+@media (max-width: 767px) {
+  .footer-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .footer-links {
+    grid-template-columns: 1fr 1fr !important;
+  }
+}
