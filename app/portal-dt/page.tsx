@@ -395,6 +395,167 @@ function HowItWorks() {
   )
 }
 
+// ─── 3b. Guía de Onboarding ──────────────────────────────────────────────────
+
+function OnboardingGuide() {
+  const steps = [
+    { n: "01", title: "Crea tu cuenta", desc: "Regístrate en tecnozero.cl con tu email. Confirma y accede al dashboard en segundos." },
+    { n: "02", title: "Configura tu empresa", desc: "Ingresa el RUT de la empresa y tus credenciales del Portal DT. Todo queda cifrado." },
+    { n: "03", title: "Descarga la plantilla", desc: "Ve a Dashboard → Carga Excel y descarga la plantilla de Ingresos, Bajas o Anexos según lo que necesites." },
+    { n: "04", title: "Completa el Excel", desc: "Llena los datos de tus trabajadores: RUT, nombre, fechas y tipo de contrato. Guarda el archivo." },
+    { n: "05", title: "Sube el archivo", desc: "Arrastra el Excel al dashboard. El sistema valida los datos automáticamente antes de procesar." },
+    { n: "06", title: "Confirma y activa el robot", desc: "Revisa el resumen de registros y el costo total. Confirma y el robot comienza a trabajar al instante." },
+    { n: "07", title: "Robot trabaja 24/7", desc: "El robot accede al Portal DT por ti, carga cada documento y verifica cada envío. Sin errores." },
+    { n: "08", title: "Recibe la confirmación", desc: "Recibes email con los comprobantes DT. Todo queda en tu historial para cualquier auditoría." },
+  ]
+
+  return (
+    <section style={{ backgroundColor: C.bgPage, padding: "96px 24px" }}>
+      <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
+
+        {/* Header */}
+        <motion.div {...fadeUp} style={{ marginBottom: "56px" }}>
+          <p style={{
+            fontSize: "0.68rem", fontWeight: 800,
+            letterSpacing: "0.14em", textTransform: "uppercase" as const,
+            color: C.blue, margin: "0 0 14px",
+          }}>
+            Guía de incorporación
+          </p>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", gap: "24px", flexWrap: "wrap" as const }}>
+            <h2 style={{
+              fontSize: "clamp(1.6rem, 3vw, 2.3rem)", fontWeight: 800,
+              color: C.textMain, margin: 0, lineHeight: 1.1,
+            }}>
+              8 pasos para tener tu primer<br />
+              <span style={{ color: C.blue }}>robot corriendo hoy.</span>
+            </h2>
+            <a
+              href="/guia-onboarding-portal-dt.pdf"
+              download
+              style={{
+                display: "inline-flex", alignItems: "center", gap: "8px",
+                padding: "12px 24px",
+                backgroundColor: C.blue, color: "#FFFFFF",
+                fontWeight: 700, fontSize: "0.88rem",
+                borderRadius: "99px", textDecoration: "none",
+                whiteSpace: "nowrap" as const,
+                boxShadow: `0 8px 24px ${C.blue}30`,
+                transition: "opacity 0.2s",
+                flexShrink: 0,
+              }}
+              onMouseEnter={e => ((e.currentTarget as HTMLAnchorElement).style.opacity = "0.85")}
+              onMouseLeave={e => ((e.currentTarget as HTMLAnchorElement).style.opacity = "1")}
+            >
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M8 2v8M5 7l3 3 3-3M3 12h10" stroke="#FFFFFF" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+              Descargar guía PDF
+            </a>
+          </div>
+        </motion.div>
+
+        {/* Grid de pasos */}
+        <div style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
+          gap: "16px",
+        }}>
+          {steps.map((s, i) => (
+            <motion.div
+              key={s.n}
+              {...fadeUpDelay(i * 0.07)}
+              style={{
+                backgroundColor: C.bgCard,
+                borderRadius: "14px",
+                padding: "24px",
+                border: "1px solid #E8F0FA",
+                boxShadow: "0 2px 12px rgba(0,0,0,0.04)",
+                position: "relative" as const,
+                overflow: "hidden",
+              }}
+            >
+              {/* Número de fondo */}
+              <div style={{
+                position: "absolute" as const, top: "-8px", right: "12px",
+                fontSize: "3.5rem", fontWeight: 800,
+                color: `${C.blue}08`, letterSpacing: "-0.05em",
+                lineHeight: 1, pointerEvents: "none",
+              }}>
+                {s.n}
+              </div>
+              {/* Número badge */}
+              <div style={{
+                display: "inline-flex", alignItems: "center", justifyContent: "center",
+                width: "28px", height: "28px", borderRadius: "8px",
+                backgroundColor: `${C.blue}12`,
+                marginBottom: "14px",
+              }}>
+                <span style={{ fontSize: "0.7rem", fontWeight: 800, color: C.blue }}>
+                  {s.n}
+                </span>
+              </div>
+              <h3 style={{ fontSize: "0.95rem", fontWeight: 700, color: C.textMain, margin: "0 0 8px" }}>
+                {s.title}
+              </h3>
+              <p style={{ fontSize: "0.83rem", color: C.textMuted, lineHeight: 1.6, margin: 0 }}>
+                {s.desc}
+              </p>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Banner de soporte */}
+        <motion.div
+          {...fadeUpDelay(0.3)}
+          style={{
+            marginTop: "40px",
+            backgroundColor: `${C.blue}08`,
+            border: `1px solid ${C.blue}20`,
+            borderRadius: "14px",
+            padding: "24px 32px",
+            display: "flex", alignItems: "center", justifyContent: "space-between",
+            flexWrap: "wrap" as const, gap: "16px",
+          }}
+        >
+          <div style={{ display: "flex", alignItems: "center", gap: "14px" }}>
+            <div style={{
+              width: "40px", height: "40px", borderRadius: "10px",
+              backgroundColor: `${C.blue}15`,
+              display: "flex", alignItems: "center", justifyContent: "center",
+              flexShrink: 0,
+            }}>
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                <circle cx="9" cy="9" r="7.5" stroke={C.blue} strokeWidth="1.4"/>
+                <path d="M9 8v4M9 6h.01" stroke={C.blue} strokeWidth="1.4" strokeLinecap="round"/>
+              </svg>
+            </div>
+            <div>
+              <p style={{ margin: 0, fontSize: "0.88rem", fontWeight: 700, color: C.textMain }}>
+                ¿Tienes dudas sobre el proceso?
+              </p>
+              <p style={{ margin: 0, fontSize: "0.8rem", color: C.textMuted }}>
+                El equipo de Tecnozero responde en menos de 4 horas hábiles.
+              </p>
+            </div>
+          </div>
+          <a href="/contacto" style={{
+            display: "inline-flex", alignItems: "center", gap: "6px",
+            padding: "10px 20px",
+            border: `1px solid ${C.blue}35`,
+            borderRadius: "99px", textDecoration: "none",
+            fontSize: "0.85rem", fontWeight: 600, color: C.blue,
+            whiteSpace: "nowrap" as const,
+          }}>
+            Contactar soporte →
+          </a>
+        </motion.div>
+
+      </div>
+    </section>
+  )
+}
+
 // ─── 4. Robots ───────────────────────────────────────────────────────────────
 
 function Robots() {
@@ -884,6 +1045,7 @@ export default function PortalDTPage() {
       <Hero />
       <Pain />
       <HowItWorks />
+      <OnboardingGuide />
       <Robots />
       <SocialProof />
       <Pricing />

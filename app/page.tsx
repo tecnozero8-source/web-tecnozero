@@ -147,8 +147,8 @@ export default function HomePage() {
             }}>
               <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                 <div style={{ width: "8px", height: "8px", borderRadius: "50%", backgroundColor: "#22C55E" }} />
-                <span style={{ fontSize: "0.75rem", fontWeight: 600, color: "#8FA3BF", letterSpacing: "0.05em" }}>
-                  TECNOZERO · ROBOTS ACTIVOS
+                <span style={{ fontSize: "0.72rem", fontWeight: 600, color: "#8FA3BF", letterSpacing: "0.02em" }}>
+                  Algunos robots activos y trabajando en nuestros clientes
                 </span>
               </div>
               <span style={{ fontSize: "0.7rem", color: "#3A5068" }}>Tiempo real</span>
