@@ -166,7 +166,7 @@ export function HomeSoluciones() {
   ]
 
   return (
-    <section className="section-tz" style={{
+    <section className="section-tz soluciones-section" style={{
       backgroundColor: "#FFFFFF",
       padding: "96px 48px",
       borderTop: "1px solid #E8EFF8",

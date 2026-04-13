@@ -6,7 +6,7 @@ export default function HomePage() {
   return (
     <>
       {/* ══ HERO — Split screen, copy left / visual right ══ */}
-      <section style={{
+      <section className="hero-section" style={{
         minHeight: "100dvh",
         backgroundColor: "#060C18",
         display: "grid",
@@ -24,7 +24,7 @@ export default function HomePage() {
         }} />
 
         {/* ── Columna izquierda ── */}
-        <div style={{ padding: "120px 48px 80px 80px", position: "relative", zIndex: 1 }}>
+        <div className="hero-col-left" style={{ padding: "120px 48px 80px 80px", position: "relative", zIndex: 1 }}>
 
           {/* Badge */}
           <div style={{
@@ -99,7 +99,7 @@ export default function HomePage() {
           </div>
 
           {/* Social proof */}
-          <div style={{
+          <div className="hero-social-proof" style={{
             display: "flex", alignItems: "center", gap: "16px",
             marginTop: "3.5rem", paddingTop: "2.5rem",
             borderTop: "1px solid rgba(255,255,255,0.05)",
@@ -114,7 +114,7 @@ export default function HomePage() {
         </div>
 
         {/* ── Columna derecha — dashboard visual ── */}
-        <div style={{
+        <div className="hero-col-right" style={{
           padding: "120px 64px 80px 32px",
           display: "flex", alignItems: "center", justifyContent: "center",
           position: "relative", zIndex: 1,
@@ -236,7 +236,7 @@ export default function HomePage() {
         backgroundColor: "#F8FAFF",
         borderTop: "1px solid #E8F0FA",
       }}>
-        <div style={{
+        <div className="stats-grid" style={{
           maxWidth: "1100px", margin: "0 auto",
           display: "grid", gridTemplateColumns: "repeat(4, 1fr)",
         }}>
@@ -246,7 +246,7 @@ export default function HomePage() {
             { value: "87%", label: "Ahorro de tiempo", sub: "promedio por proceso" },
             { value: "8 sem.", label: "A producción", sub: "de requerimiento a robot live" },
           ].map((s, i) => (
-            <div key={s.label} style={{
+            <div key={s.label} className="stat-item" style={{
               padding: "52px 40px",
               borderRight: i < 3 ? "1px solid #E8F0FA" : "none",
             }}>
@@ -271,7 +271,7 @@ export default function HomePage() {
       </section>
 
       {/* ══ CLIENTES ══ */}
-      <section style={{
+      <section className="clientes-section" style={{
         backgroundColor: "#0B1425",
         padding: "48px 80px",
         borderTop: "1px solid rgba(255,255,255,0.05)",

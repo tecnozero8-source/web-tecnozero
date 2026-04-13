@@ -52,7 +52,7 @@ const casos = [
 
 export function HomeCasos() {
   return (
-    <section className="section-tz" style={{
+    <section className="section-tz casos-section" style={{
       backgroundColor: "#060C18",
       padding: "96px 48px",
       position: "relative",

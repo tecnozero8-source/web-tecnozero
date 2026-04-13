@@ -474,3 +474,68 @@ ul, ol {
     grid-template-columns: 1fr 1fr !important;
   }
 }
+
+/* ══════════════════════════════════════════
+   HOME — Mobile fixes
+   ══════════════════════════════════════════ */
+
+/* Hero: 2 cols → 1 col, hide dashboard card */
+@media (max-width: 767px) {
+  .hero-section {
+    grid-template-columns: 1fr !important;
+    min-height: auto !important;
+    padding-bottom: 64px;
+  }
+  .hero-col-left {
+    padding: 100px 24px 48px !important;
+  }
+  .hero-col-right {
+    display: none !important;
+  }
+  .hero-social-proof {
+    flex-wrap: wrap !important;
+    gap: 8px 16px !important;
+  }
+}
+
+/* Stats: 4 cols → 2 cols */
+@media (max-width: 767px) {
+  .stats-grid {
+    grid-template-columns: 1fr 1fr !important;
+  }
+  .stat-item {
+    padding: 32px 24px !important;
+    border-right: none !important;
+    border-bottom: 1px solid #E8F0FA !important;
+  }
+  .stat-item:nth-child(odd) {
+    border-right: 1px solid #E8F0FA !important;
+  }
+  .stat-item:nth-last-child(-n+2) {
+    border-bottom: none !important;
+  }
+}
+
+/* Clientes: reduce padding */
+@media (max-width: 767px) {
+  .clientes-section {
+    padding: 36px 24px !important;
+  }
+  .clientes-section > div {
+    gap: 16px !important;
+  }
+}
+
+/* HomeCasos: reduce padding */
+@media (max-width: 767px) {
+  .casos-section {
+    padding: 64px 20px !important;
+  }
+}
+
+/* HomeSoluciones: reduce padding */
+@media (max-width: 767px) {
+  .soluciones-section {
+    padding: 64px 20px !important;
+  }
+}
