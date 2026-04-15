@@ -60,7 +60,7 @@ function HeroSection() {
     { dot: B.lime,  label: "La Serena, Chile" },
   ]
   return (
-    <section style={{
+    <section className="nos-hero" style={{
       backgroundColor: B.dark,
       minHeight: "80vh",
       display: "flex",
@@ -191,7 +191,7 @@ function MisionVisionSection() {
     },
   ]
   return (
-    <section style={{
+    <section className="nos-section-pad" style={{
       backgroundColor: B.light1,
       padding: "100px 48px",
     }}>
@@ -250,8 +250,8 @@ function NumerosSection() {
     { value: "24h",  label: "soporte garantizado" },
   ]
   return (
-    <section style={{ backgroundColor: B.dark, padding: "100px 48px" }}>
-      <div style={{
+    <section className="nos-section-pad" style={{ backgroundColor: B.dark, padding: "100px 48px" }}>
+      <div className="nos-numeros-grid" style={{
         maxWidth: "1000px",
         margin: "0 auto",
         display: "grid",
@@ -336,7 +336,7 @@ function EquipoSection() {
     },
   ]
   return (
-    <section style={{ backgroundColor: B.light2, padding: "100px 48px" }}>
+    <section className="nos-section-pad" style={{ backgroundColor: B.light2, padding: "100px 48px" }}>
       <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
         <motion.div {...reveal(0)} style={{ textAlign: "center" as const, marginBottom: "64px" }}>
           <h2 style={{
@@ -355,7 +355,7 @@ function EquipoSection() {
           </p>
         </motion.div>
 
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "20px" }}>
+        <div className="nos-equipo-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "20px" }}>
           {roles.map((member, i) => (
             <motion.div
               key={member.role}
@@ -429,7 +429,7 @@ function ValoresSection() {
   ]
 
   return (
-    <section style={{ backgroundColor: B.dark2, padding: "100px 48px" }}>
+    <section className="nos-section-pad" style={{ backgroundColor: B.dark2, padding: "100px 48px" }}>
       <div style={{ maxWidth: "1000px", margin: "0 auto" }}>
         <motion.h2
           {...reveal(0)}
@@ -446,7 +446,7 @@ function ValoresSection() {
           Lo que nos guía
         </motion.h2>
 
-        <div style={{
+        <div className="nos-valores-grid" style={{
           display: "grid",
           gridTemplateColumns: "repeat(2, 1fr)",
           gap: "20px",
@@ -499,7 +499,7 @@ function ValueCard({ value, delay }: { value: { icon: string; title: string; des
 /* ─── Section 6: CTA Final ──────────────────────────────────── */
 function CTASection() {
   return (
-    <section style={{
+    <section className="nos-section-pad" style={{
       background: `linear-gradient(135deg, ${B.blue} 0%, ${B.dark} 100%)`,
       padding: "100px 48px",
       position: "relative",
@@ -603,22 +603,6 @@ export default function NosotrosPage() {
       <style>{`
         @media (max-width: 767px) {
           section { padding-left: 24px !important; padding-right: 24px !important; }
-        }
-        @media (max-width: 900px) {
-          div[style*="gridTemplateColumns: repeat(3"] {
-            grid-template-columns: repeat(2, 1fr) !important;
-          }
-        }
-        @media (max-width: 639px) {
-          div[style*="gridTemplateColumns: repeat(4"] {
-            grid-template-columns: repeat(2, 1fr) !important;
-          }
-          div[style*="gridTemplateColumns: repeat(3"] {
-            grid-template-columns: 1fr !important;
-          }
-          div[style*="gridTemplateColumns: repeat(2"] {
-            grid-template-columns: 1fr !important;
-          }
         }
       `}</style>
     </>

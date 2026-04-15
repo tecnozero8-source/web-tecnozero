@@ -539,3 +539,125 @@ ul, ol {
     padding: 64px 20px !important;
   }
 }
+
+/* ═══════════════════════════════════════════════════════
+   MOBILE — Agentes IA page
+══════════════════════════════════════════════════════ */
+@media (max-width: 767px) {
+  .ai-hero {
+    grid-template-columns: 1fr !important;
+    min-height: auto !important;
+    padding-bottom: 64px;
+  }
+  .ai-hero-left {
+    padding: 0 24px 40px !important;
+  }
+  .ai-hero-right {
+    display: none !important;
+  }
+  .ai-cap-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .ai-usecase-row {
+    grid-template-columns: 1fr !important;
+  }
+  .ai-usecase-num {
+    display: none !important;
+  }
+  .ai-compare-scroll {
+    overflow-x: scroll !important;
+    overflow-y: hidden;
+  }
+  .ai-compare-header,
+  .ai-compare-row {
+    min-width: 480px;
+  }
+  .ai-cta-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .ai-section-pad {
+    padding: 72px 24px !important;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════
+   MOBILE — Nosotros page
+══════════════════════════════════════════════════════ */
+@media (max-width: 767px) {
+  .nos-hero {
+    padding: 80px 24px 64px !important;
+    min-height: auto !important;
+  }
+  .nos-numeros-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  .nos-equipo-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .nos-valores-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .nos-section-pad {
+    padding: 72px 24px !important;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════
+   MOBILE — Minería page
+══════════════════════════════════════════════════════ */
+@media (max-width: 767px) {
+  .min-hero {
+    grid-template-columns: 1fr !important;
+    min-height: auto !important;
+    padding-bottom: 64px;
+  }
+  .min-hero-left {
+    padding: 0 24px 40px !important;
+  }
+  .min-hero-right {
+    display: none !important;
+  }
+  .min-solution-card {
+    grid-template-columns: 1fr !important;
+  }
+  .min-solution-panel {
+    display: none !important;
+  }
+  .min-metric-strip {
+    grid-template-columns: 1fr !important;
+    border-radius: 16px;
+  }
+  .min-case-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .min-feat-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  .min-cta-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .min-section-pad {
+    padding: 72px 24px !important;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════
+   MOBILE — Contacto page
+══════════════════════════════════════════════════════ */
+@media (max-width: 767px) {
+  .contact-container {
+    padding: 60px 24px !important;
+  }
+  .contact-form-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════
+   MOBILE — Auth cards (Login / Registro)
+══════════════════════════════════════════════════════ */
+@media (max-width: 480px) {
+  .auth-card {
+    padding: 32px 20px 28px !important;
+  }
+}

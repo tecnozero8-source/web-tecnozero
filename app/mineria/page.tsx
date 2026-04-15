@@ -351,6 +351,7 @@ function SolutionCard({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-40px" }}
       transition={{ type: "spring", stiffness: 90, damping: 22, delay: index * 0.1 }}
+      className="min-solution-card"
       style={{
         display: "grid",
         gridTemplateColumns: "1fr 280px",
@@ -499,6 +500,7 @@ function SolutionCard({
 
       {/* Right: accent panel */}
       <div
+        className="min-solution-panel"
         style={{
           background: `linear-gradient(135deg, ${accentColor}18 0%, ${accentColor}06 100%)`,
           border: `0`,
@@ -667,6 +669,7 @@ export default function MineriaPage() {
           HERO
       ═══════════════════════════════════════════════════════ */}
       <section
+        className="min-hero"
         style={{
           minHeight: "100dvh",
           background: "linear-gradient(135deg, #060C18 0%, #0B1425 50%, #0F1D35 100%)",
@@ -722,6 +725,7 @@ export default function MineriaPage() {
             hidden: {},
             show: { transition: { staggerChildren: 0.14, delayChildren: 0.1 } },
           }}
+          className="min-hero-left"
           style={{
             padding: "0 48px 88px 80px",
             position: "relative",
@@ -941,6 +945,7 @@ export default function MineriaPage() {
 
         {/* ── Right column: Timeline card ── */}
         <div
+          className="min-hero-right"
           style={{
             padding: "0 56px 88px 16px",
             display: "flex",
@@ -1000,6 +1005,7 @@ export default function MineriaPage() {
       ═══════════════════════════════════════════════════════ */}
       <section
         id="soluciones"
+        className="min-section-pad"
         style={{
           backgroundColor: "#FFFFFF",
           padding: "96px 48px",
@@ -1140,6 +1146,7 @@ export default function MineriaPage() {
           CASO DE USO MINERÍA
       ═══════════════════════════════════════════════════════ */}
       <section
+        className="min-section-pad"
         style={{
           backgroundColor: "#060C18",
           padding: "96px 48px",
@@ -1235,6 +1242,7 @@ export default function MineriaPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ type: "spring", stiffness: 100, damping: 20, delay: 0.1 }}
+            className="min-metric-strip"
             style={{
               display: "grid",
               gridTemplateColumns: "repeat(3, 1fr)",
@@ -1312,6 +1320,7 @@ export default function MineriaPage() {
 
           {/* Two-column: quote + today block */}
           <div
+            className="min-case-grid"
             style={{
               display: "grid",
               gridTemplateColumns: "1fr 1fr",
@@ -1526,6 +1535,7 @@ export default function MineriaPage() {
           COMPLIANCE / FEATURES
       ═══════════════════════════════════════════════════════ */}
       <section
+        className="min-section-pad"
         style={{
           backgroundColor: "#EEF4FF",
           padding: "96px 48px",
@@ -1593,6 +1603,7 @@ export default function MineriaPage() {
 
           {/* Feature tiles */}
           <div
+            className="min-feat-grid"
             style={{
               display: "grid",
               gridTemplateColumns: "repeat(4, 1fr)",
@@ -1814,6 +1825,7 @@ export default function MineriaPage() {
               damping: 20,
               delay: 0.15,
             }}
+            className="min-cta-grid"
             style={{
               display: "grid",
               gridTemplateColumns: "1fr 1fr",

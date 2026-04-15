@@ -98,6 +98,7 @@ export default function LoginPage() {
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+        className="auth-card"
         style={{
           width: "100%",
           maxWidth: "440px",

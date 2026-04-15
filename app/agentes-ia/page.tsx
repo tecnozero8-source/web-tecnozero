@@ -194,7 +194,7 @@ export default function AgentesIAPage() {
       {/* ═══════════════════════════════════════════════════════
           HERO — Dark violet-blue
       ═══════════════════════════════════════════════════════ */}
-      <section style={{
+      <section className="ai-hero" style={{
         minHeight: "100dvh",
         background: "linear-gradient(135deg, #0B0818 0%, #0F1030 50%, #110A2A 100%)",
         display: "grid",
@@ -241,6 +241,7 @@ export default function AgentesIAPage() {
             hidden: {},
             show: { transition: { staggerChildren: 0.13, delayChildren: 0.12 } },
           }}
+          className="ai-hero-left"
           style={{ padding: "80px 48px 88px 80px", position: "relative", zIndex: 2 }}
         >
           {/* Badge */}
@@ -400,6 +401,7 @@ export default function AgentesIAPage() {
           initial={{ opacity: 0, x: 48, scale: 0.96 }}
           animate={{ opacity: 1, x: 0, scale: 1 }}
           transition={{ type: "spring", stiffness: 65, damping: 18, delay: 0.55 }}
+          className="ai-hero-right"
           style={{
             padding: "80px 56px 88px 16px",
             display: "flex", alignItems: "center", justifyContent: "center",
@@ -585,7 +587,7 @@ export default function AgentesIAPage() {
           </motion.div>
 
           {/* 2×2 capability cards */}
-          <div style={{
+          <div className="ai-cap-grid" style={{
             display: "grid",
             gridTemplateColumns: "repeat(2, 1fr)",
             gap: "20px",
@@ -621,7 +623,7 @@ export default function AgentesIAPage() {
       {/* ═══════════════════════════════════════════════════════
           USE CASES — Dark background, horizontal stacked cards
       ═══════════════════════════════════════════════════════ */}
-      <section style={{
+      <section className="ai-section-pad" style={{
         backgroundColor: "#060C18",
         padding: "96px 48px",
         position: "relative",
@@ -731,6 +733,7 @@ export default function AgentesIAPage() {
                   borderColor: `${caso.accentColor}35`,
                   boxShadow: `0 20px 60px rgba(0,0,0,0.4), 0 0 40px ${caso.accentColor}08`,
                 }}
+                className="ai-usecase-row"
                 style={{
                   display: "grid",
                   gridTemplateColumns: "80px 1fr 1fr",
@@ -743,7 +746,7 @@ export default function AgentesIAPage() {
                 }}
               >
                 {/* Number sidebar */}
-                <div style={{
+                <div className="ai-usecase-num" style={{
                   background: `linear-gradient(180deg, ${caso.accentColor}20 0%, ${caso.accentColor}06 100%)`,
                   borderRight: `1px solid ${caso.accentColor}20`,
                   display: "flex", flexDirection: "column" as const,
@@ -852,7 +855,7 @@ export default function AgentesIAPage() {
       {/* ═══════════════════════════════════════════════════════
           COMPARISON — Sin TITAN vs Con TITAN
       ═══════════════════════════════════════════════════════ */}
-      <section style={{ backgroundColor: "#EEF4FF", padding: "96px 48px" }}>
+      <section className="ai-section-pad" style={{ backgroundColor: "#EEF4FF", padding: "96px 48px" }}>
         <div style={{ maxWidth: "900px", margin: "0 auto" }}>
 
           <motion.div {...fadeUp} style={{ textAlign: "center" as const, marginBottom: "56px" }}>
@@ -883,6 +886,7 @@ export default function AgentesIAPage() {
 
           {/* Comparison table */}
           <motion.div
+            className="ai-compare-scroll"
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -896,7 +900,7 @@ export default function AgentesIAPage() {
             }}
           >
             {/* Table header */}
-            <div style={{
+            <div className="ai-compare-header" style={{
               display: "grid",
               gridTemplateColumns: "1fr 1fr 1fr",
               backgroundColor: "#0B1E3D",
@@ -963,6 +967,7 @@ export default function AgentesIAPage() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ type: "spring", stiffness: 100, damping: 22, delay: row.delay }}
+                className="ai-compare-row"
                 style={{
                   display: "grid",
                   gridTemplateColumns: "1fr 1fr 1fr",
@@ -1057,7 +1062,7 @@ export default function AgentesIAPage() {
           }}
         />
 
-        <div style={{
+        <div className="ai-section-pad" style={{
           maxWidth: "1100px", margin: "0 auto",
           padding: "96px 48px",
           position: "relative", zIndex: 1,
@@ -1110,6 +1115,7 @@ export default function AgentesIAPage() {
 
           {/* CTA card */}
           <motion.div
+            className="ai-cta-grid"
             initial={{ opacity: 0, y: 32, scale: 0.96 }}
             whileInView={{ opacity: 1, y: 0, scale: 1 }}
             viewport={{ once: true }}

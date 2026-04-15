@@ -207,7 +207,7 @@ function ContactForm() {
             </p>
 
             <form ref={formRef} onSubmit={handleSubmit}>
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
+              <div className="contact-form-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
                 {/* Nombre */}
                 <div>
                   <Label>Nombre completo *</Label>
@@ -531,7 +531,7 @@ export default function ContactoPage() {
       }}/>
 
       {/* Main container */}
-      <div style={{
+      <div className="contact-container" style={{
         maxWidth: "1100px",
         margin: "0 auto",
         padding: "80px 48px",
@@ -593,14 +593,6 @@ export default function ContactoPage() {
       </div>
 
       <style>{`
-        @media (max-width: 767px) {
-          div[style*="padding: 80px 48px"] {
-            padding: 60px 24px !important;
-          }
-          div[style*="grid-template-columns: 1fr 1fr"] {
-            grid-template-columns: 1fr !important;
-          }
-        }
         input::placeholder, textarea::placeholder {
           color: rgba(255,255,255,0.25);
         }
