@@ -60,6 +60,11 @@ export async function DELETE(req: NextRequest) {
   if (!id) return NextResponse.json({ error: "ID requerido" }, { status: 400 })
 
   try {
+    // Ownership check — prevent IDOR
+    const store = await loadStoreFromDB(session.user.id)
+    const owned = store.companies.some((c: CompanyProfile) => c.id === id)
+    if (!owned) return NextResponse.json({ error: "No autorizado" }, { status: 403 })
+
     await deleteCompanyFromDB(id)
     return NextResponse.json({ success: true })
   } catch (err) {

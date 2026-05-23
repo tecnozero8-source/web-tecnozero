@@ -14,6 +14,16 @@ export async function POST(req: NextRequest) {
       newsletter?: boolean
     }
 
+    // Input validation
+    if (!body.nombre || typeof body.nombre !== "string" || body.nombre.trim().length < 2 || body.nombre.length > 100)
+      return NextResponse.json({ error: "Nombre inválido" }, { status: 400 })
+    if (!body.email || typeof body.email !== "string" || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(body.email) || body.email.length > 254)
+      return NextResponse.json({ error: "Email inválido" }, { status: 400 })
+    if (body.empresa && body.empresa.length > 200)
+      return NextResponse.json({ error: "Empresa demasiado larga" }, { status: 400 })
+    if (body.mensaje && body.mensaje.length > 2000)
+      return NextResponse.json({ error: "Mensaje demasiado largo (máx. 2000 caracteres)" }, { status: 400 })
+
     // Guardar en Supabase (con fallback a JSON si no está configurado)
     let saved = false
     try {
