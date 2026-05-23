@@ -292,9 +292,21 @@ export function Footer() {
           justifyContent: "space-between",
           flexWrap: "wrap" as const, gap: "12px",
         }}>
-          <p style={{ fontSize: "0.72rem", color: "#2A3D52", margin: 0 }}>
-            © {new Date().getFullYear()} Tecnozero SpA · La Serena, Chile
-          </p>
+          <div style={{ display: "flex", alignItems: "center", gap: "16px", flexWrap: "wrap" as const }}>
+            <p style={{ fontSize: "0.72rem", color: "#2A3D52", margin: 0 }}>
+              © {new Date().getFullYear()} Tecnozero SpA · La Serena, Chile
+            </p>
+            <a href="/politica-privacidad" style={{ fontSize: "0.72rem", color: "#2A3D52", textDecoration: "none", transition: "color 0.2s" }}
+              onMouseEnter={(e) => { e.currentTarget.style.color = "#4A607A" }}
+              onMouseLeave={(e) => { e.currentTarget.style.color = "#2A3D52" }}>
+              Privacidad
+            </a>
+            <a href="/terminos" style={{ fontSize: "0.72rem", color: "#2A3D52", textDecoration: "none", transition: "color 0.2s" }}
+              onMouseEnter={(e) => { e.currentTarget.style.color = "#4A607A" }}
+              onMouseLeave={(e) => { e.currentTarget.style.color = "#2A3D52" }}>
+              Términos
+            </a>
+          </div>
 
           <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
             <motion.div

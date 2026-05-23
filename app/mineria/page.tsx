@@ -782,7 +782,7 @@ export default function MineriaPage() {
           </motion.div>
 
           {/* H1 */}
-          <div
+          <h1
             style={{
               fontFamily: "var(--font-display), system-ui, sans-serif",
               fontSize: "clamp(3rem, 5vw, 5.4rem)",
@@ -821,7 +821,7 @@ export default function MineriaPage() {
                 {line.text}
               </motion.div>
             ))}
-          </div>
+          </h1>
 
           {/* Subtitle */}
           <motion.p

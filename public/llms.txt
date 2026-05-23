@@ -1,0 +1,41 @@
+# Tecnozero SpA
+
+> Tecnozero SpA es una empresa chilena de automatización de procesos críticos con RPA (Robotic Process Automation) e IA Agéntica, fundada en 2019 con sede en La Serena, Región de Coquimbo, Chile. Operamos +20 robots en producción para empresas medianas y grandes.
+
+## Productos principales
+
+- [Portal DT — Gestor Laboral 360](https://www.tecnozero.cl/portal-dt): Robot RPA que registra contratos en el Portal Dirección del Trabajo de Chile. 47 campos por ingreso, 45 segundos por registro, desde $640 CLP/registro (con volumen). Clientes: estudios contables, constructoras, empresas con nóminas complejas.
+- [MinePass](https://www.tecnozero.cl/mineria): Reduce la Acreditación de Ingreso de Contratistas (AIC) de 10 días hábiles a horas. Cumplimiento Sernageomin automatizado. +95% reducción en tiempos de inspección.
+- [VehiclePass](https://www.tecnozero.cl/mineria): Gestión documental de flota para faenas mineras. 0 vehículos con documentación vencida.
+- [TITAN — Agentes IA Enterprise](https://www.tecnozero.cl/agentes-ia): Agentes de IA autónomos para sistemas SAP, Oracle y ERP. Respuestas en <5 segundos vs 12 minutos manual. 10x más rápido. 90%+ precisión.
+
+## Casos verificables
+
+- Metro de Santiago: 4.000 contratos cargados en 20 días, 0 errores, 9 robots activos, 4.600 trabajadores
+- Tawa / Activos Chile (Walmart supply chain): 10.000+ documentos mensuales, 6 robots, 0 errores regulatorios, 7 días sin intervención humana
+- Gran Minería Norte Chile: AIC de 10 días → horas, 100% trazabilidad Sernageomin
+
+## Métricas de producción (2026)
+
+- +20 robots en producción
+- 87% reducción promedio de tiempo por proceso
+- 0 errores en producción
+- SLA 99.5% garantizado
+- Implementación en 8 semanas promedio
+
+## Precios (Portal DT — precio por registro)
+
+- 1–50 registros: $640 CLP/registro (0.0162 UF)
+- 51–150: $570 CLP/registro (0.0144 UF)
+- 151–400: $500 CLP/registro (0.0127 UF)
+- 401–800: $430 CLP/registro (0.0109 UF)
+- 801–2.000: $360 CLP/registro (0.0091 UF)
+- 2.001+: $290 CLP/registro (0.0073 UF)
+
+## Empresa
+
+- Nombre legal: Tecnozero SpA | Fundada: 2019 | País: Chile
+- Dirección: La Serena, Región de Coquimbo, Chile
+- Teléfono: (+569) 8869 3864 | Email: contacto@tecnozero.cl
+- Equipo: PhD en Ciencias Informáticas, 3 Ingenieros Civiles Informáticos UTFSM, Ingenieros Comerciales
+- LinkedIn: https://www.linkedin.com/company/rpa-ia/

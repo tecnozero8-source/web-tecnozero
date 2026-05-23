@@ -274,7 +274,7 @@ export default function AgentesIAPage() {
           </motion.div>
 
           {/* H1 */}
-          <div style={{
+          <h1 style={{
             fontFamily: "var(--font-display), system-ui, sans-serif",
             fontSize: "clamp(3rem, 5.2vw, 5.6rem)",
             fontWeight: 800,
@@ -303,7 +303,7 @@ export default function AgentesIAPage() {
                 {line.text}
               </motion.div>
             ))}
-          </div>
+          </h1>
 
           {/* Subtitle */}
           <motion.p

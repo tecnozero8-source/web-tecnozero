@@ -2,9 +2,65 @@ import { Footer } from "./components/layout/Footer"
 import { HomeCTA } from "./components/home/HomeCTA"
 import { HomeCasos } from "./components/home/HomeCasos"
 import { HomeSoluciones } from "./components/home/HomeSoluciones"
+
+const homeJsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": ["Organization", "LocalBusiness"],
+      "@id": "https://www.tecnozero.cl/#organization",
+      name: "Tecnozero SpA",
+      legalName: "Tecnozero SpA",
+      url: "https://www.tecnozero.cl",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://www.tecnozero.cl/logo-blanco.png",
+      },
+      description:
+        "Automatización de procesos críticos con RPA e IA Agéntica para empresas en Chile. +20 robots en producción. Metro de Santiago, Walmart Chile.",
+      telephone: "+56988693864",
+      email: "contacto@tecnozero.cl",
+      // TODO: Agregar RUT de Tecnozero SpA aquí: "taxID": "XX.XXX.XXX-X"
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: "La Serena",
+        addressRegion: "Región de Coquimbo",
+        addressCountry: "CL",
+      },
+      geo: {
+        "@type": "GeoCoordinates",
+        latitude: -29.9027,
+        longitude: -71.2519,
+      },
+      foundingDate: "2019",
+      areaServed: { "@type": "Country", name: "Chile" },
+      sameAs: ["https://www.linkedin.com/company/rpa-ia/"],
+      contactPoint: {
+        "@type": "ContactPoint",
+        telephone: "+56988693864",
+        contactType: "sales",
+        email: "contacto@tecnozero.cl",
+        availableLanguage: "Spanish",
+      },
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://www.tecnozero.cl/#website",
+      url: "https://www.tecnozero.cl",
+      name: "Tecnozero",
+      publisher: { "@id": "https://www.tecnozero.cl/#organization" },
+      inLanguage: "es-CL",
+    },
+  ],
+}
+
 export default function HomePage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(homeJsonLd) }}
+      />
       {/* ══ HERO — Split screen, copy left / visual right ══ */}
       <section className="hero-section" style={{
         minHeight: "100dvh",
