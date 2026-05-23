@@ -20,7 +20,7 @@ const homeJsonLd = {
         "Automatización de procesos críticos con RPA e IA Agéntica para empresas en Chile. +20 robots en producción. Metro de Santiago, Walmart Chile.",
       telephone: "+56988693864",
       email: "contacto@tecnozero.cl",
-      // TODO: Agregar RUT de Tecnozero SpA aquí: "taxID": "XX.XXX.XXX-X"
+      taxID: "77.043.128-K",
       address: {
         "@type": "PostalAddress",
         addressLocality: "La Serena",
