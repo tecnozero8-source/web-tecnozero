@@ -395,9 +395,15 @@ export async function POST(req: NextRequest) {
     }
 
     const name = file.name.toLowerCase()
-    if (!name.endsWith(".xlsx") && !name.endsWith(".xls") && !name.endsWith(".csv")) {
+    if (name.endsWith(".xls")) {
       return NextResponse.json(
-        { error: "Formato no soportado. Sube un archivo .xlsx, .xls o .csv" },
+        { error: "Formato .xls no soportado. Por favor guarda el archivo como .xlsx en Excel (Archivo → Guardar como → Excel .xlsx)" },
+        { status: 400 }
+      )
+    }
+    if (!name.endsWith(".xlsx") && !name.endsWith(".csv")) {
+      return NextResponse.json(
+        { error: "Formato no soportado. Sube un archivo .xlsx o .csv" },
         { status: 400 }
       )
     }
@@ -406,14 +412,57 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Archivo demasiado grande (máx. 10 MB)" }, { status: 400 })
     }
 
-    const { read, utils } = await import("xlsx")
-    const buffer = await file.arrayBuffer()
-    const workbook = read(buffer, { type: "array" })
-    const sheetName = workbook.SheetNames[0]
-    const worksheet = workbook.Sheets[sheetName]
+    const arrayBuf = await file.arrayBuffer()
+    const buffer = new Uint8Array(arrayBuf)
+    let sheetName: string
+    let rawMatrix: unknown[][]
 
-    // Leer como array de arrays para usar índice de columna (más robusto que header names)
-    const rawMatrix = utils.sheet_to_json<unknown[]>(worksheet, { header: 1, defval: "" })
+    if (name.endsWith(".csv")) {
+      const text = new TextDecoder("utf-8").decode(arrayBuf)
+      rawMatrix = text
+        .split(/\r?\n/)
+        .map(line => {
+          const cols: string[] = []
+          let current = ""
+          let inQuotes = false
+          for (const ch of line) {
+            if (ch === '"') { inQuotes = !inQuotes }
+            else if (ch === "," && !inQuotes) { cols.push(current.trim()); current = "" }
+            else { current += ch }
+          }
+          cols.push(current.trim())
+          return cols
+        })
+        .filter(row => row.some(c => c !== ""))
+      sheetName = file.name
+    } else {
+      const { Workbook } = await import("exceljs")
+      const workbook = new Workbook()
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      await workbook.xlsx.load(buffer as any)
+      const worksheet = workbook.worksheets[0]
+      sheetName = worksheet.name
+      const colCount = Math.max(worksheet.actualColumnCount, 60)
+      rawMatrix = []
+      worksheet.eachRow({ includeEmpty: false }, (row) => {
+        const rowData: unknown[] = new Array(colCount).fill("")
+        row.eachCell({ includeEmpty: true }, (cell, col) => {
+          if (col > colCount) return
+          const v = cell.value
+          if (v === null || v === undefined) return
+          if (typeof v === "object" && "result" in v) {
+            rowData[col - 1] = (v as { result: unknown }).result ?? ""
+          } else if (v instanceof Date) {
+            rowData[col - 1] = `${v.getDate().toString().padStart(2, "0")}/${(v.getMonth() + 1).toString().padStart(2, "0")}/${v.getFullYear()}`
+          } else if (typeof v === "object" && "richText" in v) {
+            rowData[col - 1] = (v as { richText: { text: string }[] }).richText.map(r => r.text).join("")
+          } else {
+            rowData[col - 1] = v
+          }
+        })
+        rawMatrix.push(rowData)
+      })
+    }
 
     if (!rawMatrix || rawMatrix.length === 0) {
       return NextResponse.json({ error: "El archivo está vacío" }, { status: 400 })
