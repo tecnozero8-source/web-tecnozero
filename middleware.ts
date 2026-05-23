@@ -39,6 +39,16 @@ export async function middleware(req: NextRequest) {
     }
   }
 
+  // Brute-force protection en login — 5 intentos por 15 minutos
+  if (pathname === "/api/auth/callback/credentials" && req.method === "POST") {
+    if (!rateLimit(`auth:${ip}`, 5, 15 * 60_000)) {
+      return NextResponse.json(
+        { error: "Demasiados intentos de inicio de sesión. Espera 15 minutos." },
+        { status: 429 }
+      )
+    }
+  }
+
   // Siempre permitir rutas de API de auth y estáticos
   if (
     pathname.startsWith("/api/auth") ||

@@ -7,6 +7,7 @@ import { NextRequest, NextResponse } from "next/server"
 import { WebpayPlus, Options, Environment, IntegrationCommerceCodes, IntegrationApiKeys } from "transbank-sdk"
 import { saveCRMRecord } from "@/lib/crm"
 import { runEmailAgent } from "@/lib/email-agent"
+import { decryptCookie } from "@/lib/cookie-crypto"
 
 function getTbkTransaction() {
   const isProduction = process.env.NODE_ENV === "production" && process.env.TBK_COMMERCE_CODE
@@ -41,9 +42,16 @@ export async function POST(req: NextRequest) {
     const tx = getTbkTransaction()
     const commit = await tx.commit(token_ws)
 
-    // Obtener metadatos de la cookie
+    // Obtener y descifrar metadatos de la cookie
+    type CheckoutMeta = {
+      buyOrder?: string; sessionId?: string; amount?: number; plan?: string
+      docsPerMonth?: number; pricePerDoc?: number; customerName?: string
+      customerEmail?: string; empresa?: string; createdAt?: string
+    }
     const cookie = req.cookies.get("tbk_checkout")
-    const meta = cookie ? JSON.parse(cookie.value) : {}
+    const meta: CheckoutMeta = cookie
+      ? await decryptCookie<CheckoutMeta>(cookie.value, process.env.NEXTAUTH_SECRET ?? "fallback-change-me").catch(() => ({}))
+      : {}
 
     const approved = commit.response_code === 0
 

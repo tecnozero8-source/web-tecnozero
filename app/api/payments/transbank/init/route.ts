@@ -5,6 +5,7 @@
  */
 import { NextRequest, NextResponse } from "next/server"
 import { WebpayPlus, Options, Environment, IntegrationCommerceCodes, IntegrationApiKeys } from "transbank-sdk"
+import { encryptCookie } from "@/lib/cookie-crypto"
 
 function getTbkTransaction() {
   const isProduction = process.env.NODE_ENV === "production" && process.env.TBK_COMMERCE_CODE
@@ -63,8 +64,8 @@ export async function POST(req: NextRequest) {
       sessionId,
     })
 
-    // Guardamos contexto de compra en cookie cifrada para el confirm
-    const checkoutMeta = JSON.stringify({
+    // Guardamos contexto de compra en cookie AES-256-GCM cifrada para el confirm
+    const checkoutMeta = {
       buyOrder,
       sessionId,
       amount,
@@ -75,8 +76,9 @@ export async function POST(req: NextRequest) {
       customerEmail,
       empresa,
       createdAt: new Date().toISOString(),
-    })
-    nextRes.cookies.set("tbk_checkout", checkoutMeta, {
+    }
+    const encryptedMeta = await encryptCookie(checkoutMeta, process.env.NEXTAUTH_SECRET ?? "fallback-change-me")
+    nextRes.cookies.set("tbk_checkout", encryptedMeta, {
       httpOnly: true,
       maxAge: 60 * 30, // 30 minutos
       path: "/",
