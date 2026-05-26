@@ -15,6 +15,7 @@ import {
   LogOut,
   Building2,
   Upload,
+  HardDriveDownload,
 } from "lucide-react"
 import { CompanySwitcher } from "./CompanySwitcher"
 
@@ -26,6 +27,7 @@ const navItems = [
   { label: "Carga Excel", href: "/dashboard/carga", icon: Upload },
   { label: "Procesos", href: "/dashboard/procesos", icon: GitBranch },
   { label: "Facturación", href: "/dashboard/facturacion", icon: Receipt },
+  { label: "Backup", href: "/dashboard/backup", icon: HardDriveDownload },
   { label: "Soporte", href: "/dashboard/soporte", icon: Headphones },
 ]
 
