@@ -21,13 +21,14 @@ export interface AuthData {
 }
 
 // Datos del RLE de Tecnozero (representante que el cliente debe registrar en MiDT)
+// ⚠️ ACTUALIZAR: nombre y rut del representante deben ser los datos reales del RLE designado
 export const TZ_RLE = {
-  nombre: "Ignacio Andrés González Vargas",
-  rut: "18.456.789-3",
+  nombre: process.env.NEXT_PUBLIC_TZ_RLE_NOMBRE ?? "Representante Tecnozero SpA",
+  rut: process.env.NEXT_PUBLIC_TZ_RLE_RUT ?? "00.000.000-0",
   email: "rle@tecnozero.cl",
   cargo: "Representante Laboral Electrónico — Tecnozero SpA",
   empresa: "Tecnozero SpA",
-  rutEmpresa: "77.234.567-8",
+  rutEmpresa: "77.043.128-K",
 }
 
 const STORAGE_KEY = "tz_authorization_v1"

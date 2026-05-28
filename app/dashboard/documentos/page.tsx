@@ -27,31 +27,11 @@ const card: React.CSSProperties = {
 
 type EstadoType = "CONFIRMADO" | "PROCESANDO" | "ERROR"
 
+// Sin datos hardcodeados — los documentos reales vendrán del pipeline de procesamiento
 const mockDocs: {
-  id: string
-  tipo: string
-  trabajador: string
-  estado: EstadoType
-  procesado: string
-  duracion: string
-  dt: string
-}[] = [
-  { id: "00847", tipo: "Contrato plazo fijo", trabajador: "Juan Pérez Rodríguez", estado: "CONFIRMADO", procesado: "11/04/2026 09:41", duracion: "2m 08s", dt: "✓" },
-  { id: "00846", tipo: "Anexo contrato", trabajador: "María González López", estado: "CONFIRMADO", procesado: "11/04/2026 09:38", duracion: "1m 52s", dt: "✓" },
-  { id: "00845", tipo: "Finiquito", trabajador: "Carlos Muñoz Soto", estado: "CONFIRMADO", procesado: "11/04/2026 09:35", duracion: "2m 31s", dt: "✓" },
-  { id: "00844", tipo: "Liquidación", trabajador: "Ana Martínez Vera", estado: "CONFIRMADO", procesado: "11/04/2026 09:29", duracion: "1m 48s", dt: "✓" },
-  { id: "00843", tipo: "Contrato plazo fijo", trabajador: "Roberto Silva Pinto", estado: "PROCESANDO", procesado: "11/04/2026 09:22", duracion: "—", dt: "—" },
-  { id: "00842", tipo: "Anexo contrato", trabajador: "Claudia Rojas Fuentes", estado: "CONFIRMADO", procesado: "11/04/2026 09:18", duracion: "2m 03s", dt: "✓" },
-  { id: "00841", tipo: "Contrato plazo fijo", trabajador: "Diego Torres Naranjo", estado: "CONFIRMADO", procesado: "11/04/2026 09:11", duracion: "2m 19s", dt: "✓" },
-  { id: "00840", tipo: "Finiquito", trabajador: "Valentina Espinoza Ríos", estado: "ERROR", procesado: "11/04/2026 09:07", duracion: "0m 44s", dt: "✗" },
-  { id: "00839", tipo: "Liquidación", trabajador: "Felipe Morales Castro", estado: "CONFIRMADO", procesado: "11/04/2026 09:02", duracion: "1m 55s", dt: "✓" },
-  { id: "00838", tipo: "Contrato plazo fijo", trabajador: "Catalina Herrera Díaz", estado: "CONFIRMADO", procesado: "11/04/2026 08:58", duracion: "2m 22s", dt: "✓" },
-  { id: "00837", tipo: "Anexo contrato", trabajador: "Sebastián Vargas León", estado: "CONFIRMADO", procesado: "11/04/2026 08:51", duracion: "1m 39s", dt: "✓" },
-  { id: "00836", tipo: "Finiquito", trabajador: "Francisca Medina Araya", estado: "CONFIRMADO", procesado: "11/04/2026 08:44", duracion: "2m 07s", dt: "✓" },
-  { id: "00835", tipo: "Liquidación", trabajador: "Nicolás Jiménez Ossa", estado: "CONFIRMADO", procesado: "11/04/2026 08:39", duracion: "1m 58s", dt: "✓" },
-  { id: "00834", tipo: "Contrato plazo fijo", trabajador: "Isidora Campos Bravo", estado: "CONFIRMADO", procesado: "11/04/2026 08:33", duracion: "2m 15s", dt: "✓" },
-  { id: "00833", tipo: "Anexo contrato", trabajador: "Matías Reyes Contreras", estado: "CONFIRMADO", procesado: "11/04/2026 08:27", duracion: "1m 44s", dt: "✓" },
-]
+  id: string; tipo: string; trabajador: string
+  estado: EstadoType; procesado: string; duracion: string; dt: string
+}[] = []
 
 const BADGE_MAP: Record<EstadoType, { bg: string; color: string }> = {
   CONFIRMADO: { bg: "#DCFCE7", color: "#16A34A" },
@@ -95,6 +75,10 @@ export default function DocumentosPage() {
     (d) => estadoFilter === "Todos" || d.estado === estadoFilter
   )
 
+  const totalDocs      = mockDocs.length
+  const confirmados    = mockDocs.filter(d => d.estado === "CONFIRMADO").length
+  const errores        = mockDocs.filter(d => d.estado === "ERROR").length
+
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 28 }}>
       {/* Header */}
@@ -110,9 +94,9 @@ export default function DocumentosPage() {
       {/* Summary cards */}
       <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16 }}>
         {[
-          { label: "Total este mes", value: "847", accentColor: C.blue, valueColor: C.blue },
-          { label: "Confirmados DT", value: "846", accentColor: C.green, valueColor: C.green },
-          { label: "Errores", value: "1", accentColor: C.red, valueColor: "#DC2626" },
+          { label: "Total este mes",  value: String(totalDocs),   accentColor: C.blue,  valueColor: C.blue },
+          { label: "Confirmados DT",  value: String(confirmados), accentColor: C.green, valueColor: C.green },
+          { label: "Errores",         value: String(errores),     accentColor: C.red,   valueColor: "#DC2626" },
         ].map((s, i) => (
           <motion.div
             key={i}
@@ -232,7 +216,7 @@ export default function DocumentosPage() {
               </tr>
             </thead>
             <tbody>
-              {filtered.map((doc, i) => (
+              {filtered.length > 0 ? filtered.map((doc, i) => (
                 <motion.tr
                   key={doc.id}
                   initial={{ opacity: 0 }}
@@ -264,7 +248,19 @@ export default function DocumentosPage() {
                     {doc.dt}
                   </td>
                 </motion.tr>
-              ))}
+              )) : (
+                <tr>
+                  <td colSpan={7} style={{ padding: "40px 0", textAlign: "center" }}>
+                    <div style={{ fontSize: 32, marginBottom: 10 }}>📄</div>
+                    <p style={{ fontSize: 14, fontWeight: 600, color: C.textPrimary, margin: "0 0 4px" }}>
+                      No hay documentos procesados aún
+                    </p>
+                    <p style={{ fontSize: 13, color: C.textSecondary, margin: 0 }}>
+                      Los documentos aparecerán aquí una vez que el robot los procese.
+                    </p>
+                  </td>
+                </tr>
+              )}
             </tbody>
           </table>
         </div>
@@ -279,7 +275,9 @@ export default function DocumentosPage() {
           borderTop: `1px solid ${C.border}`,
         }}>
           <span style={{ fontSize: 13, color: C.textSecondary }}>
-            Mostrando 1–15 de <strong style={{ color: C.textPrimary }}>847</strong> documentos
+            {filtered.length > 0
+              ? `Mostrando ${filtered.length} de ${totalDocs} documentos`
+              : "Sin documentos para mostrar"}
           </span>
           <div style={{ display: "flex", gap: 8 }}>
             <button

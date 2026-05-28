@@ -37,28 +37,8 @@ interface ProcessEvent {
   status: StatusType
 }
 
-const processLog: ProcessEvent[] = [
-  { id: 1, timestamp: "09:41:23", actionType: "DT", description: "Confirmación DT — Contrato Juan Pérez Rodríguez #4847 aprobado por portal", duration: "0m 04s", status: "OK" },
-  { id: 2, timestamp: "09:41:19", actionType: "RPA", description: "Robot procesó contrato Juan Pérez Rodríguez → Portal DT → Confirmado", duration: "2m 08s", status: "OK" },
-  { id: 3, timestamp: "09:41:03", actionType: "DOC", description: "Documento recibido: Contrato plazo fijo — Juan Pérez Rodríguez", duration: "0m 02s", status: "OK" },
-  { id: 4, timestamp: "09:38:45", actionType: "DT", description: "Confirmación DT — Anexo contrato María González #4846 aprobado", duration: "0m 03s", status: "OK" },
-  { id: 5, timestamp: "09:38:42", actionType: "RPA", description: "Robot procesó anexo María González López → Portal DT → Confirmado", duration: "1m 52s", status: "OK" },
-  { id: 6, timestamp: "09:35:11", actionType: "AI", description: "Agente IA clasificó 8 facturas → generó resumen RRHH para área contable", duration: "1m 14s", status: "OK" },
-  { id: 7, timestamp: "09:33:57", actionType: "DT", description: "Confirmación DT — Finiquito Carlos Muñoz Soto #4845 aprobado", duration: "0m 05s", status: "OK" },
-  { id: 8, timestamp: "09:33:52", actionType: "RPA", description: "Robot procesó finiquito Carlos Muñoz Soto → Portal DT → Confirmado", duration: "2m 31s", status: "OK" },
-  { id: 9, timestamp: "09:22:18", actionType: "RPA", description: "Robot iniciando procesamiento contrato Roberto Silva Pinto → Portal DT", duration: "—", status: "RUNNING" },
-  { id: 10, timestamp: "09:22:14", actionType: "DOC", description: "Documento recibido: Contrato plazo fijo — Roberto Silva Pinto", duration: "0m 02s", status: "OK" },
-  { id: 11, timestamp: "09:18:30", actionType: "DT", description: "Confirmación DT — Anexo Claudia Rojas Fuentes #4842 aprobado", duration: "0m 04s", status: "OK" },
-  { id: 12, timestamp: "09:18:26", actionType: "RPA", description: "Robot procesó anexo Claudia Rojas Fuentes → Portal DT → Confirmado", duration: "2m 03s", status: "OK" },
-  { id: 13, timestamp: "09:09:51", actionType: "AI", description: "Agente IA analizó liquidaciones — detectó 3 inconsistencias, generó alerta", duration: "0m 58s", status: "OK" },
-  { id: 14, timestamp: "09:07:12", actionType: "RPA", description: "Robot intentó procesar finiquito Valentina Espinoza → Error portal DT", duration: "0m 44s", status: "ERROR" },
-  { id: 15, timestamp: "09:07:08", actionType: "DOC", description: "Documento recibido: Finiquito — Valentina Espinoza Ríos", duration: "0m 02s", status: "OK" },
-  { id: 16, timestamp: "09:02:47", actionType: "DT", description: "Confirmación DT — Liquidación Felipe Morales Castro #4839 aprobada", duration: "0m 04s", status: "OK" },
-  { id: 17, timestamp: "09:02:43", actionType: "RPA", description: "Robot procesó liquidación Felipe Morales Castro → Portal DT → Confirmado", duration: "1m 55s", status: "OK" },
-  { id: 18, timestamp: "08:58:21", actionType: "DOC", description: "Documento recibido: Contrato plazo fijo — Catalina Herrera Díaz", duration: "0m 02s", status: "OK" },
-  { id: 19, timestamp: "08:51:04", actionType: "AI", description: "Agente IA procesó 12 consultas facturación — precisión 98.7%", duration: "2m 31s", status: "OK" },
-  { id: 20, timestamp: "08:44:33", actionType: "DT", description: "Confirmación DT — Finiquito Francisca Medina Araya #4836 aprobado", duration: "0m 04s", status: "OK" },
-]
+// Sin datos hardcodeados — el log real vendrá del pipeline de procesamiento
+const processLog: ProcessEvent[] = []
 
 const ACTION_ICONS: Record<ActionType, string> = {
   RPA: "🤖",
@@ -226,7 +206,7 @@ export default function ProcesosPage() {
             }}
           >
             {tab}
-            {tab === "Errores" && (
+            {tab === "Errores" && processLog.filter(e => e.status === "ERROR").length > 0 && (
               <span style={{
                 backgroundColor: activeTab === tab ? "rgba(255,255,255,0.25)" : C.red,
                 color: "#fff",
@@ -235,7 +215,7 @@ export default function ProcesosPage() {
                 borderRadius: 99,
                 padding: "1px 6px",
               }}>
-                1
+                {processLog.filter(e => e.status === "ERROR").length}
               </span>
             )}
           </button>
@@ -250,6 +230,17 @@ export default function ProcesosPage() {
         style={card}
       >
         <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
+          {filtered.length === 0 && (
+            <div style={{ padding: "48px 0", textAlign: "center" }}>
+              <div style={{ fontSize: 36, marginBottom: 12 }}>📋</div>
+              <p style={{ fontSize: 14, fontWeight: 600, color: "#0B1E3D", margin: "0 0 4px" }}>
+                Sin eventos registrados aún
+              </p>
+              <p style={{ fontSize: 13, color: "#64748B", margin: 0 }}>
+                El log de procesos aparecerá aquí en tiempo real una vez que el robot esté operativo.
+              </p>
+            </div>
+          )}
           <AnimatePresence mode="popLayout">
             {filtered.map((event, i) => {
               const ss = STATUS_STYLE[event.status]
