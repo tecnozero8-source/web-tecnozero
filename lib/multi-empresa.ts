@@ -36,8 +36,15 @@ const COMPANY_COLORS = [
   "#F5A020", "#EF4444", "#EC4899", "#14B8A6",
 ]
 
-// ── Datos demo ────────────────────────────────────────────────────────────────
-const DEMO_STORE: MultiEmpresaStore = {
+// ── Store vacío (fallback para usuarios nuevos o sin localStorage) ────────────
+const EMPTY_STORE: MultiEmpresaStore = {
+  activeCompanyId: null,
+  consolidateBilling: false,
+  companies: [],
+}
+
+// ── Store demo (solo para desarrollo local — nunca en producción) ─────────────
+export const DEMO_STORE: MultiEmpresaStore = {
   activeCompanyId: "emp_001",
   consolidateBilling: false,
   companies: [
@@ -107,7 +114,7 @@ const DEMO_STORE: MultiEmpresaStore = {
       nombre: "Panadería Don Mario",
       razonSocial: "Panadería Don Mario EIRL",
       rutEmpresa: "77.111.222-3",
-      authData: null, // Pendiente de autorizar
+      authData: null,
       docsThisMonth: 0,
       docsLastMonth: 0,
       robots: [],
@@ -121,12 +128,12 @@ const DEMO_STORE: MultiEmpresaStore = {
 // ── CRUD del store ─────────────────────────────────────────────────────────────
 
 export function getStore(): MultiEmpresaStore {
-  if (typeof window === "undefined") return DEMO_STORE
+  if (typeof window === "undefined") return EMPTY_STORE
   try {
     const raw = localStorage.getItem(STORAGE_KEY)
-    return raw ? (JSON.parse(raw) as MultiEmpresaStore) : DEMO_STORE
+    return raw ? (JSON.parse(raw) as MultiEmpresaStore) : EMPTY_STORE
   } catch {
-    return DEMO_STORE
+    return EMPTY_STORE
   }
 }
 

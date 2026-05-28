@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { motion } from "framer-motion"
+import { useSession } from "next-auth/react"
 import { UpsellBanner } from "@/app/components/dashboard/UpsellBanner"
 import {
   getStore,
@@ -9,6 +10,7 @@ import {
   getActiveCompany,
   calculateConsolidationSavings,
   getEffectivePricePerDoc,
+  docsToNextTier,
   formatCLP,
   type MultiEmpresaStore,
   type CompanyProfile,
@@ -137,6 +139,7 @@ function ConsolidationToggle({ store, onChange }: { store: MultiEmpresaStore; on
 }
 
 export default function FacturacionPage() {
+  const { data: session } = useSession()
   const [store, setStore] = useState<MultiEmpresaStore | null>(null)
   const [activeCompany, setActiveCompanyState] = useState<CompanyProfile | null>(null)
 
@@ -145,12 +148,18 @@ export default function FacturacionPage() {
     setActiveCompanyState(getActiveCompany())
   }, [])
 
-  const currentDocs = activeCompany?.docsThisMonth ?? 847
-  const currentPrice = store && activeCompany ? getEffectivePricePerDoc(activeCompany, store) : 532
-  const nextTierDocs = 1400
-  const nextTierPrice = 475
-  const docsToNextTierVal = nextTierDocs - currentDocs
-  const pct = Math.round((currentDocs / nextTierDocs) * 100)
+  const currentDocs  = activeCompany?.docsThisMonth ?? 0
+  const currentPrice = store && activeCompany ? getEffectivePricePerDoc(activeCompany, store) : 640
+  const nextTierInfo = docsToNextTier(currentDocs)
+  const nextTierDocs  = nextTierInfo ? currentDocs + nextTierInfo.docsNeeded : currentDocs || 150
+  const nextTierPrice = nextTierInfo
+    ? currentPrice - Math.round((nextTierInfo.savings / (currentDocs + nextTierInfo.docsNeeded)))
+    : currentPrice
+  const docsToNextTierVal = nextTierInfo?.docsNeeded ?? 0
+  const pct = nextTierDocs > 0 ? Math.round((currentDocs / nextTierDocs) * 100) : 0
+  const planName = session?.user?.plan
+    ? session.user.plan.charAt(0).toUpperCase() + session.user.plan.slice(1)
+    : "Starter"
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 28 }}>
@@ -194,7 +203,7 @@ export default function FacturacionPage() {
               Plan actual
             </div>
             <div style={{ fontSize: 28, fontWeight: 800, color: C.textPrimary, marginBottom: 4, letterSpacing: "-0.03em" }}>
-              Profesional
+              {planName}
             </div>
             <div style={{ fontSize: 14, color: C.textSecondary }}>
               Tier 701–1.399 docs ·{" "}
@@ -206,9 +215,13 @@ export default function FacturacionPage() {
               Costo proyectado este mes
             </div>
             <div style={{ fontSize: "2rem", fontWeight: 800, color: C.blue, letterSpacing: "-0.03em" }}>
-              {fmt(450_104)}
+              {currentDocs > 0 ? fmt(currentDocs * currentPrice) : "—"}
             </div>
-            <div style={{ fontSize: 12, color: C.textSecondary }}>+ IVA (19%) → {fmt(535_624)} total</div>
+            <div style={{ fontSize: 12, color: C.textSecondary }}>
+              {currentDocs > 0
+                ? `+ IVA (19%) → ${fmt(Math.round(currentDocs * currentPrice * 1.19))} total`
+                : "Sin documentos procesados este mes"}
+            </div>
           </div>
         </div>
 

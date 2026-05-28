@@ -1,8 +1,11 @@
 "use client"
 
+import { useEffect, useState } from "react"
 import { motion } from "framer-motion"
 import { useSession } from "next-auth/react"
 import { AuthBanner } from "../components/dashboard/AuthBanner"
+import { getActiveCompany, docsToNextTier, type CompanyProfile } from "@/lib/multi-empresa"
+import { getPriceTier } from "@/lib/auth"
 
 const C = {
   bgPage: "#F0F5FF",
@@ -129,10 +132,18 @@ function estadoBadge(estado: string) {
 export default function DashboardPage() {
   const { data: session } = useSession()
   const userName = (session?.user?.name ?? "Usuario").split(" ")[0]
+  const [activeCompany, setActiveCompany] = useState<CompanyProfile | null>(null)
 
-  const docs = 847
-  const tierMax = 2000
-  const pct = Math.round((docs / tierMax) * 100)
+  useEffect(() => {
+    setActiveCompany(getActiveCompany())
+  }, [])
+
+  const docs = activeCompany?.docsThisMonth ?? 0
+  const nextTierInfo = docsToNextTier(docs)
+  const tierMax = nextTierInfo ? docs + nextTierInfo.docsNeeded : ((getPriceTier(docs)?.maxDocs ?? docs) || 100)
+  const pct = tierMax > 0 ? Math.round((docs / tierMax) * 100) : 0
+  const currentPrice = getPriceTier(docs)?.priceCLP ?? 640
+  const activeRobots = activeCompany?.robots.filter(r => r.estado === "activo") ?? []
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 28 }}>
@@ -152,33 +163,33 @@ export default function DashboardPage() {
       {/* Stats grid */}
       <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16 }}>
         <StatCard
-          label="Documentos procesados hoy"
-          value="47"
-          sub="↑ +12% vs ayer"
+          label="Documentos este mes"
+          value={docs > 0 ? docs.toLocaleString("es-CL") : "—"}
+          sub={docs > 0 ? `Empresa activa` : "Sin documentos aún"}
           accentColor={C.blue}
           valueColor={C.blue}
           delay={0.05}
         />
         <StatCard
           label="Robots activos"
-          value="2 / 2"
-          sub="Todos operativos"
+          value={activeRobots.length > 0 ? `${activeRobots.length} / ${activeCompany?.robots.length ?? 0}` : "—"}
+          sub={activeRobots.length > 0 ? "Todos operativos" : "Sin robots configurados"}
           accentColor={C.green}
           valueColor={C.green}
           delay={0.1}
         />
         <StatCard
-          label="Errores este mes"
-          value="0"
-          sub="Sin incidentes"
-          accentColor={C.green}
-          valueColor={C.green}
+          label="Tier de precio actual"
+          value={docs > 0 ? `$${currentPrice.toLocaleString("es-CL")}` : "—"}
+          sub={docs > 0 ? "por documento" : "Agrega documentos para ver tier"}
+          accentColor={C.cyan}
+          valueColor={C.blue}
           delay={0.15}
         />
         <StatCard
           label="Gasto estimado mes"
-          value="$401.306"
-          sub="847 docs × $474/doc"
+          value={docs > 0 ? `$${(docs * currentPrice).toLocaleString("es-CL")}` : "—"}
+          sub={docs > 0 ? `${docs.toLocaleString("es-CL")} docs × $${currentPrice.toLocaleString("es-CL")}/doc` : "Sin consumo registrado"}
           accentColor={C.amber}
           valueColor={C.blue}
           delay={0.2}
@@ -258,46 +269,55 @@ export default function DashboardPage() {
           <h2 style={{ fontSize: "0.95rem", fontWeight: 700, color: C.textPrimary, margin: 0 }}>
             Estado de robots
           </h2>
-          {robots.map((robot, i) => (
-            <div
-              key={i}
-              style={{
-                backgroundColor: "#F8FAFF",
-                border: `1px solid ${C.border}`,
-                borderRadius: 12,
-                padding: 16,
-              }}
-            >
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
-                <span style={{ fontSize: 13, fontWeight: 700, color: C.textPrimary }}>{robot.name}</span>
-                <span style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  fontSize: 11,
-                  fontWeight: 700,
-                  color: "#16A34A",
-                  backgroundColor: "#DCFCE7",
-                  padding: "3px 9px",
-                  borderRadius: 6,
-                  letterSpacing: 0.5,
-                }}>
-                  <PulsingDot />
-                  ACTIVO
-                </span>
-              </div>
-              <div style={{ fontSize: 12, color: C.textMuted, marginBottom: 12 }}>{robot.type}</div>
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
-                <div>
-                  <div style={{ fontSize: 11, color: C.textMuted, marginBottom: 2, textTransform: "uppercase", letterSpacing: "0.06em" }}>Uptime</div>
-                  <div style={{ fontSize: 14, fontWeight: 700, color: C.green }}>{robot.uptime}</div>
+          {activeCompany?.robots && activeCompany.robots.length > 0 ? (
+            activeCompany.robots.map((robot, i) => {
+              const isActivo = robot.estado === "activo"
+              return (
+                <div
+                  key={robot.id ?? i}
+                  style={{
+                    backgroundColor: "#F8FAFF",
+                    border: `1px solid ${C.border}`,
+                    borderRadius: 12,
+                    padding: 16,
+                  }}
+                >
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
+                    <span style={{ fontSize: 13, fontWeight: 700, color: C.textPrimary }}>{robot.nombre}</span>
+                    <span style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      fontSize: 11,
+                      fontWeight: 700,
+                      color: isActivo ? "#16A34A" : "#D97706",
+                      backgroundColor: isActivo ? "#DCFCE7" : "#FEF3C7",
+                      padding: "3px 9px",
+                      borderRadius: 6,
+                      letterSpacing: 0.5,
+                    }}>
+                      {isActivo && <PulsingDot />}
+                      {isActivo ? "ACTIVO" : "PAUSADO"}
+                    </span>
+                  </div>
+                  <div style={{ fontSize: 12, color: C.textMuted }}>
+                    {robot.tipo === "rpa" ? "RPA · Portal DT" : "IA Agéntica"}
+                  </div>
                 </div>
-                <div>
-                  <div style={{ fontSize: 11, color: C.textMuted, marginBottom: 2, textTransform: "uppercase", letterSpacing: "0.06em" }}>Última ejec.</div>
-                  <div style={{ fontSize: 12, color: C.textSecondary }}>{robot.lastExec}</div>
-                </div>
-              </div>
+              )
+            })
+          ) : (
+            <div style={{
+              backgroundColor: "#F8FAFF",
+              border: `1px dashed ${C.border}`,
+              borderRadius: 12,
+              padding: 20,
+              textAlign: "center",
+            }}>
+              <p style={{ fontSize: 13, color: C.textMuted, margin: 0 }}>
+                No hay robots configurados para esta empresa.
+              </p>
             </div>
-          ))}
+          )}
         </motion.div>
       </div>
 
@@ -315,15 +335,21 @@ export default function DashboardPage() {
             </h2>
             <span style={{ fontSize: 12, color: C.textSecondary }}>
               Tier actual:{" "}
-              <span style={{ color: C.blue, fontWeight: 700 }}>$430/doc</span>
+              <span style={{ color: C.blue, fontWeight: 700 }}>
+                {docs > 0 ? `$${currentPrice.toLocaleString("es-CL")}/doc` : "—"}
+              </span>
             </span>
           </div>
           <div style={{ textAlign: "right" }}>
             <div style={{ fontSize: 22, fontWeight: 800, color: C.textPrimary }}>
-              {docs.toLocaleString("es-CL")}{" "}
-              <span style={{ fontSize: 14, color: C.textMuted, fontWeight: 400 }}>/ {tierMax.toLocaleString("es-CL")}</span>
+              {docs > 0 ? docs.toLocaleString("es-CL") : "0"}{" "}
+              {tierMax > 0 && <span style={{ fontSize: 14, color: C.textMuted, fontWeight: 400 }}>/ {tierMax.toLocaleString("es-CL")}</span>}
             </div>
-            <div style={{ fontSize: 12, color: C.textMuted }}>faltan {(tierMax - docs).toLocaleString("es-CL")} para tier máximo</div>
+            <div style={{ fontSize: 12, color: C.textMuted }}>
+              {nextTierInfo
+                ? `faltan ${nextTierInfo.docsNeeded.toLocaleString("es-CL")} para el próximo tier`
+                : docs === 0 ? "Sube documentos para comenzar" : "En el tier máximo"}
+            </div>
           </div>
         </div>
         <div style={{ backgroundColor: "#EEF4FF", borderRadius: 99, height: 10, overflow: "hidden" }}>
@@ -339,9 +365,9 @@ export default function DashboardPage() {
           />
         </div>
         <div style={{ display: "flex", justifyContent: "space-between", marginTop: 10 }}>
-          <span style={{ fontSize: 11, color: C.textMuted }}>801 docs</span>
+          <span style={{ fontSize: 11, color: C.textMuted }}>0 docs</span>
           <span style={{ fontSize: 11, color: C.blue, fontWeight: 600 }}>{pct}% del umbral siguiente</span>
-          <span style={{ fontSize: 11, color: C.textMuted }}>2.000 docs</span>
+          <span style={{ fontSize: 11, color: C.textMuted }}>{tierMax.toLocaleString("es-CL")} docs</span>
         </div>
       </motion.div>
     </div>

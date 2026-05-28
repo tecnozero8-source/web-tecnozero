@@ -1,9 +1,9 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { signOut } from "next-auth/react"
+import { signOut, useSession } from "next-auth/react"
 import { motion } from "framer-motion"
 import {
   LayoutDashboard,
@@ -114,21 +114,26 @@ function SignOutButton() {
 
 export function DashboardSidebar() {
   const pathname = usePathname()
+  const { data: session } = useSession()
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => { setMounted(true) }, [])
 
   const isActive = (href: string) => {
     if (href === "/dashboard") return pathname === "/dashboard"
     return pathname.startsWith(href)
   }
 
-  // Mock user — replace with useSession() once session is set up
-  const userName = "Carlos M."
-  const empresa = "Tecnozero"
+  const userName = mounted ? (session?.user?.name ?? "—") : "—"
+  const empresa  = mounted ? (session?.user?.empresa ?? "—") : "—"
+  const firstName = userName.split(" ")[0]
   const initials = userName
     .split(" ")
+    .filter(Boolean)
     .map((n) => n[0])
     .join("")
     .toUpperCase()
-    .slice(0, 2)
+    .slice(0, 2) || "TZ"
 
   return (
     <motion.div
@@ -280,7 +285,7 @@ export function DashboardSidebar() {
                 textOverflow: "ellipsis",
               }}
             >
-              {userName}
+              {firstName}
             </p>
             <p
               style={{
