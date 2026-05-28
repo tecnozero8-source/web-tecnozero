@@ -1,7 +1,11 @@
 "use client"
 
+import { useEffect, useState, useCallback } from "react"
 import { motion } from "framer-motion"
-import { MessageCircle, Phone, Mail, Clock, CheckCircle2, ExternalLink, Shield } from "lucide-react"
+import {
+  MessageCircle, Phone, Mail, Clock, CheckCircle2,
+  ExternalLink, Shield, AlertTriangle, XCircle, RefreshCw,
+} from "lucide-react"
 
 const C = {
   bgCard: "#FFFFFF",
@@ -23,6 +27,28 @@ const card: React.CSSProperties = {
   boxShadow: C.shadow,
 }
 
+// ── Types ──────────────────────────────────────────────────────────────────────
+type CheckStatus = "ok" | "degraded" | "down"
+
+interface HealthCheck {
+  status: CheckStatus
+  latency_ms?: number
+  message: string
+}
+
+interface HealthData {
+  status: CheckStatus
+  timestamp: string
+  environment: string
+  checks: {
+    database: HealthCheck
+    env: HealthCheck
+    auth: HealthCheck
+    payments: HealthCheck
+  }
+}
+
+// ── Static data ────────────────────────────────────────────────────────────────
 const faqs = [
   {
     q: "¿Cómo sé si mi contrato fue confirmado por la DT?",
@@ -79,7 +105,74 @@ const contacts = [
   },
 ]
 
+const SERVICE_LABELS: Record<string, string> = {
+  database: "Base de datos · Supabase",
+  env:      "Configuración del sistema",
+  auth:     "Autenticación · NextAuth",
+  payments: "Pagos · Transbank",
+}
+
+// ── Status helpers ─────────────────────────────────────────────────────────────
+function statusColor(s: CheckStatus | undefined) {
+  if (s === "ok")       return { fg: "#16A34A", bg: "#DCFCE7", border: "#BBF7D0" }
+  if (s === "degraded") return { fg: "#D97706", bg: "#FEF3C7", border: "#FDE68A" }
+  return                       { fg: "#DC2626", bg: "#FEE2E2", border: "#FECACA" }
+}
+
+function StatusBadge({ status }: { status: CheckStatus | undefined }) {
+  const { fg, bg } = statusColor(status)
+  const label = status === "ok" ? "Operativo" : status === "degraded" ? "Degradado" : "Caído"
+  const Icon  = status === "ok" ? CheckCircle2 : status === "degraded" ? AlertTriangle : XCircle
+
+  return (
+    <span style={{
+      display: "inline-flex", alignItems: "center", gap: 5,
+      backgroundColor: bg, color: fg,
+      fontSize: "0.7rem", fontWeight: 700, padding: "3px 10px", borderRadius: 99,
+    }}>
+      {status === "ok"
+        ? <motion.span
+            animate={{ scale: [1, 1.6, 1], opacity: [0.7, 1, 0.7] }}
+            transition={{ duration: 2, repeat: Infinity }}
+            style={{ display: "block", width: 6, height: 6, borderRadius: "50%", backgroundColor: fg }}
+          />
+        : <Icon size={11} />
+      }
+      {label}
+    </span>
+  )
+}
+
+// ── Component ──────────────────────────────────────────────────────────────────
 export default function SoportePage() {
+  const [health, setHealth]     = useState<HealthData | null>(null)
+  const [loading, setLoading]   = useState(true)
+  const [lastChecked, setLastChecked] = useState<string | null>(null)
+
+  const fetchHealth = useCallback(async () => {
+    setLoading(true)
+    try {
+      const res = await fetch("/api/health", { cache: "no-store" })
+      const data: HealthData = await res.json()
+      setHealth(data)
+      setLastChecked(new Date().toLocaleTimeString("es-CL"))
+    } catch {
+      setHealth(null)
+    } finally {
+      setLoading(false)
+    }
+  }, [])
+
+  // Cargar al montar + auto-refresh cada 60 segundos
+  useEffect(() => {
+    fetchHealth()
+    const id = setInterval(fetchHealth, 60_000)
+    return () => clearInterval(id)
+  }, [fetchHealth])
+
+  const overallStatus = health?.status ?? "down"
+  const overallColors = statusColor(overallStatus)
+
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 28 }}>
 
@@ -114,8 +207,7 @@ export default function SoportePage() {
             >
               <div style={{
                 width: 44, height: 44, borderRadius: 12,
-                backgroundColor: item.bg,
-                border: `1px solid ${item.border}`,
+                backgroundColor: item.bg, border: `1px solid ${item.border}`,
                 display: "flex", alignItems: "center", justifyContent: "center",
               }}>
                 <Icon size={20} color={item.color} />
@@ -204,10 +296,10 @@ export default function SoportePage() {
               </h2>
             </div>
             {[
-              { label: "Uptime garantizado",            value: "99.5%",            color: C.green },
+              { label: "Uptime garantizado",            value: "99.5%",             color: C.green },
               { label: "Respuesta a errores críticos",  value: "< 2 horas hábiles", color: C.blue },
-              { label: "Resolución de incidentes",      value: "< 24 horas",       color: C.cyan },
-              { label: "Reintentos automáticos",        value: "3 intentos",       color: "#A78BFA" },
+              { label: "Resolución de incidentes",      value: "< 24 horas",        color: C.cyan },
+              { label: "Reintentos automáticos",        value: "3 intentos",        color: "#A78BFA" },
             ].map((row, i) => (
               <div key={i} style={{
                 display: "flex", justifyContent: "space-between", alignItems: "center",
@@ -220,7 +312,7 @@ export default function SoportePage() {
             ))}
           </motion.div>
 
-          {/* System status */}
+          {/* System status — LIVE */}
           <motion.div
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, type: "spring", stiffness: 100, damping: 20 }}
@@ -230,37 +322,88 @@ export default function SoportePage() {
               <h2 style={{ fontSize: "0.95rem", fontWeight: 700, color: C.textPrimary, margin: 0 }}>
                 Estado del sistema
               </h2>
-              <span style={{
-                display: "inline-flex", alignItems: "center", gap: 6,
-                backgroundColor: "#DCFCE7", color: "#16A34A",
-                fontSize: "0.7rem", fontWeight: 700, padding: "3px 10px", borderRadius: 99,
-              }}>
-                <motion.span
-                  animate={{ scale: [1, 1.6, 1], opacity: [0.7, 1, 0.7] }}
-                  transition={{ duration: 2, repeat: Infinity }}
-                  style={{ display: "block", width: 6, height: 6, borderRadius: "50%", backgroundColor: "#16A34A" }}
-                />
-                Todos operativos
-              </span>
-            </div>
-            {["Portal DT · Robot RPA", "Agentes IA · TITAN", "API de integración", "Panel de cliente"].map((s, i) => (
-              <div key={i} style={{
-                display: "flex", alignItems: "center", justifyContent: "space-between",
-                padding: "9px 12px", borderRadius: 10,
-                backgroundColor: "#F0FDF4", border: "1px solid #BBF7D0",
-              }}>
-                <span style={{ fontSize: "0.8rem", color: C.textSecondary }}>{s}</span>
-                <div style={{ display: "flex", alignItems: "center", gap: 5 }}>
-                  <CheckCircle2 size={13} color={C.green} />
-                  <span style={{ fontSize: "0.72rem", fontWeight: 700, color: C.green }}>Operativo</span>
-                </div>
+              <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                {loading ? (
+                  <motion.div
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                  >
+                    <RefreshCw size={13} color={C.textMuted} />
+                  </motion.div>
+                ) : (
+                  <button
+                    onClick={fetchHealth}
+                    title="Actualizar estado"
+                    style={{
+                      background: "none", border: "none", cursor: "pointer",
+                      display: "flex", alignItems: "center", padding: 2,
+                      color: C.textMuted,
+                    }}
+                  >
+                    <RefreshCw size={13} />
+                  </button>
+                )}
+                {!loading && <StatusBadge status={overallStatus} />}
               </div>
-            ))}
-            <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-              <Clock size={11} color={C.textMuted} />
-              <span style={{ fontSize: "0.7rem", color: C.textMuted }}>Última verificación: hace 2 minutos</span>
+            </div>
+
+            {/* Individual checks */}
+            {health
+              ? Object.entries(health.checks).map(([key, check]) => {
+                  const { fg, bg, border: bdr } = statusColor(check.status)
+                  const CheckIcon = check.status === "ok" ? CheckCircle2 : check.status === "degraded" ? AlertTriangle : XCircle
+                  return (
+                    <div key={key} style={{
+                      display: "flex", alignItems: "center", justifyContent: "space-between",
+                      padding: "9px 12px", borderRadius: 10,
+                      backgroundColor: bg, border: `1px solid ${bdr}`,
+                    }}>
+                      <div style={{ display: "flex", flexDirection: "column", gap: 1 }}>
+                        <span style={{ fontSize: "0.8rem", color: C.textSecondary }}>
+                          {SERVICE_LABELS[key] ?? key}
+                        </span>
+                        {check.status !== "ok" && (
+                          <span style={{ fontSize: "0.68rem", color: fg }}>{check.message}</span>
+                        )}
+                      </div>
+                      <div style={{ display: "flex", alignItems: "center", gap: 5, flexShrink: 0, marginLeft: 8 }}>
+                        {check.latency_ms !== undefined && (
+                          <span style={{ fontSize: "0.65rem", color: C.textMuted }}>{check.latency_ms}ms</span>
+                        )}
+                        <CheckIcon size={13} color={fg} />
+                        <span style={{ fontSize: "0.72rem", fontWeight: 700, color: fg }}>
+                          {check.status === "ok" ? "Operativo" : check.status === "degraded" ? "Degradado" : "Caído"}
+                        </span>
+                      </div>
+                    </div>
+                  )
+                })
+              : /* Loading skeleton */
+                Array.from({ length: 4 }).map((_, i) => (
+                  <div key={i} style={{
+                    height: 40, borderRadius: 10,
+                    backgroundColor: "#F1F5F9", border: `1px solid ${C.border}`,
+                    animation: "pulse 1.5s ease-in-out infinite",
+                  }} />
+                ))
+            }
+
+            {/* Footer */}
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                <Clock size={11} color={C.textMuted} />
+                <span style={{ fontSize: "0.7rem", color: C.textMuted }}>
+                  {lastChecked ? `Última verificación: ${lastChecked}` : "Verificando..."}
+                </span>
+              </div>
+              {health && (
+                <span style={{ fontSize: "0.65rem", color: C.textMuted }}>
+                  {health.environment === "production" ? "Producción" : "Desarrollo"}
+                </span>
+              )}
             </div>
           </motion.div>
+
         </div>
       </div>
     </div>
