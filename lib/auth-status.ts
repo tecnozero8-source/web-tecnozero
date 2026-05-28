@@ -24,7 +24,7 @@ export interface AuthData {
 export const TZ_RLE = {
   nombre: "Roberto Teijero Salinas Yasuda",
   rut: "8.711.869-K",
-  email: "rle@tecnozero.cl",
+  email: "administracion@tecnozero.cl",
   cargo: "Representante Laboral Electrónico — Tecnozero SpA",
   empresa: "Tecnozero SpA",
   rutEmpresa: "77.043.128-K",
