@@ -8,6 +8,7 @@ import { WebpayPlus, Options, Environment, IntegrationCommerceCodes, Integration
 import { saveCRMRecord } from "@/lib/crm"
 import { runEmailAgent } from "@/lib/email-agent"
 import { decryptCookie } from "@/lib/cookie-crypto"
+import { findPaymentById } from "@/lib/db/payments"
 
 function getTbkTransaction() {
   const isProduction = process.env.NODE_ENV === "production" && process.env.TBK_COMMERCE_CODE
@@ -60,6 +61,20 @@ export async function POST(req: NextRequest) {
       return NextResponse.redirect(
         `${BASE_URL}/checkout/exito?status=rejected&code=${commit.response_code}`
       )
+    }
+
+    // ── Idempotencia: evitar doble procesamiento ──────────────────────────────
+    const existing = await findPaymentById(commit.buy_order).catch(() => null)
+    if (existing) {
+      console.warn("[Transbank Confirm] Pago ya procesado:", commit.buy_order)
+      const params = new URLSearchParams({
+        status: "success", method: "transbank",
+        amount: String(commit.amount), auth: commit.authorization_code,
+        order: commit.buy_order, plan: meta.plan ?? "",
+      })
+      const redirect = NextResponse.redirect(`${BASE_URL}/checkout/exito?${params.toString()}`)
+      redirect.cookies.delete("tbk_checkout")
+      return redirect
     }
 
     // ── CRM ──────────────────────────────────────────────────────────────────

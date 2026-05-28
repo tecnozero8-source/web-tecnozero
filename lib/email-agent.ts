@@ -150,18 +150,19 @@ function buildUserPrompt(ctx: EmailContext): string {
   const instructions: Record<EmailType, string> = {
     payment_confirmation:
       "Confirma el pago exitoso. Incluye resumen del plan, próximos pasos (acceder al dashboard, " +
-      "configurar el primer robot), y un botón 'Ir al Dashboard' que apunte a https://app.tecnozero.cl/dashboard",
+      "configurar el primer robot), y un botón 'Ir al Dashboard' que apunte a https://tecnozero.cl/dashboard",
     welcome:
       "Da la bienvenida cálida a la plataforma. Explica los 3 primeros pasos: (1) crear empresa, " +
-      "(2) activar primer robot, (3) contactar soporte si necesitan ayuda. CTA: 'Comenzar ahora'",
+      "(2) activar primer robot, (3) contactar soporte si necesitan ayuda. CTA: 'Comenzar ahora' apuntando a https://tecnozero.cl/dashboard",
     invoice_notification:
-      "Notifica que la factura del mes está disponible en el dashboard. Incluye el monto y período.",
+      "Notifica que la factura del mes está disponible en el dashboard. Incluye el monto y período. " +
+      "Botón 'Ver factura' apuntando a https://tecnozero.cl/dashboard/facturacion",
     contact_followup:
       "Haz seguimiento a la consulta enviada. Confirma que fue recibida y que el equipo se contactará " +
-      "en menos de 24 horas. Ofrece agendar una llamada.",
+      "en menos de 24 horas. Ofrece agendar una llamada a administracion@tecnozero.cl",
     upgrade_suggestion:
       "Sugiere amigablemente que están cerca del siguiente tramo de precios. Muestra el ahorro potencial " +
-      "y un botón 'Ver mis opciones' que vaya a https://app.tecnozero.cl/dashboard/facturacion",
+      "y un botón 'Ver mis opciones' que vaya a https://tecnozero.cl/dashboard/facturacion",
   }
 
   return `${lines}\n\nInstrucciones específicas:\n${instructions[ctx.type]}`
@@ -231,7 +232,7 @@ export async function runEmailAgent(ctx: EmailContext): Promise<EmailAgentResult
 
           try {
             await resend.emails.send({
-              from: process.env.RESEND_FROM ?? "Tecnozero <noreply@tecnozero.cl>",
+              from: process.env.RESEND_FROM ?? "Tecnozero <administracion@tecnozero.cl>",
               to: inp.to,
               subject: inp.subject,
               html: inp.html,
