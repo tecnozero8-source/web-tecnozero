@@ -209,6 +209,7 @@ function CheckoutContent() {
   const [selectedTierIdx, setSelectedTierIdx] = useState(1) // 151-400
   const [showAllTiers, setShowAllTiers] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [isTestPlan, setIsTestPlan] = useState(false) // ⚠️ TEMPORAL — eliminar tras validación TBK
   const [form, setForm] = useState<CustomerForm>({
     name: "", email: "", empresa: "", rut: "",
   })
@@ -218,15 +219,15 @@ function CheckoutContent() {
   const cancelled = searchParams.get("cancelled") === "1"
 
   useEffect(() => {
-    // Seleccionar tier según docs
+    if (isTestPlan) return
     const tier = getPriceTier(docs)
     const idx = PRICING_TIERS.findIndex(t => t.priceCLP === tier?.priceCLP)
     if (idx >= 0) setSelectedTierIdx(idx)
-  }, [docs])
+  }, [docs, isTestPlan])
 
   const selectedTier = PRICING_TIERS[selectedTierIdx]
   const addonTotal = ADDONS.filter(a => selectedAddons.has(a.id)).reduce((s, a) => s + a.priceCLP, 0)
-  const totalCLP = selectedTier.priceCLP * docs + addonTotal
+  const totalCLP = isTestPlan ? 50 : selectedTier.priceCLP * docs + addonTotal
 
   const toggleAddon = (id: string) => {
     setSelectedAddons(prev => {
@@ -450,6 +451,56 @@ function CheckoutContent() {
                     <span>2.000 docs</span>
                   </div>
                 </div>
+
+                {/* ⚠️ PLAN PRUEBA TEMPORAL — solo para validación Transbank, eliminar después */}
+                <motion.button
+                  whileHover={{ scale: 1.01 }}
+                  whileTap={{ scale: 0.99 }}
+                  onClick={() => setIsTestPlan(!isTestPlan)}
+                  style={{
+                    width: "100%", padding: "16px 20px",
+                    borderRadius: 14, cursor: "pointer", textAlign: "left",
+                    border: `2px solid ${isTestPlan ? "#F59E0B" : "rgba(245,158,11,0.3)"}`,
+                    backgroundColor: isTestPlan ? "rgba(245,158,11,0.10)" : "rgba(245,158,11,0.04)",
+                    boxShadow: isTestPlan ? "0 0 0 4px rgba(245,158,11,0.2)" : "none",
+                    transition: "all 0.2s",
+                    display: "flex", alignItems: "center", justifyContent: "space-between",
+                    position: "relative",
+                  }}
+                >
+                  <span style={{
+                    position: "absolute", top: -10, left: 14,
+                    fontSize: 10, fontWeight: 700,
+                    backgroundColor: "#F59E0B", color: "#000",
+                    padding: "2px 10px", borderRadius: 99, letterSpacing: "0.05em",
+                  }}>
+                    SOLO VALIDACIÓN TBK · TEMPORAL
+                  </span>
+                  <div>
+                    <p style={{ margin: 0, fontSize: "0.82rem", color: "rgba(245,158,11,0.7)", marginBottom: 4 }}>
+                      Plan Prueba — transacción de verificación
+                    </p>
+                    <p style={{ margin: 0, fontSize: "1.5rem", fontWeight: 800, color: "#FFFFFF", letterSpacing: "-0.03em" }}>
+                      $50 <span style={{ fontSize: "0.82rem", fontWeight: 500, color: "rgba(255,255,255,0.4)" }}>CLP fijo</span>
+                    </p>
+                  </div>
+                  <div style={{ textAlign: "right" }}>
+                    <p style={{ margin: 0, fontSize: "0.72rem", color: "rgba(255,255,255,0.4)" }}>Requerido por</p>
+                    <p style={{ margin: 0, fontSize: "0.95rem", fontWeight: 700, color: isTestPlan ? "#F59E0B" : "rgba(255,255,255,0.5)" }}>
+                      Transbank
+                    </p>
+                  </div>
+                  {isTestPlan && (
+                    <div style={{
+                      position: "absolute", top: 14, right: 14,
+                      width: 22, height: 22, borderRadius: "50%",
+                      backgroundColor: "#F59E0B",
+                      display: "flex", alignItems: "center", justifyContent: "center",
+                    }}>
+                      <Check size={12} color="#000" />
+                    </div>
+                  )}
+                </motion.button>
 
                 {/* Tiers */}
                 <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
@@ -813,20 +864,24 @@ function CheckoutContent() {
           <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
               <span style={{ fontSize: "0.875rem", color: C.textSecondary }}>Plan</span>
-              <span style={{ fontSize: "0.875rem", fontWeight: 600, color: C.white }}>
-                {selectedTier.minDocs}–{selectedTier.maxDocs ?? "∞"} docs/mes
+              <span style={{ fontSize: "0.875rem", fontWeight: 600, color: isTestPlan ? "#F59E0B" : C.white }}>
+                {isTestPlan ? "⚠️ Plan Prueba TBK" : `${selectedTier.minDocs}–${selectedTier.maxDocs ?? "∞"} docs/mes`}
               </span>
             </div>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-              <span style={{ fontSize: "0.875rem", color: C.textSecondary }}>Documentos</span>
-              <span style={{ fontSize: "0.875rem", fontWeight: 600, color: C.white }}>{docs.toLocaleString("es-CL")}</span>
-            </div>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-              <span style={{ fontSize: "0.875rem", color: C.textSecondary }}>Precio/doc</span>
-              <span style={{ fontSize: "0.875rem", fontWeight: 600, color: C.cyan }}>
-                {formatCLP(selectedTier.priceCLP)}
-              </span>
-            </div>
+            {!isTestPlan && (
+              <>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                  <span style={{ fontSize: "0.875rem", color: C.textSecondary }}>Documentos</span>
+                  <span style={{ fontSize: "0.875rem", fontWeight: 600, color: C.white }}>{docs.toLocaleString("es-CL")}</span>
+                </div>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                  <span style={{ fontSize: "0.875rem", color: C.textSecondary }}>Precio/doc</span>
+                  <span style={{ fontSize: "0.875rem", fontWeight: 600, color: C.cyan }}>
+                    {formatCLP(selectedTier.priceCLP)}
+                  </span>
+                </div>
+              </>
+            )}
 
             {/* Add-on lines */}
             {ADDONS.filter(a => selectedAddons.has(a.id)).map(a => (
