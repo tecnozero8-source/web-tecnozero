@@ -217,36 +217,6 @@ function CheckoutContent() {
       display: "flex",
       flexDirection: "column",
     }}>
-      {/* Gradient top bar */}
-      <div style={{ height: 4, background: "linear-gradient(90deg, #0957C3, #1FB3E5, #D4F040)" }} />
-
-      {/* Header */}
-      <header style={{
-        padding: "16px 32px",
-        borderBottom: `1px solid ${C.darkBorder}`,
-        display: "flex", alignItems: "center", justifyContent: "space-between",
-        gap: 12,
-      }}>
-        <Link href="/" style={{ textDecoration: "none" }}>
-          <span style={{ fontSize: "1.1rem", fontWeight: 800, color: C.white, letterSpacing: "-0.02em" }}>
-            TECNOZERO
-          </span>
-        </Link>
-        <div style={{ display: "flex", alignItems: "center", gap: 20, flexWrap: "wrap" }}>
-          {/* Social proof */}
-          <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-            <Users size={13} color={C.cyan} />
-            <span style={{ fontSize: "0.75rem", color: C.textMuted }}>
-              <strong style={{ color: C.cyan }}>18 empresas</strong> activas este mes
-            </span>
-          </div>
-          <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-            <ShieldCheck size={14} color={C.green} />
-            <span style={{ fontSize: "0.75rem", color: C.textMuted }}>Pago seguro Transbank</span>
-          </div>
-        </div>
-      </header>
-
       {/* Cancelled banner */}
       <AnimatePresence>
         {cancelled && (
@@ -289,9 +259,20 @@ function CheckoutContent() {
             <h1 style={{ margin: "0 0 6px", fontSize: "1.55rem", fontWeight: 800, color: C.white, letterSpacing: "-0.04em" }}>
               Elige tu plan
             </h1>
-            <p style={{ margin: 0, color: C.textMuted, fontSize: "0.85rem" }}>
-              Precio por documento procesado — sin costo fijo ni permanencia.
-            </p>
+            <div style={{ display: "flex", alignItems: "center", gap: 16, flexWrap: "wrap", marginTop: 6 }}>
+              <p style={{ margin: 0, color: C.textMuted, fontSize: "0.85rem" }}>
+                Precio por documento — sin costo fijo ni permanencia.
+              </p>
+              <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
+                <span style={{ display: "flex", alignItems: "center", gap: 5, fontSize: "0.75rem", color: C.textMuted }}>
+                  <Users size={12} color={C.cyan} />
+                  <strong style={{ color: C.cyan }}>18 empresas</strong> activas
+                </span>
+                <span style={{ display: "flex", alignItems: "center", gap: 5, fontSize: "0.75rem", color: C.textMuted }}>
+                  <ShieldCheck size={12} color={C.green} /> Pago seguro Transbank
+                </span>
+              </div>
+            </div>
           </div>
 
           {/* ⚠️ Test Plan toggle */}
