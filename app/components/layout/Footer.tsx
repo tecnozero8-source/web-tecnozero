@@ -13,6 +13,7 @@ const productos = [
 
 const empresa = [
   { label: "Sobre Tecnozero", href: "/nosotros" },
+  { label: "Blog", href: "/blog" },
   { label: "Casos de éxito", href: "/nosotros#casos" },
   { label: "Hablar con un especialista", href: "/contacto" },
 ]

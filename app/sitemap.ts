@@ -1,6 +1,14 @@
 import { MetadataRoute } from 'next'
+import { getAllPosts } from '../lib/blog'
 
 export default function sitemap(): MetadataRoute.Sitemap {
+  const blogPosts: MetadataRoute.Sitemap = getAllPosts().map((post) => ({
+    url: `https://www.tecnozero.cl/blog/${post.slug}`,
+    changeFrequency: 'monthly',
+    priority: 0.7,
+    lastModified: new Date(post.date),
+  }))
+
   return [
     {
       url: 'https://www.tecnozero.cl/',
@@ -8,6 +16,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1.0,
       lastModified: new Date('2026-05-01'),
     },
+    {
+      url: 'https://www.tecnozero.cl/blog',
+      changeFrequency: 'weekly',
+      priority: 0.8,
+      lastModified: new Date('2026-07-18'),
+    },
+    ...blogPosts,
     {
       url: 'https://www.tecnozero.cl/capacitacion',
       changeFrequency: 'monthly',
