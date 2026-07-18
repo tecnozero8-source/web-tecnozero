@@ -4,6 +4,7 @@ import { motion } from "framer-motion"
 import { ArrowUpRight, MapPin, Mail, Phone } from "lucide-react"
 
 const productos = [
+  { label: "AulaZero · Capacitación", href: "/capacitacion", badge: "Nuevo" },
   { label: "Gestor Laboral 360", href: "/portal-dt", badge: "SaaS" },
   { label: "MinePass", href: "/mineria", badge: null },
   { label: "VehiclePass", href: "/mineria", badge: null },

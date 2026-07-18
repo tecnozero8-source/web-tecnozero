@@ -9,6 +9,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date('2026-05-01'),
     },
     {
+      url: 'https://www.tecnozero.cl/capacitacion',
+      changeFrequency: 'monthly',
+      priority: 0.9,
+      lastModified: new Date('2026-07-18'),
+    },
+    {
       url: 'https://www.tecnozero.cl/portal-dt',
       changeFrequency: 'monthly',
       priority: 0.9,

@@ -91,7 +91,7 @@ export default function HomePage() {
           }}>
             <div style={{ width: "5px", height: "5px", borderRadius: "50%", backgroundColor: "#1FB3E5" }} />
             <span style={{ fontSize: "0.7rem", fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase" as const, color: "#1FB3E5" }}>
-              RPA · IA Agéntica · Chile
+              RPA · IA Agéntica · EdTech · Chile
             </span>
           </div>
 
@@ -163,7 +163,7 @@ export default function HomePage() {
             <span style={{ fontSize: "0.7rem", color: "#3A5068", fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase" as const }}>
               Hoy en producción
             </span>
-            {["Metro · 9 robots", "MinePass · Gran Minería", "Walmart Chile · 6 robots"].map((c) => (
+            {["Metro · 9 robots", "MinePass · Gran Minería", "Walmart Chile · 6 robots", "AulaZero · Capacitación IA"].map((c) => (
               <span key={c} style={{ fontSize: "0.78rem", color: "#4A607A", fontWeight: 500 }}>{c}</span>
             ))}
           </div>

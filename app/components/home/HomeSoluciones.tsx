@@ -17,6 +17,17 @@ function IconRobot({ color }: { color: string }) {
   )
 }
 
+function IconEdu({ color }: { color: string }) {
+  return (
+    <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+      <path d="M16 6L29 12L16 18L3 12L16 6Z" stroke={color} strokeWidth="1.5" strokeLinejoin="round"/>
+      <path d="M9 15v6c0 1.8 3.1 3.5 7 3.5s7-1.7 7-3.5v-6" stroke={color} strokeWidth="1.5"/>
+      <line x1="29" y1="12" x2="29" y2="20" stroke={color} strokeWidth="1.5" strokeLinecap="round"/>
+      <circle cx="29" cy="22" r="1.5" fill={color}/>
+    </svg>
+  )
+}
+
 function IconMine({ color }: { color: string }) {
   return (
     <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
@@ -109,6 +120,25 @@ function VisualPanel({ accentColor, metricas, badge }: {
 export function HomeSoluciones() {
   const soluciones = [
     {
+      badge: "Nueva línea · EdTech",
+      titulo: "Capacitación · AulaZero",
+      subtitulo: "Cursos e-learning con IA para empresas",
+      descripcion: "La Ley Karin obliga a capacitar a tu gente en prevención del acoso. AulaZero lo resuelve con cursos asincrónicos, tutor IA disponible en cada lección y certificado verificable. Tu equipo se capacita a su ritmo, tú descargas el respaldo completo.",
+      metricas: [
+        { valor: "3", label: "cursos listos para matricular hoy" },
+        { valor: "24/7", label: "tutor IA dentro de cada lección" },
+        { valor: "100%", label: "asincrónico, sin coordinar horarios" },
+      ],
+      metricasPanel: [
+        { valor: "3", label: "cursos listos" },
+        { valor: "24/7", label: "tutor IA" },
+      ],
+      cta: "Conocer AulaZero →",
+      href: "/capacitacion",
+      accentColor: "#22C55E",
+      Icon: IconEdu,
+    },
+    {
       badge: "SaaS · Pago por uso",
       titulo: "Portal DT · Gestor Laboral 360",
       subtitulo: "Para PYMEs y oficinas contables",
@@ -186,7 +216,7 @@ export function HomeSoluciones() {
             letterSpacing: "0.16em", textTransform: "uppercase" as const,
             color: "#0957C3", margin: "0 0 16px",
           }}>
-            Qué automatizamos
+            Qué hacemos
           </p>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", gap: "32px", flexWrap: "wrap" as const }}>
             <h2 style={{
@@ -195,7 +225,7 @@ export function HomeSoluciones() {
               fontWeight: 800, letterSpacing: "-0.05em", lineHeight: 1.02,
               color: "#0B1E3D", margin: 0,
             }}>
-              Tres áreas. Un solo equipo.
+              Cuatro líneas. Un solo equipo.
               <br />
               <span style={{ color: "#1FB3E5" }}>Cero tolerancia al error.</span>
             </h2>
@@ -203,7 +233,7 @@ export function HomeSoluciones() {
               fontSize: "0.9rem", color: "#64748B",
               maxWidth: "280px", lineHeight: 1.7, margin: 0,
             }}>
-              Robots en producción hoy. Sin demos. Sin promesas. Resultados medibles.
+              Software en producción hoy. Sin demos de humo. Resultados medibles.
             </p>
           </div>
         </motion.div>

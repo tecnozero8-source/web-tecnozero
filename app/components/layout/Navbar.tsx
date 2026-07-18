@@ -6,6 +6,7 @@ import { Menu, X } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 
 const navLinks = [
+  { label: "Capacitación", href: "/capacitacion" },
   { label: "Portal DT", href: "/portal-dt" },
   { label: "Minería", href: "/mineria" },
   { label: "Agentes IA", href: "/agentes-ia" },
@@ -24,7 +25,7 @@ export function Navbar() {
 
   // Close mobile menu on resize to desktop
   useEffect(() => {
-    const onResize = () => { if (window.innerWidth >= 680) setMobileOpen(false) }
+    const onResize = () => { if (window.innerWidth >= 920) setMobileOpen(false) }
     window.addEventListener("resize", onResize)
     return () => window.removeEventListener("resize", onResize)
   }, [])
@@ -256,11 +257,13 @@ export function Navbar() {
         )}
       </AnimatePresence>
 
-      {/* Responsive: hamburger on mobile, hide desktop nav/CTA */}
+      {/* Responsive: hamburger bajo 920px (5 links no caben en la píldora), CTA visible hasta 560px */}
       <style>{`
-        @media (max-width: 680px) {
+        @media (max-width: 919px) {
           #nav-hamburger { display: flex !important; }
           nav { display: none !important; }
+        }
+        @media (max-width: 560px) {
           .tz-cta-desktop { display: none !important; }
         }
       `}</style>
