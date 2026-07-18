@@ -10,6 +10,7 @@ const navLinks = [
   { label: "Portal DT", href: "/portal-dt" },
   { label: "Minería", href: "/mineria" },
   { label: "Agentes IA", href: "/agentes-ia" },
+  { label: "Blog", href: "/blog" },
   { label: "Nosotros", href: "/nosotros" },
 ]
 
@@ -25,7 +26,7 @@ export function Navbar() {
 
   // Close mobile menu on resize to desktop
   useEffect(() => {
-    const onResize = () => { if (window.innerWidth >= 920) setMobileOpen(false) }
+    const onResize = () => { if (window.innerWidth >= 1090) setMobileOpen(false) }
     window.addEventListener("resize", onResize)
     return () => window.removeEventListener("resize", onResize)
   }, [])
@@ -54,7 +55,7 @@ export function Navbar() {
           left: "50%",
           transform: "translateX(-50%)",
           zIndex: 50,
-          width: "min(calc(100vw - 32px), 1020px)",
+          width: "min(calc(100vw - 32px), 1120px)",
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
@@ -257,9 +258,9 @@ export function Navbar() {
         )}
       </AnimatePresence>
 
-      {/* Responsive: hamburger bajo 920px (5 links no caben en la píldora), CTA visible hasta 560px */}
+      {/* Responsive: hamburger bajo 1090px (6 links no caben en la píldora), CTA visible hasta 560px */}
       <style>{`
-        @media (max-width: 919px) {
+        @media (max-width: 1089px) {
           #nav-hamburger { display: flex !important; }
           nav { display: none !important; }
         }
