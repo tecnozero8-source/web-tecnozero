@@ -34,9 +34,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: 'https://www.tecnozero.cl/nosotros',
-      changeFrequency: 'yearly',
-      priority: 0.6,
-      lastModified: new Date('2026-05-01'),
+      changeFrequency: 'monthly',
+      priority: 0.7,
+      lastModified: new Date('2026-07-18'),
     },
     {
       url: 'https://www.tecnozero.cl/contacto',

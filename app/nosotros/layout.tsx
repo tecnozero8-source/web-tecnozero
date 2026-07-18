@@ -1,16 +1,16 @@
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Nosotros — Tecnozero SpA · Ingeniería RPA en La Serena",
+  title: "Nosotros — Tecnozero SpA · Ingeniería en Eficiencia · La Serena",
   description:
-    "Tecnozero SpA, fundada en 2019. PhD + Ingenieros Civiles Informáticos UTFSM. +20 robots en producción. Metro de Santiago, Walmart Chile. La Serena, Región de Coquimbo.",
+    "Empresa chilena de automatización fundada en 2019 en La Serena. Ingenieros UTFSM, +20 robots en producción, RPA + IA Agéntica. Automatizamos las decisiones críticas de Metro de Santiago, Walmart Chile y más.",
   alternates: { canonical: "https://www.tecnozero.cl/nosotros" },
   openGraph: {
-    title: "Nosotros — Tecnozero SpA · Ingeniería RPA en La Serena",
+    title: "Nosotros — Tecnozero SpA · Ingeniería en Eficiencia",
     description:
-      "Fundada en 2019. PhD + Ingenieros UTFSM. +20 robots en producción. Metro de Santiago, Walmart Chile.",
+      "Empresa chilena fundada en 2019 en La Serena. Ingenieros UTFSM, +20 robots en producción. Automatizamos decisiones críticas: nóminas, contratos y cumplimiento.",
     url: "https://www.tecnozero.cl/nosotros",
-    images: [{ url: "/logo-blanco.png", width: 800, height: 200, alt: "Tecnozero SpA equipo" }],
+    images: [{ url: "/nosotros/equipo-colaborando.jpg", width: 1400, height: 933, alt: "Equipo de Tecnozero SpA" }],
   },
 }
 
