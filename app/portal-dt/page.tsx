@@ -3,6 +3,7 @@
 import { motion, AnimatePresence } from "framer-motion"
 import { useState } from "react"
 import Link from "next/link"
+import { PhotoBand } from "../components/shared/PhotoBand"
 import {
   ArrowRight, CheckCircle2, Clock, FileText, Users, Zap,
   ChevronDown, ChevronUp, Upload, Shield, TrendingDown,
@@ -1045,6 +1046,13 @@ export default function PortalDTPage() {
       <Hero />
       <Pain />
       <HowItWorks />
+      <PhotoBand
+        src="/paginas/portal-dt-rrhh.jpg"
+        alt="Registro automático de contratos laborales en el Portal de la Dirección del Trabajo con robots RPA de Tecnozero"
+        eyebrow="Gestión laboral sin fricción"
+        caption="Del Excel al comprobante DT en minutos. Tu equipo firma el contrato, el robot lo registra."
+        accent="#1FB3E5"
+      />
       <OnboardingGuide />
       <Robots />
       <SocialProof />

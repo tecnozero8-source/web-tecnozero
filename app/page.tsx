@@ -2,6 +2,7 @@ import { Footer } from "./components/layout/Footer"
 import { HomeCTA } from "./components/home/HomeCTA"
 import { HomeCasos } from "./components/home/HomeCasos"
 import { HomeSoluciones } from "./components/home/HomeSoluciones"
+import { PhotoBand } from "./components/shared/PhotoBand"
 
 const homeJsonLd = {
   "@context": "https://schema.org",
@@ -349,6 +350,15 @@ export default function HomePage() {
           ))}
         </div>
       </section>
+
+      <PhotoBand
+        src="/paginas/home-operaciones.jpg"
+        alt="Equipo de Tecnozero operando robots de software y agentes de IA para empresas en Chile desde La Serena"
+        eyebrow="Operación real, en producción"
+        caption="Robots de software y agentes de IA trabajando hoy para Metro de Santiago, la gran minería del norte y Walmart Chile."
+        accent="#1FB3E5"
+      />
+
       <HomeSoluciones />
       <HomeCasos />
       <HomeCTA />

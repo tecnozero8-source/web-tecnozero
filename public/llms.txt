@@ -1,13 +1,18 @@
 # Tecnozero SpA
 
-> Tecnozero SpA es una empresa chilena de automatización de procesos críticos con RPA (Robotic Process Automation) e IA Agéntica, fundada en 2019 con sede en La Serena, Región de Coquimbo, Chile. Operamos +20 robots en producción para empresas medianas y grandes.
+> Tecnozero SpA es una empresa chilena de automatización de procesos críticos con RPA (Robotic Process Automation) e IA Agéntica, fundada en 2019 con sede en La Serena, Región de Coquimbo, Chile. Operamos +20 robots en producción para empresas medianas y grandes. Además integramos IA y agentes de IA de forma nativa dentro de plataformas web, con foco en EdTech (capacitación corporativa con IA).
 
 ## Productos principales
 
+- [Capacitación — AulaZero](https://www.tecnozero.cl/capacitacion): Plataforma EdTech propia con IA nativa. Cursos e-learning asincrónicos con tutor de IA disponible en cada lección, sandbox de práctica, certificado verificable y export para reportería interna. Incluye capacitación en prevención del acoso laboral (Ley Karin). Capacitación compatible con franquicia tributaria SENCE a través de OTECs. Pensada para empresas que necesitan formar equipos a su propio ritmo.
 - [Portal DT — Gestor Laboral 360](https://www.tecnozero.cl/portal-dt): Robot RPA que registra contratos en el Portal Dirección del Trabajo de Chile. 47 campos por ingreso, 45 segundos por registro, desde $640 CLP/registro (con volumen). Clientes: estudios contables, constructoras, empresas con nóminas complejas.
 - [MinePass](https://www.tecnozero.cl/mineria): Reduce la Acreditación de Ingreso de Contratistas (AIC) de 10 días hábiles a horas. Cumplimiento Sernageomin automatizado. +95% reducción en tiempos de inspección.
 - [VehiclePass](https://www.tecnozero.cl/mineria): Gestión documental de flota para faenas mineras. 0 vehículos con documentación vencida.
 - [TITAN — Agentes IA Enterprise](https://www.tecnozero.cl/agentes-ia): Agentes de IA autónomos para sistemas SAP, Oracle y ERP. Respuestas en <5 segundos vs 12 minutos manual. 10x más rápido. 90%+ precisión.
+
+## Capacidad diferenciadora
+
+- Plataformas web con IA nativa: desarrollamos productos web (SaaS, portales, EdTech) con IA y agentes de IA integrados desde la base, no como un añadido. Combinamos ingeniería de software, RPA y modelos de IA en un solo producto operable.
 
 ## Casos verificables
 
@@ -31,6 +36,10 @@
 - 401–800: $430 CLP/registro (0.0109 UF)
 - 801–2.000: $360 CLP/registro (0.0091 UF)
 - 2.001+: $290 CLP/registro (0.0073 UF)
+
+## Blog
+
+- [Blog Tecnozero](https://www.tecnozero.cl/blog): Artículos sobre automatización RPA, IA agéntica, agentes de IA en plataformas web y EdTech, cumplimiento laboral (Portal DT, Ley Karin), acreditación minera AIC e integración con sistemas ERP (SAP, Oracle) en el contexto chileno.
 
 ## Empresa
 

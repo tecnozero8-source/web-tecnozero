@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion"
 import { Brain, Zap, ArrowRight, CheckCircle2, X, Database, Cpu } from "lucide-react"
+import { PhotoBand } from "../components/shared/PhotoBand"
 
 /* ─── fade-up spring shared variant ───────────────────────────────── */
 const fadeUp = {
@@ -619,6 +620,14 @@ export default function AgentesIAPage() {
           </div>
         </div>
       </section>
+
+      <PhotoBand
+        src="/paginas/agentes-ia-datos.jpg"
+        alt="Infraestructura de datos y sistemas ERP SAP y Oracle donde operan los agentes de IA TITAN de Tecnozero"
+        eyebrow="Agentes IA sobre SAP y Oracle"
+        caption="Agentes que razonan y actúan dentro de tus sistemas enterprise. Respuestas en segundos, no en minutos."
+        accent="#A78BFA"
+      />
 
       {/* ═══════════════════════════════════════════════════════
           USE CASES — Dark background, horizontal stacked cards

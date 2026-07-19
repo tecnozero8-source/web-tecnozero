@@ -486,15 +486,46 @@ function ContactInfo() {
         ))}
       </motion.div>
 
-      {/* Decorative gradient orb */}
-      <div style={{
-        width: "200px",
-        height: "200px",
-        borderRadius: "50%",
-        background: `radial-gradient(circle, rgba(9,87,195,0.2) 0%, transparent 70%)`,
-        alignSelf: "center",
-        pointerEvents: "none",
-      }}/>
+      {/* Foto del equipo */}
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.7 }}
+        style={{
+          position: "relative" as const,
+          borderRadius: "16px",
+          overflow: "hidden",
+          border: "1px solid rgba(31,179,229,0.15)",
+        }}
+      >
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/paginas/contacto-serena.jpg"
+          alt="Equipo de Tecnozero conversando sobre un proyecto de automatización e inteligencia artificial en Chile"
+          loading="lazy"
+          style={{ display: "block", width: "100%", height: "auto" }}
+        />
+        <div style={{
+          position: "absolute" as const,
+          inset: 0,
+          background: "linear-gradient(180deg, transparent 45%, rgba(6,12,24,0.78) 100%)",
+          pointerEvents: "none",
+        }}/>
+        <p style={{
+          position: "absolute" as const,
+          left: "18px",
+          right: "18px",
+          bottom: "16px",
+          margin: 0,
+          fontSize: "0.82rem",
+          fontWeight: 600,
+          color: "#FFFFFF",
+          lineHeight: 1.4,
+          textShadow: "0 2px 16px rgba(0,0,0,0.5)",
+        }}>
+          Personas reales atendiendo tu proyecto, sin call centers ni intermediarios.
+        </p>
+      </motion.div>
     </div>
   )
 }

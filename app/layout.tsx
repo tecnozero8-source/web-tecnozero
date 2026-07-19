@@ -17,16 +17,22 @@ const BASE_URL = "https://www.tecnozero.cl"
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
   title: {
-    default: "Tecnozero — Automatización RPA e IA Agéntica · Chile",
+    default: "Tecnozero — RPA, IA Agéntica y EdTech · Chile",
     template: "%s · Tecnozero",
   },
   description:
-    "+20 robots en producción. Clientes: Metro de Santiago, Walmart Chile. Automatización RPA e IA Agéntica para procesos críticos. La Serena, Chile.",
+    "Automatización RPA, agentes de IA y plataformas web con IA nativa (EdTech) para empresas en Chile. +20 robots en producción: Metro de Santiago y Walmart Chile.",
   keywords: [
     "RPA Chile",
     "automatización procesos",
     "IA agéntica",
+    "agentes de IA",
     "robots software",
+    "plataformas web con IA",
+    "EdTech Chile",
+    "AulaZero",
+    "capacitación con IA empresas",
+    "Ley Karin capacitación",
     "Portal DT",
     "Dirección del Trabajo",
     "automatización minería",
@@ -43,9 +49,9 @@ export const metadata: Metadata = {
     locale: "es_CL",
     url: BASE_URL,
     siteName: "Tecnozero",
-    title: "Tecnozero — Automatización RPA e IA Agéntica · Chile",
+    title: "Tecnozero — RPA, IA Agéntica y EdTech · Chile",
     description:
-      "+20 robots en producción. Metro de Santiago, Walmart Chile. Evaluación gratuita de procesos. La Serena, Chile.",
+      "Automatización RPA, agentes de IA y plataformas web con IA nativa. +20 robots en producción. Metro de Santiago y Walmart Chile. Evaluación gratuita.",
     images: [
       {
         url: "/logo-blanco.png",
@@ -57,8 +63,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Tecnozero — Automatización RPA e IA Agéntica · Chile",
-    description: "+20 robots en producción. Metro de Santiago, Walmart Chile.",
+    title: "Tecnozero — RPA, IA Agéntica y EdTech · Chile",
+    description: "RPA, agentes de IA y plataformas web con IA nativa. +20 robots en producción en Chile.",
     images: ["/logo-blanco.png"],
   },
   alternates: {

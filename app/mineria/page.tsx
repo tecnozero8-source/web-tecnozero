@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion"
 import { Shield, CheckCircle2, ArrowRight, Clock, AlertTriangle, Truck } from "lucide-react"
+import { PhotoBand } from "../components/shared/PhotoBand"
 
 /* ─── Animation variant shared across sections ───────────────────── */
 const fadeUp = {
@@ -1141,6 +1142,14 @@ export default function MineriaPage() {
           </div>
         </div>
       </section>
+
+      <PhotoBand
+        src="/paginas/mineria-faena.jpg"
+        alt="Contratistas en faena minera con acreditación AIC digital lista mediante MinePass de Tecnozero"
+        eyebrow="Faena minera · Acreditación AIC"
+        caption="El contratista llega con su gente y con sus papeles listos. El proceso AIC que tardaba 10 días, hoy toma horas."
+        accent="#F5A020"
+      />
 
       {/* ═══════════════════════════════════════════════════════
           CASO DE USO MINERÍA
