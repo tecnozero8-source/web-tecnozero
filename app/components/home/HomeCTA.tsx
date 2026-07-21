@@ -50,10 +50,6 @@ export function HomeCTA() {
 
         {/* ── Top: Headline central ── */}
         <motion.div
-          initial={{ opacity: 0, y: 32 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ type: "spring", stiffness: 100, damping: 20 }}
           style={{ textAlign: "center" as const, marginBottom: "64px" }}
         >
           <div style={{
@@ -96,10 +92,6 @@ export function HomeCTA() {
 
         {/* ── Card glassmorphism central ── */}
         <motion.div
-          initial={{ opacity: 0, y: 32, scale: 0.96 }}
-          whileInView={{ opacity: 1, y: 0, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ type: "spring", stiffness: 90, damping: 20, delay: 0.15 }}
           className="cta-inner-card"
           style={{
             display: "grid",
@@ -220,10 +212,6 @@ export function HomeCTA() {
 
         {/* Prueba social final */}
         <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.4, duration: 0.6 }}
           style={{
             display: "flex", alignItems: "center", justifyContent: "center",
             gap: "32px", marginTop: "48px", flexWrap: "wrap" as const,

@@ -17,14 +17,6 @@ const B = {
   slate:  "#5A6880",
 }
 
-/* ─── Reveal animation variant ─────────────────────────────── */
-const reveal = (delay = 0) => ({
-  initial: { opacity: 0, y: 30 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: "-80px" },
-  transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] as [number, number, number, number], delay },
-})
-
 /* ═══════════════════════════════════════════════════════════
    1 · HERO
    ═══════════════════════════════════════════════════════════ */
@@ -69,7 +61,7 @@ function HeroSection() {
       }}>
         {/* Copy */}
         <div>
-          <motion.span {...reveal(0)} style={{
+          <motion.span style={{
             display: "inline-block",
             fontSize: "0.7rem",
             fontWeight: 800,
@@ -81,7 +73,7 @@ function HeroSection() {
             Sobre Tecnozero
           </motion.span>
 
-          <motion.h1 {...reveal(0.08)} style={{
+          <motion.h1 style={{
             fontFamily: "var(--font-display), system-ui, sans-serif",
             fontSize: "clamp(2.5rem, 4.6vw, 3.6rem)",
             fontWeight: 800,
@@ -101,7 +93,7 @@ function HeroSection() {
             </span>
           </motion.h1>
 
-          <motion.p {...reveal(0.16)} style={{
+          <motion.p style={{
             fontSize: "1.1rem",
             color: "rgba(255,255,255,0.74)",
             lineHeight: 1.72,
@@ -114,7 +106,7 @@ function HeroSection() {
             contratos, cumplimiento y gestión documental.
           </motion.p>
 
-          <motion.div {...reveal(0.24)} style={{ display: "flex", gap: "10px", flexWrap: "wrap" as const }}>
+          <motion.div style={{ display: "flex", gap: "10px", flexWrap: "wrap" as const }}>
             {pills.map((p) => (
               <div key={p.label} style={{
                 display: "inline-flex", alignItems: "center", gap: "8px",
@@ -130,7 +122,7 @@ function HeroSection() {
         </div>
 
         {/* Image */}
-        <motion.div className="nos-hero-img" {...reveal(0.2)} style={{
+        <motion.div className="nos-hero-img" style={{
           position: "relative",
           borderRadius: "22px",
           overflow: "hidden",
@@ -171,7 +163,7 @@ function HistoriaSection() {
         maxWidth: "1140px", margin: "0 auto",
         display: "grid", gridTemplateColumns: "0.9fr 1.1fr", gap: "56px", alignItems: "center",
       }}>
-        <motion.div className="nos-split-img" {...reveal(0)} style={{
+        <motion.div className="nos-split-img" style={{
           borderRadius: "20px", overflow: "hidden", height: "420px",
           boxShadow: "0 20px 60px rgba(9,87,195,0.12)",
         }}>
@@ -184,14 +176,14 @@ function HistoriaSection() {
         </motion.div>
 
         <div>
-          <motion.span {...reveal(0.05)} style={{
+          <motion.span style={{
             display: "inline-block", fontSize: "0.7rem", fontWeight: 800,
             letterSpacing: "0.14em", textTransform: "uppercase" as const, color: B.blue, marginBottom: "1rem",
           }}>
             Quiénes somos
           </motion.span>
 
-          <motion.h2 {...reveal(0.1)} style={{
+          <motion.h2 style={{
             fontFamily: "var(--font-display), system-ui, sans-serif",
             fontSize: "clamp(1.9rem, 3.4vw, 2.6rem)", fontWeight: 800,
             color: B.ink, letterSpacing: "-0.04em", lineHeight: 1.1, margin: "0 0 1.3rem",
@@ -199,19 +191,19 @@ function HistoriaSection() {
             Ingeniería en Eficiencia
           </motion.h2>
 
-          <motion.p {...reveal(0.16)} style={{ fontSize: "1.04rem", color: "#33415C", lineHeight: 1.76, margin: "0 0 1.1rem" }}>
+          <motion.p style={{ fontSize: "1.04rem", color: "#33415C", lineHeight: 1.76, margin: "0 0 1.1rem" }}>
             Tecnozero SpA nació en 2019 para resolver un problema concreto: los procesos
             manuales que las empresas grandes repiten miles de veces al mes, con multas y horas
             perdidas cada vez que algo falla. Convertimos ese trabajo en robots que operan solos,
             las 24 horas.
           </motion.p>
 
-          <motion.p {...reveal(0.22)} style={{ fontSize: "1.04rem", color: "#33415C", lineHeight: 1.76, margin: "0 0 1.6rem" }}>
+          <motion.p style={{ fontSize: "1.04rem", color: "#33415C", lineHeight: 1.76, margin: "0 0 1.6rem" }}>
             Nuestros robots y agentes no solo ejecutan. Razonan, detectan excepciones y actúan.
             Transitamos del RPA tradicional a la IA, y hoy caminamos hacia la IA Agéntica.
           </motion.p>
 
-          <motion.div {...reveal(0.28)} style={{
+          <motion.div style={{
             display: "flex", alignItems: "center", gap: "14px",
             padding: "18px 22px", borderRadius: "14px",
             backgroundColor: B.white, borderLeft: `4px solid ${B.cyan}`,
@@ -245,7 +237,7 @@ function NumerosSection() {
         display: "grid", gridTemplateColumns: "repeat(4, 1fr)",
       }}>
         {stats.map((s, i) => (
-          <motion.div key={s.value} {...reveal(i * 0.1)} style={{
+          <motion.div key={s.value} style={{
             padding: "0 28px",
             borderRight: i < 3 ? "1px solid rgba(255,255,255,0.08)" : "none",
             textAlign: "center" as const,
@@ -290,14 +282,14 @@ function OperacionesBand() {
         maxWidth: "1140px", margin: "0 auto", padding: "0 48px",
         display: "flex", flexDirection: "column" as const, justifyContent: "center",
       }}>
-        <motion.h3 {...reveal(0)} style={{
+        <motion.h3 style={{
           fontFamily: "var(--font-display), system-ui, sans-serif",
           fontSize: "clamp(1.5rem, 2.8vw, 2.1rem)", fontWeight: 800,
           color: B.white, letterSpacing: "-0.03em", margin: "0 0 10px", maxWidth: "620px", lineHeight: 1.15,
         }}>
           En producción hoy, monitoreado 24/7
         </motion.h3>
-        <motion.p {...reveal(0.1)} style={{
+        <motion.p style={{
           fontSize: "1rem", color: "rgba(255,255,255,0.72)", maxWidth: "540px", lineHeight: 1.65, margin: 0,
         }}>
           Cada robot corre sobre infraestructura AWS cifrada, con alertas automáticas
@@ -322,7 +314,7 @@ function PilaresSection() {
   return (
     <section className="nos-section" style={{ backgroundColor: B.light1, padding: "104px 48px" }}>
       <div style={{ maxWidth: "1140px", margin: "0 auto" }}>
-        <motion.div {...reveal(0)} style={{ textAlign: "center" as const, marginBottom: "56px" }}>
+        <motion.div style={{ textAlign: "center" as const, marginBottom: "56px" }}>
           <span style={{
             display: "inline-block", fontSize: "0.7rem", fontWeight: 800,
             letterSpacing: "0.14em", textTransform: "uppercase" as const, color: B.blue, marginBottom: "0.9rem",
@@ -340,7 +332,7 @@ function PilaresSection() {
 
         <div className="nos-pilares-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "20px" }}>
           {pilares.map((p, i) => (
-            <motion.div key={p.title} {...reveal(i * 0.08)}
+            <motion.div key={p.title}
               whileHover={{ y: -4, boxShadow: "0 18px 48px rgba(9,87,195,0.12)" }}
               style={{
                 backgroundColor: B.white, borderRadius: "16px", padding: "30px",
@@ -389,7 +381,7 @@ function HacemosSection() {
   return (
     <section className="nos-section" style={{ backgroundColor: B.dark, padding: "104px 48px" }}>
       <div style={{ maxWidth: "1140px", margin: "0 auto" }}>
-        <motion.div {...reveal(0)} style={{ textAlign: "center" as const, marginBottom: "56px" }}>
+        <motion.div style={{ textAlign: "center" as const, marginBottom: "56px" }}>
           <span style={{
             display: "inline-block", fontSize: "0.7rem", fontWeight: 800,
             letterSpacing: "0.14em", textTransform: "uppercase" as const, color: B.cyan, marginBottom: "0.9rem",
@@ -407,7 +399,7 @@ function HacemosSection() {
 
         <div className="nos-hacemos-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "20px" }}>
           {lineas.map((l, i) => (
-            <motion.div key={l.tag} {...reveal(i * 0.1)} style={{
+            <motion.div key={l.tag} style={{
               backgroundColor: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.09)",
               borderRadius: "18px", padding: "30px",
             }}>
@@ -454,7 +446,7 @@ function SectoresSection() {
   return (
     <section className="nos-section" style={{ backgroundColor: B.light2, padding: "104px 48px" }}>
       <div style={{ maxWidth: "1140px", margin: "0 auto" }}>
-        <motion.div {...reveal(0)} style={{ textAlign: "center" as const, marginBottom: "56px" }}>
+        <motion.div style={{ textAlign: "center" as const, marginBottom: "56px" }}>
           <span style={{
             display: "inline-block", fontSize: "0.7rem", fontWeight: 800,
             letterSpacing: "0.14em", textTransform: "uppercase" as const, color: B.blue, marginBottom: "0.9rem",
@@ -472,7 +464,7 @@ function SectoresSection() {
 
         <div className="nos-sectores-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "20px" }}>
           {sectores.map((s, i) => (
-            <motion.div key={s.title} {...reveal(i * 0.1)}
+            <motion.div key={s.title}
               whileHover={{ y: -4, boxShadow: `0 16px 44px ${s.accent}22` }}
               style={{
                 backgroundColor: B.white, borderRadius: "16px", padding: "30px",
@@ -511,20 +503,20 @@ function CasoSection() {
         display: "grid", gridTemplateColumns: "1.05fr 0.95fr", gap: "52px", alignItems: "center",
       }}>
         <div>
-          <motion.span {...reveal(0)} style={{
+          <motion.span style={{
             display: "inline-block", fontSize: "0.7rem", fontWeight: 800,
             letterSpacing: "0.14em", textTransform: "uppercase" as const, color: B.cyan, marginBottom: "1rem",
           }}>
             Caso de éxito
           </motion.span>
-          <motion.h2 {...reveal(0.08)} style={{
+          <motion.h2 style={{
             fontFamily: "var(--font-display), system-ui, sans-serif",
             fontSize: "clamp(1.8rem, 3.2vw, 2.4rem)", fontWeight: 800,
             color: B.white, letterSpacing: "-0.035em", lineHeight: 1.12, margin: "0 0 1.2rem",
           }}>
             Metro de Santiago: el proyecto que lo cambió todo
           </motion.h2>
-          <motion.p {...reveal(0.14)} style={{
+          <motion.p style={{
             fontSize: "1.02rem", color: "rgba(255,255,255,0.72)", lineHeight: 1.74, margin: "0 0 1.8rem",
           }}>
             En septiembre de 2023, Metro nos convocó con un plazo imposible: 4.600 contratos
@@ -533,7 +525,7 @@ function CasoSection() {
             de 9 robots que cuida el ciclo laboral de 4.600 personas.
           </motion.p>
 
-          <motion.div {...reveal(0.2)} className="nos-kpis" style={{ display: "flex", gap: "28px", flexWrap: "wrap" as const }}>
+          <motion.div className="nos-kpis" style={{ display: "flex", gap: "28px", flexWrap: "wrap" as const }}>
             {kpis.map((k) => (
               <div key={k.label}>
                 <div style={{
@@ -548,7 +540,7 @@ function CasoSection() {
           </motion.div>
         </div>
 
-        <motion.div className="nos-split-img" {...reveal(0.15)} style={{
+        <motion.div className="nos-split-img" style={{
           borderRadius: "20px", overflow: "hidden", height: "400px",
           border: "1px solid rgba(255,255,255,0.10)", boxShadow: "0 26px 70px rgba(0,0,0,0.5)",
         }}>
@@ -563,13 +555,13 @@ function CasoSection() {
 
       {/* Franja de clientes */}
       <div style={{ maxWidth: "1140px", margin: "72px auto 0" }}>
-        <motion.p {...reveal(0)} style={{
+        <motion.p style={{
           fontSize: "0.72rem", fontWeight: 700, letterSpacing: "0.12em",
           textTransform: "uppercase" as const, color: "rgba(255,255,255,0.4)", textAlign: "center" as const, margin: "0 0 22px",
         }}>
           Confían en Tecnozero
         </motion.p>
-        <motion.div {...reveal(0.08)} className="nos-clientes" style={{
+        <motion.div className="nos-clientes" style={{
           display: "flex", justifyContent: "center", alignItems: "center",
           gap: "16px", flexWrap: "wrap" as const,
         }}>
@@ -601,7 +593,7 @@ function MetodologiaSection() {
   return (
     <section className="nos-section" style={{ backgroundColor: B.light1, padding: "104px 48px" }}>
       <div style={{ maxWidth: "1140px", margin: "0 auto" }}>
-        <motion.div {...reveal(0)} style={{ textAlign: "center" as const, marginBottom: "56px" }}>
+        <motion.div style={{ textAlign: "center" as const, marginBottom: "56px" }}>
           <span style={{
             display: "inline-block", fontSize: "0.7rem", fontWeight: 800,
             letterSpacing: "0.14em", textTransform: "uppercase" as const, color: B.blue, marginBottom: "0.9rem",
@@ -622,7 +614,7 @@ function MetodologiaSection() {
 
         <div className="nos-metodo-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "18px" }}>
           {pasos.map((p, i) => (
-            <motion.div key={p.fase} {...reveal(i * 0.08)} style={{
+            <motion.div key={p.fase} style={{
               backgroundColor: B.white, borderRadius: "16px", padding: "26px",
               boxShadow: "0 2px 20px rgba(9,87,195,0.06)", position: "relative",
             }}>
@@ -663,7 +655,7 @@ function LiderazgoSection() {
   return (
     <section className="nos-section" style={{ backgroundColor: B.dark2, padding: "104px 48px" }}>
       <div style={{ maxWidth: "1000px", margin: "0 auto" }}>
-        <motion.div {...reveal(0)} style={{ textAlign: "center" as const, marginBottom: "48px" }}>
+        <motion.div style={{ textAlign: "center" as const, marginBottom: "48px" }}>
           <span style={{
             display: "inline-block", fontSize: "0.7rem", fontWeight: 800,
             letterSpacing: "0.14em", textTransform: "uppercase" as const, color: B.cyan, marginBottom: "0.9rem",
@@ -684,7 +676,7 @@ function LiderazgoSection() {
 
         <div className="nos-lider-grid" style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "20px", marginBottom: "40px" }}>
           {personas.map((p, i) => (
-            <motion.div key={p.name} {...reveal(i * 0.1)} style={{
+            <motion.div key={p.name} style={{
               display: "flex", alignItems: "center", gap: "18px",
               backgroundColor: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)",
               borderRadius: "16px", padding: "24px",
@@ -711,7 +703,7 @@ function LiderazgoSection() {
           ))}
         </div>
 
-        <motion.div {...reveal(0.15)} className="nos-contacto" style={{
+        <motion.div className="nos-contacto" style={{
           display: "flex", justifyContent: "center", alignItems: "center",
           gap: "12px", flexWrap: "wrap" as const,
         }}>
@@ -757,17 +749,17 @@ function CTASection() {
         backgroundSize: "52px 52px", pointerEvents: "none",
       }} />
       <div style={{ maxWidth: "680px", margin: "0 auto", textAlign: "center" as const, position: "relative", zIndex: 2 }}>
-        <motion.h2 {...reveal(0)} style={{
+        <motion.h2 style={{
           fontFamily: "var(--font-display), system-ui, sans-serif",
           fontSize: "clamp(2rem, 3.4vw, 2.7rem)", fontWeight: 800,
           color: B.white, letterSpacing: "-0.04em", marginBottom: "14px",
         }}>
           Hablemos de tu operación
         </motion.h2>
-        <motion.p {...reveal(0.1)} style={{ fontSize: "0.98rem", color: "rgba(255,255,255,0.66)", marginBottom: "38px" }}>
+        <motion.p style={{ fontSize: "0.98rem", color: "rgba(255,255,255,0.66)", marginBottom: "38px" }}>
           Evaluación sin costo. Respuesta en 24 horas.
         </motion.p>
-        <motion.div {...reveal(0.2)} style={{ display: "flex", gap: "14px", justifyContent: "center", flexWrap: "wrap" as const }}>
+        <motion.div style={{ display: "flex", gap: "14px", justifyContent: "center", flexWrap: "wrap" as const }}>
           <motion.div whileHover={{ scale: 1.04, y: -2 }} whileTap={{ scale: 0.97 }}>
             <Link href="/contacto" style={{
               display: "inline-flex", alignItems: "center", padding: "16px 36px",

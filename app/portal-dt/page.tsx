@@ -10,20 +10,6 @@ import {
   AlertCircle, Sparkles
 } from "lucide-react"
 
-// ─── Animación base ──────────────────────────────────────────────────────────
-
-const fadeUp = {
-  initial: { opacity: 0, y: 28 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true },
-  transition: { type: "spring" as const, stiffness: 90, damping: 20 },
-}
-
-const fadeUpDelay = (delay: number) => ({
-  ...fadeUp,
-  transition: { ...fadeUp.transition, delay },
-})
-
 // ─── Colores ─────────────────────────────────────────────────────────────────
 
 const C = {
@@ -51,9 +37,6 @@ const WORKERS = [
 function TerminalRow({ rut, nombre, tipo, delay }: { rut: string; nombre: string; tipo: string; delay: number }) {
   return (
     <motion.div
-      initial={{ opacity: 0, x: 12 }}
-      animate={{ opacity: 1, x: 0 }}
-      transition={{ type: "spring" as const, stiffness: 80, damping: 18, delay }}
       style={{
         display: "grid",
         gridTemplateColumns: "140px 1fr 200px 80px",
@@ -71,9 +54,6 @@ function TerminalRow({ rut, nombre, tipo, delay }: { rut: string; nombre: string
       <span style={{ color: "#CBD5E1" }}>{nombre}</span>
       <span style={{ color: "#94A3B8", fontSize: "0.68rem" }}>{tipo}</span>
       <motion.span
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: delay + 0.4 }}
         style={{
           color: C.lime,
           fontWeight: 700,
@@ -114,7 +94,7 @@ function Hero() {
 
         {/* Texto */}
         <div>
-          <motion.div {...fadeUpDelay(0)} style={{
+          <motion.div style={{
             display: "inline-flex", alignItems: "center", gap: "8px",
             backgroundColor: `${C.blue}22`, border: `1px solid ${C.blue}44`,
             borderRadius: "100px", padding: "6px 16px", marginBottom: "24px",
@@ -125,7 +105,7 @@ function Hero() {
             </span>
           </motion.div>
 
-          <motion.h1 {...fadeUpDelay(0.08)} style={{
+          <motion.h1 style={{
             fontSize: "clamp(2rem, 4vw, 3.1rem)",
             fontWeight: 800,
             lineHeight: 1.15,
@@ -138,7 +118,7 @@ function Hero() {
             sin tocarlos.
           </motion.h1>
 
-          <motion.p {...fadeUpDelay(0.16)} style={{
+          <motion.p style={{
             fontSize: "1.1rem",
             lineHeight: 1.7,
             color: "#94A3B8",
@@ -149,7 +129,7 @@ function Hero() {
             y los registra automáticamente. <strong style={{ color: "#CBD5E1" }}>45 segundos por trabajador, cero errores manuales.</strong>
           </motion.p>
 
-          <motion.div {...fadeUpDelay(0.22)} style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
+          <motion.div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
             <Link href="/checkout" style={{ textDecoration: "none" }}>
               <div style={{
                 display: "flex", alignItems: "center", gap: "8px",
@@ -177,7 +157,7 @@ function Hero() {
           </motion.div>
 
           {/* Stats */}
-          <motion.div {...fadeUpDelay(0.30)} style={{
+          <motion.div style={{
             display: "flex", gap: "32px", marginTop: "48px",
             paddingTop: "32px", borderTop: "1px solid rgba(255,255,255,0.08)",
           }}>
@@ -195,7 +175,7 @@ function Hero() {
         </div>
 
         {/* Terminal */}
-        <motion.div {...fadeUpDelay(0.12)} style={{
+        <motion.div style={{
           backgroundColor: "#040B18",
           border: "1px solid rgba(255,255,255,0.08)",
           borderRadius: "16px",
@@ -237,9 +217,6 @@ function Hero() {
 
           {/* Footer */}
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 2.4 }}
             style={{
               padding: "12px 16px",
               backgroundColor: `${C.lime}10`,
@@ -286,7 +263,7 @@ function Pain() {
   return (
     <section style={{ backgroundColor: C.bgPage, padding: "96px 24px" }}>
       <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
-        <motion.div {...fadeUp} style={{ textAlign: "center", marginBottom: "56px" }}>
+        <motion.div style={{ textAlign: "center", marginBottom: "56px" }}>
           <h2 style={{ fontSize: "clamp(1.6rem, 3vw, 2.3rem)", fontWeight: 800, color: C.textMain, marginBottom: "14px" }}>
             ¿Te suena familiar?
           </h2>
@@ -297,7 +274,7 @@ function Pain() {
 
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "24px" }}>
           {pains.map((p, i) => (
-            <motion.div key={p.title} {...fadeUpDelay(i * 0.1)} style={{
+            <motion.div key={p.title} style={{
               backgroundColor: C.bgCard,
               borderRadius: "16px",
               padding: "32px",
@@ -353,7 +330,7 @@ function HowItWorks() {
   return (
     <section style={{ backgroundColor: C.dark, padding: "96px 24px" }}>
       <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
-        <motion.div {...fadeUp} style={{ textAlign: "center", marginBottom: "64px" }}>
+        <motion.div style={{ textAlign: "center", marginBottom: "64px" }}>
           <h2 style={{ fontSize: "clamp(1.6rem, 3vw, 2.3rem)", fontWeight: 800, color: "#FFFFFF", marginBottom: "14px" }}>
             Tan simple como subir un archivo
           </h2>
@@ -364,7 +341,7 @@ function HowItWorks() {
 
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "2px", position: "relative" }}>
           {steps.map((s, i) => (
-            <motion.div key={s.n} {...fadeUpDelay(i * 0.12)} style={{
+            <motion.div key={s.n} style={{
               backgroundColor: C.darkCard,
               padding: "36px 32px",
               position: "relative",
@@ -415,7 +392,7 @@ function OnboardingGuide() {
       <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
 
         {/* Header */}
-        <motion.div {...fadeUp} style={{ marginBottom: "56px" }}>
+        <motion.div style={{ marginBottom: "56px" }}>
           <p style={{
             fontSize: "0.68rem", fontWeight: 800,
             letterSpacing: "0.14em", textTransform: "uppercase" as const,
@@ -465,7 +442,6 @@ function OnboardingGuide() {
           {steps.map((s, i) => (
             <motion.div
               key={s.n}
-              {...fadeUpDelay(i * 0.07)}
               style={{
                 backgroundColor: C.bgCard,
                 borderRadius: "14px",
@@ -508,7 +484,6 @@ function OnboardingGuide() {
 
         {/* Banner de soporte */}
         <motion.div
-          {...fadeUpDelay(0.3)}
           style={{
             marginTop: "40px",
             backgroundColor: `${C.blue}08`,
@@ -608,7 +583,7 @@ function Robots() {
   return (
     <section style={{ backgroundColor: C.bgPage, padding: "96px 24px" }}>
       <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
-        <motion.div {...fadeUp} style={{ textAlign: "center", marginBottom: "56px" }}>
+        <motion.div style={{ textAlign: "center", marginBottom: "56px" }}>
           <h2 style={{ fontSize: "clamp(1.6rem, 3vw, 2.3rem)", fontWeight: 800, color: C.textMain, marginBottom: "14px" }}>
             3 robots para toda tu gestión DT
           </h2>
@@ -619,7 +594,7 @@ function Robots() {
 
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "24px" }}>
           {robots.map((r, i) => (
-            <motion.div key={r.badge} {...fadeUpDelay(i * 0.1)} style={{
+            <motion.div key={r.badge} style={{
               backgroundColor: C.bgCard,
               borderRadius: "20px",
               overflow: "hidden",
@@ -693,7 +668,7 @@ function SocialProof() {
   return (
     <section style={{ backgroundColor: C.darkCard, padding: "96px 24px" }}>
       <div style={{ maxWidth: "1000px", margin: "0 auto" }}>
-        <motion.div {...fadeUp} style={{ textAlign: "center", marginBottom: "56px" }}>
+        <motion.div style={{ textAlign: "center", marginBottom: "56px" }}>
           <h2 style={{ fontSize: "clamp(1.5rem, 3vw, 2.2rem)", fontWeight: 800, color: "#FFFFFF", marginBottom: "14px" }}>
             Lo que dicen quienes ya automatizan
           </h2>
@@ -701,7 +676,7 @@ function SocialProof() {
 
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "24px" }}>
           {testimonials.map((t, i) => (
-            <motion.div key={t.name} {...fadeUpDelay(i * 0.12)} style={{
+            <motion.div key={t.name} style={{
               backgroundColor: "#0D1A2E",
               borderRadius: "16px",
               padding: "32px",
@@ -751,7 +726,7 @@ function Pricing() {
   return (
     <section id="precios" style={{ backgroundColor: C.bgPage, padding: "96px 24px" }}>
       <div style={{ maxWidth: "1000px", margin: "0 auto" }}>
-        <motion.div {...fadeUp} style={{ textAlign: "center", marginBottom: "56px" }}>
+        <motion.div style={{ textAlign: "center", marginBottom: "56px" }}>
           <h2 style={{ fontSize: "clamp(1.6rem, 3vw, 2.3rem)", fontWeight: 800, color: C.textMain, marginBottom: "14px" }}>
             Más barato que hacerlo manual. Siempre.
           </h2>
@@ -762,7 +737,7 @@ function Pricing() {
 
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "24px" }}>
           {/* Tabla */}
-          <motion.div {...fadeUpDelay(0.05)} style={{
+          <motion.div style={{
             backgroundColor: C.bgCard,
             borderRadius: "20px",
             overflow: "hidden",
@@ -803,7 +778,7 @@ function Pricing() {
           </motion.div>
 
           {/* Comparativa */}
-          <motion.div {...fadeUpDelay(0.1)} style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+          <motion.div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
             <div style={{
               backgroundColor: `${C.blue}10`,
               border: `1px solid ${C.blue}25`,
@@ -877,7 +852,7 @@ function TrialBanner() {
       padding: "96px 24px",
     }}>
       <div style={{ maxWidth: "720px", margin: "0 auto", textAlign: "center" }}>
-        <motion.div {...fadeUp}>
+        <motion.div>
           <div style={{
             display: "inline-flex", alignItems: "center", gap: "8px",
             backgroundColor: "rgba(255,255,255,0.12)",
@@ -969,7 +944,7 @@ function FAQ() {
   return (
     <section style={{ backgroundColor: C.dark, padding: "96px 24px" }}>
       <div style={{ maxWidth: "720px", margin: "0 auto" }}>
-        <motion.div {...fadeUp} style={{ textAlign: "center", marginBottom: "56px" }}>
+        <motion.div style={{ textAlign: "center", marginBottom: "56px" }}>
           <h2 style={{ fontSize: "clamp(1.5rem, 3vw, 2.2rem)", fontWeight: 800, color: "#FFFFFF", marginBottom: "14px" }}>
             Preguntas frecuentes
           </h2>
@@ -977,7 +952,7 @@ function FAQ() {
 
         <div style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
           {FAQS.map((faq, i) => (
-            <motion.div key={i} {...fadeUpDelay(i * 0.07)}>
+            <motion.div key={i}>
               <div
                 onClick={() => setOpen(open === i ? null : i)}
                 style={{
@@ -998,10 +973,7 @@ function FAQ() {
                 <AnimatePresence>
                   {open === i && (
                     <motion.div
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: "auto" }}
                       exit={{ opacity: 0, height: 0 }}
-                      transition={{ duration: 0.2 }}
                       style={{ overflow: "hidden" }}
                     >
                       <p style={{

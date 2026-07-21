@@ -15,12 +15,6 @@ import {
 import { PhotoBand } from "../components/shared/PhotoBand"
 
 /* ─── Animation variant shared across sections ───────────────────── */
-const fadeUp = {
-  initial: { opacity: 0, y: 24 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true },
-  transition: { type: "spring" as const, stiffness: 100, damping: 20 },
-}
 
 const ACCENT = "#1FB3E5"
 
@@ -75,9 +69,6 @@ function FilaDecision({
 
   return (
     <motion.div
-      initial={{ opacity: 0, x: 16 }}
-      animate={{ opacity: 1, x: 0 }}
-      transition={{ delay, type: "spring", stiffness: 90, damping: 20 }}
       style={{
         display: "grid",
         gridTemplateColumns: "auto 1fr auto",
@@ -173,9 +164,6 @@ function FilaDecision({
 function BandejaCard() {
   return (
     <motion.div
-      initial={{ opacity: 0, x: 48, scale: 0.96 }}
-      animate={{ opacity: 1, x: 0, scale: 1 }}
-      transition={{ type: "spring", stiffness: 65, damping: 18, delay: 0.5 }}
       style={{
         position: "relative",
         width: "100%",
@@ -455,25 +443,10 @@ export default function LicitacionesPage() {
 
         {/* ── Columna izquierda ── */}
         <motion.div
-          initial="hidden"
-          animate="show"
-          variants={{
-            hidden: {},
-            show: { transition: { staggerChildren: 0.14, delayChildren: 0.1 } },
-          }}
           className="lic-hero-left"
           style={{ padding: "0 48px 88px 80px", position: "relative", zIndex: 2 }}
         >
           <motion.div
-            variants={{
-              hidden: { opacity: 0, y: 16, filter: "blur(4px)" },
-              show: {
-                opacity: 1,
-                y: 0,
-                filter: "blur(0px)",
-                transition: { type: "spring", stiffness: 120, damping: 20 },
-              },
-            }}
           >
             <div
               style={{
@@ -532,20 +505,6 @@ export default function LicitacionesPage() {
             ].map((line, i) => (
               <motion.div
                 key={i}
-                variants={{
-                  hidden: { opacity: 0, y: 48, filter: "blur(8px)" },
-                  show: {
-                    opacity: 1,
-                    y: 0,
-                    filter: "blur(0px)",
-                    transition: {
-                      type: "spring",
-                      stiffness: 80,
-                      damping: 18,
-                      delay: i * 0.06,
-                    },
-                  },
-                }}
                 style={{ display: "block", color: line.color }}
               >
                 {line.text}
@@ -554,14 +513,6 @@ export default function LicitacionesPage() {
           </h1>
 
           <motion.p
-            variants={{
-              hidden: { opacity: 0, y: 20 },
-              show: {
-                opacity: 1,
-                y: 0,
-                transition: { type: "spring", stiffness: 100, damping: 22 },
-              },
-            }}
             style={{
               fontSize: "1.05rem",
               color: "rgba(255,255,255,0.78)",
@@ -577,14 +528,6 @@ export default function LicitacionesPage() {
           </motion.p>
 
           <motion.div
-            variants={{
-              hidden: { opacity: 0, y: 16 },
-              show: {
-                opacity: 1,
-                y: 0,
-                transition: { type: "spring", stiffness: 100, damping: 22 },
-              },
-            }}
             style={{
               display: "inline-flex",
               alignItems: "center",
@@ -612,15 +555,6 @@ export default function LicitacionesPage() {
           </motion.div>
 
           <motion.div
-            variants={{
-              hidden: { opacity: 0, y: 20, scale: 0.97 },
-              show: {
-                opacity: 1,
-                y: 0,
-                scale: 1,
-                transition: { type: "spring", stiffness: 100, damping: 20 },
-              },
-            }}
             style={{ display: "flex", gap: "12px", flexWrap: "wrap" as const }}
           >
             <motion.a
@@ -748,7 +682,7 @@ export default function LicitacionesPage() {
               alignItems: "center",
             }}
           >
-            <motion.div {...fadeUp}>
+            <motion.div>
               <p
                 style={{
                   fontSize: "0.7rem",
@@ -802,7 +736,6 @@ export default function LicitacionesPage() {
             </motion.div>
 
             <motion.div
-              {...fadeUp}
               style={{
                 backgroundColor: "#F8FAFF",
                 border: "1px solid #E8EFF8",
@@ -941,7 +874,7 @@ export default function LicitacionesPage() {
         style={{ backgroundColor: "#FFFFFF", padding: "96px 48px" }}
       >
         <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
-          <motion.div {...fadeUp} style={{ marginBottom: "56px" }}>
+          <motion.div style={{ marginBottom: "56px" }}>
             <p
               style={{
                 fontSize: "0.7rem",
@@ -981,15 +914,6 @@ export default function LicitacionesPage() {
             {PASOS.map((p, i) => (
               <motion.div
                 key={p.n}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{
-                  delay: i * 0.1,
-                  type: "spring",
-                  stiffness: 100,
-                  damping: 20,
-                }}
                 style={{
                   backgroundColor: "#F8FAFF",
                   border: "1px solid #E8EFF8",
@@ -1064,7 +988,7 @@ export default function LicitacionesPage() {
         <div
           style={{ maxWidth: "1100px", margin: "0 auto", position: "relative", zIndex: 2 }}
         >
-          <motion.div {...fadeUp} style={{ marginBottom: "48px" }}>
+          <motion.div style={{ marginBottom: "48px" }}>
             <p
               style={{
                 fontSize: "0.7rem",
@@ -1107,7 +1031,6 @@ export default function LicitacionesPage() {
           </motion.div>
 
           <motion.div
-            {...fadeUp}
             className="lic-compare-scroll"
             style={{
               borderRadius: "18px",
@@ -1224,7 +1147,6 @@ export default function LicitacionesPage() {
           </motion.div>
 
           <motion.div
-            {...fadeUp}
             style={{
               display: "flex",
               gap: "14px",
@@ -1275,7 +1197,7 @@ export default function LicitacionesPage() {
         }}
       >
         <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
-          <motion.div {...fadeUp} style={{ marginBottom: "48px" }}>
+          <motion.div style={{ marginBottom: "48px" }}>
             <p
               style={{
                 fontSize: "0.7rem",
@@ -1309,7 +1231,6 @@ export default function LicitacionesPage() {
 
           {/* Ancla de valor: se lee antes que los precios, a propósito */}
           <motion.div
-            {...fadeUp}
             className="lic-ancla-grid"
             style={{
               display: "grid",
@@ -1389,15 +1310,6 @@ export default function LicitacionesPage() {
             {PLANES.map((p, i) => (
               <motion.div
                 key={p.nombre}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{
-                  delay: i * 0.1,
-                  type: "spring",
-                  stiffness: 100,
-                  damping: 20,
-                }}
                 style={{
                   display: "flex",
                   flexDirection: "column" as const,
@@ -1572,7 +1484,6 @@ export default function LicitacionesPage() {
           style={{ maxWidth: "1100px", margin: "0 auto", position: "relative", zIndex: 2 }}
         >
           <motion.div
-            {...fadeUp}
             className="lic-cta-grid"
             style={{
               display: "grid",

@@ -18,12 +18,6 @@ import {
 const GREEN = "#22C55E"
 
 /* ─── Variant de animación compartido (patrón del sitio) ──────────── */
-const fadeUp = {
-  initial: { opacity: 0, y: 24 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true },
-  transition: { type: "spring" as const, stiffness: 100, damping: 20 },
-}
 
 /* ─── Datos de los cursos ─────────────────────────────────────────── */
 const cursos = [
@@ -355,7 +349,7 @@ export default function CapacitacionPage() {
       <section className="cap-section" style={{ backgroundColor: "#FFFFFF", padding: "96px 48px", borderTop: "1px solid #E8EFF8" }}>
         <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
           <div className="cap-problema-grid" style={{ display: "grid", gridTemplateColumns: "1.15fr 0.85fr", gap: "48px", alignItems: "center" }}>
-          <motion.div {...fadeUp}>
+          <motion.div>
             <p style={{ fontSize: "0.7rem", fontWeight: 800, letterSpacing: "0.16em", textTransform: "uppercase", color: "#0957C3", margin: "0 0 16px" }}>
               Por qué ahora
             </p>
@@ -382,7 +376,7 @@ export default function CapacitacionPage() {
             </p>
           </motion.div>
 
-          <motion.div {...fadeUp} transition={{ ...fadeUp.transition, delay: 0.08 }}>
+          <motion.div>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/capacitacion/conversacion-equipo.jpg"
@@ -403,8 +397,6 @@ export default function CapacitacionPage() {
 
           {/* Fila de datos */}
           <motion.div
-            {...fadeUp}
-            transition={{ ...fadeUp.transition, delay: 0.1 }}
             className="cap-facts"
             style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "20px", marginTop: "56px" }}
           >
@@ -446,7 +438,7 @@ export default function CapacitacionPage() {
           }}
         />
         <div style={{ maxWidth: "1100px", margin: "0 auto", position: "relative", zIndex: 1 }}>
-          <motion.div {...fadeUp} style={{ marginBottom: "56px" }}>
+          <motion.div style={{ marginBottom: "56px" }}>
             <p style={{ fontSize: "0.7rem", fontWeight: 800, letterSpacing: "0.16em", textTransform: "uppercase", color: GREEN, margin: "0 0 16px" }}>
               Los cursos
             </p>
@@ -471,8 +463,6 @@ export default function CapacitacionPage() {
               return (
                 <motion.div
                   key={c.titulo}
-                  {...fadeUp}
-                  transition={{ ...fadeUp.transition, delay: i * 0.08 }}
                   style={{
                     padding: "32px 28px",
                     borderRadius: "20px",
@@ -530,8 +520,6 @@ export default function CapacitacionPage() {
 
           {/* Nota SENCE — fórmula segura aprobada (D3) */}
           <motion.p
-            {...fadeUp}
-            transition={{ ...fadeUp.transition, delay: 0.24 }}
             style={{
               display: "flex",
               alignItems: "center",
@@ -554,7 +542,7 @@ export default function CapacitacionPage() {
           ══════════════════════════════════════════════════════════════ */}
       <section className="cap-section" style={{ backgroundColor: "#F8FAFF", padding: "96px 48px", borderTop: "1px solid #E8EFF8" }}>
         <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
-          <motion.div {...fadeUp} style={{ marginBottom: "56px" }}>
+          <motion.div style={{ marginBottom: "56px" }}>
             <p style={{ fontSize: "0.7rem", fontWeight: 800, letterSpacing: "0.16em", textTransform: "uppercase", color: "#0957C3", margin: "0 0 16px" }}>
               Cómo funciona
             </p>
@@ -579,8 +567,6 @@ export default function CapacitacionPage() {
               return (
                 <motion.div
                   key={i}
-                  {...fadeUp}
-                  transition={{ ...fadeUp.transition, delay: i * 0.08 }}
                   style={{
                     padding: "28px 24px",
                     borderRadius: "18px",
@@ -633,7 +619,7 @@ export default function CapacitacionPage() {
           ══════════════════════════════════════════════════════════════ */}
       <section className="cap-section" style={{ backgroundColor: "#0B1425", padding: "96px 48px" }}>
         <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
-          <motion.div {...fadeUp} style={{ marginBottom: "56px" }}>
+          <motion.div style={{ marginBottom: "56px" }}>
             <p style={{ fontSize: "0.7rem", fontWeight: 800, letterSpacing: "0.16em", textTransform: "uppercase", color: GREEN, margin: "0 0 16px" }}>
               Para quién
             </p>
@@ -657,8 +643,6 @@ export default function CapacitacionPage() {
               return (
                 <motion.div
                   key={a.titulo}
-                  {...fadeUp}
-                  transition={{ ...fadeUp.transition, delay: i * 0.08 }}
                   style={{
                     borderRadius: "20px",
                     border: "1px solid rgba(255,255,255,0.07)",
@@ -741,7 +725,7 @@ export default function CapacitacionPage() {
           }}
         />
         <div className="cap-section" style={{ maxWidth: "820px", margin: "0 auto", padding: "88px 48px", position: "relative", zIndex: 1, textAlign: "center" }}>
-          <motion.div {...fadeUp}>
+          <motion.div>
             <h2
               style={{
                 fontFamily: "var(--font-display), system-ui, sans-serif",

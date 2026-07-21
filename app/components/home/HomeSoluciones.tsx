@@ -205,10 +205,6 @@ export function HomeSoluciones() {
 
         {/* Header editorial */}
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ type: "spring", stiffness: 100, damping: 20 }}
           style={{ marginBottom: "72px" }}
         >
           <p style={{
@@ -245,10 +241,6 @@ export function HomeSoluciones() {
             return (
               <motion.div
                 key={s.titulo}
-                initial={{ opacity: 0, y: 32 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-40px" }}
-                transition={{ type: "spring", stiffness: 90, damping: 22, delay: index * 0.1 }}
                 className="sol-card"
               style={{
                   display: "grid",

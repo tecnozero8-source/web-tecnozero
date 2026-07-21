@@ -60,9 +60,6 @@ function Label({ children }: { children: React.ReactNode }) {
 function SuccessState() {
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.92 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
       style={{
         display: "flex",
         flexDirection: "column" as const,
@@ -76,9 +73,6 @@ function SuccessState() {
     >
       {/* Animated checkmark circle */}
       <motion.div
-        initial={{ scale: 0, rotate: -45 }}
-        animate={{ scale: 1, rotate: 0 }}
-        transition={{ type: "spring", stiffness: 200, damping: 18, delay: 0.1 }}
         style={{
           width: "80px",
           height: "80px",
@@ -97,17 +91,11 @@ function SuccessState() {
             strokeWidth="3"
             strokeLinecap="round"
             strokeLinejoin="round"
-            initial={{ pathLength: 0 }}
-            animate={{ pathLength: 1 }}
-            transition={{ duration: 0.5, delay: 0.4, ease: "easeOut" }}
           />
         </svg>
       </motion.div>
 
       <motion.div
-        initial={{ opacity: 0, y: 12 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.5, duration: 0.4 }}
       >
         <h3 style={{
           fontFamily: "var(--font-display), system-ui, sans-serif",
@@ -183,9 +171,7 @@ function ContactForm() {
         ) : (
           <motion.div
             key="form"
-            initial={{ opacity: 1 }}
             exit={{ opacity: 0, scale: 0.97 }}
-            transition={{ duration: 0.3 }}
             style={{ padding: "40px" }}
           >
             <h2 style={{
@@ -390,9 +376,6 @@ function ContactInfo() {
     <div style={{ display: "flex", flexDirection: "column" as const, gap: "40px" }}>
       {/* Header */}
       <motion.div
-        initial={{ opacity: 0, x: 20 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.3 }}
       >
         <div style={{
           fontSize: "0.65rem",
@@ -426,9 +409,6 @@ function ContactInfo() {
 
       {/* Info Cards */}
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.45 }}
         style={{ display: "flex", flexDirection: "column" as const, gap: "12px" }}
       >
         <InfoCard
@@ -453,9 +433,6 @@ function ContactInfo() {
 
       {/* Promise pills */}
       <motion.div
-        initial={{ opacity: 0, y: 16 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.6 }}
         style={{ display: "flex", flexDirection: "column" as const, gap: "10px" }}
       >
         <div style={{
@@ -488,9 +465,6 @@ function ContactInfo() {
 
       {/* Foto del equipo */}
       <motion.div
-        initial={{ opacity: 0, y: 16 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.7 }}
         style={{
           position: "relative" as const,
           borderRadius: "16px",
@@ -571,9 +545,6 @@ export default function ContactoPage() {
       }}>
         {/* Page header */}
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
           style={{ marginBottom: "64px" }}
         >
           <span style={{
@@ -608,9 +579,6 @@ export default function ContactoPage() {
         }}>
           {/* Left — Form */}
           <motion.div
-            initial={{ opacity: 0, y: 28 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.15 }}
             style={{ flex: "1.3 1 360px" }}
           >
             <ContactForm />

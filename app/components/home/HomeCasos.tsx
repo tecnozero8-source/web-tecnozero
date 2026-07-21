@@ -69,10 +69,6 @@ export function HomeCasos() {
 
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ type: "spring", stiffness: 100, damping: 20 }}
           style={{
             display: "flex", justifyContent: "space-between",
             alignItems: "flex-end", marginBottom: "64px",
@@ -111,10 +107,6 @@ export function HomeCasos() {
           {casos.map((caso, index) => (
             <motion.div
               key={caso.cliente}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-40px" }}
-              transition={{ type: "spring", stiffness: 85, damping: 22, delay: index * 0.12 }}
               className="caso-card"
               style={{
                 display: "grid",

@@ -5,12 +5,6 @@ import { Brain, Zap, ArrowRight, CheckCircle2, X, Database, Cpu } from "lucide-r
 import { PhotoBand } from "../components/shared/PhotoBand"
 
 /* ─── fade-up spring shared variant ───────────────────────────────── */
-const fadeUp = {
-  initial: { opacity: 0, y: 24 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true },
-  transition: { type: "spring" as const, stiffness: 100, damping: 20 },
-}
 
 /* ─── SVG: AI Agent Network (TITAN hub → SAP, Oracle, Data) ────────── */
 function AgentNetwork() {
@@ -144,10 +138,6 @@ function CapCard({
 }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ type: "spring", stiffness: 100, damping: 20, delay }}
       whileHover={{
         borderColor: "rgba(167,139,250,0.4)",
         boxShadow: "0 16px 48px rgba(0,0,0,0.12), 0 0 32px rgba(167,139,250,0.08)",
@@ -236,21 +226,11 @@ export default function AgentesIAPage() {
 
         {/* ── Left column: copy ── */}
         <motion.div
-          initial="hidden"
-          animate="show"
-          variants={{
-            hidden: {},
-            show: { transition: { staggerChildren: 0.13, delayChildren: 0.12 } },
-          }}
           className="ai-hero-left"
           style={{ padding: "80px 48px 88px 80px", position: "relative", zIndex: 2 }}
         >
           {/* Badge */}
           <motion.div
-            variants={{
-              hidden: { opacity: 0, y: 16, filter: "blur(4px)" },
-              show: { opacity: 1, y: 0, filter: "blur(0px)", transition: { type: "spring", stiffness: 120, damping: 20 } },
-            }}
           >
             <div style={{
               display: "inline-flex", alignItems: "center", gap: "8px",
@@ -292,13 +272,6 @@ export default function AgentesIAPage() {
             ].map((line, i) => (
               <motion.div
                 key={i}
-                variants={{
-                  hidden: { opacity: 0, y: 48, filter: "blur(8px)" },
-                  show: {
-                    opacity: 1, y: 0, filter: "blur(0px)",
-                    transition: { type: "spring", stiffness: 80, damping: 18, delay: i * 0.06 },
-                  },
-                }}
                 style={{ display: "block", color: line.color }}
               >
                 {line.text}
@@ -308,10 +281,6 @@ export default function AgentesIAPage() {
 
           {/* Subtitle */}
           <motion.p
-            variants={{
-              hidden: { opacity: 0, y: 20 },
-              show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 100, damping: 22 } },
-            }}
             style={{
               fontSize: "1.05rem", color: "rgba(255,255,255,0.78)",
               lineHeight: 1.78, maxWidth: "440px",
@@ -325,10 +294,6 @@ export default function AgentesIAPage() {
 
           {/* CTAs */}
           <motion.div
-            variants={{
-              hidden: { opacity: 0, y: 20, scale: 0.97 },
-              show: { opacity: 1, y: 0, scale: 1, transition: { type: "spring", stiffness: 100, damping: 20 } },
-            }}
             style={{ display: "flex", gap: "12px", flexWrap: "wrap" as const }}
           >
             <motion.a
@@ -365,10 +330,6 @@ export default function AgentesIAPage() {
 
           {/* Social proof strip */}
           <motion.div
-            variants={{
-              hidden: { opacity: 0 },
-              show: { opacity: 1, transition: { type: "tween", duration: 0.6, delay: 0.15 } },
-            }}
             style={{
               display: "flex", alignItems: "center", gap: "14px",
               marginTop: "3.5rem", paddingTop: "2.5rem",
@@ -399,9 +360,6 @@ export default function AgentesIAPage() {
 
         {/* ── Right column: Agent Network SVG ── */}
         <motion.div
-          initial={{ opacity: 0, x: 48, scale: 0.96 }}
-          animate={{ opacity: 1, x: 0, scale: 1 }}
-          transition={{ type: "spring", stiffness: 65, damping: 18, delay: 0.55 }}
           className="ai-hero-right"
           style={{
             padding: "80px 56px 88px 16px",
@@ -432,13 +390,8 @@ export default function AgentesIAPage() {
 
             {/* Floating metric chips */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1, y: [0, -6, 0] }}
-              transition={{
-                opacity: { delay: 0.9, duration: 0.5 },
-                scale: { delay: 0.9, duration: 0.5 },
-                y: { delay: 1.4, duration: 3.2, repeat: Infinity, ease: "easeInOut" },
-              }}
+              animate={{ y: [0, -6, 0] }}
+              transition={{ duration: 3.2, repeat: Infinity, ease: "easeInOut" }}
               style={{
                 position: "absolute", top: "-18px", left: "10%",
                 backgroundColor: "rgba(11,8,24,0.92)",
@@ -457,13 +410,8 @@ export default function AgentesIAPage() {
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1, y: [0, -6, 0] }}
-              transition={{
-                opacity: { delay: 1.1, duration: 0.5 },
-                scale: { delay: 1.1, duration: 0.5 },
-                y: { delay: 1.6, duration: 3.5, repeat: Infinity, ease: "easeInOut" },
-              }}
+              animate={{ y: [0, -6, 0] }}
+              transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
               style={{
                 position: "absolute", top: "28%", right: "-20px",
                 backgroundColor: "rgba(11,8,24,0.92)",
@@ -482,13 +430,8 @@ export default function AgentesIAPage() {
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1, y: [0, -5, 0] }}
-              transition={{
-                opacity: { delay: 1.3, duration: 0.5 },
-                scale: { delay: 1.3, duration: 0.5 },
-                y: { delay: 1.8, duration: 4, repeat: Infinity, ease: "easeInOut" },
-              }}
+              animate={{ y: [0, -5, 0] }}
+              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
               style={{
                 position: "absolute", bottom: "-16px", left: "22%",
                 backgroundColor: "rgba(11,8,24,0.92)",
@@ -536,7 +479,6 @@ export default function AgentesIAPage() {
 
           {/* Header */}
           <motion.div
-            {...fadeUp}
             style={{ maxWidth: "680px", marginBottom: "72px" }}
           >
             <p style={{
@@ -649,7 +591,6 @@ export default function AgentesIAPage() {
 
           {/* Header */}
           <motion.div
-            {...fadeUp}
             style={{
               display: "flex", justifyContent: "space-between",
               alignItems: "flex-end", marginBottom: "64px",
@@ -734,10 +675,6 @@ export default function AgentesIAPage() {
             ].map((caso, index) => (
               <motion.div
                 key={caso.cliente}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-40px" }}
-                transition={{ type: "spring", stiffness: 85, damping: 22, delay: index * 0.12 }}
                 whileHover={{
                   borderColor: `${caso.accentColor}35`,
                   boxShadow: `0 20px 60px rgba(0,0,0,0.4), 0 0 40px ${caso.accentColor}08`,
@@ -867,7 +804,7 @@ export default function AgentesIAPage() {
       <section className="ai-section-pad" style={{ backgroundColor: "#EEF4FF", padding: "96px 48px" }}>
         <div style={{ maxWidth: "900px", margin: "0 auto" }}>
 
-          <motion.div {...fadeUp} style={{ textAlign: "center" as const, marginBottom: "56px" }}>
+          <motion.div style={{ textAlign: "center" as const, marginBottom: "56px" }}>
             <p style={{
               fontSize: "0.7rem", fontWeight: 800,
               letterSpacing: "0.16em", textTransform: "uppercase" as const,
@@ -896,10 +833,6 @@ export default function AgentesIAPage() {
           {/* Comparison table */}
           <motion.div
             className="ai-compare-scroll"
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ type: "spring", stiffness: 100, damping: 20, delay: 0.1 }}
             style={{
               backgroundColor: "#FFFFFF",
               borderRadius: "24px",
@@ -972,10 +905,6 @@ export default function AgentesIAPage() {
             ].map((row, i) => (
               <motion.div
                 key={row.indicador}
-                initial={{ opacity: 0, x: -16 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ type: "spring", stiffness: 100, damping: 22, delay: row.delay }}
                 className="ai-compare-row"
                 style={{
                   display: "grid",
@@ -1079,10 +1008,6 @@ export default function AgentesIAPage() {
 
           {/* Headline */}
           <motion.div
-            initial={{ opacity: 0, y: 32 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ type: "spring", stiffness: 100, damping: 20 }}
             style={{ textAlign: "center" as const, marginBottom: "64px" }}
           >
             <div style={{
@@ -1125,10 +1050,6 @@ export default function AgentesIAPage() {
           {/* CTA card */}
           <motion.div
             className="ai-cta-grid"
-            initial={{ opacity: 0, y: 32, scale: 0.96 }}
-            whileInView={{ opacity: 1, y: 0, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ type: "spring", stiffness: 90, damping: 20, delay: 0.15 }}
             style={{
               display: "grid",
               gridTemplateColumns: "1fr 1fr",
@@ -1248,10 +1169,6 @@ export default function AgentesIAPage() {
 
           {/* Social proof */}
           <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.4, duration: 0.6 }}
             style={{
               display: "flex", alignItems: "center", justifyContent: "center",
               gap: "32px", marginTop: "48px", flexWrap: "wrap" as const,

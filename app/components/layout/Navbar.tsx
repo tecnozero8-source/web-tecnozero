@@ -179,10 +179,7 @@ export function Navbar() {
         {mobileOpen && (
           <motion.div
             key="mobile-menu"
-            initial={{ opacity: 0, y: -12, scale: 0.97 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -12, scale: 0.97 }}
-            transition={{ type: "spring", stiffness: 260, damping: 24 }}
             style={{
               position: "fixed",
               top: "72px",
@@ -201,9 +198,6 @@ export function Navbar() {
             {navLinks.map((link, i) => (
               <motion.div
                 key={link.href}
-                initial={{ opacity: 0, x: -8 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: i * 0.05 + 0.05 }}
               >
                 <Link
                   href={link.href}

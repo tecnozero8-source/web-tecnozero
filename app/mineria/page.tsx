@@ -5,12 +5,6 @@ import { Shield, CheckCircle2, ArrowRight, Clock, AlertTriangle, Truck } from "l
 import { PhotoBand } from "../components/shared/PhotoBand"
 
 /* ─── Animation variant shared across sections ───────────────────── */
-const fadeUp = {
-  initial: { opacity: 0, y: 24 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true },
-  transition: { type: "spring" as const, stiffness: 100, damping: 20 },
-}
 
 /* ─── SVG: Amber glow circle used behind timeline card ───────────── */
 function AmberGlow() {
@@ -81,9 +75,6 @@ function ProcessStep({
 function TimelineCard() {
   return (
     <motion.div
-      initial={{ opacity: 0, x: 48, scale: 0.96 }}
-      animate={{ opacity: 1, x: 0, scale: 1 }}
-      transition={{ type: "spring", stiffness: 65, damping: 18, delay: 0.55 }}
       style={{
         position: "relative",
         width: "100%",
@@ -348,10 +339,6 @@ function SolutionCard({
 }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 32 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-40px" }}
-      transition={{ type: "spring", stiffness: 90, damping: 22, delay: index * 0.1 }}
       className="min-solution-card"
       style={{
         display: "grid",
@@ -612,10 +599,6 @@ function FeatureTile({
 }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ type: "spring", stiffness: 100, damping: 20, delay }}
       style={{
         backgroundColor: "#FFFFFF",
         borderRadius: "16px",
@@ -720,12 +703,6 @@ export default function MineriaPage() {
 
         {/* ── Left column: Copy ── */}
         <motion.div
-          initial="hidden"
-          animate="show"
-          variants={{
-            hidden: {},
-            show: { transition: { staggerChildren: 0.14, delayChildren: 0.1 } },
-          }}
           className="min-hero-left"
           style={{
             padding: "0 48px 88px 80px",
@@ -735,15 +712,6 @@ export default function MineriaPage() {
         >
           {/* Badge */}
           <motion.div
-            variants={{
-              hidden: { opacity: 0, y: 16, filter: "blur(4px)" },
-              show: {
-                opacity: 1,
-                y: 0,
-                filter: "blur(0px)",
-                transition: { type: "spring", stiffness: 120, damping: 20 },
-              },
-            }}
           >
             <div
               style={{
@@ -803,20 +771,6 @@ export default function MineriaPage() {
             ].map((line, i) => (
               <motion.div
                 key={i}
-                variants={{
-                  hidden: { opacity: 0, y: 48, filter: "blur(8px)" },
-                  show: {
-                    opacity: 1,
-                    y: 0,
-                    filter: "blur(0px)",
-                    transition: {
-                      type: "spring",
-                      stiffness: 80,
-                      damping: 18,
-                      delay: i * 0.06,
-                    },
-                  },
-                }}
                 style={{ display: "block", color: line.color }}
               >
                 {line.text}
@@ -826,14 +780,6 @@ export default function MineriaPage() {
 
           {/* Subtitle */}
           <motion.p
-            variants={{
-              hidden: { opacity: 0, y: 20 },
-              show: {
-                opacity: 1,
-                y: 0,
-                transition: { type: "spring", stiffness: 100, damping: 22 },
-              },
-            }}
             style={{
               fontSize: "1.05rem",
               color: "rgba(255,255,255,0.78)",
@@ -850,14 +796,6 @@ export default function MineriaPage() {
 
           {/* Client badge */}
           <motion.div
-            variants={{
-              hidden: { opacity: 0, y: 16 },
-              show: {
-                opacity: 1,
-                y: 0,
-                transition: { type: "spring", stiffness: 100, damping: 22 },
-              },
-            }}
             style={{
               display: "inline-flex",
               alignItems: "center",
@@ -886,15 +824,6 @@ export default function MineriaPage() {
 
           {/* CTAs */}
           <motion.div
-            variants={{
-              hidden: { opacity: 0, y: 20, scale: 0.97 },
-              show: {
-                opacity: 1,
-                y: 0,
-                scale: 1,
-                transition: { type: "spring", stiffness: 100, damping: 20 },
-              },
-            }}
             style={{ display: "flex", gap: "12px", flexWrap: "wrap" as const }}
           >
             <motion.a
@@ -1016,7 +945,6 @@ export default function MineriaPage() {
         <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
           {/* Header */}
           <motion.div
-            {...fadeUp}
             style={{ marginBottom: "72px" }}
           >
             <p
@@ -1188,7 +1116,6 @@ export default function MineriaPage() {
         >
           {/* Header */}
           <motion.div
-            {...fadeUp}
             style={{ marginBottom: "60px" }}
           >
             <div
@@ -1247,10 +1174,6 @@ export default function MineriaPage() {
 
           {/* Metric strip */}
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ type: "spring", stiffness: 100, damping: 20, delay: 0.1 }}
             className="min-metric-strip"
             style={{
               display: "grid",
@@ -1338,10 +1261,6 @@ export default function MineriaPage() {
           >
             {/* Context quote */}
             <motion.div
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ type: "spring", stiffness: 100, damping: 20, delay: 0.15 }}
               style={{
                 backgroundColor: "rgba(255,255,255,0.03)",
                 border: "1px solid rgba(255,255,255,0.08)",
@@ -1421,10 +1340,6 @@ export default function MineriaPage() {
 
             {/* Today block */}
             <motion.div
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ type: "spring", stiffness: 100, damping: 20, delay: 0.25 }}
               style={{
                 background:
                   "linear-gradient(135deg, rgba(245,160,32,0.1) 0%, rgba(245,160,32,0.03) 100%)",
@@ -1555,7 +1470,6 @@ export default function MineriaPage() {
         <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
           {/* Header */}
           <motion.div
-            {...fadeUp}
             style={{ marginBottom: "56px", textAlign: "center" as const }}
           >
             <div
@@ -1759,10 +1673,6 @@ export default function MineriaPage() {
         >
           {/* Headline */}
           <motion.div
-            initial={{ opacity: 0, y: 32 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ type: "spring", stiffness: 100, damping: 20 }}
             style={{ textAlign: "center" as const, marginBottom: "64px" }}
           >
             <div
@@ -1825,15 +1735,6 @@ export default function MineriaPage() {
 
           {/* Card glass */}
           <motion.div
-            initial={{ opacity: 0, y: 32, scale: 0.96 }}
-            whileInView={{ opacity: 1, y: 0, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{
-              type: "spring",
-              stiffness: 90,
-              damping: 20,
-              delay: 0.15,
-            }}
             className="min-cta-grid"
             style={{
               display: "grid",
@@ -2025,10 +1926,6 @@ export default function MineriaPage() {
 
           {/* Bottom proof strip */}
           <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.4, duration: 0.6 }}
             style={{
               display: "flex",
               alignItems: "center",
