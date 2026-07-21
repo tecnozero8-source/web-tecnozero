@@ -642,6 +642,87 @@ ul, ol {
 }
 
 /* ═══════════════════════════════════════════════════════
+   LICITACIONES page — mobile first
+   A diferencia del resto de verticales, la tarjeta de la
+   derecha NO se oculta en movil: esa bandeja es el producto
+   y es lo que convierte. Se reordena bajo el copy.
+══════════════════════════════════════════════════════ */
+
+/* Tablet: el hero pasa a una columna, la bandeja va abajo */
+@media (max-width: 1023px) {
+  .lic-hero {
+    grid-template-columns: 1fr !important;
+    min-height: auto !important;
+    padding-top: 108px !important;
+    padding-bottom: 72px;
+  }
+  .lic-hero-left {
+    padding: 0 32px 40px !important;
+  }
+  .lic-hero-right {
+    padding: 0 32px 48px !important;
+    justify-content: flex-start !important;
+  }
+  .lic-hero-divider {
+    display: none !important;
+  }
+  .lic-problema-grid {
+    grid-template-columns: 1fr !important;
+    gap: 40px !important;
+  }
+  .lic-pasos-grid {
+    grid-template-columns: 1fr 1fr !important;
+  }
+  .lic-planes-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .lic-ancla-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .lic-cta-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .lic-cta-left {
+    border-right: none !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+  }
+}
+
+/* Movil: una sola columna en todo, paddings comodos al pulgar */
+@media (max-width: 767px) {
+  .lic-hero-left {
+    padding: 0 20px 32px !important;
+  }
+  .lic-hero-right {
+    padding: 0 20px 40px !important;
+  }
+  .lic-pasos-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .lic-section-pad {
+    padding: 64px 20px !important;
+  }
+  .lic-cta-left,
+  .lic-cta-grid > div:last-child {
+    padding: 36px 24px !important;
+  }
+  /* La comparativa scrollea sola en vez de romper el ancho de la pagina */
+  .lic-compare-scroll {
+    overflow-x: auto !important;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* Los CTA del hero pasan a ancho completo en pantallas angostas */
+@media (max-width: 479px) {
+  .lic-hero-left a {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════
    MOBILE — Contacto page
 ══════════════════════════════════════════════════════ */
 @media (max-width: 767px) {

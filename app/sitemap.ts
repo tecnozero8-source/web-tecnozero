@@ -48,6 +48,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date('2026-05-01'),
     },
     {
+      url: 'https://www.tecnozero.cl/licitaciones',
+      changeFrequency: 'monthly',
+      priority: 0.9,
+      lastModified: new Date('2026-07-21'),
+    },
+    {
       url: 'https://www.tecnozero.cl/nosotros',
       changeFrequency: 'monthly',
       priority: 0.7,

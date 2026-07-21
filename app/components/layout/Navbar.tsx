@@ -10,6 +10,7 @@ const navLinks = [
   { label: "Portal DT", href: "/portal-dt" },
   { label: "Minería", href: "/mineria" },
   { label: "Agentes IA", href: "/agentes-ia" },
+  { label: "Licitaciones", href: "/licitaciones" },
   { label: "Blog", href: "/blog" },
   { label: "Nosotros", href: "/nosotros" },
 ]
@@ -101,7 +102,9 @@ export function Navbar() {
                 fontSize: "0.875rem",
                 fontWeight: 500,
                 color: navLinkColor,
-                padding: "7px 16px",
+                // 11px en vez de 16px: con 7 links el header quedaba a 8px de
+                // desbordar cerca del breakpoint de 1090.
+                padding: "7px 11px",
                 borderRadius: "99px",
                 transition: "color 0.2s ease, background-color 0.2s ease",
                 display: "inline-block",
