@@ -102,9 +102,7 @@ export function Navbar() {
                 fontSize: "0.875rem",
                 fontWeight: 500,
                 color: navLinkColor,
-                // 11px en vez de 16px: con 7 links el header quedaba a 8px de
-                // desbordar cerca del breakpoint de 1090.
-                padding: "7px 11px",
+                padding: "7px 14px",
                 borderRadius: "99px",
                 transition: "color 0.2s ease, background-color 0.2s ease",
                 display: "inline-block",
@@ -152,7 +150,7 @@ export function Navbar() {
               e.currentTarget.style.transform = "translateY(0)"
             }}
           >
-            Hablar con un especialista
+            Hablemos
           </Link>
 
           <button
@@ -254,14 +252,14 @@ export function Navbar() {
                   letterSpacing: "-0.01em",
                 }}
               >
-                Hablar con un especialista
+                Hablemos
               </Link>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* Responsive: hamburger bajo 1090px (6 links no caben en la píldora), CTA visible hasta 560px */}
+      {/* Responsive: hamburger bajo 1090px (7 links no caben en la píldora), CTA visible hasta 560px */}
       <style>{`
         @media (max-width: 1089px) {
           #nav-hamburger { display: flex !important; }

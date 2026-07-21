@@ -243,7 +243,7 @@ function BandejaCard() {
 
       <FilaDecision
         score={94}
-        titular="Tiene el stock. Cierra en 3 horas."
+        titular="Tienes el stock. Cierra en 3 horas."
         detalle="Guantes anticorte y cascos · Servicio de Salud Antofagasta"
         portal="Compra Ágil"
         cierre="3 h"
@@ -253,7 +253,7 @@ function BandejaCard() {
       />
       <FilaDecision
         score={88}
-        titular="Portal privado. Su competencia no la ve."
+        titular="Portal privado. Tu competencia no la ve."
         detalle="Detección de gases, faena Sierra Gorda · $38,9 M"
         portal="WhereEx"
         cierre="4 días"
@@ -262,7 +262,7 @@ function BandejaCard() {
       />
       <FilaDecision
         score={71}
-        titular="Su certificado F30-1 vence antes del cierre."
+        titular="Tu certificado F30-1 vence antes del cierre."
         detalle="Aseo industrial · Municipalidad de Calama"
         portal="M. Público"
         cierre="7 días"
@@ -271,7 +271,7 @@ function BandejaCard() {
       />
       <FilaDecision
         score={34}
-        titular="No postule: la boleta supera su patrimonio."
+        titular="No postules: la boleta supera tu patrimonio."
         detalle="Planta de tratamiento MOP · garantía 5.000 UF"
         portal="M. Público"
         cierre="15 días"
@@ -323,7 +323,7 @@ const PASOS = [
   {
     n: "01",
     t: "Detecta",
-    d: "Consulta la API oficial de ChileCompra cada dos minutos y entra a los portales privados con la sesión de su empresa.",
+    d: "Consulta la API oficial de ChileCompra cada dos minutos y entra a los portales privados con la sesión de tu empresa.",
   },
   {
     n: "02",
@@ -332,13 +332,13 @@ const PASOS = [
   },
   {
     n: "03",
-    t: "Cruza su ficha",
-    d: "Compara contra su patrimonio, sus certificados vigentes y su stock. Descarta lo que no puede ganar.",
+    t: "Cruza tu ficha",
+    d: "Compara contra tu patrimonio, tus certificados vigentes y tu stock. Descarta lo que no puedes ganar.",
   },
   {
     n: "04",
     t: "Arma la carpeta",
-    d: "Redacta los anexos, adjunta las declaraciones juradas y deja la oferta lista para su firma.",
+    d: "Redacta los anexos, adjunta las declaraciones juradas y deja la oferta lista para tu firma.",
   },
 ]
 
@@ -346,10 +346,10 @@ const COMPARATIVA = [
   { f: "Avisa de la licitación", otros: true },
   { f: "Resume las bases con IA", otros: true },
   { f: "Entra a portales privados (WhereEx, iConstruye, Ariba)", otros: false },
-  { f: "Verifica que sus certificados sigan vigentes", otros: false },
+  { f: "Verifica que tus certificados sigan vigentes", otros: false },
   { f: "Avisa de adendas y cambios de fecha de cierre", otros: false },
   { f: "Arma la carpeta administrativa completa", otros: false },
-  { f: "Cruza la oferta con su stock y su patrimonio", otros: false },
+  { f: "Cruza la oferta con tu stock y tu patrimonio", otros: false },
   { f: "Sigue la boleta de garantía y los estados de pago", otros: false },
 ]
 
@@ -370,11 +370,11 @@ const PLANES = [
   {
     nombre: "Minero / Corporativo",
     precio: "$249.900",
-    para: "Para el proveedor que además compite en los portales cerrados de sus clientes.",
+    para: "Para ti, que además compites en los portales cerrados de tus clientes.",
     items: [
       "Todo lo anterior",
       "Dos portales privados a elección",
-      "Operación con credenciales de su empresa bajo mandato firmado",
+      "Operación con credenciales de tu empresa bajo mandato firmado",
       "Bitácora auditable de cada acción del robot",
       "Alerta de vencimiento de acreditaciones",
     ],
@@ -383,10 +383,10 @@ const PLANES = [
   {
     nombre: "Bid Manager Autónomo",
     precio: "$450.000",
-    para: "Para quien decide con los datos de su propia operación.",
+    para: "Para ti, que decides con los datos de tu propia operación.",
     items: [
       "Todo lo anterior",
-      "Cruce con su ERP (SAP u Oracle)",
+      "Cruce con tu ERP (SAP u Oracle)",
       "Adjudicaciones históricas y precios de la competencia",
       "Post adjudicación: boleta, HES y estados de pago",
       "Robot dedicado con SLA",
@@ -525,9 +525,9 @@ export default function LicitacionesPage() {
             }}
           >
             {[
-              { text: "Sus competidores", color: "#FFFFFF" },
+              { text: "Tus competidores", color: "#FFFFFF" },
               { text: "reciben la misma", color: "#FFFFFF" },
-              { text: "alerta que usted.", color: "#FFFFFF" },
+              { text: "alerta que tú.", color: "#FFFFFF" },
               { text: "Gana el que postula.", color: ACCENT },
             ].map((line, i) => (
               <motion.div
@@ -572,8 +572,8 @@ export default function LicitacionesPage() {
             }}
           >
             Agentes de IA que vigilan Mercado Público y los portales privados
-            donde compite su empresa, leen las bases, revisan que sus
-            certificados sigan vigentes y dejan la oferta armada para su firma.
+            donde compite tu empresa, leen las bases, revisan que tus
+            certificados sigan vigentes y dejan la oferta armada para tu firma.
           </motion.p>
 
           <motion.div
@@ -783,7 +783,7 @@ export default function LicitacionesPage() {
                   margin: "0 0 16px",
                 }}
               >
-                Su equipo revisa portales en la mañana, descarga bases que
+                Tu equipo revisa portales en la mañana, descarga bases que
                 después descarta, y cuando aparece la oportunidad buena quedan
                 cuatro días para reunir certificados, anexos y declaraciones
                 juradas.
@@ -918,7 +918,7 @@ export default function LicitacionesPage() {
               >
                 Supuesto: analista de $1.000.000 brutos, costo empresa cercano a
                 $1.250.000, 180 horas al mes. Cambiamos estos números por los
-                suyos en la primera reunión.
+                tuyos en la primera reunión.
               </p>
             </motion.div>
           </div>
@@ -928,7 +928,7 @@ export default function LicitacionesPage() {
       <PhotoBand
         src="/paginas/home-operaciones.jpg"
         alt="Equipo de operaciones revisando procesos de licitación en pantalla"
-        eyebrow="Lo que su equipo deja de hacer"
+        eyebrow="Lo que tu equipo deja de hacer"
         caption="Ochenta y siete horas al mes que hoy se van en revisar portales y llenar anexos."
         accent={ACCENT}
       />
@@ -1244,7 +1244,7 @@ export default function LicitacionesPage() {
                 margin: 0,
               }}
             >
-              Entramos a los portales privados con las credenciales de su empresa
+              Entramos a los portales privados con las credenciales de tu empresa
               y un mandato firmado que autoriza la operación. Cada acción del
               robot queda registrada con fecha, usuario y resultado. Es el mismo
               mecanismo con que operamos el portal de la Dirección del Trabajo
@@ -1299,7 +1299,7 @@ export default function LicitacionesPage() {
                 margin: "0 0 12px",
               }}
             >
-              Tres niveles según dónde compite.
+              Tres niveles según dónde compites.
             </h2>
             <p style={{ fontSize: "0.95rem", color: "#64748B", margin: 0 }}>
               Valores mensuales en pesos chilenos, más IVA. Todos parten con el
@@ -1322,11 +1322,11 @@ export default function LicitacionesPage() {
               {
                 cifra: "$609.000",
                 t: "cuesta hacerlo a mano cada mes",
-                d: "87 horas de su equipo revisando portales y llenando anexos, se adjudique o no.",
+                d: "87 horas de tu equipo revisando portales y llenando anexos, se adjudique o no.",
               },
               {
                 cifra: "$3.600.000",
-                t: "deja una licitación que sí alcanzó a postular",
+                t: "deja una licitación que sí alcanzaste a postular",
                 d: "Un contrato de $30 millones con 12% de margen. Perder una por trimestre son $14,4 millones al año.",
               },
             ].map((x) => (
@@ -1629,11 +1629,10 @@ export default function LicitacionesPage() {
                   margin: "0 0 30px",
                 }}
               >
-                Treinta días sobre un proceso real de su empresa, con las
-                métricas acordadas antes de partir. Usted define qué
-                licitaciones importan y nosotros medimos cuántas alcanzó a
-                postular. Si al final del mes los números no le sirven, no
-                continúa.
+                Treinta días sobre un proceso real de tu empresa, con las
+                métricas acordadas antes de partir. Tú defines qué licitaciones
+                importan y nosotros medimos cuántas alcanzaste a postular. Si al
+                final del mes los números no te sirven, no sigues.
               </p>
               <motion.a
                 href="/contacto"
@@ -1671,10 +1670,10 @@ export default function LicitacionesPage() {
                 Qué incluye el piloto
               </p>
               {[
-                { icon: FileText, t: "Sus reglas cargadas", d: "Rubro, montos, regiones y portales" },
-                { icon: Clock, t: "Medición diaria", d: "Cuántas alcanzó a postular y cuántas dejó pasar" },
+                { icon: FileText, t: "Tus reglas cargadas", d: "Rubro, montos, regiones y portales" },
+                { icon: Clock, t: "Medición diaria", d: "Cuántas alcanzaste a postular y cuántas dejaste pasar" },
                 { icon: AlertTriangle, t: "Alerta de adendas", d: "Cambios de cierre y respuestas a consultas" },
-                { icon: ShieldCheck, t: "Sin permanencia", d: "Termina el mes y usted decide" },
+                { icon: ShieldCheck, t: "Sin permanencia", d: "Termina el mes y decides tú" },
               ].map((x) => (
                 <div
                   key={x.t}

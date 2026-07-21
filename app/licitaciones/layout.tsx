@@ -3,7 +3,7 @@ import type { Metadata } from "next"
 export const metadata: Metadata = {
   title: "Agentes de Licitaciones — Mercado Público y Portales Privados",
   description:
-    "Agentes de IA que vigilan Mercado Público, Compra Ágil, WhereEx e iConstruye, leen las bases y dejan la carpeta administrativa armada para su firma. Piloto de 30 días.",
+    "Agentes de IA que vigilan Mercado Público, Compra Ágil, WhereEx e iConstruye, leen las bases y dejan la carpeta administrativa armada para tu firma. Piloto de 30 días.",
   keywords: [
     "licitaciones Chile",
     "Mercado Público",
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Agentes de Licitaciones — Mercado Público y Portales Privados · Tecnozero",
     description:
-      "Sus competidores reciben la misma alerta que usted. Gana el que alcanza a postular. Agentes de IA que leen las bases y arman la carpeta.",
+      "Tus competidores reciben la misma alerta que tú. Gana el que alcanza a postular. Agentes de IA que leen las bases y arman la carpeta.",
     url: "https://www.tecnozero.cl/licitaciones",
     images: [
       {
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
   twitter: {
     title: "Agentes de Licitaciones · Tecnozero",
     description:
-      "Vigilan Mercado Público y los portales privados donde compite su empresa, leen las bases y arman la carpeta.",
+      "Vigilan Mercado Público y los portales privados donde compite tu empresa, leen las bases y arman la carpeta.",
   },
 }
 
@@ -47,7 +47,7 @@ const jsonLd = {
       "@id": "https://www.tecnozero.cl/licitaciones#agentes",
       name: "Agentes de Licitaciones — Detección, análisis y postulación",
       description:
-        "Agentes de IA que vigilan Mercado Público y Compra Ágil por la API oficial de ChileCompra, entran a portales privados con credenciales del cliente bajo mandato firmado, leen las bases, verifican certificados vigentes y preparan la carpeta administrativa.",
+        "Agentes de IA que vigilan Mercado Público y Compra Ágil por la API oficial de ChileCompra, entran a portales privados con credenciales del cliente bajo mandato firmado, leen las bases, verifican que los certificados sigan vigentes y preparan la carpeta administrativa.",
       serviceType: "Automatización de Licitaciones Públicas y Privadas",
       url: "https://www.tecnozero.cl/licitaciones",
       provider: { "@id": "https://www.tecnozero.cl/#organization" },
@@ -92,7 +92,7 @@ const jsonLd = {
           name: "¿Cómo entran a los portales privados como WhereEx o iConstruye?",
           acceptedAnswer: {
             "@type": "Answer",
-            text: "Con las credenciales de su empresa y un mandato firmado que autoriza la operación. Cada acción del robot queda registrada con fecha, usuario y resultado. Es el mismo mecanismo con que operamos el portal de la Dirección del Trabajo para Metro de Santiago.",
+            text: "Con las credenciales de tu empresa y un mandato firmado que autoriza la operación. Cada acción del robot queda registrada con fecha, usuario y resultado. Es el mismo mecanismo con que operamos el portal de la Dirección del Trabajo para Metro de Santiago.",
           },
         },
         {
@@ -100,7 +100,7 @@ const jsonLd = {
           name: "¿En qué se diferencia de una plataforma de alertas de licitaciones?",
           acceptedAnswer: {
             "@type": "Answer",
-            text: "Las plataformas de alerta avisan y resumen las bases. Nuestros agentes además entran a portales privados, verifican que sus certificados sigan vigentes, avisan de adendas y cambios de cierre, y dejan la carpeta administrativa armada para su firma.",
+            text: "Las plataformas de alerta avisan y resumen las bases. Nuestros agentes además entran a portales privados, verifican que tus certificados sigan vigentes, avisan de adendas y cambios de cierre, y dejan la carpeta administrativa armada para tu firma.",
           },
         },
         {
@@ -108,7 +108,7 @@ const jsonLd = {
           name: "¿Qué incluye el piloto de 30 días?",
           acceptedAnswer: {
             "@type": "Answer",
-            text: "Sus reglas cargadas por rubro, monto, región y portales; medición diaria de cuántas licitaciones alcanzó a postular; alertas de adendas; y sin permanencia. Al terminar el mes usted decide si continúa.",
+            text: "Tus reglas cargadas por rubro, monto, región y portales; medición diaria de cuántas licitaciones alcanzaste a postular; alertas de adendas; y sin permanencia. Al terminar el mes decides tú si sigues.",
           },
         },
       ],
