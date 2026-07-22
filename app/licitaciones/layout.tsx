@@ -62,7 +62,7 @@ const jsonLd = {
             price: "149900",
             priceCurrency: "CLP",
             description:
-              "Mercado Público y Compra Ágil, lectura de bases, verificación de certificados y borrador de anexos.",
+              "Detección y análisis ilimitados en Mercado Público y Compra Ágil, más 10 postulaciones armadas al mes: lectura de bases, verificación de certificados y anexos listos para tu firma.",
           },
           {
             "@type": "Offer",
@@ -70,7 +70,7 @@ const jsonLd = {
             price: "249900",
             priceCurrency: "CLP",
             description:
-              "Suma dos portales privados a elección, operados con credenciales del cliente bajo mandato firmado y bitácora auditable.",
+              "Suma dos portales privados a elección y 30 postulaciones armadas al mes, operadas con credenciales de tu empresa bajo mandato firmado y bitácora auditable.",
           },
           {
             "@type": "Offer",
@@ -78,7 +78,7 @@ const jsonLd = {
             price: "450000",
             priceCurrency: "CLP",
             description:
-              "Suma cruce con ERP SAP u Oracle, adjudicaciones históricas y seguimiento post adjudicación.",
+              "Postulaciones ilimitadas con uso justo, cruce con tu ERP SAP u Oracle, adjudicaciones históricas y seguimiento post adjudicación.",
           },
         ],
       },

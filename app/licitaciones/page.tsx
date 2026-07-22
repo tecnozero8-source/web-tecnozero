@@ -345,12 +345,14 @@ const PLANES = [
   {
     nombre: "Postulación Asistida",
     precio: "$149.900",
+    postulaciones: "10",
+    postulacionesLabel: "postulaciones armadas al mes",
     para: "Para la empresa que ya vende al Estado y pierde ofertas por plazo.",
     items: [
-      "Mercado Público y Compra Ágil",
-      "Lectura de bases y anexos",
+      "Detección y análisis ilimitados en Mercado Público y Compra Ágil",
+      "Lectura de bases y anexos con IA",
       "Verificación de certificados vigentes",
-      "Borrador de anexos administrativos",
+      "Anexos administrativos armados y listos para tu firma",
       "Aviso de adendas y cambios de cierre",
     ],
     destacado: false,
@@ -358,11 +360,13 @@ const PLANES = [
   {
     nombre: "Minero / Corporativo",
     precio: "$249.900",
+    postulaciones: "30",
+    postulacionesLabel: "postulaciones armadas al mes",
     para: "Para ti, que además compites en los portales cerrados de tus clientes.",
     items: [
-      "Todo lo anterior",
-      "Dos portales privados a elección",
-      "Operación con credenciales de tu empresa bajo mandato firmado",
+      "Todo lo del plan anterior",
+      "Dos portales privados a elección (WhereEx, iConstruye, Ariba)",
+      "Postulamos con las credenciales de tu empresa bajo mandato firmado",
       "Bitácora auditable de cada acción del robot",
       "Alerta de vencimiento de acreditaciones",
     ],
@@ -371,9 +375,11 @@ const PLANES = [
   {
     nombre: "Bid Manager Autónomo",
     precio: "$450.000",
+    postulaciones: "Ilimitadas",
+    postulacionesLabel: "sin tope mensual, uso justo",
     para: "Para ti, que decides con los datos de tu propia operación.",
     items: [
-      "Todo lo anterior",
+      "Todo lo del plan anterior",
       "Cruce con tu ERP (SAP u Oracle)",
       "Adjudicaciones históricas y precios de la competencia",
       "Post adjudicación: boleta, HES y estados de pago",
@@ -1221,10 +1227,11 @@ export default function LicitacionesPage() {
                 margin: "0 0 12px",
               }}
             >
-              Tres niveles según dónde compites.
+              Tres niveles, según cuánto postulas.
             </h2>
             <p style={{ fontSize: "0.95rem", color: "#64748B", margin: 0 }}>
-              Valores mensuales en pesos chilenos, más IVA. Todos parten con el
+              Detectar y analizar no tiene tope. Pagas por postulación armada, la
+              oferta lista para tu firma. Valores mensuales en pesos, más IVA, con
               piloto de 30 días.
             </p>
           </motion.div>
@@ -1392,6 +1399,45 @@ export default function LicitacionesPage() {
                     /mes
                   </span>
                 </p>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "baseline",
+                    gap: "8px",
+                    marginTop: "16px",
+                    padding: "11px 14px",
+                    borderRadius: "12px",
+                    backgroundColor: p.destacado
+                      ? "rgba(31,179,229,0.12)"
+                      : "#EEF5FC",
+                    border: p.destacado
+                      ? `1px solid ${ACCENT}33`
+                      : "1px solid #DCE8F5",
+                  }}
+                >
+                  <span
+                    style={{
+                      fontFamily: "var(--font-display), system-ui, sans-serif",
+                      fontSize: "1.3rem",
+                      fontWeight: 800,
+                      letterSpacing: "-0.03em",
+                      color: p.destacado ? "#FFFFFF" : "#0B1E3D",
+                      flexShrink: 0,
+                    }}
+                  >
+                    {p.postulaciones}
+                  </span>
+                  <span
+                    style={{
+                      fontSize: "0.8rem",
+                      fontWeight: 600,
+                      color: p.destacado ? "rgba(255,255,255,0.72)" : "#475569",
+                      lineHeight: 1.3,
+                    }}
+                  >
+                    {p.postulacionesLabel}
+                  </span>
+                </div>
                 <p
                   style={{
                     fontSize: "0.88rem",
@@ -1452,6 +1498,23 @@ export default function LicitacionesPage() {
               </motion.div>
             ))}
           </div>
+
+          <p
+            style={{
+              marginTop: "28px",
+              maxWidth: "760px",
+              marginLeft: "auto",
+              marginRight: "auto",
+              textAlign: "center" as const,
+              fontSize: "0.82rem",
+              color: "#64748B",
+              lineHeight: 1.7,
+            }}
+          >
+            Cada postulación armada extra cuesta $14.900, o subes de plan. No te
+            frenamos a mitad de mes. Entra en los primeros 5 del Programa Fundador
+            y tu precio queda fijo por 12 meses.
+          </p>
         </div>
       </section>
 
