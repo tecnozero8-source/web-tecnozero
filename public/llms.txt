@@ -9,6 +9,7 @@
 - [MinePass](https://www.tecnozero.cl/mineria): Reduce la Acreditación de Ingreso de Contratistas (AIC) de 10 días hábiles a horas. Cumplimiento Sernageomin automatizado. +95% reducción en tiempos de inspección.
 - [VehiclePass](https://www.tecnozero.cl/mineria): Gestión documental de flota para faenas mineras. 0 vehículos con documentación vencida.
 - [TITAN — Agentes IA Enterprise](https://www.tecnozero.cl/agentes-ia): Agentes de IA autónomos para sistemas SAP, Oracle y ERP. Respuestas en <5 segundos vs 12 minutos manual. 10x más rápido. 90%+ precisión.
+- [Agentes de Licitaciones](https://www.tecnozero.cl/licitaciones): Agentes de IA que vigilan Mercado Público y Compra Ágil por la API oficial de ChileCompra, entran a portales privados como WhereEx e iConstruye con credenciales del cliente bajo mandato firmado, leen las bases, verifican que los certificados sigan vigentes, avisan de adendas y dejan la carpeta administrativa armada para la firma del cliente. Se diferencia de las plataformas de alertas en que además postula. Planes: Postulación Asistida $149.900 CLP/mes (10 postulaciones armadas), Minero/Corporativo $249.900 CLP/mes (2 portales privados y 30 postulaciones), Bid Manager Autónomo $450.000 CLP/mes (postulaciones ilimitadas con uso justo y cruce con ERP). Piloto de 30 días.
 
 ## Capacidad diferenciadora
 
@@ -40,6 +41,13 @@
 ## Blog
 
 - [Blog Tecnozero](https://www.tecnozero.cl/blog): Artículos sobre automatización RPA, IA agéntica, agentes de IA en plataformas web y EdTech, cumplimiento laboral (Portal DT, Ley Karin), acreditación minera AIC e integración con sistemas ERP (SAP, Oracle) en el contexto chileno.
+- [Integrar IA de forma nativa en tu plataforma web](https://www.tecnozero.cl/blog/integrar-ia-nativa-plataforma-web-guia): tres patrones de IA nativa que funcionan y qué no se puede negociar al integrarla.
+- [IA nativa en EdTech: tutor inteligente](https://www.tecnozero.cl/blog/ia-nativa-edtech-tutor-inteligente): cómo un tutor de IA dentro del curso responde dudas, corrige y deja evidencia auditable.
+- [Ley Karin: capacitación obligatoria y cómo automatizarla](https://www.tecnozero.cl/blog/ley-karin-capacitacion-obligatoria-automatizar): qué exige la ley en materia de capacitación y cómo dejar la evidencia lista para fiscalización.
+- [RPA vs IA agéntica: cuándo usar cada uno](https://www.tecnozero.cl/blog/rpa-vs-ia-agentica-cuando-usar-cada-uno): la regla práctica de Tecnozero para elegir entre un robot determinista y un agente que decide.
+- [Automatizar el registro de contratos en el Portal DT](https://www.tecnozero.cl/blog/automatizar-registro-contratos-portal-direccion-del-trabajo): 45 segundos por registro con 0 errores, con el caso de Metro de Santiago.
+- [Acreditación de contratistas en minería (AIC)](https://www.tecnozero.cl/blog/acreditacion-contratistas-mineria-aic-agentes-ia): de 10 días hábiles a horas con OCR y agentes de IA, con trazabilidad Sernageomin.
+- [Agentes de IA sobre SAP y Oracle sin exponer datos](https://www.tecnozero.cl/blog/agentes-ia-sap-oracle-datos-privados): cómo opera un agente sobre datos privados sin que entrenen modelos públicos.
 
 ## Empresa
 

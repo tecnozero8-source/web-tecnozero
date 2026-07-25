@@ -52,6 +52,18 @@ function IconAI({ color }: { color: string }) {
   )
 }
 
+function IconBid({ color }: { color: string }) {
+  return (
+    <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+      <path d="M7 5h13l5 5v17a1 1 0 01-1 1H7a1 1 0 01-1-1V6a1 1 0 011-1z" stroke={color} strokeWidth="1.5" strokeLinejoin="round"/>
+      <path d="M20 5v5h5" stroke={color} strokeWidth="1.5" strokeLinejoin="round"/>
+      <line x1="10" y1="15" x2="19" y2="15" stroke={color} strokeWidth="1.5" strokeLinecap="round" opacity="0.7"/>
+      <line x1="10" y1="19" x2="16" y2="19" stroke={color} strokeWidth="1.5" strokeLinecap="round" opacity="0.7"/>
+      <path d="M13 23.5l2.5 2.5 5-5" stroke={color} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
+  )
+}
+
 /* ─── Visual accent panel por solución ──────────────────────────── */
 function VisualPanel({ accentColor, metricas, badge }: {
   accentColor: string
@@ -176,6 +188,24 @@ export function HomeSoluciones() {
       Icon: IconMine,
     },
     {
+      badge: "Nueva línea · Licitaciones",
+      titulo: "Agentes de Licitaciones",
+      subtitulo: "Mercado Público · Compra Ágil · portales privados",
+      descripcion: "Encontrar la licitación toma un minuto. Armar la carpeta toma diez horas. Nuestros agentes vigilan Mercado Público y los portales privados donde compite tu empresa, leen las bases, revisan que tus certificados sigan vigentes y dejan los anexos listos para tu firma.",
+      metricas: [
+        { valor: "4", label: "portales vigilados en paralelo" },
+        { valor: "30 días", label: "de piloto para medirlo en tu operación" },
+      ],
+      metricasPanel: [
+        { valor: "4", label: "portales" },
+        { valor: "30d", label: "de piloto" },
+      ],
+      cta: "Ver Agentes de Licitaciones →",
+      href: "/licitaciones",
+      accentColor: "#D4F040",
+      Icon: IconBid,
+    },
+    {
       badge: "IA Agéntica · Enterprise",
       titulo: "Agentes IA",
       subtitulo: "TITAN · SAP · Oracle",
@@ -221,7 +251,7 @@ export function HomeSoluciones() {
               fontWeight: 800, letterSpacing: "-0.05em", lineHeight: 1.02,
               color: "#0B1E3D", margin: 0,
             }}>
-              Cuatro líneas. Un solo equipo.
+              Cinco líneas. Un solo equipo.
               <br />
               <span style={{ color: "#1FB3E5" }}>Cero tolerancia al error.</span>
             </h2>

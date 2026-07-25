@@ -2,6 +2,7 @@
 
 import { motion, AnimatePresence } from "framer-motion"
 import { useState, useRef } from "react"
+import Image from "next/image"
 
 /* ─── Brand tokens ─────────────────────────────────────────── */
 const B = {
@@ -472,11 +473,12 @@ function ContactInfo() {
           border: "1px solid rgba(31,179,229,0.15)",
         }}
       >
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
+        <Image
           src="/paginas/contacto-serena.jpg"
           alt="Equipo de Tecnozero conversando sobre un proyecto de automatización e inteligencia artificial en Chile"
-          loading="lazy"
+          width={1400}
+          height={800}
+          sizes="(max-width: 900px) 100vw, 45vw"
           style={{ display: "block", width: "100%", height: "auto" }}
         />
         <div style={{

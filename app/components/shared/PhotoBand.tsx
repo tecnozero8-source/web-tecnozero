@@ -1,6 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
+import Image from "next/image"
 
 /**
  * Banda de imagen full-bleed con overlay oscuro y texto sobreimpreso.
@@ -31,16 +32,12 @@ export function PhotoBand({
         backgroundColor: "#060C18",
       }}
     >
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
+      <Image
         src={src}
         alt={alt}
-        loading="lazy"
+        fill
+        sizes="100vw"
         style={{
-          position: "absolute",
-          inset: 0,
-          width: "100%",
-          height: "100%",
           objectFit: "cover",
           objectPosition: "center",
         }}

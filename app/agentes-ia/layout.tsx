@@ -3,18 +3,23 @@ import type { Metadata } from "next"
 export const metadata: Metadata = {
   title: "TITAN — Agentes IA para SAP y Oracle en Chile",
   description:
-    "Agentes IA autónomos para sistemas enterprise SAP y Oracle. Respuestas en menos de 5 segundos vs 12 minutos manual. SAP RRHH, Oracle Finance, orquestación multi-ERP. Agenda demo técnica.",
+    "Agentes de IA autónomos sobre SAP y Oracle. Respuestas en menos de 5 segundos vs 12 minutos manual. Agenda una demo técnica de 45 minutos.",
   alternates: { canonical: "https://www.tecnozero.cl/agentes-ia" },
   openGraph: {
+    type: "website",
+    locale: "es_CL",
+    siteName: "Tecnozero",
     title: "TITAN — Agentes IA para SAP y Oracle en Chile · Tecnozero",
     description:
       "Agentes IA autónomos para sistemas enterprise SAP y Oracle. Respuestas en <5 segundos vs 12 minutos manual. Agenda demo técnica.",
     url: "https://www.tecnozero.cl/agentes-ia",
-    images: [{ url: "/logo-blanco.png", width: 800, height: 200, alt: "TITAN Agentes IA Tecnozero" }],
+    images: [{ url: "/og/agentes-ia.png", width: 1200, height: 630, alt: "TITAN de Tecnozero: agentes de IA para SAP y Oracle" }],
   },
   twitter: {
+    card: "summary_large_image",
     title: "TITAN — Agentes IA para SAP y Oracle en Chile · Tecnozero",
     description: "Agentes IA autónomos para sistemas enterprise. Respuestas en <5 segundos.",
+    images: ["/og/agentes-ia.png"],
   },
 }
 

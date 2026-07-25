@@ -1012,9 +1012,10 @@ function FooterCTA() {
 
 // ─── Page ────────────────────────────────────────────────────────────────────
 
+// El <main> lo aporta ConditionalLayout para todas las páginas públicas.
 export default function PortalDTPage() {
   return (
-    <main>
+    <>
       <Hero />
       <Pain />
       <HowItWorks />
@@ -1032,6 +1033,6 @@ export default function PortalDTPage() {
       <TrialBanner />
       <FAQ />
       <FooterCTA />
-    </main>
+    </>
   )
 }

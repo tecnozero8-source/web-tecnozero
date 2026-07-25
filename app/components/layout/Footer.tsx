@@ -1,6 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
+import Image from "next/image"
 import { ArrowUpRight, MapPin, Mail, Phone } from "lucide-react"
 
 const productos = [
@@ -9,6 +10,7 @@ const productos = [
   { label: "MinePass", href: "/mineria", badge: null },
   { label: "VehiclePass", href: "/mineria", badge: null },
   { label: "Agentes IA · TITAN", href: "/agentes-ia", badge: "Enterprise" },
+  { label: "Agentes de Licitaciones", href: "/licitaciones", badge: "Nuevo" },
 ]
 
 const empresa = [
@@ -131,9 +133,13 @@ export function Footer() {
             paddingBottom: "20px",
             borderBottom: "1px solid rgba(255,255,255,0.07)",
           }}>
-            <img
+            {/* unoptimized: ver nota en Navbar.tsx */}
+            <Image
               src="/logo-blanco.png"
               alt="Tecnozero"
+              width={308}
+              height={59}
+              unoptimized
               style={{ height: "28px", width: "auto", display: "block", opacity: 0.9 }}
             />
           </div>

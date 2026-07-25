@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import Link from "next/link"
+import Image from "next/image"
 import { getAllPosts, formatDate } from "../../lib/blog"
 
 const B = {
@@ -13,10 +14,11 @@ const B = {
   white: "#FFFFFF",
 }
 
+// El layout raíz agrega " · Tecnozero" vía title.template. No repetirlo aquí.
 export const metadata: Metadata = {
-  title: "Blog — Automatización, IA Agéntica y EdTech · Tecnozero",
+  title: "Blog de automatización, IA agéntica y EdTech",
   description:
-    "Ideas prácticas sobre RPA, IA Agéntica, integración de IA nativa en plataformas web y EdTech. Portal DT, minería, Ley Karin y agentes de IA sobre SAP y Oracle, explicados por Tecnozero.",
+    "Guías sobre RPA, IA agéntica y IA nativa en plataformas web. Portal DT, minería, Ley Karin y agentes sobre SAP y Oracle.",
   alternates: { canonical: "https://www.tecnozero.cl/blog" },
   openGraph: {
     title: "Blog Tecnozero — Automatización, IA Agéntica y EdTech",
@@ -24,6 +26,15 @@ export const metadata: Metadata = {
       "RPA, IA Agéntica, IA nativa en plataformas web y EdTech. Casos y guías del equipo de Tecnozero.",
     url: "https://www.tecnozero.cl/blog",
     type: "website",
+    locale: "es_CL",
+    siteName: "Tecnozero",
+    images: [{ url: "/og/blog.png", width: 1200, height: 630, alt: "Blog de Tecnozero" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Blog Tecnozero — Automatización, IA Agéntica y EdTech",
+    description: "RPA, IA Agéntica, IA nativa en plataformas web y EdTech.",
+    images: ["/og/blog.png"],
   },
 }
 
@@ -98,9 +109,14 @@ export default function BlogIndex() {
               backgroundColor: B.white, border: "1px solid rgba(9,87,195,0.08)",
             }}>
               <div className="blog-featured-img" style={{ position: "relative", minHeight: "320px" }}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={featured.heroImage} alt={featured.heroAlt}
-                  style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }} />
+                <Image
+                  src={featured.heroImage}
+                  alt={featured.heroAlt}
+                  fill
+                  sizes="(max-width: 900px) 100vw, 55vw"
+                  priority
+                  style={{ objectFit: "cover" }}
+                />
               </div>
               <div style={{ padding: "40px", display: "flex", flexDirection: "column" as const, justifyContent: "center" }}>
                 <div style={{ display: "flex", gap: "10px", alignItems: "center", marginBottom: "16px" }}>
@@ -136,9 +152,13 @@ export default function BlogIndex() {
                 border: "1px solid rgba(9,87,195,0.08)", boxShadow: "0 2px 18px rgba(9,87,195,0.05)",
               }}>
                 <div style={{ position: "relative", height: "180px" }}>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={post.heroImage} alt={post.heroAlt}
-                    style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }} />
+                  <Image
+                    src={post.heroImage}
+                    alt={post.heroAlt}
+                    fill
+                    sizes="(max-width: 700px) 100vw, (max-width: 1100px) 50vw, 33vw"
+                    style={{ objectFit: "cover" }}
+                  />
                 </div>
                 <div style={{ padding: "22px 22px 26px", display: "flex", flexDirection: "column" as const, flex: 1 }}>
                   <div style={{ display: "flex", gap: "10px", alignItems: "center", marginBottom: "12px" }}>

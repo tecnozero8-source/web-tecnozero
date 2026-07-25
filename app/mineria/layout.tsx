@@ -6,15 +6,20 @@ export const metadata: Metadata = {
     "De 10 días a horas en acreditación AIC. Cumplimiento Sernageomin automatizado. MinePass + VehiclePass para Gran Minería Chile. Demo disponible.",
   alternates: { canonical: "https://www.tecnozero.cl/mineria" },
   openGraph: {
+    type: "website",
+    locale: "es_CL",
+    siteName: "Tecnozero",
     title: "MinePass — Acreditación AIC Contratistas Minería · Tecnozero",
     description:
       "De 10 días a horas en acreditación AIC. Cumplimiento Sernageomin automatizado. MinePass + VehiclePass para Gran Minería Chile.",
     url: "https://www.tecnozero.cl/mineria",
-    images: [{ url: "/logo-blanco.png", width: 800, height: 200, alt: "MinePass Tecnozero" }],
+    images: [{ url: "/og/mineria.png", width: 1200, height: 630, alt: "MinePass de Tecnozero: acreditación AIC de contratistas" }],
   },
   twitter: {
+    card: "summary_large_image",
     title: "MinePass — Acreditación AIC Contratistas Minería · Tecnozero",
     description: "De 10 días a horas en acreditación AIC. Cumplimiento Sernageomin automatizado.",
+    images: ["/og/mineria.png"],
   },
 }
 

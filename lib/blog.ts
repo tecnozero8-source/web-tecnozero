@@ -15,7 +15,15 @@ export type Block =
 export interface BlogPost {
   slug: string
   title: string
+  /** Título corto para el <title> del navegador. Máx. 48 caracteres:
+   *  el layout raíz le agrega " · Tecnozero" y Google corta cerca de 60.
+   *  Si no se define, cae en `title`. */
+  seoTitle?: string
   description: string
+  /** Meta descripción para buscadores. Máx. 155 caracteres.
+   *  Si no se define, cae en `description` (que puede ser más larga
+   *  porque también alimenta la tarjeta del listado). */
+  metaDescription?: string
   category: string
   date: string          // ISO (YYYY-MM-DD)
   readingMin: number
@@ -31,8 +39,11 @@ const posts: BlogPost[] = [
   {
     slug: "ia-nativa-edtech-tutor-inteligente",
     title: "IA nativa en EdTech: cómo un tutor de inteligencia artificial cambia la capacitación corporativa",
+    seoTitle: "Tutor de IA en capacitación corporativa",
     description:
       "Un tutor de IA integrado en el curso responde dudas, corrige y deja evidencia. Así cambia la capacitación corporativa cuando la IA vive dentro de la plataforma y no en un chatbot pegado.",
+    metaDescription:
+      "Un tutor de IA dentro del curso responde dudas, corrige ejercicios y deja evidencia auditable de cada interacción del alumno.",
     category: "EdTech",
     date: "2026-07-16",
     readingMin: 6,
@@ -65,6 +76,9 @@ const posts: BlogPost[] = [
   {
     slug: "ley-karin-capacitacion-obligatoria-automatizar",
     title: "Ley Karin: qué obliga a capacitar a tu empresa y cómo automatizarlo",
+    seoTitle: "Ley Karin: capacitación obligatoria",
+    metaDescription:
+      "Qué exige la Ley Karin en capacitación y cómo un curso e-learning con tutor de IA deja la evidencia lista para una fiscalización.",
     description:
       "La Ley Karin convirtió la prevención del acoso laboral en un deber del empleador. Qué exige en materia de capacitación y cómo un curso e-learning con tutor de IA deja la evidencia lista para una fiscalización.",
     category: "Cumplimiento",
@@ -101,6 +115,9 @@ const posts: BlogPost[] = [
   {
     slug: "rpa-vs-ia-agentica-cuando-usar-cada-uno",
     title: "RPA vs IA Agéntica: cuándo tu proceso necesita un robot que razona",
+    seoTitle: "RPA vs IA agéntica: cuándo usar cada uno",
+    metaDescription:
+      "La mitad de los procesos se resuelve con RPA y la otra mitad necesita un agente que decida. La regla práctica para elegir sin gastar de más.",
     description:
       "La mitad de los procesos se resuelven mejor con RPA tradicional y la otra mitad necesita un agente que decida. La diferencia entre ambos y la regla práctica para elegir sin gastar de más.",
     category: "Automatización",
@@ -134,6 +151,9 @@ const posts: BlogPost[] = [
   {
     slug: "automatizar-registro-contratos-portal-direccion-del-trabajo",
     title: "Cómo automatizar el registro de contratos en el Portal de la Dirección del Trabajo",
+    seoTitle: "Automatizar contratos en el Portal DT",
+    metaDescription:
+      "Un robot RPA registra en 45 segundos lo que a una persona le toma minutos en el portal de la Dirección del Trabajo, con 0 errores.",
     description:
       "Cada contrato, anexo y finiquito en Chile pasa por el portal de la Dirección del Trabajo. Cómo un robot RPA registra en 45 segundos lo que a una persona le toma minutos, con 0 errores.",
     category: "Recursos Humanos",
@@ -164,6 +184,9 @@ const posts: BlogPost[] = [
   {
     slug: "acreditacion-contratistas-mineria-aic-agentes-ia",
     title: "Acreditación de contratistas en minería (AIC): de 10 días a horas con agentes de IA",
+    seoTitle: "Acreditación AIC minera con agentes de IA",
+    metaDescription:
+      "La AIC puede tomar 10 días hábiles por solicitud. Cómo un agente de IA con OCR la reduce a horas, con trazabilidad auditable ante Sernageomin.",
     description:
       "En la gran minería chilena, la Autorización de Ingreso de Contratistas puede tomar 10 días hábiles por solicitud. Cómo un agente de IA con OCR reduce la AIC a horas, con trazabilidad 100% auditable.",
     category: "Minería",
@@ -194,6 +217,9 @@ const posts: BlogPost[] = [
   {
     slug: "agentes-ia-sap-oracle-datos-privados",
     title: "Agentes de IA sobre SAP y Oracle: automatizar decisiones sin exponer tus datos",
+    seoTitle: "Agentes de IA sobre SAP y Oracle",
+    metaDescription:
+      "Cómo un agente opera sobre SAP, Oracle, PDFs y correos sin que tus datos entrenen modelos públicos y sin inventar respuestas.",
     description:
       "La objeción número uno a la IA en la empresa no es el precio, es la privacidad. Cómo un agente opera sobre SAP, Oracle, PDFs y correos sin que los datos entrenen modelos públicos y sin alucinaciones.",
     category: "Enterprise",
@@ -225,6 +251,9 @@ const posts: BlogPost[] = [
   {
     slug: "integrar-ia-nativa-plataforma-web-guia",
     title: "Integrar IA de forma nativa en tu plataforma web: guía para líderes de producto",
+    seoTitle: "Integrar IA nativa en tu plataforma web",
+    metaDescription:
+      "Pegar un chatbot en la esquina es fácil. Tres patrones de IA nativa que sí funcionan y lo que no se puede negociar al integrarla.",
     description:
       "Pegar un chatbot en la esquina es fácil. Que entienda tu negocio, actúe sobre tus datos y no invente es otra cosa. Tres patrones de IA nativa que funcionan y lo que no se puede negociar.",
     category: "Producto & IA",

@@ -54,9 +54,9 @@ export const metadata: Metadata = {
       "Automatización RPA, agentes de IA y plataformas web con IA nativa. +20 robots en producción. Metro de Santiago y Walmart Chile. Evaluación gratuita.",
     images: [
       {
-        url: "/logo-blanco.png",
-        width: 800,
-        height: 200,
+        url: "/og/home.png",
+        width: 1200,
+        height: 630,
         alt: "Tecnozero SpA — Automatización RPA e IA Agéntica",
       },
     ],
@@ -65,10 +65,10 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Tecnozero — RPA, IA Agéntica y EdTech · Chile",
     description: "RPA, agentes de IA y plataformas web con IA nativa. +20 robots en producción en Chile.",
-    images: ["/logo-blanco.png"],
+    images: ["/og/home.png"],
   },
   alternates: {
-    canonical: BASE_URL,
+    canonical: `${BASE_URL}/`,
   },
 }
 

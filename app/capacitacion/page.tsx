@@ -1,6 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
+import Image from "next/image"
 import {
   GraduationCap,
   ShieldCheck,
@@ -241,11 +242,14 @@ export default function CapacitacionPage() {
           />
 
           <div style={{ position: "relative", width: "100%", maxWidth: "480px" }}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
+            <Image
               className="cap-hero-img"
               src="/capacitacion/hero-alumna.jpg"
               alt="Trabajadora completando un curso de AulaZero con audífonos en su escritorio"
+              width={960}
+              height={1150}
+              sizes="(max-width: 900px) 100vw, 480px"
+              priority
               style={{
                 width: "100%",
                 height: "560px",
@@ -377,11 +381,12 @@ export default function CapacitacionPage() {
           </motion.div>
 
           <motion.div>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
+            <Image
               src="/capacitacion/conversacion-equipo.jpg"
               alt="Jefatura y trabajadora conversando con confianza en la oficina"
-              loading="lazy"
+              width={1100}
+              height={800}
+              sizes="(max-width: 900px) 100vw, 50vw"
               style={{
                 width: "100%",
                 height: "420px",
@@ -652,11 +657,12 @@ export default function CapacitacionPage() {
                     overflow: "hidden",
                   }}
                 >
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
+                  <Image
                     src={a.img}
                     alt={a.alt}
-                    loading="lazy"
+                    width={760}
+                    height={500}
+                    sizes="(max-width: 700px) 100vw, 25vw"
                     style={{
                       width: "100%",
                       height: "185px",

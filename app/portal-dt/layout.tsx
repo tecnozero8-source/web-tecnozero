@@ -6,15 +6,20 @@ export const metadata: Metadata = {
     "Robot RPA que registra contratos, anexos y bajas en el Portal Dirección del Trabajo. 45 segundos por registro. Desde $640 CLP/registro. Sin mensualidad fija.",
   alternates: { canonical: "https://www.tecnozero.cl/portal-dt" },
   openGraph: {
+    type: "website",
+    locale: "es_CL",
+    siteName: "Tecnozero",
     title: "Portal DT — Registro Automático de Contratos · Tecnozero",
     description:
       "Robot RPA que registra contratos en el Portal Dirección del Trabajo. 45 segundos por registro. Desde $640 CLP/registro. Sin mensualidad fija.",
     url: "https://www.tecnozero.cl/portal-dt",
-    images: [{ url: "/logo-blanco.png", width: 800, height: 200, alt: "Portal DT Tecnozero" }],
+    images: [{ url: "/og/portal-dt.png", width: 1200, height: 630, alt: "Portal DT de Tecnozero: registro automático de contratos" }],
   },
   twitter: {
+    card: "summary_large_image",
     title: "Portal DT — Registro Automático de Contratos · Tecnozero",
     description: "Robot RPA que registra contratos en el Portal DT. Desde $640 CLP/registro.",
+    images: ["/og/portal-dt.png"],
   },
 }
 

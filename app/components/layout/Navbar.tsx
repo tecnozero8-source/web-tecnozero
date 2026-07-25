@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { Menu, X } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 
@@ -75,10 +76,17 @@ export function Navbar() {
           flexShrink: 0,
           lineHeight: 0,
         }}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
+          {/* `unoptimized`: el logo pesa 15 KB y sale en todas las páginas.
+              Pasarlo por el optimizador ahorra poco y agrega una dependencia
+              en el asset más visible del sitio. width/height se mantienen para
+              que el navegador reserve el espacio y no haya salto de layout. */}
+          <Image
             src="/logo-blanco.png"
             alt="Tecnozero"
+            width={308}
+            height={59}
+            unoptimized
+            priority
             style={{
               height: "22px",
               width: "auto",

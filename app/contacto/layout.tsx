@@ -6,11 +6,20 @@ export const metadata: Metadata = {
     "Agenda tu evaluación gratuita de procesos. Respuesta en 24 horas. La Serena, Chile. (+569) 8869 3864 · contacto@tecnozero.cl",
   alternates: { canonical: "https://www.tecnozero.cl/contacto" },
   openGraph: {
+    type: "website",
+    locale: "es_CL",
+    siteName: "Tecnozero",
     title: "Contacto — Evaluación Gratuita de Procesos · Tecnozero",
     description:
       "Agenda tu evaluación gratuita. Respuesta en 24 horas. La Serena, Chile. (+569) 8869 3864.",
     url: "https://www.tecnozero.cl/contacto",
-    images: [{ url: "/logo-blanco.png", width: 800, height: 200, alt: "Contacto Tecnozero" }],
+    images: [{ url: "/og/home.png", width: 1200, height: 630, alt: "Contacto Tecnozero" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Contacto — Evaluación Gratuita de Procesos · Tecnozero",
+    description: "Agenda tu evaluación gratuita de procesos. Respuesta en 24 horas.",
+    images: ["/og/home.png"],
   },
 }
 

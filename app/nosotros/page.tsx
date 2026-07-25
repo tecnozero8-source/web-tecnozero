@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion"
 import Link from "next/link"
+import Image from "next/image"
 
 /* ─── Brand tokens ─────────────────────────────────────────── */
 const B = {
@@ -130,11 +131,13 @@ function HeroSection() {
           border: "1px solid rgba(255,255,255,0.10)",
           boxShadow: "0 30px 80px rgba(0,0,0,0.5)",
         }}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
+          <Image
             src="/nosotros/equipo-colaborando.jpg"
             alt="Equipo de ingeniería de Tecnozero trabajando en código"
-            style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+            fill
+            sizes="(max-width: 900px) 100vw, 50vw"
+            priority
+            style={{ objectFit: "cover" }}
           />
           <div style={{
             position: "absolute", inset: 0,
@@ -164,14 +167,16 @@ function HistoriaSection() {
         display: "grid", gridTemplateColumns: "0.9fr 1.1fr", gap: "56px", alignItems: "center",
       }}>
         <motion.div className="nos-split-img" style={{
+          position: "relative",
           borderRadius: "20px", overflow: "hidden", height: "420px",
           boxShadow: "0 20px 60px rgba(9,87,195,0.12)",
         }}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
+          <Image
             src="/nosotros/ingenieria-trabajo.jpg"
             alt="Estación de trabajo de ingeniería de Tecnozero"
-            style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+            fill
+            sizes="(max-width: 900px) 100vw, 45vw"
+            style={{ objectFit: "cover" }}
           />
         </motion.div>
 
@@ -267,11 +272,12 @@ function NumerosSection() {
 function OperacionesBand() {
   return (
     <section style={{ position: "relative", height: "280px", overflow: "hidden" }}>
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
+      <Image
         src="/nosotros/operaciones-monitoreo.jpg"
         alt="Panel de monitoreo de procesos en producción"
-        style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }}
+        fill
+        sizes="100vw"
+        style={{ objectFit: "cover" }}
       />
       <div style={{
         position: "absolute", inset: 0,
@@ -541,14 +547,16 @@ function CasoSection() {
         </div>
 
         <motion.div className="nos-split-img" style={{
+          position: "relative",
           borderRadius: "20px", overflow: "hidden", height: "400px",
           border: "1px solid rgba(255,255,255,0.10)", boxShadow: "0 26px 70px rgba(0,0,0,0.5)",
         }}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
+          <Image
             src="/nosotros/equipo-reunion.jpg"
             alt="Equipo celebrando un resultado de proyecto"
-            style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+            fill
+            sizes="(max-width: 900px) 100vw, 50vw"
+            style={{ objectFit: "cover" }}
           />
         </motion.div>
       </div>

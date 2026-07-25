@@ -1,9 +1,9 @@
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Agentes de Licitaciones — Mercado Público y Portales Privados",
+  title: "Agentes de Licitaciones para Mercado Público",
   description:
-    "Agentes de IA que vigilan Mercado Público, Compra Ágil, WhereEx e iConstruye, leen las bases y dejan la carpeta administrativa armada para tu firma. Piloto de 30 días.",
+    "Agentes de IA que vigilan Mercado Público, Compra Ágil, WhereEx e iConstruye, leen las bases y arman la carpeta para tu firma.",
   keywords: [
     "licitaciones Chile",
     "Mercado Público",
@@ -19,23 +19,28 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: "https://www.tecnozero.cl/licitaciones" },
   openGraph: {
+    type: "website",
+    locale: "es_CL",
+    siteName: "Tecnozero",
     title: "Agentes de Licitaciones — Mercado Público y Portales Privados · Tecnozero",
     description:
       "Tus competidores reciben la misma alerta que tú. Gana el que alcanza a postular. Agentes de IA que leen las bases y arman la carpeta.",
     url: "https://www.tecnozero.cl/licitaciones",
     images: [
       {
-        url: "/logo-blanco.png",
-        width: 800,
-        height: 200,
-        alt: "Agentes de Licitaciones Tecnozero",
+        url: "/og/licitaciones.png",
+        width: 1200,
+        height: 630,
+        alt: "Agentes de Licitaciones de Tecnozero para Mercado Público y portales privados",
       },
     ],
   },
   twitter: {
+    card: "summary_large_image",
     title: "Agentes de Licitaciones · Tecnozero",
     description:
       "Vigilan Mercado Público y los portales privados donde compite tu empresa, leen las bases y arman la carpeta.",
+    images: ["/og/licitaciones.png"],
   },
 }
 

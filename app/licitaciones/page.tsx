@@ -393,7 +393,8 @@ export default function LicitacionesPage() {
   const totalHoras = HORAS.reduce((a, b) => a + b.h, 0)
 
   return (
-    <main style={{ backgroundColor: "#060C18", overflowX: "hidden" }}>
+    // El <main> lo aporta ConditionalLayout para todas las páginas públicas.
+    <div style={{ backgroundColor: "#060C18", overflowX: "hidden" }}>
       {/* ═══════════════════════════════════════════════════════
           HERO
       ═══════════════════════════════════════════════════════ */}
@@ -1701,6 +1702,6 @@ export default function LicitacionesPage() {
           </motion.div>
         </div>
       </section>
-    </main>
+    </div>
   )
 }

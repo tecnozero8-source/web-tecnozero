@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import Link from "next/link"
+import Image from "next/image"
 import { notFound } from "next/navigation"
 import { getAllPosts, getPostBySlug, getRelatedPosts, formatDate, type Block } from "../../../lib/blog"
 
@@ -26,23 +27,28 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const post = getPostBySlug(slug)
   if (!post) return { title: "Artículo no encontrado" }
   const url = `${SITE}/blog/${post.slug}`
+  // El layout raíz ya agrega " · Tecnozero" vía title.template.
+  // No repetir el sufijo aquí.
   return {
-    title: `${post.title} · Tecnozero`,
-    description: post.description,
+    title: post.seoTitle ?? post.title,
+    description: post.metaDescription ?? post.description,
     keywords: post.keywords,
     alternates: { canonical: url },
     openGraph: {
       type: "article",
+      locale: "es_CL",
+      siteName: "Tecnozero",
       title: post.title,
-      description: post.description,
+      description: post.metaDescription ?? post.description,
       url,
       publishedTime: post.date,
+      modifiedTime: post.date,
       images: [{ url: `${SITE}${post.heroImage}`, width: 1600, height: 900, alt: post.heroAlt }],
     },
     twitter: {
       card: "summary_large_image",
       title: post.title,
-      description: post.description,
+      description: post.metaDescription ?? post.description,
       images: [`${SITE}${post.heroImage}`],
     },
   }
@@ -191,12 +197,18 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
       {/* IMAGEN */}
       <div style={{ backgroundColor: B.dark, padding: "0 48px" }}>
         <div className="post-hero-img" style={{
+          position: "relative",
           maxWidth: "900px", margin: "0 auto", transform: "translateY(28px)",
           borderRadius: "18px", overflow: "hidden", boxShadow: "0 24px 60px rgba(0,0,0,0.4)", height: "clamp(220px, 42vw, 420px)",
         }}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={post.heroImage} alt={post.heroAlt}
-            style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+          <Image
+            src={post.heroImage}
+            alt={post.heroAlt}
+            fill
+            sizes="(max-width: 900px) 100vw, 900px"
+            priority
+            style={{ objectFit: "cover" }}
+          />
         </div>
       </div>
 
@@ -244,9 +256,13 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                   border: "1px solid rgba(9,87,195,0.08)",
                 }}>
                   <div style={{ position: "relative", height: "150px" }}>
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={r.heroImage} alt={r.heroAlt}
-                      style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }} />
+                    <Image
+                      src={r.heroImage}
+                      alt={r.heroAlt}
+                      fill
+                      sizes="(max-width: 700px) 100vw, 33vw"
+                      style={{ objectFit: "cover" }}
+                    />
                   </div>
                   <div style={{ padding: "18px 20px 22px" }}>
                     <span style={{

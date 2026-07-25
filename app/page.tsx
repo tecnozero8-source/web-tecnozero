@@ -16,7 +16,14 @@ const homeJsonLd = {
       logo: {
         "@type": "ImageObject",
         url: "https://www.tecnozero.cl/logo-blanco.png",
+        width: 308,
+        height: 59,
       },
+      // Google pide `image` para mostrar fichas de LocalBusiness.
+      image: [
+        "https://www.tecnozero.cl/paginas/home-operaciones.jpg",
+        "https://www.tecnozero.cl/nosotros/equipo-colaborando.jpg",
+      ],
       description:
         "Automatización de procesos críticos con RPA e IA Agéntica para empresas en Chile. +20 robots en producción. Metro de Santiago, Walmart Chile.",
       telephone: "+56988693864",
