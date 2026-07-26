@@ -1,22 +1,22 @@
 # Tecnozero SpA — contenido completo del sitio
 
-> Volcado del texto de www.tecnozero.cl para sistemas de IA. Tecnozero SpA es una empresa chilena de automatización de procesos con RPA e IA agéntica, fundada en 2019 en La Serena, Región de Coquimbo. +20 robots en producción para Metro de Santiago, Walmart Chile (vía Tawa / Activos Chile) y gran minería. El índice corto está en https://www.tecnozero.cl/llms.txt
+> Volcado del texto de www.tecnozero.cl para sistemas de IA. Tecnozero SpA es una empresa chilena de automatización de procesos con RPA e IA agéntica, fundada en 2019 en La Serena, Región de Coquimbo. +20 robots en producción para Metro de Santiago, la gran minería y operadores de RRHH del retail (Tawa, Activos Chile). Los artículos del blog los firma Robert Yasuda, PhD. El índice corto está en https://www.tecnozero.cl/llms.txt
 
-Última actualización: 2026-07-25
+Última actualización: 2026-07-26
 
 ---
 
 ## Inicio
 
 URL: https://www.tecnozero.cl/
-Resumen: Automatización RPA, agentes de IA y plataformas web con IA nativa (EdTech) para empresas en Chile. +20 robots en producción: Metro de Santiago y Walmart Chile.
+Resumen: Automatización RPA, agentes de IA y plataformas web con IA nativa (EdTech) para empresas en Chile. +20 robots en producción para Metro de Santiago, la gran minería y el retail.
 
 
 ### Procesos críticos automatizados. Tu equipo enfocado en lo que importa.
 
-Robots de software que operan 24/7 sin errores. +20 en producción hoy en Metro de Santiago, gran minería del norte y Walmart Chile.
+Robots de software que operan 24/7 sin errores. +20 en producción hoy en Metro de Santiago, la gran minería del norte y el retail.
 Operación real, en producción
-Robots de software y agentes de IA trabajando hoy para Metro de Santiago, la gran minería del norte y Walmart Chile.
+Robots de software y agentes de IA trabajando hoy para Metro de Santiago, la gran minería del norte y el retail.
 Qué hacemos
 
 #### Cinco líneas. Un solo equipo. Cero tolerancia al error.
@@ -42,9 +42,6 @@ MinePass y VehiclePass: acreditación digital de contratistas e inspección de f
 
 Mercado Público · Compra Ágil · portales privados
 Encontrar la licitación toma un minuto. Armar la carpeta toma diez horas. Nuestros agentes vigilan Mercado Público y los portales privados donde compite tu empresa, leen las bases, revisan que tus certificados sigan vigentes y dejan los anexos listos para tu firma.
-4 portales vigilados en paralelo
-30 días de piloto para medirlo en tu operación
-Ver Agentes de Licitaciones →
 
 **Agentes IA**
 
@@ -66,7 +63,7 @@ RETAIL · OUTSOURCING MASIVO
 
 **Tawa + Activos Chile**
 
-RRHH masivo para Walmart Chile
+RRHH masivo para el retail nacional
 Gestión del ciclo laboral de más de 10.000 personas por mes. Contratos, finiquitos y licencias médicas — a diario, sin margen de error.
 HOY: 6 robots · IMED · Medipass · Portalempleador.cl
 MINERÍA · GRAN FAENA NORTE CHILE
@@ -317,7 +314,7 @@ Respuesta en menos de 24 horas hábiles
 ## Agentes IA · TITAN
 
 URL: https://www.tecnozero.cl/agentes-ia
-Resumen: Agentes IA autónomos para sistemas enterprise SAP y Oracle. Respuestas en menos de 5 segundos vs 12 minutos manual. SAP RRHH, Oracle Finance, orquestación multi-ERP. Agenda demo técnica.
+Resumen: Agentes de IA autónomos sobre SAP y Oracle. Respuestas en menos de 5 segundos vs 12 minutos manual. Agenda una demo técnica de 45 minutos.
 
 
 ### Agentes que razonan. Actúan. Y nunca se equivocan.
@@ -372,7 +369,7 @@ Respuesta en menos de 24 horas hábiles
 ## Agentes de Licitaciones
 
 URL: https://www.tecnozero.cl/licitaciones
-Resumen: Agentes de IA que vigilan Mercado Público, Compra Ágil, WhereEx e iConstruye, leen las bases y dejan la carpeta administrativa armada para tu firma. Piloto de 30 días.
+Resumen: Agentes de IA que vigilan Mercado Público, Compra Ágil, WhereEx e iConstruye, leen las bases y arman la carpeta para tu firma.
 
 
 ### Tus competidores reciben la misma alerta que tú. Gana el que postula.
@@ -437,7 +434,7 @@ El hueco del mercado
 #### Donde termina una plataforma de alertas.
 
 En Chile hay seis plataformas que avisan de licitaciones y resumen las bases. Ninguna entra a un portal privado ni deja la oferta armada.
-Entramos a los portales privados con las credenciales de tu empresa y un mandato firmado que autoriza la operación. Cada acción del robot queda registrada con fecha, usuario y resultado. Es el mismo mecanismo con que operamos el portal de la Dirección del Trabajo para Metro de Santiago y para Walmart Chile a través de Tawa.
+Entramos a los portales privados con las credenciales de tu empresa y un mandato firmado que autoriza la operación. Cada acción del robot queda registrada con fecha, usuario y resultado. Es el mismo mecanismo con que operamos el portal de la Dirección del Trabajo para Metro de Santiago y para el retail a través de Tawa.
 Portales privados
 WhereEx, iConstruye y Ariba mueven contratos que nunca pasan por Mercado Público.
 Planes
@@ -500,7 +497,7 @@ Termina el mes y decides tú
 ## Nosotros
 
 URL: https://www.tecnozero.cl/nosotros
-Resumen: Empresa chilena de automatización fundada en 2019 en La Serena. Ingenieros UTFSM, +20 robots en producción, RPA + IA Agéntica. Automatizamos las decisiones críticas de Metro de Santiago, Walmart Chile y más.
+Resumen: Empresa chilena de automatización fundada en 2019 en La Serena. Ingenieros UTFSM, +20 robots en producción para Metro de Santiago, Tawa y Activos Chile.
 
 
 ### No automatizamos tareas. Automatizamos decisiones críticas.
@@ -582,7 +579,7 @@ Personas reales atendiendo tu proyecto, sin call centers ni intermediarios.
 ## Blog
 
 URL: https://www.tecnozero.cl/blog
-Resumen: Ideas prácticas sobre RPA, IA Agéntica, integración de IA nativa en plataformas web y EdTech. Portal DT, minería, Ley Karin y agentes de IA sobre SAP y Oracle, explicados por Tecnozero.
+Resumen: Guías sobre RPA, IA agéntica y IA nativa en plataformas web. Portal DT, minería, Ley Karin y agentes sobre SAP y Oracle.
 
 
 ### Automatización, IA Agéntica y IA nativa en plataformas web
@@ -619,10 +616,13 @@ La objeción número uno a la IA en la empresa no es el precio, es la privacidad
 
 ---
 
-## Integrar IA de forma nativa en tu plataforma web: guía para líderes de producto
+## Integrar IA nativa en tu plataforma web
 
 URL: https://www.tecnozero.cl/blog/integrar-ia-nativa-plataforma-web-guia
-Resumen: Pegar un chatbot en la esquina es fácil. Que entienda tu negocio, actúe sobre tus datos y no invente es otra cosa. Tres patrones de IA nativa que funcionan y lo que no se puede negociar.
+Resumen: Pegar un chatbot en la esquina es fácil. Tres patrones de IA nativa que sí funcionan y lo que no se puede negociar al integrarla.
+
+
+### Integrar IA de forma nativa en tu plataforma web: guía para líderes de producto
 
 Pegar un chatbot en la esquina es fácil. Que entienda tu negocio, actúe sobre tus datos y no invente es otra cosa. Tres patrones de IA nativa que funcionan y lo que no se puede negociar.
 Pegar un chatbot en la esquina de tu producto es fácil. Que ese chatbot entienda tu negocio, actúe sobre tus datos y no invente es otra cosa. Esa diferencia separa una demo de una función que la gente de verdad usa.
@@ -655,13 +655,30 @@ Actúa sobre tu backend: crea registros, valida documentos, dispara procesos. RP
 #### Cómo lo hacemos en Tecnozero
 
 Integramos IA y agentes de IA de forma nativa en plataformas web, con foco especial en EdTech. Unimos RPA sólido, agentes que razonan y desarrollo web propio, todo sobre infraestructura cifrada. Del curso con tutor de IA al agente que opera tu ERP, con el mismo estándar de precisión.
+Robert Yasuda, PhD
+PhD por la Universidad de Almería. Dirige Tecnozero desde La Serena, donde su equipo opera más de 20 robots de software en producción para Metro de Santiago, la gran minería y el retail.
+
+#### Seguir leyendo
+
+
+**IA nativa en EdTech: cómo un tutor de inteligencia artificial cambia la capacitación corporativa**
+
+
+**Agentes de IA sobre SAP y Oracle: automatizar decisiones sin exponer tus datos**
+
+
+**Ley Karin: qué obliga a capacitar a tu empresa y cómo automatizarlo**
+
 
 ---
 
-## IA nativa en EdTech: cómo un tutor de inteligencia artificial cambia la capacitación corporativa
+## Tutor de IA en capacitación corporativa
 
 URL: https://www.tecnozero.cl/blog/ia-nativa-edtech-tutor-inteligente
-Resumen: Un tutor de IA integrado en el curso responde dudas, corrige y deja evidencia. Así cambia la capacitación corporativa cuando la IA vive dentro de la plataforma y no en un chatbot pegado.
+Resumen: Un tutor de IA dentro del curso responde dudas, corrige ejercicios y deja evidencia auditable de cada interacción del alumno.
+
+
+### IA nativa en EdTech: cómo un tutor de inteligencia artificial cambia la capacitación corporativa
 
 Un tutor de IA integrado en el curso responde dudas, corrige y deja evidencia. Así cambia la capacitación corporativa cuando la IA vive dentro de la plataforma y no en un chatbot pegado.
 La mayoría de los cursos e-learning corporativos terminan igual: un video corriendo en una pestaña que nadie mira y un certificado que nadie lee. El problema no es el contenido. Es que no hay nadie que responda cuando aparece la duda.
@@ -686,13 +703,30 @@ AulaZero, la línea EdTech de Tecnozero, integra tutor de IA, audio profesional 
 #### Cómo lo construimos
 
 Sobre una plataforma web propia o sobre el LMS que ya usas. La IA razona a partir del contenido del curso, nunca inventa y los datos del alumno no entrenan modelos públicos. Ese es el estándar con el que integramos IA de forma nativa, con foco en EdTech.
+Robert Yasuda, PhD
+PhD por la Universidad de Almería. Dirige Tecnozero desde La Serena, donde su equipo opera más de 20 robots de software en producción para Metro de Santiago, la gran minería y el retail.
+
+#### Seguir leyendo
+
+
+**Ley Karin: qué obliga a capacitar a tu empresa y cómo automatizarlo**
+
+
+**Integrar IA de forma nativa en tu plataforma web: guía para líderes de producto**
+
+
+**RPA vs IA Agéntica: cuándo tu proceso necesita un robot que razona**
+
 
 ---
 
-## Ley Karin: qué obliga a capacitar a tu empresa y cómo automatizarlo
+## Ley Karin: capacitación obligatoria
 
 URL: https://www.tecnozero.cl/blog/ley-karin-capacitacion-obligatoria-automatizar
-Resumen: La Ley Karin convirtió la prevención del acoso laboral en un deber del empleador. Qué exige en materia de capacitación y cómo un curso e-learning con tutor de IA deja la evidencia lista para una fiscalización.
+Resumen: Qué exige la Ley Karin en capacitación y cómo un curso e-learning con tutor de IA deja la evidencia lista para una fiscalización.
+
+
+### Ley Karin: qué obliga a capacitar a tu empresa y cómo automatizarlo
 
 La Ley Karin convirtió la prevención del acoso laboral en un deber del empleador. Qué exige en materia de capacitación y cómo un curso e-learning con tutor de IA deja la evidencia lista para una fiscalización.
 La Ley 21.643, conocida como Ley Karin, cambió lo que se espera de cada empleador en Chile. Ya no basta con tener un reglamento interno guardado en un cajón. Hay que prevenir, capacitar y dejar constancia.
@@ -715,13 +749,30 @@ Un curso online con tutor de IA capacita a cada trabajador a su ritmo, responde 
 - El tutor de IA responde dudas sobre el protocolo de tu empresa, no en abstracto.
 - Descargas registros de avance y certificados en un clic.
 Capacitación compatible con franquicia tributaria SENCE a través de OTECs.
+Robert Yasuda, PhD
+PhD por la Universidad de Almería. Dirige Tecnozero desde La Serena, donde su equipo opera más de 20 robots de software en producción para Metro de Santiago, la gran minería y el retail.
+
+#### Seguir leyendo
+
+
+**IA nativa en EdTech: cómo un tutor de inteligencia artificial cambia la capacitación corporativa**
+
+
+**Cómo automatizar el registro de contratos en el Portal de la Dirección del Trabajo**
+
+
+**Integrar IA de forma nativa en tu plataforma web: guía para líderes de producto**
+
 
 ---
 
-## RPA vs IA Agéntica: cuándo tu proceso necesita un robot que razona
+## RPA vs IA agéntica: cuándo usar cada uno
 
 URL: https://www.tecnozero.cl/blog/rpa-vs-ia-agentica-cuando-usar-cada-uno
-Resumen: La mitad de los procesos se resuelven mejor con RPA tradicional y la otra mitad necesita un agente que decida. La diferencia entre ambos y la regla práctica para elegir sin gastar de más.
+Resumen: La mitad de los procesos se resuelve con RPA y la otra mitad necesita un agente que decida. La regla práctica para elegir sin gastar de más.
+
+
+### RPA vs IA Agéntica: cuándo tu proceso necesita un robot que razona
 
 La mitad de los procesos se resuelven mejor con RPA tradicional y la otra mitad necesita un agente que decida. La diferencia entre ambos y la regla práctica para elegir sin gastar de más.
 'Automaticemos esto con IA' suena bien en una reunión. En la práctica, la mitad de los procesos se resuelven mejor con RPA tradicional y la otra mitad necesita un agente que decida. Elegir mal cuesta dinero y tiempo.
@@ -745,13 +796,30 @@ RPA tradicional: sigue reglas, ideal para flujos estables. IA Agéntica: razona,
 #### La regla práctica de Tecnozero
 
 Partimos con RPA sólido donde el flujo es estable y sumamos agentes de IA donde hay que interpretar y decidir. Transitamos del RPA a la IA, y hoy caminamos hacia la IA Agéntica sin perder la precisión industrial.
+Robert Yasuda, PhD
+PhD por la Universidad de Almería. Dirige Tecnozero desde La Serena, donde su equipo opera más de 20 robots de software en producción para Metro de Santiago, la gran minería y el retail.
+
+#### Seguir leyendo
+
+
+**Agentes de IA sobre SAP y Oracle: automatizar decisiones sin exponer tus datos**
+
+
+**Cómo automatizar el registro de contratos en el Portal de la Dirección del Trabajo**
+
+
+**Integrar IA de forma nativa en tu plataforma web: guía para líderes de producto**
+
 
 ---
 
-## Cómo automatizar el registro de contratos en el Portal de la Dirección del Trabajo
+## Automatizar contratos en el Portal DT
 
 URL: https://www.tecnozero.cl/blog/automatizar-registro-contratos-portal-direccion-del-trabajo
-Resumen: Cada contrato, anexo y finiquito en Chile pasa por el portal de la Dirección del Trabajo. Cómo un robot RPA registra en 45 segundos lo que a una persona le toma minutos, con 0 errores.
+Resumen: Un robot RPA registra en 45 segundos lo que a una persona le toma minutos en el portal de la Dirección del Trabajo, con 0 errores.
+
+
+### Cómo automatizar el registro de contratos en el Portal de la Dirección del Trabajo
 
 Cada contrato, anexo y finiquito en Chile pasa por el portal de la Dirección del Trabajo. Cómo un robot RPA registra en 45 segundos lo que a una persona le toma minutos, con 0 errores.
 Cada contrato, anexo y finiquito en Chile pasa por el portal de la Dirección del Trabajo. Para una empresa con cientos de movimientos al mes, eso significa un equipo copiando datos a mano, con el reloj de la multa corriendo.
@@ -770,13 +838,30 @@ El robot toma los datos desde tu nómina o tu ERP, entra al portal, completa los
 #### El caso Metro de Santiago
 
 En septiembre de 2023, Metro necesitaba registrar 4.600 contratos antes de una fecha imposible. Los robots de Tecnozero cargaron 4.000 en 20 días, con 0 errores. Lo que empezó como una emergencia hoy es un ecosistema de 9 robots que cuida el ciclo laboral de 4.600 personas.
+Robert Yasuda, PhD
+PhD por la Universidad de Almería. Dirige Tecnozero desde La Serena, donde su equipo opera más de 20 robots de software en producción para Metro de Santiago, la gran minería y el retail.
+
+#### Seguir leyendo
+
+
+**RPA vs IA Agéntica: cuándo tu proceso necesita un robot que razona**
+
+
+**Ley Karin: qué obliga a capacitar a tu empresa y cómo automatizarlo**
+
+
+**Integrar IA de forma nativa en tu plataforma web: guía para líderes de producto**
+
 
 ---
 
-## Acreditación de contratistas en minería (AIC): de 10 días a horas con agentes de IA
+## Acreditación AIC minera con agentes de IA
 
 URL: https://www.tecnozero.cl/blog/acreditacion-contratistas-mineria-aic-agentes-ia
-Resumen: En la gran minería chilena, la Autorización de Ingreso de Contratistas puede tomar 10 días hábiles por solicitud. Cómo un agente de IA con OCR reduce la AIC a horas, con trazabilidad 100% auditable.
+Resumen: La AIC puede tomar 10 días hábiles por solicitud. Cómo un agente de IA con OCR la reduce a horas, con trazabilidad auditable ante Sernageomin.
+
+
+### Acreditación de contratistas en minería (AIC): de 10 días a horas con agentes de IA
 
 En la gran minería chilena, la Autorización de Ingreso de Contratistas puede tomar 10 días hábiles por solicitud. Cómo un agente de IA con OCR reduce la AIC a horas, con trazabilidad 100% auditable.
 En la gran minería chilena, ningún contratista entra a faena sin acreditación. El proceso manual de Autorización de Ingreso de Contratistas puede tomar hasta 10 días hábiles por solicitud. Cada día de espera es una máquina detenida y un contrato que no avanza.
@@ -795,13 +880,30 @@ Un agente con OCR lee los documentos, valida contra los portales, detecta vencim
 #### Qué es MinePass
 
 MinePass es la solución de Tecnozero para acreditar contratistas en la gran minería chilena. Combina OCR, agentes de IA y credencial tokenizada, y libera a los equipos de prevención de un trabajo que consumía días enteros.
+Robert Yasuda, PhD
+PhD por la Universidad de Almería. Dirige Tecnozero desde La Serena, donde su equipo opera más de 20 robots de software en producción para Metro de Santiago, la gran minería y el retail.
+
+#### Seguir leyendo
+
+
+**RPA vs IA Agéntica: cuándo tu proceso necesita un robot que razona**
+
+
+**Agentes de IA sobre SAP y Oracle: automatizar decisiones sin exponer tus datos**
+
+
+**Integrar IA de forma nativa en tu plataforma web: guía para líderes de producto**
+
 
 ---
 
-## Agentes de IA sobre SAP y Oracle: automatizar decisiones sin exponer tus datos
+## Agentes de IA sobre SAP y Oracle
 
 URL: https://www.tecnozero.cl/blog/agentes-ia-sap-oracle-datos-privados
-Resumen: La objeción número uno a la IA en la empresa no es el precio, es la privacidad. Cómo un agente opera sobre SAP, Oracle, PDFs y correos sin que los datos entrenen modelos públicos y sin alucinaciones.
+Resumen: Cómo un agente opera sobre SAP, Oracle, PDFs y correos sin que tus datos entrenen modelos públicos y sin inventar respuestas.
+
+
+### Agentes de IA sobre SAP y Oracle: automatizar decisiones sin exponer tus datos
 
 La objeción número uno a la IA en la empresa no es el precio, es la privacidad. Cómo un agente opera sobre SAP, Oracle, PDFs y correos sin que los datos entrenen modelos públicos y sin alucinaciones.
 La objeción número uno a la IA en una empresa grande no es el precio. Es 'no voy a subir los datos de mi ERP a un modelo público'. Es una objeción correcta, y tiene solución.
@@ -821,5 +923,19 @@ TITAN, la plataforma de IA Agéntica de Tecnozero, opera sobre SAP, Oracle, PDFs
 
 Un agente de inventario que resuelve en segundos lo que tomaba 45 minutos en SAP. Una conciliación que baja de dos días al mes a dos horas. La misma exigencia de siempre, sin las horas de trabajo manual.
 TITAN nace de la alianza de Tecnozero con Accéder (Montreal), laboratorio integrado a los ecosistemas MILA y Scale AI.
+Robert Yasuda, PhD
+PhD por la Universidad de Almería. Dirige Tecnozero desde La Serena, donde su equipo opera más de 20 robots de software en producción para Metro de Santiago, la gran minería y el retail.
+
+#### Seguir leyendo
+
+
+**RPA vs IA Agéntica: cuándo tu proceso necesita un robot que razona**
+
+
+**Integrar IA de forma nativa en tu plataforma web: guía para líderes de producto**
+
+
+**IA nativa en EdTech: cómo un tutor de inteligencia artificial cambia la capacitación corporativa**
+
 
 ---
