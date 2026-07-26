@@ -210,8 +210,8 @@ export default function TerminosPage() {
           Para clientes que nos proveen datos personales de trabajadores para procesamiento
           (Portal DT, MinePass), Tecnozero actúa como Encargado del Tratamiento en los
           términos de la Ley 19.628. Los detalles del Acuerdo de Procesamiento de Datos
-          (DPA) se incluyen en el contrato de servicio específico. Las empresas del tamaño
-          de Metro de Santiago o Walmart Chile pueden solicitar un DPA firmado por separado
+          (DPA) se incluyen en el contrato de servicio específico. Las empresas con
+          operaciones de ese tamaño pueden solicitar un DPA firmado por separado
           a{" "}
           <a href="mailto:contacto@tecnozero.cl" style={S.link}>contacto@tecnozero.cl</a>.
         </p>

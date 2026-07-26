@@ -3,7 +3,7 @@ import type { Metadata } from "next"
 export const metadata: Metadata = {
   title: "Nosotros — Automatización RPA e IA en La Serena",
   description:
-    "Empresa chilena de automatización fundada en 2019 en La Serena. Ingenieros UTFSM, +20 robots en producción para Metro de Santiago y Walmart Chile.",
+    "Empresa chilena de automatización fundada en 2019 en La Serena. Ingenieros UTFSM, +20 robots en producción para Metro de Santiago, Tawa y Activos Chile.",
   alternates: { canonical: "https://www.tecnozero.cl/nosotros" },
   openGraph: {
     type: "website",

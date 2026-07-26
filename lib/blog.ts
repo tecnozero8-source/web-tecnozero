@@ -12,6 +12,19 @@ export type Block =
   | { type: "callout"; text: string }
   | { type: "cta"; label: string; href: string }
 
+/**
+ * Autor de los artículos. Google evalúa la experiencia a nivel de persona,
+ * no de empresa: un artículo firmado por alguien con nombre, credencial y
+ * perfil verificable pesa más que uno firmado por la marca.
+ */
+export const AUTHOR = {
+  name: "Robert Yasuda",
+  credential: "PhD",
+  displayName: "Robert Yasuda, PhD",
+  linkedin: "https://www.linkedin.com/in/robert-yasuda-phd/",
+  bio: "PhD por la Universidad de Almería. Dirige Tecnozero desde La Serena, donde su equipo opera más de 20 robots de software en producción para Metro de Santiago, la gran minería y el retail.",
+} as const
+
 export interface BlogPost {
   slug: string
   title: string

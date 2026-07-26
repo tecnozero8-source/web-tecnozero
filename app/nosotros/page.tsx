@@ -501,7 +501,7 @@ function CasoSection() {
     { value: "87%", label: "reducción de tiempo" },
     { value: "0 errores", label: "en registros DT" },
   ]
-  const clientes = ["Metro de Santiago", "Tawa", "Activos Chile · Walmart", "Despapeliza"]
+  const clientes = ["Metro de Santiago", "Tawa", "Activos Chile", "Despapeliza"]
   return (
     <section className="nos-section" style={{ backgroundColor: B.dark, padding: "104px 48px" }}>
       <div className="nos-split" style={{

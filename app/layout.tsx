@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     template: "%s · Tecnozero",
   },
   description:
-    "Automatización RPA, agentes de IA y plataformas web con IA nativa (EdTech) para empresas en Chile. +20 robots en producción: Metro de Santiago y Walmart Chile.",
+    "Automatización RPA, agentes de IA y plataformas web con IA nativa (EdTech) para empresas en Chile. +20 robots en producción para Metro de Santiago, la gran minería y el retail.",
   keywords: [
     "RPA Chile",
     "automatización procesos",
@@ -51,7 +51,7 @@ export const metadata: Metadata = {
     siteName: "Tecnozero",
     title: "Tecnozero — RPA, IA Agéntica y EdTech · Chile",
     description:
-      "Automatización RPA, agentes de IA y plataformas web con IA nativa. +20 robots en producción. Metro de Santiago y Walmart Chile. Evaluación gratuita.",
+      "Automatización RPA, agentes de IA y plataformas web con IA nativa. +20 robots en producción: Metro de Santiago, gran minería y retail. Evaluación gratuita.",
     images: [
       {
         url: "/og/home.png",

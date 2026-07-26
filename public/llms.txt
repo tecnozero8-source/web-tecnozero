@@ -18,7 +18,7 @@
 ## Casos verificables
 
 - Metro de Santiago: 4.000 contratos cargados en 20 días, 0 errores, 9 robots activos, 4.600 trabajadores
-- Tawa / Activos Chile (Walmart supply chain): 10.000+ documentos mensuales, 6 robots, 0 errores regulatorios, 7 días sin intervención humana
+- Tawa / Activos Chile (outsourcing de RRHH para retail): 10.000+ documentos mensuales, 6 robots, 0 errores regulatorios, 7 días sin intervención humana
 - Gran Minería Norte Chile: AIC de 10 días → horas, 100% trazabilidad Sernageomin
 
 ## Métricas de producción (2026)
@@ -55,4 +55,5 @@
 - Dirección: La Serena, Región de Coquimbo, Chile
 - Teléfono: (+569) 8869 3864 | Email: contacto@tecnozero.cl
 - Equipo: PhD en Ciencias Informáticas, 3 Ingenieros Civiles Informáticos UTFSM, Ingenieros Comerciales
+- Autor de los artículos del blog: Robert Yasuda, PhD (Universidad de Almería), https://www.linkedin.com/in/robert-yasuda-phd/
 - LinkedIn: https://www.linkedin.com/company/rpa-ia/

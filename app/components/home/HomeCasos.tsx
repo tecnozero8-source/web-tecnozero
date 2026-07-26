@@ -21,7 +21,7 @@ const casos = [
   {
     numero: "02",
     cliente: "Tawa + Activos Chile",
-    tagline: "RRHH masivo para Walmart Chile",
+    tagline: "RRHH masivo para el retail nacional",
     contexto: "Gestión del ciclo laboral de más de 10.000 personas por mes. Contratos, finiquitos y licencias médicas — a diario, sin margen de error.",
     metricas: [
       { valor: "10.000+", label: "documentos / mes", detalle: "procesados" },

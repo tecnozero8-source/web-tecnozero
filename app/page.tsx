@@ -25,7 +25,7 @@ const homeJsonLd = {
         "https://www.tecnozero.cl/nosotros/equipo-colaborando.jpg",
       ],
       description:
-        "Automatización de procesos críticos con RPA e IA Agéntica para empresas en Chile. +20 robots en producción. Metro de Santiago, Walmart Chile.",
+        "Automatización de procesos críticos con RPA e IA Agéntica para empresas en Chile. +20 robots en producción. Metro de Santiago, Tawa, Activos Chile.",
       telephone: "+56988693864",
       email: "contacto@tecnozero.cl",
       taxID: "77.043.128-K",
@@ -135,7 +135,7 @@ export default function HomePage() {
             margin: "0 0 2.5rem", fontWeight: 400,
           }}>
             Robots de software que operan 24/7 sin errores. +20 en producción
-            hoy en Metro de Santiago, gran minería del norte y Walmart Chile.
+            hoy en Metro de Santiago, la gran minería del norte y el retail.
           </p>
 
           {/* CTAs */}
@@ -171,7 +171,7 @@ export default function HomePage() {
             <span style={{ fontSize: "0.7rem", color: "#3A5068", fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase" as const }}>
               Hoy en producción
             </span>
-            {["Metro · 9 robots", "MinePass · Gran Minería", "Walmart Chile · 6 robots", "AulaZero · Capacitación IA"].map((c) => (
+            {["Metro · 9 robots", "MinePass · Gran Minería", "Activos Chile · 6 robots", "AulaZero · Capacitación IA"].map((c) => (
               <span key={c} style={{ fontSize: "0.78rem", color: "#4A607A", fontWeight: 500 }}>{c}</span>
             ))}
           </div>
@@ -224,8 +224,8 @@ export default function HomePage() {
                 { name: "Registro DT · Contratos", client: "Metro de Santiago", status: "Ejecutando", ops: "847 ops hoy", color: "#22C55E" },
                 { name: "VehiclePass · Inspección Flota", client: "Gran Minería Norte", status: "Activo", ops: "23 vehículos", color: "#1FB3E5" },
                 { name: "MinePass · AIC Contratistas", client: "Gran Minería Norte", status: "Activo", ops: "12 AICs hoy", color: "#1FB3E5" },
-                { name: "Licencias Médicas IMED", client: "Tawa · Walmart", status: "Ejecutando", ops: "38 revisiones", color: "#22C55E" },
-                { name: "Contratos + Finiquitos DT", client: "Tawa · Walmart", status: "Activo", ops: "156 docs/día", color: "#1FB3E5" },
+                { name: "Licencias Médicas IMED", client: "Tawa · Activos Chile", status: "Ejecutando", ops: "38 revisiones", color: "#22C55E" },
+                { name: "Contratos + Finiquitos DT", client: "Tawa · Activos Chile", status: "Activo", ops: "156 docs/día", color: "#1FB3E5" },
               ].map((robot, i) => (
                 <div key={i} style={{
                   display: "flex", alignItems: "center", justifyContent: "space-between",
@@ -352,7 +352,7 @@ export default function HomePage() {
             En producción hoy
           </span>
           <div style={{ width: "1px", height: "28px", backgroundColor: "rgba(255,255,255,0.06)" }} />
-          {["Metro de Santiago", "Minería Gran Norte", "Tawa Outsourcing", "Activos Chile · Walmart", "Marimaca Copper"].map((c) => (
+          {["Metro de Santiago", "Minería Gran Norte", "Tawa Outsourcing", "Activos Chile", "Marimaca Copper"].map((c) => (
             <span key={c} style={{ fontSize: "0.85rem", fontWeight: 500, color: "#3A5068" }}>{c}</span>
           ))}
         </div>
@@ -362,7 +362,7 @@ export default function HomePage() {
         src="/paginas/home-operaciones.jpg"
         alt="Equipo de Tecnozero operando robots de software y agentes de IA para empresas en Chile desde La Serena"
         eyebrow="Operación real, en producción"
-        caption="Robots de software y agentes de IA trabajando hoy para Metro de Santiago, la gran minería del norte y Walmart Chile."
+        caption="Robots de software y agentes de IA trabajando hoy para Metro de Santiago, la gran minería del norte y el retail."
         accent="#1FB3E5"
       />
 

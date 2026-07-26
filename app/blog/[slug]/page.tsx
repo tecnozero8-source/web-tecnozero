@@ -2,7 +2,7 @@ import type { Metadata } from "next"
 import Link from "next/link"
 import Image from "next/image"
 import { notFound } from "next/navigation"
-import { getAllPosts, getPostBySlug, getRelatedPosts, formatDate, type Block } from "../../../lib/blog"
+import { getAllPosts, getPostBySlug, getRelatedPosts, formatDate, AUTHOR, type Block } from "../../../lib/blog"
 
 const B = {
   blue: "#0957C3",
@@ -148,7 +148,16 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     keywords: post.keywords.join(", "),
     articleSection: post.category,
     mainEntityOfPage: url,
-    author: { "@type": "Organization", name: "Tecnozero SpA", url: SITE },
+    author: {
+      "@type": "Person",
+      "@id": `${SITE}/#robert-yasuda`,
+      name: AUTHOR.displayName,
+      honorificSuffix: AUTHOR.credential,
+      description: AUTHOR.bio,
+      url: AUTHOR.linkedin,
+      sameAs: [AUTHOR.linkedin],
+      worksFor: { "@id": `${SITE}/#organization` },
+    },
     publisher: { "@id": `${SITE}/#organization` },
   }
 
@@ -186,7 +195,11 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           }}>
             {post.title}
           </h1>
-          <div style={{ display: "flex", gap: "14px", alignItems: "center", fontSize: "0.85rem", color: "rgba(255,255,255,0.6)" }}>
+          <div style={{ display: "flex", gap: "14px", alignItems: "center", fontSize: "0.85rem", color: "rgba(255,255,255,0.6)", flexWrap: "wrap" as const }}>
+            <span style={{ color: "rgba(255,255,255,0.85)", fontWeight: 600 }}>
+              Por {AUTHOR.displayName}
+            </span>
+            <span style={{ opacity: 0.5 }}>•</span>
             <span>{formatDate(post.date)}</span>
             <span style={{ opacity: 0.5 }}>•</span>
             <span>{post.readingMin} min de lectura</span>
@@ -223,6 +236,45 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           </p>
 
           {post.content.map((block, i) => renderBlock(block, i))}
+
+          {/* Autor */}
+          <div style={{
+            display: "flex", gap: "18px", alignItems: "flex-start",
+            margin: "48px 0 0", padding: "26px 28px",
+            backgroundColor: B.white, borderRadius: "18px",
+            border: "1px solid rgba(9,87,195,0.10)",
+            boxShadow: "0 2px 18px rgba(9,87,195,0.05)",
+          }}>
+            <div style={{
+              flexShrink: 0, width: "52px", height: "52px", borderRadius: "50%",
+              backgroundColor: B.blue, color: B.white,
+              display: "flex", alignItems: "center", justifyContent: "center",
+              fontFamily: "var(--font-display), system-ui, sans-serif",
+              fontSize: "1.15rem", fontWeight: 800, letterSpacing: "-0.02em",
+            }}>
+              RY
+            </div>
+            <div>
+              <p style={{
+                fontFamily: "var(--font-display), system-ui, sans-serif",
+                fontSize: "1rem", fontWeight: 800, color: B.ink,
+                letterSpacing: "-0.02em", margin: "0 0 6px",
+              }}>
+                {AUTHOR.displayName}
+              </p>
+              <p style={{ fontSize: "0.88rem", color: B.slate, lineHeight: 1.65, margin: "0 0 10px" }}>
+                {AUTHOR.bio}
+              </p>
+              <a
+                href={AUTHOR.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ fontSize: "0.82rem", fontWeight: 700, color: B.blue, textDecoration: "none" }}
+              >
+                Perfil en LinkedIn →
+              </a>
+            </div>
+          </div>
 
           {/* Tags */}
           <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" as const, margin: "40px 0 0" }}>
