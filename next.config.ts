@@ -15,8 +15,32 @@ const CSP = [
 ].join("; ")
 
 const nextConfig: NextConfig = {
+  /**
+   * Rutas del WordPress anterior que Google todavía tiene en su índice.
+   * Sin esto devuelven 404 y se pierde lo poco que quede de su autoridad.
+   * Los patrones `category` y `tag` cubren de una vez el resto del archivo
+   * viejo, que no aparece en Search Console pero sigue existiendo ahí fuera.
+   */
+  async redirects() {
+    return [
+      { source: "/agenda-tecnozero", destination: "/contacto", permanent: true },
+      { source: "/descarga-dt", destination: "/portal-dt", permanent: true },
+      { source: "/category/rpa", destination: "/agentes-ia", permanent: true },
+      { source: "/category/:slug*", destination: "/blog", permanent: true },
+      { source: "/tag/:slug*", destination: "/blog", permanent: true },
+    ]
+  },
+
   async headers() {
     return [
+      {
+        // El PDF competía con /portal-dt por las mismas búsquedas: 83
+        // impresiones en posición 12 frente a 238 de la página. Un PDF no
+        // convierte (sin menú, sin CTA, sin analítica), así que lo sacamos
+        // del índice y lo dejamos como descarga desde la página.
+        source: "/guia-onboarding-portal-dt.pdf",
+        headers: [{ key: "X-Robots-Tag", value: "noindex" }],
+      },
       {
         source: "/(.*)",
         headers: [
