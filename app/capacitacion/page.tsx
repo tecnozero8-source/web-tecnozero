@@ -14,6 +14,8 @@ import {
   FileCheck2,
   UserPlus,
 } from "lucide-react"
+import { FaqSection } from "../components/shared/FaqSection"
+import { FAQ_CAPACITACION } from "../../lib/faqs"
 
 /* ─── Acento de la línea Capacitación ─────────────────────────────── */
 const GREEN = "#22C55E"
@@ -709,6 +711,8 @@ export default function CapacitacionPage() {
           </div>
         </div>
       </section>
+
+      <FaqSection faqs={FAQ_CAPACITACION} bajada="Lo que preguntan las jefaturas de personas antes de comprar el primer curso." />
 
       {/* ══════════════════════════════════════════════════════════════
           CTA FINAL — banda azul (patrón del sitio)

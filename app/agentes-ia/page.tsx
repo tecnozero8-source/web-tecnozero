@@ -3,6 +3,8 @@
 import { motion } from "framer-motion"
 import { Brain, Zap, ArrowRight, CheckCircle2, X, Database, Cpu } from "lucide-react"
 import { PhotoBand } from "../components/shared/PhotoBand"
+import { FaqSection } from "../components/shared/FaqSection"
+import { FAQ_AGENTES_IA } from "../../lib/faqs"
 
 /* ─── fade-up spring shared variant ───────────────────────────────── */
 
@@ -959,6 +961,8 @@ export default function AgentesIAPage() {
           </motion.div>
         </div>
       </section>
+
+      <FaqSection faqs={FAQ_AGENTES_IA} bajada="Lo que pregunta el área de TI antes de dejar entrar un agente al ERP." />
 
       {/* ═══════════════════════════════════════════════════════
           CTA FINAL — Violet-blue gradient

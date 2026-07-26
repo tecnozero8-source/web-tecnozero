@@ -3,6 +3,8 @@
 import { motion } from "framer-motion"
 import { Shield, CheckCircle2, ArrowRight, Clock, AlertTriangle, Truck } from "lucide-react"
 import { PhotoBand } from "../components/shared/PhotoBand"
+import { FaqSection } from "../components/shared/FaqSection"
+import { FAQ_MINERIA } from "../../lib/faqs"
 
 /* ─── Animation variant shared across sections ───────────────────── */
 
@@ -1600,6 +1602,8 @@ export default function MineriaPage() {
           </div>
         </div>
       </section>
+
+      <FaqSection faqs={FAQ_MINERIA} bajada="Lo que preguntan los equipos de prevención antes de cambiar el proceso de acreditación." />
 
       {/* ═══════════════════════════════════════════════════════
           CTA FINAL

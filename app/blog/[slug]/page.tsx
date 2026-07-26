@@ -1,8 +1,12 @@
 import type { Metadata } from "next"
+import type { ReactNode } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { notFound } from "next/navigation"
-import { getAllPosts, getPostBySlug, getRelatedPosts, formatDate, AUTHOR, type Block } from "../../../lib/blog"
+import {
+  getAllPosts, getPostBySlug, getRelatedPosts, formatDate,
+  stripLinks, slugifyHeading, countWords, readingMinutes, AUTHOR, type Block,
+} from "../../../lib/blog"
 
 const B = {
   blue: "#0957C3",
@@ -54,14 +58,44 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   }
 }
 
+/**
+ * Convierte `[etiqueta](/ruta)` en un <Link> real dentro del párrafo.
+ * Los enlaces internos en medio del texto le dicen a Google de qué trata
+ * la página destino; los del bloque "Seguir leyendo" no cuentan igual.
+ */
+const LINK_RE = /\[([^\]]+)\]\(([^)]+)\)/g
+
+function renderInline(text: string, key: string): ReactNode {
+  if (!text.includes("](")) return text
+  const out: ReactNode[] = []
+  let last = 0
+  let m: RegExpExecArray | null
+  LINK_RE.lastIndex = 0
+  while ((m = LINK_RE.exec(text)) !== null) {
+    if (m.index > last) out.push(text.slice(last, m.index))
+    out.push(
+      <Link key={`${key}-${m.index}`} href={m[2]} style={{
+        color: B.blue, fontWeight: 600, textDecoration: "underline",
+        textUnderlineOffset: "3px", textDecorationColor: "rgba(9,87,195,0.35)",
+      }}>
+        {m[1]}
+      </Link>,
+    )
+    last = m.index + m[0].length
+  }
+  if (last < text.length) out.push(text.slice(last))
+  return out
+}
+
 function renderBlock(block: Block, i: number) {
   switch (block.type) {
     case "h2":
       return (
-        <h2 key={i} style={{
+        <h2 key={i} id={slugifyHeading(block.text)} style={{
           fontFamily: "var(--font-display), system-ui, sans-serif",
           fontSize: "clamp(1.4rem, 2.6vw, 1.8rem)", fontWeight: 800, color: B.ink,
           letterSpacing: "-0.03em", lineHeight: 1.2, margin: "44px 0 14px",
+          scrollMarginTop: "110px",
         }}>
           {block.text}
         </h2>
@@ -78,7 +112,7 @@ function renderBlock(block: Block, i: number) {
     case "p":
       return (
         <p key={i} style={{ fontSize: "1.06rem", color: B.body, lineHeight: 1.8, margin: "0 0 18px" }}>
-          {block.text}
+          {renderInline(block.text, `p${i}`)}
         </p>
       )
     case "ul":
@@ -93,10 +127,79 @@ function renderBlock(block: Block, i: number) {
                 position: "absolute", left: 0, top: "9px", width: "9px", height: "9px",
                 borderRadius: "50%", background: `linear-gradient(135deg, ${B.cyan}, ${B.blue})`,
               }} />
-              {item}
+              {renderInline(item, `ul${i}-${j}`)}
             </li>
           ))}
         </ul>
+      )
+    case "ol":
+      return (
+        <ol key={i} style={{ margin: "0 0 22px", padding: 0, listStyle: "none", counterReset: "paso" }}>
+          {block.items.map((item, j) => (
+            <li key={j} style={{
+              position: "relative", paddingLeft: "44px", marginBottom: "16px",
+              fontSize: "1.04rem", color: B.body, lineHeight: 1.7,
+            }}>
+              <span style={{
+                position: "absolute", left: 0, top: "1px",
+                width: "28px", height: "28px", borderRadius: "50%",
+                background: `linear-gradient(135deg, ${B.cyan}, ${B.blue})`, color: B.white,
+                display: "flex", alignItems: "center", justifyContent: "center",
+                fontSize: "0.82rem", fontWeight: 800,
+                fontFamily: "var(--font-display), system-ui, sans-serif",
+              }}>
+                {j + 1}
+              </span>
+              {renderInline(item, `ol${i}-${j}`)}
+            </li>
+          ))}
+        </ol>
+      )
+    case "table":
+      return (
+        <figure key={i} style={{ margin: "0 0 28px" }}>
+          {/* El contenedor scrollea solo: una tabla ancha no debe empujar
+              la página entera en móvil. */}
+          <div style={{ overflowX: "auto", borderRadius: "14px", border: "1px solid rgba(9,87,195,0.14)" }}>
+            <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.95rem", minWidth: "460px" }}>
+              <thead>
+                <tr>
+                  {block.headers.map((h, j) => (
+                    <th key={j} style={{
+                      textAlign: "left", padding: "13px 16px", backgroundColor: "rgba(9,87,195,0.06)",
+                      color: B.ink, fontWeight: 800, fontSize: "0.82rem",
+                      letterSpacing: "0.02em", textTransform: "uppercase" as const,
+                      borderBottom: "1px solid rgba(9,87,195,0.14)",
+                    }}>
+                      {h}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {block.rows.map((row, r) => (
+                  <tr key={r}>
+                    {row.map((cell, c) => (
+                      <td key={c} style={{
+                        padding: "13px 16px", color: c === 0 ? B.ink : B.body,
+                        fontWeight: c === 0 ? 700 : 400, lineHeight: 1.6,
+                        borderBottom: r === block.rows.length - 1 ? "none" : "1px solid rgba(9,87,195,0.09)",
+                        backgroundColor: B.white,
+                      }}>
+                        {renderInline(cell, `td${i}-${r}-${c}`)}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          {block.caption && (
+            <figcaption style={{ fontSize: "0.82rem", color: B.slate, marginTop: "10px", lineHeight: 1.5 }}>
+              {block.caption}
+            </figcaption>
+          )}
+        </figure>
       )
     case "callout":
       return (
@@ -106,7 +209,9 @@ function renderBlock(block: Block, i: number) {
           borderRadius: "12px", padding: "20px 24px", margin: "8px 0 26px",
         }}>
           <span style={{ fontSize: "1.3rem", lineHeight: 1.3 }}>💡</span>
-          <p style={{ fontSize: "1rem", color: B.ink, fontWeight: 600, lineHeight: 1.6, margin: 0 }}>{block.text}</p>
+          <p style={{ fontSize: "1rem", color: B.ink, fontWeight: 600, lineHeight: 1.6, margin: 0 }}>
+            {renderInline(block.text, `co${i}`)}
+          </p>
         </div>
       )
     case "cta":
@@ -135,6 +240,12 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   const related = getRelatedPosts(slug, 3)
   const url = `${SITE}/blog/${post.slug}`
 
+  // Índice solo en artículos largos: con 3 secciones estorba más que ayuda.
+  const toc = post.content
+    .filter((b): b is Extract<Block, { type: "h2" }> => b.type === "h2")
+    .map((b) => ({ text: b.text, id: slugifyHeading(b.text) }))
+  const showToc = toc.length >= 5
+
   const articleJsonLd = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
@@ -143,8 +254,9 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     description: post.description,
     image: `${SITE}${post.heroImage}`,
     datePublished: post.date,
-    dateModified: post.date,
+    dateModified: post.updated ?? post.date,
     inLanguage: "es-CL",
+    wordCount: countWords(post),
     keywords: post.keywords.join(", "),
     articleSection: post.category,
     mainEntityOfPage: url,
@@ -171,10 +283,28 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     ],
   }
 
+  // FAQPage: es el bloque que ChatGPT y Perplexity leen para citar una
+  // respuesta corta. Las respuestas van sin sintaxis de enlace.
+  const faqJsonLd = post.faq?.length
+    ? {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "@id": `${url}#faq`,
+        mainEntity: post.faq.map((f) => ({
+          "@type": "Question",
+          name: f.q,
+          acceptedAnswer: { "@type": "Answer", text: stripLinks(f.a) },
+        })),
+      }
+    : null
+
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
+      {faqJsonLd && (
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
+      )}
 
       {/* HERO */}
       <section style={{ backgroundColor: B.dark, position: "relative", overflow: "hidden", padding: "138px 48px 56px" }}>
@@ -202,7 +332,13 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             <span style={{ opacity: 0.5 }}>•</span>
             <span>{formatDate(post.date)}</span>
             <span style={{ opacity: 0.5 }}>•</span>
-            <span>{post.readingMin} min de lectura</span>
+            <span>{readingMinutes(post)} min de lectura</span>
+            {post.updated && post.updated !== post.date && (
+              <>
+                <span style={{ opacity: 0.5 }}>•</span>
+                <span style={{ color: B.lime }}>Actualizado el {formatDate(post.updated)}</span>
+              </>
+            )}
           </div>
         </div>
       </section>
@@ -235,7 +371,70 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             {post.description}
           </p>
 
+          {showToc && (
+            <nav aria-label="Contenido del artículo" style={{
+              backgroundColor: B.white, border: "1px solid rgba(9,87,195,0.12)",
+              borderRadius: "16px", padding: "22px 26px", margin: "0 0 34px",
+            }}>
+              <p style={{
+                fontFamily: "var(--font-display), system-ui, sans-serif",
+                fontSize: "0.72rem", fontWeight: 800, color: B.blue,
+                letterSpacing: "0.08em", textTransform: "uppercase" as const, margin: "0 0 14px",
+              }}>
+                En este artículo
+              </p>
+              <ol style={{ margin: 0, padding: 0, listStyle: "none", display: "grid", gap: "9px" }}>
+                {toc.map((t, i) => (
+                  <li key={t.id} style={{ display: "flex", gap: "10px", alignItems: "baseline" }}>
+                    <span style={{ color: B.cyan, fontWeight: 800, fontSize: "0.8rem", minWidth: "18px" }}>
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <a href={`#${t.id}`} style={{
+                      color: B.body, fontSize: "0.98rem", textDecoration: "none",
+                      lineHeight: 1.5, fontWeight: 500,
+                    }}>
+                      {t.text}
+                    </a>
+                  </li>
+                ))}
+              </ol>
+            </nav>
+          )}
+
           {post.content.map((block, i) => renderBlock(block, i))}
+
+          {/* Preguntas frecuentes */}
+          {post.faq && post.faq.length > 0 && (
+            <section style={{ margin: "52px 0 0" }}>
+              <h2 id="preguntas-frecuentes" style={{
+                fontFamily: "var(--font-display), system-ui, sans-serif",
+                fontSize: "clamp(1.4rem, 2.6vw, 1.8rem)", fontWeight: 800, color: B.ink,
+                letterSpacing: "-0.03em", lineHeight: 1.2, margin: "0 0 20px",
+                scrollMarginTop: "110px",
+              }}>
+                Preguntas frecuentes
+              </h2>
+              <div style={{ display: "grid", gap: "12px" }}>
+                {post.faq.map((f, i) => (
+                  <details key={i} style={{
+                    backgroundColor: B.white, border: "1px solid rgba(9,87,195,0.11)",
+                    borderRadius: "14px", padding: "18px 22px",
+                  }}>
+                    <summary style={{
+                      fontFamily: "var(--font-display), system-ui, sans-serif",
+                      fontSize: "1rem", fontWeight: 700, color: B.ink,
+                      letterSpacing: "-0.015em", cursor: "pointer", lineHeight: 1.45,
+                    }}>
+                      {f.q}
+                    </summary>
+                    <p style={{ fontSize: "1rem", color: B.body, lineHeight: 1.75, margin: "12px 0 0" }}>
+                      {renderInline(f.a, `faq${i}`)}
+                    </p>
+                  </details>
+                ))}
+              </div>
+            </section>
+          )}
 
           {/* Autor */}
           <div style={{

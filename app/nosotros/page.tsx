@@ -135,7 +135,10 @@ function HeroSection() {
             src="/nosotros/equipo-colaborando.jpg"
             alt="Equipo de ingeniería de Tecnozero trabajando en código"
             fill
-            sizes="(max-width: 900px) 100vw, 50vw"
+            // En móvil el hero va dentro de un contenedor con padding: ocupa
+            // ~88vw, no 100vw. Declarar 100vw hacía pedir la variante de 828px
+            // para una caja de 660px reales.
+            sizes="(max-width: 900px) 88vw, 50vw"
             priority
             style={{ objectFit: "cover" }}
           />

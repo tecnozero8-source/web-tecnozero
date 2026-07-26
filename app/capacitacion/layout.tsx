@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import { faqSchema, FAQ_CAPACITACION } from "../../lib/faqs"
 
 export const metadata: Metadata = {
   title: "Capacitación Ley Karin e-learning con IA",
@@ -106,6 +107,7 @@ const jsonLd = {
         },
       },
     },
+    faqSchema("https://www.tecnozero.cl/capacitacion#faq", FAQ_CAPACITACION),
     {
       "@type": "BreadcrumbList",
       itemListElement: [

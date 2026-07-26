@@ -1,379 +1,325 @@
 # Tecnozero SpA — contenido completo del sitio
 
-> Volcado del texto de www.tecnozero.cl para sistemas de IA. Tecnozero SpA es una empresa chilena de automatización de procesos con RPA e IA agéntica, fundada en 2019 en La Serena, Región de Coquimbo. +20 robots en producción para Metro de Santiago, la gran minería y operadores de RRHH del retail (Tawa, Activos Chile). Los artículos del blog los firma Robert Yasuda, PhD. El índice corto está en https://www.tecnozero.cl/llms.txt
+Este archivo reúne el texto publicado en www.tecnozero.cl para que los
+sistemas de IA puedan citarlo con exactitud. Generado desde el HTML del
+sitio el 2026-07-26.
 
-Última actualización: 2026-07-26
+Tecnozero SpA es una empresa chilena de automatización de procesos críticos
+con RPA e IA agéntica, fundada en 2019, con sede en La Serena, Región de
+Coquimbo. Opera más de 20 robots en producción e integra IA de forma nativa
+en plataformas web, con foco en EdTech.
 
----
-
-## Inicio
-
-URL: https://www.tecnozero.cl/
-Resumen: Automatización RPA, agentes de IA y plataformas web con IA nativa (EdTech) para empresas en Chile. +20 robots en producción para Metro de Santiago, la gran minería y el retail.
+Contacto: contacto@tecnozero.cl | (+569) 8869 3864
+Autor de los artículos del blog: Robert Yasuda, PhD (Universidad de Almería)
+https://www.linkedin.com/in/robert-yasuda-phd/
 
 
-### Procesos críticos automatizados. Tu equipo enfocado en lo que importa.
+======================================================================
+Inicio
+https://www.tecnozero.cl/
+======================================================================
 
+# Procesos críticos automatizados. Tu equipo enfocado en lo que importa.
 Robots de software que operan 24/7 sin errores. +20 en producción hoy en Metro de Santiago, la gran minería del norte y el retail.
 Operación real, en producción
 Robots de software y agentes de IA trabajando hoy para Metro de Santiago, la gran minería del norte y el retail.
 Qué hacemos
-
-#### Cinco líneas. Un solo equipo. Cero tolerancia al error.
-
+## Cinco líneas. Un solo equipo. Cero tolerancia al error.
 Software en producción hoy. Sin demos de humo. Resultados medibles.
-
-**Capacitación · AulaZero**
-
+### Capacitación · AulaZero
 Cursos e-learning con IA para empresas
 La Ley Karin obliga a capacitar a tu gente en prevención del acoso. AulaZero lo resuelve con cursos asincrónicos, tutor IA disponible en cada lección y certificado verificable. Tu equipo se capacita a su ritmo, tú descargas el respaldo completo.
-
-**Portal DT · Gestor Laboral 360**
-
+### Portal DT · Gestor Laboral 360
 Para PYMEs y oficinas contables
 Tres robots que suben contratos, anexos y bajas al portal de la Dirección del Trabajo. Sin instalaciones. Sin mensualidad. Pagas solo lo que usas.
-
-**Minería**
-
+### Minería
 MinePass · VehiclePass · AIC
 MinePass y VehiclePass: acreditación digital de contratistas e inspección de flota para gran minería. El proceso AIC que tardaba 10 días, hoy toma horas. Trazabilidad 100% auditable ante Sernageomin.
-
-**Agentes de Licitaciones**
-
+### Agentes de Licitaciones
 Mercado Público · Compra Ágil · portales privados
 Encontrar la licitación toma un minuto. Armar la carpeta toma diez horas. Nuestros agentes vigilan Mercado Público y los portales privados donde compite tu empresa, leen las bases, revisan que tus certificados sigan vigentes y dejan los anexos listos para tu firma.
-
-**Agentes IA**
-
+### Agentes IA
 TITAN · SAP · Oracle
 Agentes que razonan y actúan en tus sistemas. Representantes exclusivos de TITAN en Chile. Precisión 90%+.
 Casos verificables
-
-#### Tres clientes. Robots en producción hoy.
-
+## Tres clientes. Robots en producción hoy.
 Contactos de referencia disponibles para validación directa.
 TRANSPORTE PÚBLICO · CHILE
-
-**Metro de Santiago**
-
+### Metro de Santiago
 El proyecto que lo cambió todo
 4.600 contratos debían registrarse en la Dirección del Trabajo en 30 días. Era humanamente imposible hacerlo a tiempo de forma manual.
 HOY: 9 robots activos · ciclo laboral completo de 4.600 trabajadores
 RETAIL · OUTSOURCING MASIVO
-
-**Tawa + Activos Chile**
-
+### Tawa + Activos Chile
 RRHH masivo para el retail nacional
 Gestión del ciclo laboral de más de 10.000 personas por mes. Contratos, finiquitos y licencias médicas — a diario, sin margen de error.
 HOY: 6 robots · IMED · Medipass · Portalempleador.cl
 MINERÍA · GRAN FAENA NORTE CHILE
-
-**MinePass · Minería**
-
+### MinePass · Minería
 Cuando el contratista llegó, los papeles no
 Un contratista llegaba el lunes con su equipo listo. Sus documentos AIC, 10 días después. El jefe de faena paraba todo mientras esperaba. Con MinePass, ese día ya no existe.
 HOY: Agentes IA + OCR + mandato digital tokenizado · Gran Minería Chile
-
-#### ¿Cuántas horas pierde tu área esta semana?
-
+## ¿Cuántas horas pierde tu área esta semana?
 Una conversación de 30 minutos es suficiente para identificar el proceso de mayor impacto en tu operación y calcular el ROI de automatizarlo.
 Respuesta en menos de 24 horas hábiles
 
----
+======================================================================
+Nosotros
+https://www.tecnozero.cl/nosotros
+======================================================================
 
-## Capacitación · AulaZero
+# No automatizamos tareas. Automatizamos decisiones críticas.
+Somos una empresa chilena de tecnología, fundada en 2019 en La Serena. Nuestros ingenieros de la Universidad Técnica Federico Santa María construyen robots y agentes de IA que operan donde el error tiene costo real: nóminas, contratos, cumplimiento y gestión documental.
+## Ingeniería en Eficiencia
+Tecnozero SpA nació en 2019 para resolver un problema concreto: los procesos manuales que las empresas grandes repiten miles de veces al mes, con multas y horas perdidas cada vez que algo falla. Convertimos ese trabajo en robots que operan solos, las 24 horas.
+Nuestros robots y agentes no solo ejecutan. Razonan, detectan excepciones y actúan. Transitamos del RPA tradicional a la IA, y hoy caminamos hacia la IA Agéntica.
+### En producción hoy, monitoreado 24/7
+Cada robot corre sobre infraestructura AWS cifrada, con alertas automáticas y soporte que actúa antes de que el proceso falle.
+## Cinco compromisos, cero excusas
+Cada robot se construye con tolerancia cero a fallos. Operamos donde el error cuesta dinero.
+Tres meses operando en paralelo con Metro de Santiago, sin una sola diferencia de dos centavos.
+Pasamos de RPA a IA, y ahora a IA Agéntica. Siempre un paso adelante.
+De un requerimiento a un robot en producción en 8 semanas, con metodología Agile Scrum.
+Infraestructura AWS. Los datos nunca salen del entorno cifrado. SLA de 99,5% de disponibilidad.
+## Tres capas de automatización
+Robots de software que navegan portales, extraen datos, validan documentos y generan reportes. Autónomos y disponibles 24/7.
+Agentes que perciben el contexto, razonan sobre él y deciden en tiempo real, incluso ante situaciones imprevistas.
+Opera sobre SAP, Oracle, PDFs y correos con precisión sobre 90%. Alianza estratégica con Accéder (Montreal), laboratorio integrado a los ecosistemas MILA y Scale AI.
+## Donde la automatización rinde más
+El ciclo laboral completo ante la Dirección del Trabajo: contratos, anexos, finiquitos, licencias médicas y teletrabajo. Gestionamos miles de trabajadores al mes.
+Conciliación bancaria, facturas con OCR, integración SAP y auditoría de adquisiciones. Tres meses sin diferencias en distribución de sueldos.
+Acreditaciones, autorizaciones y trazabilidad 100% auditable para la gran minería chilena. MinePass reduce la acreditación de contratistas de días a minutos.
+## Metro de Santiago: el proyecto que lo cambió todo
+En septiembre de 2023, Metro nos convocó con un plazo imposible: 4.600 contratos debían entrar al portal de la Dirección del Trabajo antes del 31 de octubre. Pusimos robots a operar día y noche. Lo que empezó como una emergencia hoy es un ecosistema de 9 robots que cuida el ciclo laboral de 4.600 personas.
+Confían en Tecnozero
+## De un desafío real a producción en 8 semanas
+Valor en semanas, no en meses, con rigor industrial en cada etapa.
+Levantamos el proceso, definimos la arquitectura del robot e integramos con SAP, DT y Azure AD.
+Pruebas de estrés, validación preproductiva y ajuste de cada excepción.
+El robot opera en paralelo con el proceso manual, resultado a resultado.
+Entrega en producción, documentación completa y soporte continuo.
+## Personas reales detrás de cada robot
+Un PhD y un equipo de ingenieros de la UTFSM, con soporte local desde La Serena.
+## Hablemos de tu operación
+Evaluación sin costo. Respuesta en 24 horas.
 
-URL: https://www.tecnozero.cl/capacitacion
-Resumen: Cursos e-learning para cumplir la Ley Karin: tutor IA, audio profesional, certificado verificable y registros para fiscalización. Demo en 20 minutos.
+======================================================================
+Portal DT — Gestor Laboral 360
+https://www.tecnozero.cl/portal-dt
+======================================================================
 
-
-### Tu empresa ya está obligada a capacitar. AulaZero lo hace simple.
-
-Cursos e-learning con tutor IA, audio profesional y certificado verificable. Tus equipos se capacitan a su ritmo y tú tienes el respaldo ante cualquier fiscalización.
-Por qué ahora
-
-#### La Ley Karin no pregunta si estás listo.
-
-Desde agosto de 2024, la Ley 21.643 exige a toda empresa en Chile un protocolo de prevención del acoso laboral y sexual, con difusión y capacitación a los trabajadores. La Dirección del Trabajo fiscaliza. Un curso presencial para toda tu dotación cuesta caro, detiene la operación y deja poco respaldo. AulaZero entrega la capacitación completa sin sacar a nadie de su puesto.
-Los cursos
-
-#### Listos para matricular a tu equipo hoy.
-
-
-**Ley Karin · Curso general**
-
-Para toda la dotación. Protocolo, conductas, canales de denuncia y qué cambia para cada trabajador.
-
-**Ley Karin · Jefaturas**
-
-Para quienes lideran equipos. Cómo prevenir, cómo recibir una denuncia y qué errores exponen a la empresa.
-
-**IA aplicada al trabajo**
-
-Tu equipo aprende a usar IA en tareas reales de su cargo, con sandbox de práctica incluido.
-Capacitación compatible con franquicia tributaria SENCE a través de OTECs.
-Cómo funciona
-
-#### De la matrícula al certificado, en cuatro pasos.
-
-Matriculas a tu equipo en minutos, sin instalar nada.
-Cada persona avanza a su ritmo, con audio profesional y un tutor IA que responde dudas dentro de la lección.
-Cada curso termina con evaluación y certificado PDF verificable.
-Descargas los registros de avance y certificados para tu carpeta laboral o para SENCE.
-Para quién
-
-#### Tres formas de usar AulaZero.
-
-
-**Gerencias de Personas**
-
-Necesitas cumplir la Ley Karin este año y dejar respaldo de cada capacitación.
-
-**Empresas con turnos o faenas**
-
-Juntar a todos en una sala es imposible. Cada persona se capacita desde donde esté.
-
-**OTECs y consultoras**
-
-Suma cursos e-learning con IA a tu catálogo y opera bajo tu propia marca.
-
-#### Muéstrale AulaZero a tu equipo esta semana.
-
-Agenda una demo de 20 minutos. Vemos tus obligaciones, te mostramos los cursos y te dejamos acceso de evaluación.
-
----
-
-## Portal DT · Gestor Laboral 360
-
-URL: https://www.tecnozero.cl/portal-dt
-Resumen: Robot RPA que registra contratos, anexos y bajas en el Portal Dirección del Trabajo. 45 segundos por registro. Desde $640 CLP/registro. Sin mensualidad fija.
-
-
-### Registra contratos en el Portal DT sin tocarlos.
-
+# Registra contratos en el Portal DT sin tocarlos.
 Sube tu planilla Excel, el robot detecta ingresos, bajas y anexos y los registra automáticamente. 45 segundos por trabajador, cero errores manuales.
-
-#### ¿Te suena familiar?
-
+## ¿Te suena familiar?
 Cada contador que digitaliza su gestión DT ahorra entre 3 y 8 horas a la semana.
-
-**8–15 minutos por trabajador**
-
+### 8–15 minutos por trabajador
 Ingresar datos uno a uno en el Portal DT es agotador. Con 20 trabajadores nuevos al mes, perdes más de 4 horas en trabajo puramente manual.
-
-**Errores que generan multas**
-
+### Errores que generan multas
 Un RUT mal digitado, una fecha equivocada o un campo vacío pueden generar observaciones de la DT y exponer a tus clientes a sanciones.
-
-**Fechas límite imposibles**
-
+### Fechas límite imposibles
 Los contratos deben registrarse dentro de 15 días. En periodos de alto volumen, cumplir el plazo para todos los clientes es casi imposible sin automatización.
-
-#### Tan simple como subir un archivo
-
+## Tan simple como subir un archivo
 Sin instalaciones, sin configuración compleja. Desde el Excel al comprobante DT en minutos.
-
-**Sube tu planilla Excel**
-
+### Sube tu planilla Excel
 Descarga nuestra plantilla oficial, completa los datos de tus trabajadores y súbela al dashboard. El robot valida columnas y formatos automáticamente.
-
-**El robot procesa cada registro**
-
+### El robot procesa cada registro
 Ingresa al Portal DT, navega los formularios y completa cada campo. Detecta errores antes de enviar y reintenta si hay problemas de conexión.
-
-**Recibes el comprobante**
-
+### Recibes el comprobante
 Cada registro exitoso genera un número de comprobante DT. Los recibes por email y quedan guardados en tu historial para cualquier auditoría.
 Gestión laboral sin fricción
 Del Excel al comprobante DT en minutos. Tu equipo firma el contrato, el robot lo registra.
 Guía de incorporación
-
-#### 8 pasos para tener tu primer robot corriendo hoy.
-
-
-**Crea tu cuenta**
-
+## 8 pasos para tener tu primer robot corriendo hoy.
+### Crea tu cuenta
 Regístrate en tecnozero.cl con tu email. Confirma y accede al dashboard en segundos.
-
-**Configura tu empresa**
-
+### Configura tu empresa
 Ingresa el RUT de la empresa y tus credenciales del Portal DT. Todo queda cifrado.
-
-**Descarga la plantilla**
-
+### Descarga la plantilla
 Ve a Dashboard → Carga Excel y descarga la plantilla de Ingresos, Bajas o Anexos según lo que necesites.
-
-**Completa el Excel**
-
+### Completa el Excel
 Llena los datos de tus trabajadores: RUT, nombre, fechas y tipo de contrato. Guarda el archivo.
-
-**Sube el archivo**
-
+### Sube el archivo
 Arrastra el Excel al dashboard. El sistema valida los datos automáticamente antes de procesar.
-
-**Confirma y activa el robot**
-
+### Confirma y activa el robot
 Revisa el resumen de registros y el costo total. Confirma y el robot comienza a trabajar al instante.
-
-**Robot trabaja 24/7**
-
+### Robot trabaja 24/7
 El robot accede al Portal DT por ti, carga cada documento y verifica cada envío. Sin errores.
-
-**Recibe la confirmación**
-
+### Recibe la confirmación
 Recibes email con los comprobantes DT. Todo queda en tu historial para cualquier auditoría.
 ¿Tienes dudas sobre el proceso?
 El equipo de Tecnozero responde en menos de 4 horas hábiles.
-
-#### 3 robots para toda tu gestión DT
-
+## 3 robots para toda tu gestión DT
 Cada robot entiende el formulario específico del Portal DT y maneja sus reglas condicionales.
-
-**Robot de Ingresos**
-
+### Robot de Ingresos
 Registra contratos nuevos en el Portal DT automáticamente.
-
-**Robot de Bajas**
-
+### Robot de Bajas
 Registra finiquitos y términos de contrato con causal correcta.
-
-**Robot de Anexos**
-
+### Robot de Anexos
 Modifica contratos vigentes: sueldos, jornadas, cargos.
-
-#### Lo que dicen quienes ya automatizan
-
+## Lo que dicen quienes ya automatizan
 “ Pasé de dedicar los lunes enteros a registrar contratos, a revisar el informe de lo que el robot hizo mientras dormía. Mis clientes no entienden cómo proceso volúmenes tan grandes. ”
 “ Tengo 34 empresas en cartera. Antes de Tecnozero, enero y marzo eran una pesadilla. Ahora proceso 200+ ingresos en un fin de semana y el lunes ya tengo todos los comprobantes. ”
-
-#### Más barato que hacerlo manual. Siempre.
-
+## Más barato que hacerlo manual. Siempre.
 Sin cuota fija mensual. Sin contrato mínimo. Mínimo 50 registros por carga. El precio baja con el volumen — y siempre es menor que el costo real de un trabajador digitando.
 Los primeros 50 registros son gratis, sin tarjeta de crédito. Procesa una nómina real de un cliente y decide.
-
-#### 50 registros gratis. Hoy mismo.
-
+## 50 registros gratis. Hoy mismo.
 Crea tu cuenta en 2 minutos, sube la planilla de un cliente real y ve cómo Tecnozero registra cada contrato en el Portal DT. Sin letra chica, sin compromiso. Un registro = un trabajador procesado.
-
-#### Preguntas frecuentes
-
+## Preguntas frecuentes
 ¿Tienes más preguntas? Escríbenos — respondemos en menos de 4 horas hábiles.
 
----
+======================================================================
+Minería — MinePass y VehiclePass
+https://www.tecnozero.cl/mineria
+======================================================================
 
-## Minería · MinePass y VehiclePass
-
-URL: https://www.tecnozero.cl/mineria
-Resumen: De 10 días a horas en acreditación AIC. Cumplimiento Sernageomin automatizado. MinePass + VehiclePass para Gran Minería Chile. Demo disponible.
-
-
-### Acreditación de contratistas. De 10 días a horas.
-
+# Acreditación de contratistas. De 10 días a horas.
 El contratista llega el lunes. Sus documentos AIC, 10 días después. Mientras tanto, la faena espera. MinePass y VehiclePass eliminan esa espera: agentes IA, OCR y credencial digital en horas, no días.
 Plataforma minera
-
-#### Tres módulos. Un solo stack. Faena sin fricciones.
-
+## Tres módulos. Un solo stack. Faena sin fricciones.
 MinePass, VehiclePass y AIC Renovación integrados. En producción desde el día uno.
-
-**MinePass**
-
+### MinePass
 Acreditación AIC · De 10 días a horas
 El proceso AIC (Acreditación de Ingreso de Contratistas) paralizaba faenas durante días. MinePass lo automatiza por completo: agente IA recolecta documentos, OCR extrae y valida datos, integración directa con Sernageomin y credencial digital tokenizada emitida el mismo día. Trazabilidad 100% auditable. Para cualquier faena minera.
-
-**VehiclePass**
-
+### VehiclePass
 Flota siempre habilitada · Sin sorpresas
 Son las 6 AM. El camión está listo. El conductor, listo. Pero el permiso de circulación venció hace tres días y nadie lo sabía. La faena para. VehiclePass monitorea cada vehículo de tu flota: revisiones técnicas, seguros, permisos. Alerta antes de que venzan. Renueva automáticamente. Tu flota nunca para.
-
-**AIC Renovación**
-
+### AIC Renovación
 Proceso de renovación automático
 Monitoreo continuo de vencimientos de acreditación con alertas tempranas, inicio automático del proceso de renovación, recolección de documentos vía agente IA y emisión de nueva credencial sin intervención manual del área de RRHH o contratas.
 Faena minera · Acreditación AIC
 El contratista llega con su gente y con sus papeles listos. El proceso AIC que tardaba 10 días, hoy toma horas.
-
-#### El lunes llegó el equipo. Los documentos, 10 días después · Gran Faena Norte Chile
-
-
-#### Cumplimiento total Sernageomin
-
+## El lunes llegó el equipo. Los documentos, 10 días después · Gran Faena Norte Chile
+## Cumplimiento total Sernageomin
 Cada proceso diseñado para cumplir con los requisitos regulatorios de la gran minería en Chile.
 Cada acción queda registrada con timestamp, usuario y resultado. Exportable para auditorías Sernageomin en cualquier momento.
 Conexión directa con el portal de la Dirección del Trabajo para validación de contratos vigentes y situación laboral del contratista.
 Extracción automática de datos desde cédulas, certificados y resoluciones. Validación cruzada con fuentes oficiales sin intervención humana.
 Firma y mandato tokenizado con validez legal. Elimina el papel del proceso y garantiza autenticidad e inmutabilidad del documento.
-
-#### ¿Cuánto cuesta la demora en tu faena?
-
+## Preguntas frecuentes
+Lo que preguntan los equipos de prevención antes de cambiar el proceso de acreditación.
+P: ¿Cuánto se demora una acreditación de contratistas con MinePass?
+Horas, frente a los hasta 10 días hábiles que toma el proceso manual. El tiempo se recupera al eliminar el ida y vuelta de pedir documentos faltantes de a uno.
+P: ¿Qué normativa obliga a acreditar contratistas en faena?
+El Decreto Supremo 76, que reglamenta el artículo 66 bis de la Ley 16.744, obliga a la empresa principal a mantener un registro actualizado y disponible en la obra o faena cuando lo pida un fiscalizador. El Decreto Supremo 132, Reglamento de Seguridad Minera, suma el Libro Sernageomin en cada faena y la obligación del contratista de asegurar la acreditación de sus subcontratos.
+P: ¿Qué pasa con los documentos que vencen a mitad del trabajo?
+El agente proyecta el vencimiento contra la fecha estimada de término del trabajo, no contra la fecha de revisión. Un examen que vence en 20 días pasa una revisión manual sin problema y bloquea la faena tres semanas después; el sistema lo marca desde el primer día.
+P: ¿Lee documentos escaneados con la cámara del teléfono?
+Sí. El agente usa OCR y clasifica el documento aunque llegue torcido, con sombra o en baja resolución. Extrae los campos y la fecha de vigencia sin exigir un formato previo al contratista.
+P: ¿Qué trazabilidad queda para una fiscalización de Sernageomin?
+Cada acción queda registrada: qué documento se leyó, qué datos se extrajeron, contra qué portal se validó, qué se decidió y cuándo. Los mandatos digitales quedan tokenizados, de modo que el expediente permite reconstruir por qué un trabajador determinado ingresó a faena en una fecha determinada.
+P: ¿Qué es VehiclePass y en qué se diferencia de MinePass?
+MinePass acredita personas y empresas contratistas. VehiclePass aplica la misma lógica a la flota: revisión técnica, permiso de circulación, seguro obligatorio y mantenciones, con el objetivo de que ningún vehículo circule en faena con documentación vencida.
+## ¿Cuánto cuesta la demora en tu faena?
 Cada día de bloqueo AIC es un contratista paralizado. Calculamos tu ROI exacto en 30 minutos y mostramos el camino a producción en 8 semanas.
 Respuesta en menos de 24 horas hábiles
 
----
+======================================================================
+TITAN — Agentes IA Enterprise
+https://www.tecnozero.cl/agentes-ia
+======================================================================
 
-## Agentes IA · TITAN
-
-URL: https://www.tecnozero.cl/agentes-ia
-Resumen: Agentes de IA autónomos sobre SAP y Oracle. Respuestas en menos de 5 segundos vs 12 minutos manual. Agenda una demo técnica de 45 minutos.
-
-
-### Agentes que razonan. Actúan. Y nunca se equivocan.
-
+# Agentes que razonan. Actúan. Y nunca se equivocan.
 Agentes de IA que operan dentro de SAP, Oracle y sistemas enterprise. Consultas en lenguaje natural, orquestación autónoma y extracción de datos en tiempo real — sin intervención humana.
 Plataforma de IA Agéntica
-
-#### TITAN — IA Agéntica para sistemas enterprise
-
+## TITAN — IA Agéntica para sistemas enterprise
 TITAN es la plataforma de agentes de IA diseñada para operar dentro de SAP, Oracle y cualquier sistema ERP. Permite hacer consultas en lenguaje natural, automatizar procesos completos y extraer datos en tiempo real con una precisión superior al 90%. Tecnozero es representante exclusivo en Chile.
 Agentes IA sobre SAP y Oracle
 Agentes que razonan y actúan dentro de tus sistemas enterprise. Respuestas en segundos, no en minutos.
 Casos de uso
-
-#### TITAN en acción. Enterprise desde el día uno.
-
+## TITAN en acción. Enterprise desde el día uno.
 Implementaciones reales en entornos SAP y Oracle de gran escala.
 SAP · RECURSOS HUMANOS
-
-**SAP RRHH Automation**
-
+### SAP RRHH Automation
 Consultas y actualizaciones sin transacciones
 Los equipos de RRHH pierden horas buscando datos de empleados en SAP. TITAN recibe la pregunta en lenguaje natural, localiza el registro, ejecuta la actualización y confirma en segundos — sin acceso directo al sistema.
 INTEGRACIÓN: Integración nativa SAP HCM · soporte multi-idioma · audit trail completo
 ORACLE · FINANZAS
-
-**Oracle Finance Reports**
-
+### Oracle Finance Reports
 Extracción y análisis de reportes financieros
 Generar reportes financieros desde Oracle tardaba días de trabajo manual. TITAN extrae tablas, consolida períodos, detecta variaciones y entrega el informe ejecutivo listo para presentar — en minutos.
 INTEGRACIÓN: Oracle Financials · E-Business Suite · Oracle Cloud ERP compatible
 MULTI-ERP · ORQUESTACIÓN
-
-**Multi-system Orchestration**
-
+### Multi-system Orchestration
 Agentes que coordinan múltiples ERPs
 Cuando un proceso cruza SAP, Oracle y sistemas legacy, la coordinación manual es el cuello de botella. TITAN orquesta el flujo completo: extrae de SAP, valida en Oracle, actualiza el ERP secundario y notifica al equipo automáticamente.
 INTEGRACIÓN: SAP + Oracle + sistemas legacy · webhooks · notificaciones en tiempo real
 Comparativa
-
-#### Sin TITAN vs Con TITAN
-
+## Sin TITAN vs Con TITAN
 Lo que tarda días en modo manual, TITAN lo hace en segundos. Sin errores. Sin intervención humana.
-
-#### Agenda una demo técnica — 45 minutos.
-
+## Preguntas frecuentes
+Lo que pregunta el área de TI antes de dejar entrar un agente al ERP.
+P: ¿Mis datos entrenan el modelo si uso agentes de IA sobre mi ERP?
+No. El agente consulta tu sistema y trae solo el fragmento necesario para responder una pregunta concreta, dentro de un entorno cifrado y bajo un acuerdo que prohíbe el entrenamiento con esos datos. Cuando la política de la empresa lo exige, el modelo corre en infraestructura dedicada.
+P: ¿Cómo se evita que el agente invente cifras?
+El agente responde solo desde las fuentes que consultó y cita cuál fue. Las cifras se leen del sistema en vez de generarse: el modelo arma la frase y el ERP pone el número. Cuando la fuente no alcanza, lo declara y escala en vez de rellenar.
+P: ¿El agente puede ver información a la que el usuario no tiene acceso?
+No. El agente hereda los permisos del usuario que pregunta. Si esa persona no puede ver los costos de una unidad de negocio en SAP, el agente tampoco se los muestra.
+P: ¿Sobre qué sistemas opera TITAN?
+SAP, Oracle y otros ERP, además de PDFs y correos. Responde en menos de 5 segundos lo que a una persona le toma alrededor de 12 minutos de navegación, con precisión sobre el 90%.
+P: ¿Cómo se empieza sin arriesgar la operación?
+Con un proceso acotado y un set de evaluación de unos 30 casos con la respuesta correcta escrita por tu equipo. Después el agente corre en modo sombra durante un mes: responde, pero la persona sigue decidiendo, y se comparan los resultados antes de darle acceso real.
+P: ¿Cuándo conviene un agente de IA y cuándo un robot RPA?
+Si la entrada llega siempre en el mismo formato, no hay que interpretar contenido para decidir y las excepciones son menos del 20% de los casos, el RPA resuelve por centavos por ejecución. El agente se justifica cuando hay que leer documentos variables, interpretar contexto o decidir ante lo imprevisto.
+## Agenda una demo técnica — 45 minutos.
 Verás TITAN operar en vivo en SAP o en tu sistema enterprise. Sin presentaciones genéricas — pura demostración técnica real.
 Respuesta en menos de 24 horas hábiles
 
----
+======================================================================
+Capacitación — AulaZero
+https://www.tecnozero.cl/capacitacion
+======================================================================
 
-## Agentes de Licitaciones
+# Tu empresa ya está obligada a capacitar. AulaZero lo hace simple.
+Cursos e-learning con tutor IA, audio profesional y certificado verificable. Tus equipos se capacitan a su ritmo y tú tienes el respaldo ante cualquier fiscalización.
+Por qué ahora
+## La Ley Karin no pregunta si estás listo.
+Desde agosto de 2024, la Ley 21.643 exige a toda empresa en Chile un protocolo de prevención del acoso laboral y sexual, con difusión y capacitación a los trabajadores. La Dirección del Trabajo fiscaliza. Un curso presencial para toda tu dotación cuesta caro, detiene la operación y deja poco respaldo. AulaZero entrega la capacitación completa sin sacar a nadie de su puesto.
+Los cursos
+## Listos para matricular a tu equipo hoy.
+### Ley Karin · Curso general
+Para toda la dotación. Protocolo, conductas, canales de denuncia y qué cambia para cada trabajador.
+### Ley Karin · Jefaturas
+Para quienes lideran equipos. Cómo prevenir, cómo recibir una denuncia y qué errores exponen a la empresa.
+### IA aplicada al trabajo
+Tu equipo aprende a usar IA en tareas reales de su cargo, con sandbox de práctica incluido.
+Capacitación compatible con franquicia tributaria SENCE a través de OTECs.
+Cómo funciona
+## De la matrícula al certificado, en cuatro pasos.
+Matriculas a tu equipo en minutos, sin instalar nada.
+Cada persona avanza a su ritmo, con audio profesional y un tutor IA que responde dudas dentro de la lección.
+Cada curso termina con evaluación y certificado PDF verificable.
+Descargas los registros de avance y certificados para tu carpeta laboral o para SENCE.
+Para quién
+## Tres formas de usar AulaZero.
+### Gerencias de Personas
+Necesitas cumplir la Ley Karin este año y dejar respaldo de cada capacitación.
+### Empresas con turnos o faenas
+Juntar a todos en una sala es imposible. Cada persona se capacita desde donde esté.
+### OTECs y consultoras
+Suma cursos e-learning con IA a tu catálogo y opera bajo tu propia marca.
+## Preguntas frecuentes
+Lo que preguntan las jefaturas de personas antes de comprar el primer curso.
+P: ¿Los cursos de AulaZero sirven para la franquicia tributaria SENCE?
+Sí, a través de un OTEC. Los cursos son compatibles con franquicia tributaria SENCE por esa vía, y la plataforma exporta los registros de avance y aprobación que el trámite necesita.
+P: ¿Qué hace el tutor de IA que no hace un curso grabado?
+Lee el módulo que el alumno está viendo, conoce su avance y responde con el contenido de esa lección, citando el módulo del que sale la respuesta. Corrige los ejercicios explicando el error y deriva al canal humano cuando la pregunta se sale del temario.
+P: ¿El curso de Ley Karin cumple con lo que exige la ley?
+La Ley 21.643 obliga a informar y capacitar sobre los riesgos, las medidas de prevención y protección, y los derechos y responsabilidades de cada parte, y exige que la empresa asegure la comprensión. El curso registra identidad por RUT, avance por módulo, resultado de la evaluación y emite certificado con fecha, que es la evidencia que pide una fiscalización.
+P: ¿Se puede usar sobre el LMS que ya tenemos?
+Sí. AulaZero funciona como plataforma propia o se integra sobre el LMS que la empresa ya usa.
+P: ¿Qué evidencia queda para una auditoría interna o una fiscalización?
+Identidad verificada por RUT, avance por módulo, tiempo real de dedicación, resultado de cada evaluación con sus intentos, historial de preguntas al tutor y certificado verificable con fecha y folio. Todo exportable para la reportería interna.
+P: ¿Los datos de los alumnos entrenan modelos de inteligencia artificial públicos?
+No. Los datos del alumno se mantienen en el entorno controlado y no se usan para entrenar modelos de terceros.
+## Muéstrale AulaZero a tu equipo esta semana.
+Agenda una demo de 20 minutos. Vemos tus obligaciones, te mostramos los cursos y te dejamos acceso de evaluación.
 
-URL: https://www.tecnozero.cl/licitaciones
-Resumen: Agentes de IA que vigilan Mercado Público, Compra Ágil, WhereEx e iConstruye, leen las bases y arman la carpeta para tu firma.
+======================================================================
+Agentes de Licitaciones
+https://www.tecnozero.cl/licitaciones
+======================================================================
 
-
-### Tus competidores reciben la misma alerta que tú. Gana el que postula.
-
+# Tus competidores reciben la misma alerta que tú. Gana el que postula.
 Agentes de IA que vigilan Mercado Público y los portales privados donde compite tu empresa, leen las bases, revisan que tus certificados sigan vigentes y dejan la oferta armada para tu firma.
 Tienes el stock. Cierra en 3 horas.
 Guantes anticorte y cascos · Servicio de Salud Antofagasta
@@ -389,11 +335,10 @@ M. Público
 7 días
 No postules: la boleta supera tu patrimonio.
 Planta de tratamiento MOP · garantía 5.000 UF
+M. Público
 15 días
 El costo de hacerlo a mano
-
-#### Encontrar la licitación toma un minuto. Armar la carpeta toma diez horas.
-
+## Encontrar la licitación toma un minuto. Armar la carpeta toma diez horas.
 Tu equipo revisa portales en la mañana, descarga bases que después descarta, y cuando aparece la oportunidad buena quedan cuatro días para reunir certificados, anexos y declaraciones juradas.
 Ese trabajo se paga aunque la empresa no adjudique nada.
 Revisar y filtrar portales
@@ -410,46 +355,31 @@ Supuesto: analista de $1.000.000 brutos, costo empresa cercano a $1.250.000, 180
 Lo que tu equipo deja de hacer
 Ochenta y siete horas al mes que hoy se van en revisar portales y llenar anexos.
 Cómo funciona
-
-#### Cuatro pasos que hoy hace una persona.
-
-
-**Detecta**
-
+## Cuatro pasos que hoy hace una persona.
+### Detecta
 Consulta la API oficial de ChileCompra cada dos minutos y entra a los portales privados con la sesión de tu empresa.
-
-**Lee las bases**
-
+### Lee las bases
 Baja el PDF que la API no entrega, lo interpreta y extrae requisitos, plazos y garantías exigidas.
-
-**Cruza tu ficha**
-
+### Cruza tu ficha
 Compara contra tu patrimonio, tus certificados vigentes y tu stock. Descarta lo que no puedes ganar.
-
-**Arma la carpeta**
-
+### Arma la carpeta
 Redacta los anexos, adjunta las declaraciones juradas y deja la oferta lista para tu firma.
 El hueco del mercado
-
-#### Donde termina una plataforma de alertas.
-
+## Donde termina una plataforma de alertas.
 En Chile hay seis plataformas que avisan de licitaciones y resumen las bases. Ninguna entra a un portal privado ni deja la oferta armada.
 Entramos a los portales privados con las credenciales de tu empresa y un mandato firmado que autoriza la operación. Cada acción del robot queda registrada con fecha, usuario y resultado. Es el mismo mecanismo con que operamos el portal de la Dirección del Trabajo para Metro de Santiago y para el retail a través de Tawa.
 Portales privados
 WhereEx, iConstruye y Ariba mueven contratos que nunca pasan por Mercado Público.
 Planes
-
-#### Tres niveles, según cuánto postulas.
-
+## Tres niveles, según cuánto postulas.
 Detectar y analizar no tiene tope. Pagas por postulación armada, la oferta lista para tu firma. Valores mensuales en pesos, más IVA, con piloto de 30 días.
+$609.000
 cuesta hacerlo a mano cada mes
 87 horas de tu equipo revisando portales y llenando anexos, se adjudique o no.
 $3.600.000
 deja una licitación que sí alcanzaste a postular
 Un contrato de $30 millones con 12% de margen. Perder una por trimestre son $14,4 millones al año.
-
-**Postulación Asistida**
-
+### Postulación Asistida
 $149.900 /mes
 Para la empresa que ya vende al Estado y pierde ofertas por plazo.
 - Detección y análisis ilimitados en Mercado Público y Compra Ágil
@@ -457,9 +387,7 @@ Para la empresa que ya vende al Estado y pierde ofertas por plazo.
 - Verificación de certificados vigentes
 - Anexos administrativos armados y listos para tu firma
 - Aviso de adendas y cambios de cierre
-
-**Minero / Corporativo**
-
+### Minero / Corporativo
 $249.900 /mes
 Para ti, que además compites en los portales cerrados de tus clientes.
 - Todo lo del plan anterior
@@ -467,9 +395,7 @@ Para ti, que además compites en los portales cerrados de tus clientes.
 - Postulamos con las credenciales de tu empresa bajo mandato firmado
 - Bitácora auditable de cada acción del robot
 - Alerta de vencimiento de acreditaciones
-
-**Bid Manager Autónomo**
-
+### Bid Manager Autónomo
 $450.000 /mes
 Para ti, que decides con los datos de tu propia operación.
 - Todo lo del plan anterior
@@ -478,9 +404,19 @@ Para ti, que decides con los datos de tu propia operación.
 - Post adjudicación: boleta, HES y estados de pago
 - Robot dedicado con SLA
 Cada postulación armada extra cuesta $14.900, o subes de plan. No te frenamos a mitad de mes. Entra en los primeros 5 del Programa Fundador y tu precio queda fijo por 12 meses.
-
-#### Programa Fundador
-
+## Preguntas frecuentes
+Lo que preguntan los equipos comerciales antes de activar el piloto.
+P: ¿Cómo entran a los portales privados como WhereEx o iConstruye?
+Con las credenciales de tu empresa y un mandato firmado que autoriza la operación. Cada acción del robot queda registrada con fecha, usuario y resultado.
+P: ¿En qué se diferencia de una plataforma de alertas de licitaciones?
+Las plataformas de alerta avisan y resumen las bases. Nuestros agentes además entran a portales privados, verifican que tus certificados sigan vigentes, avisan de adendas y cambios de cierre, y dejan la carpeta administrativa armada para tu firma.
+P: ¿Qué incluye el piloto de 30 días?
+Tus reglas cargadas por rubro, monto, región y portales; medición diaria de cuántas licitaciones alcanzaste a postular; alertas de adendas; y sin permanencia. Al terminar el mes decides tú si sigues.
+P: ¿De dónde salen las licitaciones públicas?
+De la API oficial de ChileCompra, que cubre Mercado Público y Compra Ágil. La consulta es directa contra la fuente, sin depender de un tercero que reenvíe la información.
+P: ¿El agente postula solo o yo firmo?
+El agente deja la carpeta administrativa armada y la postulación lista. La firma y el envío final quedan siempre bajo control de tu empresa, según lo que definas en el mandato.
+## Programa Fundador
 Treinta días sobre un proceso real de tu empresa, con las métricas acordadas antes de partir. Tú defines qué licitaciones importan y nosotros medimos cuántas alcanzaste a postular. Si al final del mes los números no te sirven, no sigues.
 Qué incluye el piloto
 Tus reglas cargadas
@@ -492,450 +428,515 @@ Cambios de cierre y respuestas a consultas
 Sin permanencia
 Termina el mes y decides tú
 
----
+======================================================================
+Contacto
+https://www.tecnozero.cl/contacto
+======================================================================
 
-## Nosotros
-
-URL: https://www.tecnozero.cl/nosotros
-Resumen: Empresa chilena de automatización fundada en 2019 en La Serena. Ingenieros UTFSM, +20 robots en producción para Metro de Santiago, Tawa y Activos Chile.
-
-
-### No automatizamos tareas. Automatizamos decisiones críticas.
-
-Somos una empresa chilena de tecnología, fundada en 2019 en La Serena. Nuestros ingenieros de la Universidad Técnica Federico Santa María construyen robots y agentes de IA que operan donde el error tiene costo real: nóminas, contratos, cumplimiento y gestión documental.
-
-#### Ingeniería en Eficiencia
-
-Tecnozero SpA nació en 2019 para resolver un problema concreto: los procesos manuales que las empresas grandes repiten miles de veces al mes, con multas y horas perdidas cada vez que algo falla. Convertimos ese trabajo en robots que operan solos, las 24 horas.
-Nuestros robots y agentes no solo ejecutan. Razonan, detectan excepciones y actúan. Transitamos del RPA tradicional a la IA, y hoy caminamos hacia la IA Agéntica.
-
-**En producción hoy, monitoreado 24/7**
-
-Cada robot corre sobre infraestructura AWS cifrada, con alertas automáticas y soporte que actúa antes de que el proceso falle.
-
-#### Cinco compromisos, cero excusas
-
-Cada robot se construye con tolerancia cero a fallos. Operamos donde el error cuesta dinero.
-Tres meses operando en paralelo con Metro de Santiago, sin una sola diferencia de dos centavos.
-Pasamos de RPA a IA, y ahora a IA Agéntica. Siempre un paso adelante.
-De un requerimiento a un robot en producción en 8 semanas, con metodología Agile Scrum.
-Infraestructura AWS. Los datos nunca salen del entorno cifrado. SLA de 99,5% de disponibilidad.
-
-#### Tres capas de automatización
-
-Robots de software que navegan portales, extraen datos, validan documentos y generan reportes. Autónomos y disponibles 24/7.
-Agentes que perciben el contexto, razonan sobre él y deciden en tiempo real, incluso ante situaciones imprevistas.
-Opera sobre SAP, Oracle, PDFs y correos con precisión sobre 90%. Alianza estratégica con Accéder (Montreal), laboratorio integrado a los ecosistemas MILA y Scale AI.
-
-#### Donde la automatización rinde más
-
-El ciclo laboral completo ante la Dirección del Trabajo: contratos, anexos, finiquitos, licencias médicas y teletrabajo. Gestionamos miles de trabajadores al mes.
-Conciliación bancaria, facturas con OCR, integración SAP y auditoría de adquisiciones. Tres meses sin diferencias en distribución de sueldos.
-Acreditaciones, autorizaciones y trazabilidad 100% auditable para la gran minería chilena. MinePass reduce la acreditación de contratistas de días a minutos.
-
-#### Metro de Santiago: el proyecto que lo cambió todo
-
-En septiembre de 2023, Metro nos convocó con un plazo imposible: 4.600 contratos debían entrar al portal de la Dirección del Trabajo antes del 31 de octubre. Pusimos robots a operar día y noche. Lo que empezó como una emergencia hoy es un ecosistema de 9 robots que cuida el ciclo laboral de 4.600 personas.
-Confían en Tecnozero
-
-#### De un desafío real a producción en 8 semanas
-
-Valor en semanas, no en meses, con rigor industrial en cada etapa.
-Levantamos el proceso, definimos la arquitectura del robot e integramos con SAP, DT y Azure AD.
-Pruebas de estrés, validación preproductiva y ajuste de cada excepción.
-El robot opera en paralelo con el proceso manual, resultado a resultado.
-Entrega en producción, documentación completa y soporte continuo.
-
-#### Personas reales detrás de cada robot
-
-Un PhD y un equipo de ingenieros de la UTFSM, con soporte local desde La Serena.
-
-#### Hablemos de tu operación
-
-Evaluación sin costo. Respuesta en 24 horas.
-
----
-
-## Contacto
-
-URL: https://www.tecnozero.cl/contacto
-Resumen: Agenda tu evaluación gratuita de procesos. Respuesta en 24 horas. La Serena, Chile. (+569) 8869 3864 · contacto@tecnozero.cl
-
-
-### Hablemos de tu operación
-
-
-#### Cuéntanos sobre tu operación
-
+# Hablemos de tu operación
+## Cuéntanos sobre tu operación
 Un especialista te responderá en menos de 24 horas
-
-**Estamos en Chile, cerca tuyo**
-
+### Estamos en Chile, cerca tuyo
 Soporte local real, sin intermediarios. Respondemos en menos de un día hábil.
 Personas reales atendiendo tu proyecto, sin call centers ni intermediarios.
 
----
+======================================================================
+Blog: acreditacion-contratistas-mineria-aic-agentes-ia
+https://www.tecnozero.cl/blog/acreditacion-contratistas-mineria-aic-agentes-ia
+======================================================================
 
-## Blog
-
-URL: https://www.tecnozero.cl/blog
-Resumen: Guías sobre RPA, IA agéntica y IA nativa en plataformas web. Portal DT, minería, Ley Karin y agentes sobre SAP y Oracle.
-
-
-### Automatización, IA Agéntica y IA nativa en plataformas web
-
-Guías y casos reales sobre RPA, agentes de IA y EdTech. Escrito por el equipo que opera +20 robots en producción.
-
-#### Integrar IA de forma nativa en tu plataforma web: guía para líderes de producto
-
-Pegar un chatbot en la esquina es fácil. Que entienda tu negocio, actúe sobre tus datos y no invente es otra cosa. Tres patrones de IA nativa que funcionan y lo que no se puede negociar.
-
-**IA nativa en EdTech: cómo un tutor de inteligencia artificial cambia la capacitación corporativa**
-
-Un tutor de IA integrado en el curso responde dudas, corrige y deja evidencia. Así cambia la capacitación corporativa cuando la…
-
-**Ley Karin: qué obliga a capacitar a tu empresa y cómo automatizarlo**
-
-La Ley Karin convirtió la prevención del acoso laboral en un deber del empleador. Qué exige en materia de capacitación y cómo un…
-
-**RPA vs IA Agéntica: cuándo tu proceso necesita un robot que razona**
-
-La mitad de los procesos se resuelven mejor con RPA tradicional y la otra mitad necesita un agente que decida. La diferencia ent…
-
-**Cómo automatizar el registro de contratos en el Portal de la Dirección del Trabajo**
-
-Cada contrato, anexo y finiquito en Chile pasa por el portal de la Dirección del Trabajo. Cómo un robot RPA registra en 45 segun…
-
-**Acreditación de contratistas en minería (AIC): de 10 días a horas con agentes de IA**
-
-En la gran minería chilena, la Autorización de Ingreso de Contratistas puede tomar 10 días hábiles por solicitud. Cómo un agente…
-
-**Agentes de IA sobre SAP y Oracle: automatizar decisiones sin exponer tus datos**
-
-La objeción número uno a la IA en la empresa no es el precio, es la privacidad. Cómo un agente opera sobre SAP, Oracle, PDFs y c…
-
----
-
-## Integrar IA nativa en tu plataforma web
-
-URL: https://www.tecnozero.cl/blog/integrar-ia-nativa-plataforma-web-guia
-Resumen: Pegar un chatbot en la esquina es fácil. Tres patrones de IA nativa que sí funcionan y lo que no se puede negociar al integrarla.
-
-
-### Integrar IA de forma nativa en tu plataforma web: guía para líderes de producto
-
-Pegar un chatbot en la esquina es fácil. Que entienda tu negocio, actúe sobre tus datos y no invente es otra cosa. Tres patrones de IA nativa que funcionan y lo que no se puede negociar.
-Pegar un chatbot en la esquina de tu producto es fácil. Que ese chatbot entienda tu negocio, actúe sobre tus datos y no invente es otra cosa. Esa diferencia separa una demo de una función que la gente de verdad usa.
-
-#### Chatbot pegado contra IA nativa
-
-Un chatbot genérico responde con lo que sabe internet. Una IA nativa conoce el estado del usuario, lee tus datos y ejecuta acciones dentro de tu plataforma: matricula, agenda, corrige, deriva. Vive en el flujo, no al lado.
-
-#### Tres patrones que funcionan
-
-
-**Tutor de IA (EdTech)**
-
-Responde las dudas del alumno con el contexto del curso, corrige ejercicios y deja registro del avance. Es el corazón de AulaZero, nuestra línea EdTech.
-
-**Agente de soporte**
-
-Resuelve la consulta leyendo tu documentación y tus registros, y escala al humano cuando la situación lo pide. Menos tickets, respuestas consistentes.
-
-**Agente de operaciones**
-
-Actúa sobre tu backend: crea registros, valida documentos, dispara procesos. RPA con criterio, capaz de decidir ante la excepción.
-
-#### Lo que no se puede negociar
-
-- Privacidad: los datos del usuario no entrenan modelos públicos.
-- Sin alucinaciones: el agente responde desde tus fuentes, no desde su imaginación.
-- Auditabilidad: cada acción del agente queda registrada.
-
-#### Cómo lo hacemos en Tecnozero
-
-Integramos IA y agentes de IA de forma nativa en plataformas web, con foco especial en EdTech. Unimos RPA sólido, agentes que razonan y desarrollo web propio, todo sobre infraestructura cifrada. Del curso con tutor de IA al agente que opera tu ERP, con el mismo estándar de precisión.
+En la gran minería chilena, la acreditación de ingreso de contratistas puede tomar 10 días hábiles por solicitud. Qué documentos exige, por qué el proceso manual se atasca siempre en el mismo punto y cómo un agente con OCR lo reduce a horas sin perder trazabilidad.
+En la gran minería chilena, ningún contratista entra a faena sin acreditación. El proceso manual puede tomar hasta 10 días hábiles por solicitud. Cada día de espera es una cuadrilla parada, una máquina detenida y un contrato que no avanza.
+## Qué obliga la normativa
+La acreditación no es una manía de la empresa mandante. Nace de dos cuerpos normativos que se cruzan en la faena.
+El Decreto Supremo 76, que reglamenta el artículo 66 bis de la Ley 16.744, obliga a la empresa principal a mantener un registro actualizado en la obra o faena, disponible cuando lo pida un fiscalizador. Ese registro incluye el RUT y la razón social de cada contratista y subcontratista, el informe de evaluación de riesgos, las visitas y medidas prescritas por el organismo administrador, las inspecciones de entidades fiscalizadoras, el número de trabajadores y las fechas de inicio y término de cada trabajo.
+El Decreto Supremo 132, Reglamento de Seguridad Minera vigente desde 2007, agrega la capa minera: en cada faena existe un Libro Sernageomin donde se registran los hallazgos de fiscalización, y toda empresa contratista debe asegurar la acreditación de sus propios subcontratos.
+Junta las dos exigencias y aparece el problema real: la mandante responde por documentos que están en manos de terceros, y esos terceros a su vez responden por documentos de cuartos.
+## Por qué la AIC se demora 10 días
+El expediente de un solo trabajador cruza fuentes que no se hablan entre sí.
+- Identidad y contrato: cédula vigente, contrato registrado, finiquito del anterior si corresponde.
+- Previsión y seguridad: afiliación al organismo administrador, cotizaciones al día.
+- Salud ocupacional: exámenes según el riesgo del cargo, con vigencia distinta cada uno.
+- Formación: inducción hombre nuevo, cursos de altura física, espacios confinados, trabajo en caliente.
+- Empresa: certificado de cumplimiento de obligaciones laborales y previsionales, mandatos y poderes.
+Una persona del área de prevención revisa cada documento, detecta lo que falta, escribe un correo al contratista, espera. Mientras espera, otro documento vence. El expediente vuelve al inicio.
+Ese bucle es el que consume los 10 días, y no lo arregla contratar a otra persona: es un problema de vigencias que se mueven, no de capacidad de revisión.
+## Qué automatiza el agente de IA
+Un agente con OCR lee los documentos como llegan, incluido el escaneo torcido de un certificado hecho con la cámara del teléfono. Extrae los datos, valida contra los portales y arma la carpeta completa.
+- 1 Recibe el documento en cualquier formato y lo clasifica: esto es un examen de altura física, esto es un certificado F30.
+- 2 Extrae los campos que importan, incluida la fecha de vigencia.
+- 3 Cruza contra los portales que corresponden y contra el registro de la faena.
+- 4 Calcula el vencimiento efectivo contra la fecha estimada de término del trabajo, no contra hoy.
+- 5 Emite la lista de lo que falta, dirigida al contratista, con el detalle exacto.
+- 6 Deja el expediente armado y la credencial tokenizada cuando todo cuadra.
+El cuarto paso es el que más tiempo ahorra. Un examen que vence dentro de 20 días pasa la revisión manual sin problema y bloquea la faena tres semanas después. El agente lo marca desde el primer día.
+AIC manual
+Con agente de IA
+Tiempo por solicitud
+Hasta 10 días hábiles
+Horas
+Detección de vencimientos
+Al momento de la revisión
+Proyectada al término del trabajo
+Documento escaneado torcido
+Rechazo y reenvío
+Lectura con OCR
+Registro para fiscalización
+Carpetas y correos
+Expediente trazable de punta a punta
+Reducción en tiempos de inspección
+Línea base
+Sobre 95%
+## La trazabilidad es el entregable
+La velocidad es lo que se vende, pero lo que salva a la empresa en una fiscalización es el rastro. El DS 76 pide un registro actualizado y disponible en la faena. Un fiscalizador que llega un martes a las 9 de la mañana no acepta que el encargado esté buscando un PDF en su correo.
+Cada acción del agente queda registrada: qué documento leyó, qué extrajo, contra qué portal lo validó, qué decidió y en qué momento. Los mandatos digitales quedan tokenizados. Si alguien pregunta por qué este trabajador entró a faena el 3 de marzo, la respuesta está completa.
+Es el mismo estándar de auditoría con el que operamos agentes sobre datos privados de ERP : si el agente decide, el registro tiene que permitir reconstruir la decisión.
+## Qué es MinePass
+MinePass es la solución de Tecnozero para acreditar contratistas en la gran minería chilena. Combina OCR, agentes de IA y credencial tokenizada, y libera a los equipos de prevención de un trabajo que les consumía días enteros.
+Junto a MinePass opera VehiclePass, que aplica la misma lógica a la flota: revisión técnica, permiso de circulación, seguro obligatorio y mantenciones, con cero vehículos en faena con documentación vencida.
+El objetivo no es acreditar más rápido. Es que la faena nunca tenga adentro a alguien con un documento vencido, y poder probarlo.
+## Preguntas frecuentes
+P: ¿Qué es la acreditación de ingreso de contratistas (AIC)?
+Es el proceso por el que una empresa minera mandante verifica que cada trabajador y cada empresa contratista cumplen los requisitos documentales antes de entrar a faena: identidad, contrato, afiliación previsional, exámenes ocupacionales según el riesgo del cargo, cursos de seguridad y certificados de cumplimiento laboral.
+P: ¿Qué normativa obliga a acreditar contratistas en minería?
+El Decreto Supremo 76, que reglamenta el artículo 66 bis de la Ley 16.744, obliga a la empresa principal a mantener un registro actualizado y disponible en la faena. El Decreto Supremo 132, Reglamento de Seguridad Minera, suma el Libro Sernageomin en cada faena y la obligación del contratista de asegurar la acreditación de sus subcontratos.
+P: ¿Cuánto se demora una acreditación manual?
+Hasta 10 días hábiles por solicitud. El tiempo se va en el bucle de revisar, pedir lo que falta y esperar la respuesta del contratista, mientras otros documentos del mismo expediente van venciendo.
+P: ¿Cómo reduce el tiempo un agente de IA?
+Lee los documentos con OCR en cualquier formato, extrae los campos y las fechas de vigencia, cruza contra los portales, proyecta el vencimiento contra la fecha de término del trabajo y emite de una sola vez la lista completa de lo que falta. Eso elimina el ida y vuelta que consume la mayor parte de los 10 días.
+P: ¿Qué trazabilidad queda para una fiscalización de Sernageomin?
+Cada acción queda registrada: qué documento se leyó, qué datos se extrajeron, contra qué portal se validó, qué se decidió y cuándo. Los mandatos digitales quedan tokenizados, de modo que el expediente permite reconstruir por qué un trabajador determinado ingresó a faena en una fecha determinada.
 Robert Yasuda, PhD
 PhD por la Universidad de Almería. Dirige Tecnozero desde La Serena, donde su equipo opera más de 20 robots de software en producción para Metro de Santiago, la gran minería y el retail.
 
-#### Seguir leyendo
-
-
-**IA nativa en EdTech: cómo un tutor de inteligencia artificial cambia la capacitación corporativa**
-
-
-**Agentes de IA sobre SAP y Oracle: automatizar decisiones sin exponer tus datos**
-
-
-**Ley Karin: qué obliga a capacitar a tu empresa y cómo automatizarlo**
-
-
----
-
-## Tutor de IA en capacitación corporativa
-
-URL: https://www.tecnozero.cl/blog/ia-nativa-edtech-tutor-inteligente
-Resumen: Un tutor de IA dentro del curso responde dudas, corrige ejercicios y deja evidencia auditable de cada interacción del alumno.
-
-
-### IA nativa en EdTech: cómo un tutor de inteligencia artificial cambia la capacitación corporativa
-
-Un tutor de IA integrado en el curso responde dudas, corrige y deja evidencia. Así cambia la capacitación corporativa cuando la IA vive dentro de la plataforma y no en un chatbot pegado.
-La mayoría de los cursos e-learning corporativos terminan igual: un video corriendo en una pestaña que nadie mira y un certificado que nadie lee. El problema no es el contenido. Es que no hay nadie que responda cuando aparece la duda.
-
-#### Qué significa IA nativa en una plataforma de aprendizaje
-
-Una IA nativa vive dentro del curso, no en un chatbot pegado en una esquina. Lee el módulo que el alumno está viendo, conoce su avance y responde con el contexto exacto de esa lección.
-La diferencia se nota en la práctica. El trabajador pregunta 'qué hago si recibo una denuncia' y el tutor responde con el procedimiento del curso, no con una respuesta genérica sacada de internet.
-
-#### Qué resuelve un tutor de IA en la capacitación
-
-- Responde dudas al instante, en el tono y el vocabulario de tu empresa.
-- Detecta dónde se traba el alumno y refuerza ese punto.
-- Corrige ejercicios y explica el error, no solo lo marca como incorrecto.
-- Deja registro de cada interacción para tu carpeta de cumplimiento.
-
-#### El caso de la formación obligatoria
-
-En Chile, la Ley Karin y otras normas obligan a capacitar. Un curso con tutor de IA sube la tasa de término y deja evidencia auditable de que la persona entendió el contenido, no solo de que hizo clic en 'siguiente'.
-AulaZero, la línea EdTech de Tecnozero, integra tutor de IA, audio profesional y certificado verificable en cada curso.
-
-#### Cómo lo construimos
-
-Sobre una plataforma web propia o sobre el LMS que ya usas. La IA razona a partir del contenido del curso, nunca inventa y los datos del alumno no entrenan modelos públicos. Ese es el estándar con el que integramos IA de forma nativa, con foco en EdTech.
-Robert Yasuda, PhD
-PhD por la Universidad de Almería. Dirige Tecnozero desde La Serena, donde su equipo opera más de 20 robots de software en producción para Metro de Santiago, la gran minería y el retail.
-
-#### Seguir leyendo
-
-
-**Ley Karin: qué obliga a capacitar a tu empresa y cómo automatizarlo**
-
-
-**Integrar IA de forma nativa en tu plataforma web: guía para líderes de producto**
-
-
-**RPA vs IA Agéntica: cuándo tu proceso necesita un robot que razona**
-
-
----
-
-## Ley Karin: capacitación obligatoria
-
-URL: https://www.tecnozero.cl/blog/ley-karin-capacitacion-obligatoria-automatizar
-Resumen: Qué exige la Ley Karin en capacitación y cómo un curso e-learning con tutor de IA deja la evidencia lista para una fiscalización.
-
-
-### Ley Karin: qué obliga a capacitar a tu empresa y cómo automatizarlo
-
-La Ley Karin convirtió la prevención del acoso laboral en un deber del empleador. Qué exige en materia de capacitación y cómo un curso e-learning con tutor de IA deja la evidencia lista para una fiscalización.
-La Ley 21.643, conocida como Ley Karin, cambió lo que se espera de cada empleador en Chile. Ya no basta con tener un reglamento interno guardado en un cajón. Hay que prevenir, capacitar y dejar constancia.
-
-#### Qué exige la Ley Karin en materia de capacitación
-
-La norma pone la prevención del acoso laboral, el acoso sexual y la violencia en el trabajo como obligación del empleador. Formar a trabajadores y jefaturas es una parte central de ese deber de prevención.
-- Capacitar a todo el personal en qué es el acoso y cómo denunciarlo.
-- Preparar a las jefaturas para recibir una denuncia y derivarla por el canal formal.
-- Guardar registro de quién se capacitó, cuándo y con qué contenido.
-
-#### El problema del papel y las planillas
-
-Muchas empresas resuelven la capacitación con una charla presencial y una lista de asistencia firmada. Cuando llega una fiscalización o una denuncia, esa lista no prueba que la persona haya entendido el procedimiento.
-
-#### Cómo lo automatiza el e-learning con IA
-
-Un curso online con tutor de IA capacita a cada trabajador a su ritmo, responde sus dudas sobre el protocolo real de la empresa y registra el avance. El sistema genera el certificado y guarda la evidencia lista para tu carpeta laboral.
-- Cada trabajador avanza desde su teléfono o su computador.
-- El tutor de IA responde dudas sobre el protocolo de tu empresa, no en abstracto.
-- Descargas registros de avance y certificados en un clic.
-Capacitación compatible con franquicia tributaria SENCE a través de OTECs.
-Robert Yasuda, PhD
-PhD por la Universidad de Almería. Dirige Tecnozero desde La Serena, donde su equipo opera más de 20 robots de software en producción para Metro de Santiago, la gran minería y el retail.
-
-#### Seguir leyendo
-
-
-**IA nativa en EdTech: cómo un tutor de inteligencia artificial cambia la capacitación corporativa**
-
-
-**Cómo automatizar el registro de contratos en el Portal de la Dirección del Trabajo**
-
-
-**Integrar IA de forma nativa en tu plataforma web: guía para líderes de producto**
-
-
----
-
-## RPA vs IA agéntica: cuándo usar cada uno
-
-URL: https://www.tecnozero.cl/blog/rpa-vs-ia-agentica-cuando-usar-cada-uno
-Resumen: La mitad de los procesos se resuelve con RPA y la otra mitad necesita un agente que decida. La regla práctica para elegir sin gastar de más.
-
-
-### RPA vs IA Agéntica: cuándo tu proceso necesita un robot que razona
-
-La mitad de los procesos se resuelven mejor con RPA tradicional y la otra mitad necesita un agente que decida. La diferencia entre ambos y la regla práctica para elegir sin gastar de más.
-'Automaticemos esto con IA' suena bien en una reunión. En la práctica, la mitad de los procesos se resuelven mejor con RPA tradicional y la otra mitad necesita un agente que decida. Elegir mal cuesta dinero y tiempo.
-
-#### Qué hace bien el RPA
-
-El RPA sigue reglas fijas. Navega un portal, copia datos de un sistema a otro, valida un formato y genera un reporte. Rinde donde el flujo es 100% estructurado y se repite igual cada vez.
-- Registrar contratos y anexos en el Portal de la Dirección del Trabajo.
-- Descargar y clasificar licencias médicas de varios portales.
-- Conciliar dos planillas que llegan siempre con el mismo formato.
-
-#### Cuándo el RPA se queda corto
-
-El RPA es frágil ante la excepción. Si el portal cambia un botón o el documento llega en otro formato, el robot se detiene y espera a una persona. Ahí entra la IA Agéntica.
-
-#### Qué agrega la IA Agéntica
-
-Un agente percibe el contexto, razona sobre él y toma una decisión, incluso ante algo que no estaba en el guion. Se adapta a un cambio de interfaz, interpreta un PDF nuevo y escala la excepción al humano solo cuando de verdad hace falta.
-RPA tradicional: sigue reglas, ideal para flujos estables. IA Agéntica: razona, decide y se adapta a lo imprevisto. Muchos procesos combinan ambos.
-
-#### La regla práctica de Tecnozero
-
-Partimos con RPA sólido donde el flujo es estable y sumamos agentes de IA donde hay que interpretar y decidir. Transitamos del RPA a la IA, y hoy caminamos hacia la IA Agéntica sin perder la precisión industrial.
-Robert Yasuda, PhD
-PhD por la Universidad de Almería. Dirige Tecnozero desde La Serena, donde su equipo opera más de 20 robots de software en producción para Metro de Santiago, la gran minería y el retail.
-
-#### Seguir leyendo
-
-
-**Agentes de IA sobre SAP y Oracle: automatizar decisiones sin exponer tus datos**
-
-
-**Cómo automatizar el registro de contratos en el Portal de la Dirección del Trabajo**
-
-
-**Integrar IA de forma nativa en tu plataforma web: guía para líderes de producto**
-
-
----
-
-## Automatizar contratos en el Portal DT
-
-URL: https://www.tecnozero.cl/blog/automatizar-registro-contratos-portal-direccion-del-trabajo
-Resumen: Un robot RPA registra en 45 segundos lo que a una persona le toma minutos en el portal de la Dirección del Trabajo, con 0 errores.
-
-
-### Cómo automatizar el registro de contratos en el Portal de la Dirección del Trabajo
-
-Cada contrato, anexo y finiquito en Chile pasa por el portal de la Dirección del Trabajo. Cómo un robot RPA registra en 45 segundos lo que a una persona le toma minutos, con 0 errores.
-Cada contrato, anexo y finiquito en Chile pasa por el portal de la Dirección del Trabajo. Para una empresa con cientos de movimientos al mes, eso significa un equipo copiando datos a mano, con el reloj de la multa corriendo.
-
-#### Por qué el registro manual falla
-
-Un ingreso al portal DT pide decenas de campos por trabajador. Multiplica eso por cientos de contrataciones y aparecen los errores: un RUT mal tipeado, un plazo vencido, un anexo que quedó sin cargar. Cada error es una multa esperando.
-
-#### Qué hace el robot
-
-El robot toma los datos desde tu nómina o tu ERP, entra al portal, completa los 47 campos por ingreso y registra en 45 segundos lo que a una persona le toma varios minutos. Sin cansancio y sin diferencias.
-- Contratos, anexos, finiquitos y teletrabajo.
-- Validación de cada campo antes de enviar al portal.
-- Operación disponible las 24 horas, los 7 días.
-
-#### El caso Metro de Santiago
-
-En septiembre de 2023, Metro necesitaba registrar 4.600 contratos antes de una fecha imposible. Los robots de Tecnozero cargaron 4.000 en 20 días, con 0 errores. Lo que empezó como una emergencia hoy es un ecosistema de 9 robots que cuida el ciclo laboral de 4.600 personas.
-Robert Yasuda, PhD
-PhD por la Universidad de Almería. Dirige Tecnozero desde La Serena, donde su equipo opera más de 20 robots de software en producción para Metro de Santiago, la gran minería y el retail.
-
-#### Seguir leyendo
-
-
-**RPA vs IA Agéntica: cuándo tu proceso necesita un robot que razona**
-
-
-**Ley Karin: qué obliga a capacitar a tu empresa y cómo automatizarlo**
-
-
-**Integrar IA de forma nativa en tu plataforma web: guía para líderes de producto**
-
-
----
-
-## Acreditación AIC minera con agentes de IA
-
-URL: https://www.tecnozero.cl/blog/acreditacion-contratistas-mineria-aic-agentes-ia
-Resumen: La AIC puede tomar 10 días hábiles por solicitud. Cómo un agente de IA con OCR la reduce a horas, con trazabilidad auditable ante Sernageomin.
-
-
-### Acreditación de contratistas en minería (AIC): de 10 días a horas con agentes de IA
-
-En la gran minería chilena, la Autorización de Ingreso de Contratistas puede tomar 10 días hábiles por solicitud. Cómo un agente de IA con OCR reduce la AIC a horas, con trazabilidad 100% auditable.
-En la gran minería chilena, ningún contratista entra a faena sin acreditación. El proceso manual de Autorización de Ingreso de Contratistas puede tomar hasta 10 días hábiles por solicitud. Cada día de espera es una máquina detenida y un contrato que no avanza.
-
-#### Por qué la AIC es lenta
-
-La acreditación cruza documentos de varios portales: identidad, exámenes, certificados y mandatos. Una persona revisa cada uno, detecta lo que falta y vuelve a empezar cuando algún documento vence a mitad del trámite.
-
-#### Qué automatiza el agente de IA
-
-Un agente con OCR lee los documentos, valida contra los portales, detecta vencimientos y arma la carpeta completa. Los mandatos digitales quedan tokenizados y con trazabilidad auditable de principio a fin.
-- Reduce la AIC de días a horas.
-- Cruza múltiples portales gubernamentales en un solo flujo.
-- Deja trazabilidad 100% auditable para el cumplimiento minero.
-
-#### Qué es MinePass
-
-MinePass es la solución de Tecnozero para acreditar contratistas en la gran minería chilena. Combina OCR, agentes de IA y credencial tokenizada, y libera a los equipos de prevención de un trabajo que consumía días enteros.
-Robert Yasuda, PhD
-PhD por la Universidad de Almería. Dirige Tecnozero desde La Serena, donde su equipo opera más de 20 robots de software en producción para Metro de Santiago, la gran minería y el retail.
-
-#### Seguir leyendo
-
-
-**RPA vs IA Agéntica: cuándo tu proceso necesita un robot que razona**
-
-
-**Agentes de IA sobre SAP y Oracle: automatizar decisiones sin exponer tus datos**
-
-
-**Integrar IA de forma nativa en tu plataforma web: guía para líderes de producto**
-
-
----
-
-## Agentes de IA sobre SAP y Oracle
-
-URL: https://www.tecnozero.cl/blog/agentes-ia-sap-oracle-datos-privados
-Resumen: Cómo un agente opera sobre SAP, Oracle, PDFs y correos sin que tus datos entrenen modelos públicos y sin inventar respuestas.
-
-
-### Agentes de IA sobre SAP y Oracle: automatizar decisiones sin exponer tus datos
-
-La objeción número uno a la IA en la empresa no es el precio, es la privacidad. Cómo un agente opera sobre SAP, Oracle, PDFs y correos sin que los datos entrenen modelos públicos y sin alucinaciones.
-La objeción número uno a la IA en una empresa grande no es el precio. Es 'no voy a subir los datos de mi ERP a un modelo público'. Es una objeción correcta, y tiene solución.
-
-#### El miedo, bien fundado
-
-Un modelo de lenguaje público puede aprender de lo que le entregas y a veces inventa. Ninguna de las dos cosas es aceptable cuando hablamos de tu inventario, tu conciliación o tus contratos.
-
-#### Cómo funciona un agente sobre datos privados
-
-TITAN, la plataforma de IA Agéntica de Tecnozero, opera sobre SAP, Oracle, PDFs y correos sin que los datos entrenen modelos públicos. Percibe, decide y actúa, con arquitectura auditable y sin alucinaciones.
-- Los datos nunca salen del entorno controlado y cifrado.
-- Cada decisión queda registrada y es auditable.
-- Precisión sobre 90% y respuestas en segundos.
-
-#### Casos concretos
-
-Un agente de inventario que resuelve en segundos lo que tomaba 45 minutos en SAP. Una conciliación que baja de dos días al mes a dos horas. La misma exigencia de siempre, sin las horas de trabajo manual.
+======================================================================
+Blog: agentes-ia-sap-oracle-datos-privados
+https://www.tecnozero.cl/blog/agentes-ia-sap-oracle-datos-privados
+======================================================================
+
+La objeción número uno a la IA en la empresa no es el precio. Es no voy a subir los datos de mi ERP a un modelo público. Cómo se construye un agente que opera sobre SAP y Oracle sin que los datos entrenen modelos ajenos y sin inventar respuestas.
+La objeción número uno a la IA en una empresa grande no es el precio. Es esta: no voy a subir los datos de mi ERP a un modelo público. La objeción es correcta y tiene solución técnica, pero conviene entender primero qué se está temiendo.
+## El miedo, desarmado en tres partes
+Cuando un gerente dice que no confía en la IA con sus datos, está juntando tres riesgos distintos que se resuelven por separado.
+- 1 Que el proveedor entrene su modelo con tu información y esta termine en la respuesta de otro cliente.
+- 2 Que el modelo invente un número y alguien lo use para decidir una compra.
+- 3 Que nadie pueda explicar después por qué el sistema hizo lo que hizo.
+El primero es contractual y de arquitectura. El segundo es de diseño del sistema. El tercero es de registro. Mezclarlos lleva a la parálisis; separarlos los hace resolubles.
+## Dónde viven los datos
+Un agente bien construido no manda tu base de datos a ninguna parte. Trabaja con recuperación: consulta tu sistema, trae el fragmento que necesita para esa pregunta concreta y lo usa como contexto de una sola respuesta.
+Tu tabla de inventario completa nunca sale. Sale el registro del SKU que se está preguntando, dentro de un entorno cifrado y bajo un acuerdo que prohíbe el entrenamiento con esos datos. Cuando la política de la empresa lo exige, el modelo corre en infraestructura dedicada.
+El control de acceso importa igual que el cifrado. El agente hereda los permisos del usuario que pregunta: si esa persona no puede ver los costos de una unidad de negocio en SAP, el agente tampoco se los muestra. Un asistente que responde por encima de los permisos del usuario es una fuga con buena interfaz.
+## Cómo se evita que invente
+Un modelo de lenguaje suelto completa el patrón más probable, y a veces ese patrón incluye un número que suena razonable y es falso. En un proceso financiero eso es inaceptable.
+- El agente responde solo desde las fuentes que consultó, y cita cuál fue.
+- Las cifras se leen del sistema, no se generan: el modelo arma la frase, el ERP pone el número.
+- Cuando la fuente no alcanza para responder, el agente lo dice y escala. No rellena.
+- Antes de producción, el agente pasa por un banco de casos con respuestas conocidas y se mide su precisión.
+Ese último punto es el que separa un piloto de un sistema en producción. Sin un set de evaluación, no sabes si el agente mejoró o empeoró cuando cambiaste el prompt.
+## Qué queda registrado
+Cada intervención del agente deja rastro: qué se le preguntó, qué consultó, qué devolvió cada consulta, qué respondió y qué acción ejecutó. Con eso puedes reconstruir una decisión seis meses después, que es lo que va a pedir tu auditor.
+Riesgo
+Cómo se controla
+Tus datos entrenan un modelo público
+Acuerdo de no entrenamiento, entorno cifrado y despliegue dedicado cuando corresponde
+El agente inventa una cifra
+Respuesta anclada a la fuente; los números los pone el sistema
+Ve más de lo que debe
+Hereda los permisos del usuario que pregunta
+Nadie explica una decisión
+Registro completo de consultas, respuestas y acciones
+Se degrada tras un cambio
+Banco de casos de evaluación antes de cada despliegue
+## Qué resuelve en la práctica
+Los casos que más rinden comparten una forma: una persona con buen criterio pasa horas buscando datos en tres pantallas para decidir en dos minutos.
+- Consulta de inventario y disponibilidad: lo que tomaba 45 minutos de navegación en SAP se resuelve en segundos.
+- Conciliación mensual: de dos días de trabajo a un par de horas de revisión sobre lo que el agente dejó marcado.
+- Respuesta a proveedores sobre estado de pagos, sin que nadie abra el ERP.
+- Lectura de contratos y órdenes de compra para extraer plazos, montos y cláusulas de renovación.
+En producción, TITAN responde en menos de 5 segundos lo que a una persona le tomaba 12 minutos, con precisión sobre el 90%. El resto escala a un humano con el contexto ya armado.
+Un detalle de diseño: no todo esto necesita un modelo de lenguaje. Si la consulta siempre es la misma y la fuente siempre es la misma tabla, un robot RPA la resuelve por centavos . El agente se reserva para donde hay que interpretar.
 TITAN nace de la alianza de Tecnozero con Accéder (Montreal), laboratorio integrado a los ecosistemas MILA y Scale AI.
+## Cómo se parte sin comprometer la operación
+- 1 Elige un proceso con dolor medible y datos acotados. La conciliación de una sola cuenta sirve; toda la contabilidad no.
+- 2 Define el set de evaluación antes de construir: 30 casos con la respuesta correcta escrita por tu equipo.
+- 3 Corre el agente en modo sombra: responde, pero la persona sigue decidiendo. Compara durante un mes.
+- 4 Abre el acceso cuando la precisión te convenza a ti, no cuando la presente el proveedor.
+El modo sombra es el paso que la mayoría se salta y el que más discusiones evita después. Un mes de comparación silenciosa vale más que cualquier demo.
+## Preguntas frecuentes
+P: ¿Mis datos entrenan el modelo si uso un agente de IA sobre mi ERP?
+No, si la arquitectura está bien planteada. El agente consulta tu sistema y trae solo el fragmento necesario para responder una pregunta concreta, dentro de un entorno cifrado y bajo un acuerdo que prohíbe el entrenamiento con esos datos. Cuando la política de la empresa lo exige, el modelo corre en infraestructura dedicada.
+P: ¿Cómo se evita que un agente de IA invente cifras?
+El agente responde solo desde las fuentes que consultó y cita cuál fue. Las cifras se leen del sistema en vez de generarse: el modelo arma la frase y el ERP pone el número. Cuando la fuente no alcanza, el agente lo declara y escala en vez de rellenar.
+P: ¿El agente puede ver información a la que el usuario no tiene acceso?
+No debería. El agente hereda los permisos del usuario que pregunta. Si esa persona no puede ver los costos de una unidad de negocio en SAP, el agente tampoco se los muestra.
+P: ¿Qué queda registrado para una auditoría?
+Qué se le preguntó al agente, qué consultó, qué devolvió cada consulta, qué respondió y qué acción ejecutó. Con ese rastro se puede reconstruir una decisión meses después.
+P: ¿Cómo se empieza sin arriesgar la operación?
+Con un proceso acotado y un set de evaluación de unos 30 casos con la respuesta correcta escrita por tu equipo. Después se corre el agente en modo sombra durante un mes: responde, pero la persona sigue decidiendo, y se comparan los resultados antes de darle acceso real.
+P: ¿Qué es TITAN?
+TITAN es la plataforma de IA agéntica de Tecnozero para entornos empresariales. Opera sobre SAP, Oracle, PDFs y correos con respuestas en menos de 5 segundos y precisión sobre el 90%. Nace de la alianza con Accéder (Montreal), laboratorio integrado a los ecosistemas MILA y Scale AI.
 Robert Yasuda, PhD
 PhD por la Universidad de Almería. Dirige Tecnozero desde La Serena, donde su equipo opera más de 20 robots de software en producción para Metro de Santiago, la gran minería y el retail.
 
-#### Seguir leyendo
+======================================================================
+Blog: automatizar-registro-contratos-portal-direccion-del-trabajo
+https://www.tecnozero.cl/blog/automatizar-registro-contratos-portal-direccion-del-trabajo
+======================================================================
 
+La Ley 21.327 te da 15 días para registrar cada contrato en el Portal de la Dirección del Trabajo. Cómo un robot RPA completa los 47 campos de un ingreso en 45 segundos, qué pasa cuando la DT cambia el formulario y a partir de qué volumen conviene automatizar.
+Cada contrato, anexo y finiquito en Chile pasa por el Portal de la Dirección del Trabajo. Para una empresa con cientos de movimientos al mes, eso significa un equipo copiando datos a mano mientras corre el reloj del plazo legal.
+## Qué te obliga la Ley 21.327
+La Ley 21.327 de modernización de la Dirección del Trabajo creó el registro electrónico laboral. El empleador debe registrar los contratos de trabajo dentro de los 15 días siguientes a su celebración. El término de la relación laboral también se registra, en los plazos de los artículos 162 y 163 bis del Código del Trabajo, y en 10 días hábiles para los casos del artículo 159.
+La misma ley incorporó el artículo 505-A, que habilita a la DT a resolver denuncias por incumplimientos laborales mediante un procedimiento de fiscalización administrativa. Traducido: la distancia entre el incumplimiento y la multa se acortó.
+Los montos salen del artículo 506 y dependen del tamaño de la empresa: hasta 5 UTM en la microempresa, hasta 10 en la pequeña, hasta 40 en la mediana y hasta 60 en la grande. Por infracción, no por lote.
+## Los 47 campos de un ingreso
+Un registro de contrato en el portal no es un formulario corto. Cada ingreso pide alrededor de 47 datos, repartidos en familias que vienen de sistemas distintos de tu empresa.
+- Identificación del trabajador: RUT, nombres, apellidos, nacionalidad, fecha de nacimiento, sexo, dirección.
+- Datos del contrato: tipo, fecha de inicio, fecha de término si es plazo fijo, cargo, función, jornada y su distribución.
+- Remuneración: sueldo base, gratificación, asignaciones, forma y periodicidad de pago.
+- Previsión: AFP, sistema de salud, institución y plan cuando corresponde.
+- Lugar de la prestación: dirección, comuna, región, y la modalidad si hay teletrabajo.
+Cada familia vive en otra parte. El RUT y el cargo salen de tu sistema de personas, la remuneración de la nómina, la previsión del formulario de ingreso que llenó el trabajador. Una persona los junta abriendo tres pestañas y copiando entre ellas.
+## Dónde se rompe el proceso manual
+El error clásico no es un descuido puntual. Es estructural, y aparece siempre en los mismos cuatro lugares.
+- 1 El tipeo. Un dígito verificador mal copiado deja el contrato asociado a otra persona o simplemente rebotado.
+- 2 El calendario. Nadie tiene una alerta por contrato: la alerta es mental, y a los 15 días alguien se acuerda o no.
+- 3 Los peaks. En una temporada alta entran 200 contratos en una semana y el equipo no crece esa semana.
+- 4 Las modificaciones. El anexo por cambio de jornada se olvida más que el contrato inicial, porque no se siente como un ingreso nuevo.
+En una dotación estable de 300 personas con rotación normal, eso son unos 25 movimientos al mes. Manejable. En una empresa de servicios con 4.000 trabajadores y contratos por faena, el número se dispara y el equipo pasa el mes tapando la fila.
+## Qué hace el robot, paso a paso
+- 1 Lee la fuente. Toma los movimientos del día desde tu nómina, tu ERP o una planilla con formato acordado.
+- 2 Valida antes de entrar. Comprueba dígito verificador, formatos de fecha, coherencia entre jornada y contrato, y campos obligatorios vacíos.
+- 3 Separa lo que no cuadra. Lo que falla la validación queda en una bandeja para revisión humana, sin frenar el resto del lote.
+- 4 Entra al portal con las credenciales de la empresa y completa los 47 campos del ingreso.
+- 5 Confirma y guarda el comprobante, con folio y fecha, en la carpeta del trabajador.
+- 6 Reporta. Al final del lote emite un resumen con procesados, rechazados y motivo de cada rechazo.
+El paso 2 es el que ahorra el dinero. Un error detectado antes de entrar al portal cuesta un minuto. El mismo error detectado tres meses después, en una fiscalización, cuesta una multa y una corrección con firma.
+Proceso manual
+Robot RPA
+Tiempo por registro
+Varios minutos
+45 segundos
+Horario de operación
+Horario de oficina
+24/7
+Validación previa
+Depende de la persona
+Regla fija, siempre igual
+Peak de 200 contratos
+Requiere refuerzo
+Mismo costo por unidad
+Trazabilidad
+Correos y planillas
+Comprobante con folio por movimiento
+## Qué pasa cuando la DT cambia el formulario
+Aquí está la pregunta que hace todo cliente serio antes de firmar, y con razón. Un portal público cambia sin avisar: mueven un botón, agregan un campo obligatorio, cambian el orden de un desplegable. Un robot escrito a la mala se cae esa mañana y nadie se entera hasta el mediodía.
+Lo resolvemos en dos capas. La primera es un monitor que corre antes del lote y verifica que la estructura del formulario sea la esperada; si algo cambió, avisa en vez de seguir. La segunda es un agente que interpreta la pantalla cuando el selector fijo falla, y decide si puede continuar o si escala a una persona.
+Esa combinación es el motivo por el que separamos el RPA determinista de los agentes que razonan . El flujo estable lo hace un robot barato y predecible. La excepción la resuelve un agente, que cuesta más por ejecución y se usa donde vale la pena.
+## El caso Metro de Santiago
+En septiembre de 2023, Metro necesitaba registrar 4.600 contratos antes de una fecha imposible. Los robots de Tecnozero cargaron 4.000 en 20 días, con 0 errores. Lo que empezó como una emergencia hoy es un ecosistema de 9 robots que cuida el ciclo laboral de 4.600 personas.
+## A partir de qué volumen conviene
+Automatizar por debajo de cierto umbral es un gasto. La regla que usamos es simple: cuenta tus movimientos mensuales, multiplícalos por el tiempo real que le toma a tu equipo cada uno y compara ese costo con el precio por registro.
+El Gestor Laboral 360 cobra por registro y baja de precio con volumen: parte en 640 pesos por registro en el primer tramo y llega a 290 pesos sobre los 2.000 registros. Con 150 movimientos al mes, la automatización se paga con las horas que libera el equipo de personas. Con 20 movimientos al mes, sigue siendo más barato hacerlo a mano.
+Hay un segundo criterio que no aparece en la planilla: el riesgo. Si operas con contratos por faena, plazo fijo y alta rotación, la probabilidad de saltarte un plazo de 15 días es alta aunque tu volumen sea medio. Ahí el argumento no es el ahorro de horas.
+## Preguntas frecuentes
+P: ¿Cuál es el plazo para registrar un contrato en el Portal de la Dirección del Trabajo?
+Quince días contados desde la celebración del contrato, según la Ley 21.327. El término de la relación laboral también se registra, en los plazos de los artículos 162 y 163 bis del Código del Trabajo, y dentro de 10 días hábiles en los casos del artículo 159.
+P: ¿Qué multa arriesgo si no registro un contrato a tiempo?
+El artículo 506 del Código del Trabajo gradúa la sanción por tamaño de empresa: de 1 a 5 UTM en la microempresa, de 1 a 10 en la pequeña, de 2 a 40 en la mediana y de 3 a 60 en la grande. La Ley 21.327 sumó el artículo 505-A, que permite a la DT resolver denuncias por incumplimientos mediante fiscalización administrativa.
+P: ¿Cuánto se demora un robot en registrar un contrato?
+Cuarenta y cinco segundos por registro completo, incluyendo los 47 campos del ingreso y la validación previa de los datos. Un equipo humano tarda varios minutos por movimiento.
+P: ¿Qué pasa si la Dirección del Trabajo cambia el formulario del portal?
+El robot corre un monitor de estructura antes de cada lote. Si el formulario cambió, avisa en vez de seguir cargando mal. Para los cambios menores, un agente de IA interpreta la pantalla y decide si continúa o escala a una persona.
+P: ¿Desde cuántos contratos al mes conviene automatizar?
+Alrededor de 150 movimientos mensuales la automatización se paga con las horas que libera el equipo de personas. Por debajo de eso conviene evaluar el riesgo de incumplimiento antes que el ahorro: con alta rotación y contratos por faena, saltarse un plazo es probable aunque el volumen sea medio.
+P: ¿Cuánto cuesta el registro automatizado?
+El Gestor Laboral 360 cobra por registro, desde 640 pesos en el primer tramo hasta 290 pesos sobre los 2.000 registros mensuales.
+Robert Yasuda, PhD
+PhD por la Universidad de Almería. Dirige Tecnozero desde La Serena, donde su equipo opera más de 20 robots de software en producción para Metro de Santiago, la gran minería y el retail.
 
-**RPA vs IA Agéntica: cuándo tu proceso necesita un robot que razona**
+======================================================================
+Blog: ia-nativa-edtech-tutor-inteligente
+https://www.tecnozero.cl/blog/ia-nativa-edtech-tutor-inteligente
+======================================================================
 
+Un tutor de IA dentro del curso responde dudas, corrige y deja evidencia. Qué cambia en la capacitación corporativa cuando la IA vive dentro de la plataforma, cómo se evita que invente y qué se mide para saber si funcionó.
+La mayoría de los cursos e-learning corporativos terminan igual: un video corriendo en una pestaña que nadie mira y un certificado que nadie lee. El contenido rara vez es el problema. El problema es que no hay nadie que responda cuando aparece la duda, y la duda aparece a las 22:40 de un martes.
+## Por qué se abandonan los cursos corporativos
+El abandono tiene un patrón. La persona avanza bien los primeros módulos, llega a un concepto que no entiende, lo relee dos veces y se va. Nadie vuelve al día siguiente a un curso donde quedó trabado.
+En una capacitación presencial ese momento se resuelve levantando la mano. En un curso grabado, la única salida es escribirle al área de personas, esperar dos días y perder el hilo. La mayoría no escribe.
+El resultado se ve en los números: cursos con tasas de término bajas, gente que hace clic en siguiente hasta llegar al certificado y una empresa que cree haber capacitado.
+## Qué significa IA nativa en una plataforma de aprendizaje
+Una IA nativa vive dentro del curso. Lee el módulo que el alumno está viendo, conoce su avance, sabe qué ejercicios falló y responde con el contexto exacto de esa lección.
+La diferencia se nota en la primera pregunta difícil. El trabajador escribe qué hago si recibo una denuncia y el tutor responde con el procedimiento de ese curso, citando el módulo. Un asistente genérico responde con una respuesta razonable sacada de internet, que puede contradecir el protocolo de tu empresa.
+Es el mismo principio que aplicamos al integrar IA de forma nativa en cualquier plataforma web : la IA sirve cuando conoce el estado de quien pregunta.
+## Qué resuelve un tutor de IA
+- Responde dudas al instante, con el vocabulario y el tono de tu empresa.
+- Detecta dónde se traba el alumno y refuerza ese punto antes de dejarlo avanzar.
+- Corrige ejercicios y explica el error, en vez de marcarlo como incorrecto.
+- Adapta el ritmo: al que va rápido no lo frena, al que va lento no lo deja atrás.
+- Deja registro de cada interacción para tu carpeta de cumplimiento.
+El cuarto punto vale más de lo que parece en una dotación mixta. En un mismo curso conviven un supervisor con 20 años de oficio y alguien que entró el mes pasado. Un curso lineal aburre al primero y pierde al segundo.
+## Cómo se evita que el tutor invente
+Un tutor que se equivoca en una capacitación de cumplimiento es peor que no tener tutor. Si le dice a un trabajador que tiene 60 días para denunciar cuando la ley da otro plazo, generaste un problema en vez de resolverlo.
+- 1 El tutor responde solo desde el contenido del curso y los documentos que la empresa cargó.
+- 2 Cita el módulo del que sale la respuesta, para que el alumno pueda verificarla.
+- 3 Cuando la pregunta se sale del temario, lo dice y deriva al canal humano.
+- 4 Antes de abrir el curso, el equipo prueba el tutor contra un banco de preguntas reales con respuesta conocida.
+Ese cuarto paso es el filtro. Escribes 40 preguntas que tus trabajadores harían de verdad, con la respuesta correcta al lado, y mides. Si el tutor falla en tres, revisas el contenido antes de publicar.
+## La evidencia que queda
+En una capacitación obligatoria, el registro pesa tanto como el aprendizaje. La Ley Karin exige que la empresa asegure la comprensión del contenido, y una lista de asistencia no prueba comprensión.
+- Identidad por RUT, avance por módulo y tiempo real de dedicación.
+- Resultado de cada evaluación, con los intentos.
+- Historial de preguntas al tutor, que muestra dónde se concentran las dudas del equipo.
+- Certificado con fecha y folio, verificable.
+- Exportación para tu reportería interna y para el trámite SENCE cuando corresponde.
+El tercer punto es el que más usan los jefes de personas y el que nadie pide al comprar. Si 30 trabajadores preguntaron lo mismo sobre el canal de denuncia, tu protocolo tiene un problema de redacción, no tu gente un problema de atención.
+## Qué medir para saber si funcionó
+Métrica
+Qué te dice
+Tasa de término
+Si el curso retiene o expulsa
+Puntos de abandono por módulo
+Dónde está el contenido mal explicado
+Preguntas al tutor por tema
+Qué concepto no quedó claro para el equipo
+Intentos por evaluación
+Si la evaluación mide o adivina
+Tiempo desde el ingreso hasta el certificado
+Qué tan rápido cierras la brecha de un contratado nuevo
+## Cómo lo construimos
+Sobre una plataforma web propia o sobre el LMS que ya usas. El tutor razona a partir del contenido del curso, los datos del alumno no entrenan modelos públicos y cada interacción queda registrada. Ese es el estándar con el que integramos IA de forma nativa.
+AulaZero, la línea EdTech de Tecnozero, integra tutor de IA, audio profesional, sandbox de práctica y certificado verificable en cada curso. Compatible con franquicia tributaria SENCE a través de OTECs.
+## Preguntas frecuentes
+P: ¿Qué es un tutor de IA en un curso e-learning?
+Es una inteligencia artificial que vive dentro del curso: lee el módulo que el alumno está viendo, conoce su avance y sus errores, responde dudas con el contenido de esa lección y corrige ejercicios explicando el error. Se diferencia de un chatbot genérico en que conoce el estado de quien pregunta.
+P: ¿Cómo se evita que el tutor de IA dé información equivocada?
+Responde solo desde el contenido del curso y los documentos que cargó la empresa, cita el módulo del que sale la respuesta y deriva al canal humano cuando la pregunta se sale del temario. Antes de publicar, el equipo lo prueba contra un banco de preguntas reales con respuesta conocida.
+P: ¿Qué evidencia deja para una fiscalización?
+Identidad por RUT, avance por módulo, tiempo real de dedicación, resultado de cada evaluación con sus intentos, historial de preguntas al tutor y certificado con fecha y folio. Todo exportable para la reportería interna y para el trámite SENCE cuando corresponde.
+P: ¿Sirve para cumplir con la Ley Karin?
+Sí. La Ley Karin exige que la empresa asegure la comprensión del contenido, no solo su entrega. Un curso con tutor de IA registra la interacción y la evaluación, que es lo que una lista de asistencia firmada no prueba.
+P: ¿Se puede usar sobre el LMS que ya tenemos?
+Sí. AulaZero funciona como plataforma propia o se integra sobre el LMS que la empresa ya usa.
+P: ¿Los datos de los alumnos entrenan modelos públicos?
+No. Los datos del alumno se mantienen en el entorno controlado y no se usan para entrenar modelos de terceros.
+Robert Yasuda, PhD
+PhD por la Universidad de Almería. Dirige Tecnozero desde La Serena, donde su equipo opera más de 20 robots de software en producción para Metro de Santiago, la gran minería y el retail.
 
-**Integrar IA de forma nativa en tu plataforma web: guía para líderes de producto**
+======================================================================
+Blog: integrar-ia-nativa-plataforma-web-guia
+https://www.tecnozero.cl/blog/integrar-ia-nativa-plataforma-web-guia
+======================================================================
 
+Pegar un chatbot en la esquina es fácil. Que entienda tu negocio, actúe sobre tus datos y no invente es otra cosa. Tres patrones de IA nativa que funcionan en producción, lo que no se puede negociar y cómo saber si tu caso justifica construir.
+Pegar un chatbot en la esquina de tu producto es fácil. Que ese chatbot entienda tu negocio, actúe sobre tus datos y no invente es otra cosa. Esa distancia separa una demo que aplaude el directorio de una función que la gente usa el martes a las 10.
+## Chatbot pegado contra IA nativa
+Un chatbot genérico responde con lo que sabe internet y no tiene idea de quién está al otro lado. Una IA nativa conoce el estado del usuario, lee tus datos y ejecuta acciones dentro de tu plataforma: matricula, agenda, corrige, deriva.
+La prueba para distinguirlos es directa. Pregúntale al asistente algo que solo se pueda responder mirando el estado de esa cuenta: en qué módulo va este alumno, qué pedido está atrasado, cuánto le queda de plan. Si contesta en general, está pegado.
+Chatbot pegado
+IA nativa
+Conoce al usuario
+Lee su estado y su historial
+Fuente de la respuesta
+Conocimiento general del modelo
+Tus datos y tu documentación
+Puede ejecutar acciones
+Sí, dentro de tu plataforma
+Trazabilidad
+Conversación suelta
+Registro ligado al usuario y a la acción
+Tiempo de integración
+Horas
+Semanas
+## Tres patrones que funcionan
+### Tutor de IA (EdTech)
+Responde las dudas del alumno con el contexto del curso, corrige ejercicios y deja registro del avance. Es el corazón de AulaZero, nuestra línea EdTech, y el patrón donde el retorno se mide más rápido: la tasa de término del curso sube porque nadie se queda atascado sin nadie a quien preguntar. Lo detallamos en cómo un tutor de IA cambia la capacitación corporativa .
+### Agente de soporte
+Resuelve la consulta leyendo tu documentación y los registros del cliente, y escala al humano cuando la situación lo pide. La métrica que importa no es cuántos tickets resolvió, sino cuántos escaló con el contexto ya armado: eso es lo que le ahorra tiempo a tu equipo.
+### Agente de operaciones
+Actúa sobre tu backend: crea registros, valida documentos, dispara procesos. Es RPA con criterio, capaz de decidir ante la excepción. Antes de construirlo conviene revisar si tu proceso necesita razonar o solo repetir .
+## Lo que no se puede negociar
+- Privacidad: los datos del usuario no entrenan modelos públicos, y eso queda escrito en el contrato, no en una promesa comercial.
+- Respuestas ancladas: el agente responde desde tus fuentes y dice cuál usó. Cuando no le alcanza, lo declara.
+- Auditabilidad: cada acción del agente queda registrada y ligada al usuario que la originó.
+- Permisos heredados: el agente ve lo mismo que ve el usuario, ni un registro más.
+- Salida limpia: si el modelo falla o el proveedor cae, tu producto sigue funcionando sin la función de IA.
+El último punto se olvida siempre. Si la caída de un proveedor externo deja tu plataforma inutilizable, no integraste IA: la hiciste el punto único de falla de tu producto.
+## Cómo saber si tu caso lo justifica
+Construir IA nativa cuesta semanas de ingeniería y un costo por uso que crece con tus usuarios. Antes de arrancar, tres preguntas.
+- 1 ¿Hay una pregunta que tus usuarios repiten y que hoy responde una persona leyendo tu sistema? Ese es el caso más rentable.
+- 2 ¿El dato para responder ya existe en tu plataforma? Si hay que construir la fuente primero, ese es el proyecto, no la IA.
+- 3 ¿Puedes medir el resultado? Tasa de término, tickets escalados, minutos por trámite. Sin métrica, la función se vuelve decorativa y nadie la defiende en el próximo presupuesto.
+Si las tres respuestas son buenas, el proyecto se sostiene. Si la segunda falla, ordena los datos primero: una IA sobre un sistema desordenado responde con desorden, más rápido.
+## Cómo lo hacemos en Tecnozero
+Integramos IA y agentes de forma nativa en plataformas web, con foco en EdTech. Unimos RPA sólido, agentes que razonan y desarrollo web propio, todo sobre infraestructura cifrada. Del curso con tutor de IA al agente que opera sobre SAP y Oracle , con el mismo estándar de precisión y el mismo registro de auditoría.
+Trabajamos sobre tu plataforma o sobre una nueva. El equipo lo forman un PhD en Ciencias Informáticas, tres Ingenieros Civiles Informáticos de la UTFSM e Ingenieros Comerciales que se meten en el proceso antes de escribir código.
+## Preguntas frecuentes
+P: ¿Cuál es la diferencia entre un chatbot y una IA nativa?
+Un chatbot genérico responde con el conocimiento general del modelo y no sabe quién está al otro lado. Una IA nativa lee el estado del usuario y tus datos, y ejecuta acciones dentro de tu plataforma. La prueba es preguntarle algo que solo se pueda responder mirando esa cuenta concreta.
+P: ¿Cuánto tarda integrar IA de forma nativa en una plataforma web?
+Semanas, frente a las horas que toma pegar un chatbot genérico. El tiempo se va en conectar las fuentes de datos, definir permisos, construir el set de evaluación y montar el registro de auditoría.
+P: ¿Qué pasa si el proveedor del modelo se cae?
+Tu plataforma debe seguir funcionando sin la función de IA. Si la caída de un proveedor externo deja el producto inutilizable, la IA se convirtió en el punto único de falla y la integración está mal planteada.
+P: ¿Cómo sé si mi producto justifica una IA nativa?
+Hay tres señales: existe una pregunta que tus usuarios repiten y que hoy responde una persona leyendo tu sistema; el dato para responderla ya vive en tu plataforma; y puedes medir el resultado con una métrica concreta como tasa de término, tickets escalados o minutos por trámite.
+P: ¿Se puede integrar sobre una plataforma que ya existe?
+Sí. Tecnozero integra sobre la plataforma que ya usas o construye una nueva, según lo que convenga al caso.
+Robert Yasuda, PhD
+PhD por la Universidad de Almería. Dirige Tecnozero desde La Serena, donde su equipo opera más de 20 robots de software en producción para Metro de Santiago, la gran minería y el retail.
 
-**IA nativa en EdTech: cómo un tutor de inteligencia artificial cambia la capacitación corporativa**
+======================================================================
+Blog: ley-karin-capacitacion-obligatoria-automatizar
+https://www.tecnozero.cl/blog/ley-karin-capacitacion-obligatoria-automatizar
+======================================================================
 
+La Ley Karin rige desde el 1 de agosto de 2024 y puso la prevención del acoso laboral en la lista de deberes del empleador. Qué exige en capacitación, qué plazos corren cuando entra una denuncia y cómo dejar la evidencia lista antes de que la Dirección del Trabajo la pida.
+Desde el 1 de agosto de 2024, la Ley 21.643 cambió lo que se le exige a cada empleador en Chile. El reglamento interno guardado en un cajón dejó de servir. Ahora tienes que prevenir, capacitar, investigar dentro de plazo y probar que lo hiciste.
+La norma recoge el estándar del Convenio 190 de la OIT y cubre tres conductas: acoso sexual, acoso laboral y violencia en el trabajo ejercida por terceros ajenos a la empresa, como un cliente o un proveedor. Ese último punto sorprende a muchas empresas de servicios: si a tu cajera la insulta un cliente, el caso entra.
+## Los plazos que corren desde que entra una denuncia
+Aquí es donde la mayoría de las empresas se rompe. El día que un trabajador presenta una denuncia arrancan varios relojes al mismo tiempo, y ninguno espera a que armes el procedimiento.
+Hito
+Plazo
+Responsable
+Medidas de resguardo para quien denuncia
+3 días desde la denuncia
+Empleador
+Derivación a la DT si decides no investigar
+3 días desde la denuncia
+Empleador
+Investigación interna concluida
+30 días
+Empleador o la DT
+Envío del informe a la Dirección del Trabajo
+2 días desde el cierre
+Empleador
+Pronunciamiento de la DT sobre el informe
+30 días
+Dirección del Trabajo
+Tres días para adoptar medidas de resguardo significa tres días. Si la denuncia entra un viernes por la tarde y tu jefa de personas se entera el lunes, perdiste la mitad del plazo antes de abrir el caso. Por eso la formación de jefaturas pesa tanto: el jefe directo suele ser la primera persona que escucha el relato, y lo que haga en esa hora define el resto del procedimiento.
+## Qué exige la ley en materia de capacitación
+El protocolo de prevención debe incluir medidas para informar y capacitar a los trabajadores sobre los riesgos, las medidas de prevención y protección, y los derechos y responsabilidades de cada parte. La Dirección del Trabajo lo leyó con criterio pedagógico: entregar el documento no basta, tienes que asegurar que la persona lo entendió.
+En la práctica eso se traduce en cuatro frentes distintos, con contenidos distintos.
+- Todo el personal: qué conductas constituyen acoso, cómo se denuncia y qué protección tiene quien denuncia.
+- Jefaturas y mandos medios: cómo recibir una denuncia, qué decir y qué callar, y cómo derivarla por el canal formal sin contaminar la investigación.
+- Comité paritario y área de personas: el procedimiento completo, los plazos y la perspectiva de género que exige la ley.
+- Registro de todo lo anterior: quién se capacitó, cuándo, con qué contenido y con qué resultado.
+El cuarto punto es el que más empresas fallan. La ley pide que las medidas de prevención se evalúen, mejoren y corrijan de forma permanente, con objetivos medibles. Una capacitación que hiciste una vez en 2024 y nunca volviste a mirar no llega a ese estándar.
+## Por qué la lista de asistencia firmada ya no te sirve
+El método clásico es una charla presencial de dos horas y una hoja donde cada uno firma. Prueba que la persona estuvo en la sala. No prueba que entendió el procedimiento, que sabe dónde está el canal de denuncia ni que su jefatura conoce el plazo de tres días.
+Cuando llega el fiscalizador, la pregunta no es cuántas charlas hiciste durante el año. La pregunta es qué evidencia tienes de que las personas involucradas en este caso concreto habían sido formadas. Una firma en una lista de hace dos años responde mal a eso.
+Y aparece el problema de la rotación. Si contratas 40 personas al año, cada una necesita la formación dentro de sus primeras semanas. Coordinar una charla presencial para los cuatro ingresos de marzo no ocurre nunca. El curso queda pendiente, la brecha se acumula y a fin de año tienes un tercio de la dotación sin formar.
+## Qué evidencia sí resiste una fiscalización
+- 1 Identidad verificada: quién hizo el curso, con RUT, no un nombre escrito a mano.
+- 2 Trazabilidad de avance: qué módulos completó, cuándo y cuánto tiempo estuvo en cada uno.
+- 3 Comprobación de comprensión: una evaluación con resultado, no un botón de siguiente.
+- 4 Contenido versionado: qué versión del protocolo vio esa persona, porque tu protocolo va a cambiar.
+- 5 Certificado con fecha y folio, descargable cuando lo pidan.
+Con esos cinco elementos armas una carpeta que responde al fiscalizador en un minuto, sin llamar a nadie ni buscar una hoja escaneada en un correo de 2024.
+## Cómo lo automatiza un curso con tutor de IA
+Un curso e-learning resuelve la logística: cada trabajador entra desde su teléfono cuando puede, y el sistema registra solo. El tutor de IA resuelve la parte difícil, que es la comprensión.
+Piensa en un trabajador que está en el módulo de denuncias y escribe: si mi jefe me grita delante del equipo, ¿eso es acoso? Un video grabado no responde. Un chatbot genérico contesta con lo que hay en internet, que puede ser jurisprudencia española. Un tutor de IA con el contenido de tu curso responde con tu protocolo, tu canal de denuncia y tu plazo.
+- Responde con el protocolo de tu empresa y cita el módulo del que sale la respuesta.
+- Corrige el ejercicio y explica el error, en vez de marcarlo en rojo.
+- Detecta dónde se traba la persona y refuerza ese punto antes de dejarla avanzar.
+- Guarda cada pregunta y cada respuesta, que también sirven como evidencia de formación.
+AulaZero, la línea EdTech de Tecnozero, trae el curso de Ley Karin con tutor de IA, evaluación, certificado verificable y exportación de registros para tu carpeta laboral. Compatible con franquicia tributaria SENCE a través de OTECs.
+## Cuánto cuesta no hacerlo
+El artículo 506 del Código del Trabajo gradúa las multas por tamaño de empresa: de 1 a 5 UTM en la microempresa, de 1 a 10 en la pequeña, de 2 a 40 en la mediana y de 3 a 60 en la grande. Con la UTM cerca de los 66.000 pesos, el techo de una gran empresa ronda los cuatro millones por infracción.
+El costo real vive en otra parte. Una denuncia mal gestionada termina en un juicio de tutela laboral, en la prensa regional o en una salida que después no explicas en el directorio. La multa es lo barato del asunto.
+Hay un detalle que pocas empresas aprovechan: el artículo 506 ter permite a las empresas de 49 trabajadores o menos sustituir el pago de la multa por la asistencia a un programa de capacitación, salvo en infracciones de higiene y seguridad. Si vas a capacitar de todos modos, hazlo antes de que te obliguen.
+## Qué hacer esta semana
+- 1 Mira la fecha de tu protocolo. Si es de 2024 y nadie lo ha tocado, está viejo.
+- 2 Cuenta cuántas personas entraron a la empresa desde tu última capacitación. Esa es tu brecha.
+- 3 Pregúntale a tres jefaturas al azar qué harían si un trabajador les cuenta un caso hoy. La respuesta te dice si la formación funcionó.
+- 4 Define dónde vive la evidencia. Una carpeta de Drive con PDFs sueltos no es un sistema.
+- 5 Cierra la brecha con un curso que registre por RUT y emita certificado con fecha.
+Si tu volumen es bajo y el equipo de personas tiene tiempo, resuelves esto a mano. Si contratas todos los meses y operas en varias faenas, necesitas que el proceso corra solo. Es la misma decisión que enfrentas al elegir entre un robot que sigue reglas y un agente que razona , y también la que aparece cuando el volumen de contratos desborda al equipo en el Portal de la Dirección del Trabajo .
+## Preguntas frecuentes
+P: ¿Desde cuándo rige la Ley Karin?
+Desde el 1 de agosto de 2024. La Ley 21.643 modificó el Código del Trabajo para incorporar la prevención, investigación y sanción del acoso laboral, el acoso sexual y la violencia en el trabajo.
+P: ¿La Ley Karin obliga a capacitar a los trabajadores?
+Sí. El protocolo de prevención debe incluir medidas para informar y capacitar al personal sobre los riesgos, las medidas de prevención y protección, y los derechos y responsabilidades de cada parte. La Dirección del Trabajo exige que la empresa asegure la comprensión, no solo la entrega del documento.
+P: ¿Cuánto tiempo tengo para investigar una denuncia?
+Treinta días desde que la recibes. Además tienes 3 días para adoptar medidas de resguardo hacia la persona denunciante y 2 días para remitir el informe a la Dirección del Trabajo una vez cerrada la investigación. Si decides no investigar, tienes 3 días para derivar el caso a la DT.
+P: ¿Sirve una charla presencial con lista de asistencia como evidencia?
+Prueba que la persona asistió, no que entendió el procedimiento. Ante una fiscalización conviene tener identidad verificada por RUT, registro de avance, una evaluación con resultado y un certificado con fecha y folio.
+P: ¿La capacitación en Ley Karin se puede pagar con franquicia SENCE?
+Sí, a través de un OTEC. Los cursos de AulaZero son compatibles con franquicia tributaria SENCE por esa vía.
+P: ¿Qué multa arriesga una empresa que no cumple?
+El artículo 506 del Código del Trabajo gradúa la multa según el tamaño de la empresa: de 1 a 5 UTM en microempresas y de 3 a 60 UTM en grandes empresas. Las empresas de 49 trabajadores o menos pueden sustituir el pago por un programa de capacitación en algunos casos, según el artículo 506 ter.
+Robert Yasuda, PhD
+PhD por la Universidad de Almería. Dirige Tecnozero desde La Serena, donde su equipo opera más de 20 robots de software en producción para Metro de Santiago, la gran minería y el retail.
 
----
+======================================================================
+Blog: rpa-vs-ia-agentica-cuando-usar-cada-uno
+https://www.tecnozero.cl/blog/rpa-vs-ia-agentica-cuando-usar-cada-uno
+======================================================================
+
+La mitad de los procesos se resuelve mejor con RPA tradicional y la otra mitad necesita un agente que decida. En qué se diferencian de verdad, cuánto cuesta cada uno por ejecución y la prueba de cuatro preguntas que usamos para elegir.
+Automaticemos esto con IA suena bien en una reunión. En la práctica, la mitad de los procesos se resuelven mejor con RPA tradicional y la otra mitad necesita un agente que decida. Elegir mal cuesta dinero en las dos direcciones: pagas inteligencia que no usas, o compras un robot que se cae cada martes.
+## Qué hace bien el RPA
+Un robot RPA sigue reglas fijas. Navega un portal, copia datos de un sistema a otro, valida un formato y genera un reporte. Rinde donde el flujo es estructurado y se repite igual cada vez.
+Su virtud es la que nadie valora hasta que la pierde: hace exactamente lo mismo la ejecución número uno y la número cuarenta mil. No tiene un día malo ni interpreta de más.
+- Registrar contratos y anexos en el Portal de la Dirección del Trabajo .
+- Descargar y clasificar licencias médicas desde varios portales previsionales.
+- Conciliar dos planillas que llegan siempre con el mismo formato.
+- Emitir y despachar documentos tributarios en lote.
+## Dónde se queda corto
+El RPA es frágil ante la excepción. Si el portal cambia un botón, si el PDF llega escaneado torcido o si el proveedor manda la factura en otro orden de columnas, el robot se detiene y espera a una persona.
+Eso está bien mientras las excepciones sean el 2% de los casos. Cuando llegan al 30%, tienes un robot que en realidad es un formulario caro y una persona resolviendo lo mismo de antes.
+El otro límite es el juicio. Un robot no sabe si un certificado vencido hace tres días bloquea el ingreso a faena o si aplica una tolerancia. Esa decisión necesita contexto.
+## Qué agrega un agente de IA
+Un agente percibe el contexto, razona sobre él y decide, incluso ante algo que no estaba en el guion. Se adapta a un cambio de interfaz, interpreta un documento nuevo y escala al humano cuando de verdad hace falta.
+El precio de esa flexibilidad es doble. Cuesta más por ejecución, porque cada paso consume tokens de un modelo. Y exige gobernanza: si el agente decide, necesitas registrar por qué decidió eso.
+## La comparación que importa
+Dimensión
+RPA determinista
+Agente de IA
+Entrada
+Estructurada y estable
+Texto libre, PDF, correo, pantalla
+Comportamiento
+Idéntico siempre
+Depende del contexto
+Ante un cambio de interfaz
+Se detiene
+Reinterpreta y sigue
+Costo por ejecución
+Centavos
+Órdenes de magnitud mayor
+Auditoría
+Log de pasos
+Log de pasos y del razonamiento
+Tiempo de puesta en marcha
+Semanas
+Semanas más el ciclo de evaluación
+## La prueba de cuatro preguntas
+Antes de escribir una línea de código, pasamos el proceso por estas cuatro preguntas. Con dos síes o más, va agente.
+- 1 ¿La entrada llega en formatos distintos? Un PDF que a veces es escaneado y a veces nativo ya cuenta.
+- 2 ¿Hay que interpretar contenido para decidir el siguiente paso? Leer un correo y clasificar la intención cuenta; leer un campo con formato fijo no.
+- 3 ¿Las excepciones superan el 20% de los casos? Cuéntalas de verdad, no de memoria.
+- 4 ¿La regla cambia más de dos veces al año? Un criterio que se ajusta cada trimestre envejece mal escrito en código.
+Con cero o un sí, el RPA es la respuesta correcta y la más barata. Con tres o cuatro, forzar RPA te va a costar más en mantención de lo que ahorras.
+## El patrón que usamos en producción: los dos juntos
+La mayoría de los procesos reales no cae limpio en una categoría. Se dividen en tramos, y cada tramo tiene su herramienta.
+En la acreditación de contratistas de minería , el agente lee y clasifica documentos que llegan en cualquier formato, detecta vencimientos y decide qué falta. El RPA hace lo aburrido: entra a cada portal, sube lo que corresponde y descarga el comprobante. El agente decide, el robot ejecuta.
+En el registro de contratos pasa lo mismo al revés: el robot hace el 95% del trabajo y el agente aparece solo cuando el portal cambió algo y el selector fijo falló.
+Regla de bolsillo: el agente decide, el robot ejecuta. Si estás pagando un modelo de lenguaje para copiar un RUT de una celda a un formulario, algo está mal diseñado.
+## Cómo lo abordamos en Tecnozero
+Partimos con RPA sólido donde el flujo es estable y sumamos agentes donde hay que interpretar y decidir. Empezamos con RPA en 2019 y hoy operamos más de 20 robots en producción; la capa agéntica se montó encima de esa base, sin perder la precisión que exige un proceso crítico.
+El orden importa. Un agente sobre un proceso que nadie mapeó automatiza el desorden más rápido. Primero se ordena el flujo, después se decide quién lo ejecuta.
+## Preguntas frecuentes
+P: ¿Cuál es la diferencia entre RPA e IA agéntica?
+El RPA sigue reglas fijas y hace siempre lo mismo: rinde con entradas estructuradas y flujos estables. Un agente de IA percibe el contexto, razona y decide el siguiente paso, incluso ante situaciones que no estaban previstas. El RPA se detiene ante la excepción; el agente la interpreta.
+P: ¿Cuándo conviene usar RPA en vez de un agente de IA?
+Cuando la entrada llega siempre en el mismo formato, no hay que interpretar contenido para decidir, las excepciones son menos del 20% de los casos y la regla de negocio cambia poco. En esos escenarios el RPA cuesta centavos por ejecución y un agente sería un gasto sin retorno.
+P: ¿Un agente de IA es más caro que un robot RPA?
+Por ejecución, sí, en varios órdenes de magnitud, porque cada paso consume tokens de un modelo de lenguaje. En procesos de alto volumen y baja variabilidad conviene RPA. La flexibilidad del agente se paga donde hay excepciones frecuentes.
+P: ¿Se pueden combinar RPA y agentes de IA en el mismo proceso?
+Es lo habitual en producción. El agente lee documentos, clasifica y decide qué falta; el robot RPA ejecuta los pasos repetitivos de entrar a los portales, cargar y descargar comprobantes. La regla de bolsillo es que el agente decide y el robot ejecuta.
+P: ¿Qué pasa cuando un portal cambia y rompe el robot?
+Un robot bien construido corre un monitor de estructura antes de cada lote y avisa si algo cambió, en vez de seguir cargando mal. Para los cambios menores, un agente reinterpreta la pantalla y decide si continúa o escala a una persona.
+Robert Yasuda, PhD
+PhD por la Universidad de Almería. Dirige Tecnozero desde La Serena, donde su equipo opera más de 20 robots de software en producción para Metro de Santiago, la gran minería y el retail.

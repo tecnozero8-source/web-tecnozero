@@ -40,14 +40,22 @@
 
 ## Blog
 
-- [Blog Tecnozero](https://www.tecnozero.cl/blog): Artículos sobre automatización RPA, IA agéntica, agentes de IA en plataformas web y EdTech, cumplimiento laboral (Portal DT, Ley Karin), acreditación minera AIC e integración con sistemas ERP (SAP, Oracle) en el contexto chileno.
-- [Integrar IA de forma nativa en tu plataforma web](https://www.tecnozero.cl/blog/integrar-ia-nativa-plataforma-web-guia): tres patrones de IA nativa que funcionan y qué no se puede negociar al integrarla.
-- [IA nativa en EdTech: tutor inteligente](https://www.tecnozero.cl/blog/ia-nativa-edtech-tutor-inteligente): cómo un tutor de IA dentro del curso responde dudas, corrige y deja evidencia auditable.
-- [Ley Karin: capacitación obligatoria y cómo automatizarla](https://www.tecnozero.cl/blog/ley-karin-capacitacion-obligatoria-automatizar): qué exige la ley en materia de capacitación y cómo dejar la evidencia lista para fiscalización.
-- [RPA vs IA agéntica: cuándo usar cada uno](https://www.tecnozero.cl/blog/rpa-vs-ia-agentica-cuando-usar-cada-uno): la regla práctica de Tecnozero para elegir entre un robot determinista y un agente que decide.
-- [Automatizar el registro de contratos en el Portal DT](https://www.tecnozero.cl/blog/automatizar-registro-contratos-portal-direccion-del-trabajo): 45 segundos por registro con 0 errores, con el caso de Metro de Santiago.
-- [Acreditación de contratistas en minería (AIC)](https://www.tecnozero.cl/blog/acreditacion-contratistas-mineria-aic-agentes-ia): de 10 días hábiles a horas con OCR y agentes de IA, con trazabilidad Sernageomin.
-- [Agentes de IA sobre SAP y Oracle sin exponer datos](https://www.tecnozero.cl/blog/agentes-ia-sap-oracle-datos-privados): cómo opera un agente sobre datos privados sin que entrenen modelos públicos.
+- [Blog Tecnozero](https://www.tecnozero.cl/blog): Artículos sobre automatización RPA, IA agéntica, agentes de IA en plataformas web y EdTech, cumplimiento laboral (Portal DT, Ley Karin), acreditación minera AIC e integración con sistemas ERP (SAP, Oracle) en el contexto chileno. Cada artículo incluye preguntas frecuentes con respuestas breves.
+- [Ley Karin: capacitación obligatoria y cómo automatizarla](https://www.tecnozero.cl/blog/ley-karin-capacitacion-obligatoria-automatizar): qué exige la Ley 21.643 en capacitación, los plazos que corren desde una denuncia (3 días para medidas de resguardo, 30 días de investigación, 2 días para remitir el informe a la DT) y qué evidencia resiste una fiscalización. Multas del art. 506 del Código del Trabajo por tamaño de empresa.
+- [Automatizar el registro de contratos en el Portal DT](https://www.tecnozero.cl/blog/automatizar-registro-contratos-portal-direccion-del-trabajo): la Ley 21.327 obliga a registrar cada contrato dentro de 15 días. Los 47 campos de un ingreso, dónde falla el proceso manual, cómo opera el robot paso a paso y desde qué volumen conviene automatizar (referencia: 150 movimientos al mes).
+- [RPA vs IA agéntica: cuándo usar cada uno](https://www.tecnozero.cl/blog/rpa-vs-ia-agentica-cuando-usar-cada-uno): tabla comparativa entre RPA determinista y agentes, la prueba de cuatro preguntas para elegir y el patrón de producción en que se combinan (el agente decide, el robot ejecuta).
+- [Acreditación de contratistas en minería (AIC)](https://www.tecnozero.cl/blog/acreditacion-contratistas-mineria-aic-agentes-ia): de 10 días hábiles a horas con OCR y agentes de IA. Obligaciones del DS 76 (art. 66 bis Ley 16.744) y del DS 132 Reglamento de Seguridad Minera, y la trazabilidad que exige una fiscalización de Sernageomin.
+- [Agentes de IA sobre SAP y Oracle sin exponer datos](https://www.tecnozero.cl/blog/agentes-ia-sap-oracle-datos-privados): cómo opera un agente sobre datos privados sin que entrenen modelos públicos, cómo se evita que invente cifras, qué queda registrado para auditoría y cómo partir en modo sombra.
+- [Integrar IA de forma nativa en tu plataforma web](https://www.tecnozero.cl/blog/integrar-ia-nativa-plataforma-web-guia): tres patrones de IA nativa que funcionan, las cinco condiciones que no se negocian y las tres preguntas para saber si un producto justifica la inversión.
+- [IA nativa en EdTech: tutor inteligente](https://www.tecnozero.cl/blog/ia-nativa-edtech-tutor-inteligente): cómo un tutor de IA dentro del curso responde dudas, corrige y deja evidencia auditable; cómo se evita que dé información equivocada y qué métricas dicen si funcionó.
+
+## Preguntas frecuentes
+
+Cada página de producto publica sus preguntas frecuentes con marcado FAQPage:
+- [Capacitación](https://www.tecnozero.cl/capacitacion): franquicia SENCE vía OTEC, qué hace el tutor de IA, cumplimiento de Ley Karin, integración sobre un LMS existente, evidencia para fiscalización y tratamiento de datos de los alumnos.
+- [Minería](https://www.tecnozero.cl/mineria): tiempos de acreditación, normativa DS 76 y DS 132, vencimientos proyectados al término del trabajo, lectura OCR de documentos escaneados, trazabilidad Sernageomin y diferencia entre MinePass y VehiclePass.
+- [Agentes IA](https://www.tecnozero.cl/agentes-ia): entrenamiento de modelos con datos privados, control de alucinaciones, herencia de permisos del usuario, sistemas soportados por TITAN y arranque en modo sombra.
+- [Licitaciones](https://www.tecnozero.cl/licitaciones): acceso a portales privados con mandato firmado, diferencia con las plataformas de alertas, alcance del piloto de 30 días, origen de los datos (API de ChileCompra) y quién firma la postulación.
 
 ## Empresa
 

@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 import Link from "next/link"
 import Image from "next/image"
-import { getAllPosts, formatDate } from "../../lib/blog"
+import { getAllPosts, formatDate, readingMinutes } from "../../lib/blog"
 
 const B = {
   blue: "#0957C3",
@@ -126,7 +126,7 @@ export default function BlogIndex() {
                   }}>
                     {featured.category}
                   </span>
-                  <span style={{ fontSize: "0.78rem", color: B.slate }}>{featured.readingMin} min de lectura</span>
+                  <span style={{ fontSize: "0.78rem", color: B.slate }}>{readingMinutes(featured)} min de lectura</span>
                 </div>
                 <h2 style={{
                   fontFamily: "var(--font-display), system-ui, sans-serif",
@@ -168,7 +168,7 @@ export default function BlogIndex() {
                     }}>
                       {post.category}
                     </span>
-                    <span style={{ fontSize: "0.72rem", color: B.slate }}>{post.readingMin} min</span>
+                    <span style={{ fontSize: "0.72rem", color: B.slate }}>{readingMinutes(post)} min</span>
                   </div>
                   <h3 style={{
                     fontFamily: "var(--font-display), system-ui, sans-serif",

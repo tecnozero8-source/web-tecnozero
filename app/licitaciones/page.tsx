@@ -13,6 +13,8 @@ import {
   ShieldCheck,
 } from "lucide-react"
 import { PhotoBand } from "../components/shared/PhotoBand"
+import { FaqSection } from "../components/shared/FaqSection"
+import { FAQ_LICITACIONES } from "../../lib/faqs"
 
 /* ─── Animation variant shared across sections ───────────────────── */
 
@@ -1518,6 +1520,8 @@ export default function LicitacionesPage() {
           </p>
         </div>
       </section>
+
+      <FaqSection faqs={FAQ_LICITACIONES} bajada="Lo que preguntan los equipos comerciales antes de activar el piloto." />
 
       {/* ═══════════════════════════════════════════════════════
           CTA FINAL

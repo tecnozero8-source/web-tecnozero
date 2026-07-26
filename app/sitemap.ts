@@ -17,11 +17,13 @@ function lastMod(...segments: string[]): Date {
 }
 
 export default function sitemap(): MetadataRoute.Sitemap {
+  // `updated` manda sobre `date`: si revisamos un artículo a fondo, el
+  // sitemap tiene que anunciar esa fecha o Google no lo vuelve a rastrear.
   const blogPosts: MetadataRoute.Sitemap = getAllPosts().map((post) => ({
     url: `https://www.tecnozero.cl/blog/${post.slug}`,
     changeFrequency: 'monthly',
     priority: 0.7,
-    lastModified: new Date(post.date),
+    lastModified: new Date(post.updated ?? post.date),
   }))
 
   return [

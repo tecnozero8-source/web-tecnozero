@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import { faqSchema, FAQ_MINERIA } from "../../lib/faqs"
 
 export const metadata: Metadata = {
   title: "MinePass — Acreditación AIC Contratistas Minería",
@@ -61,6 +62,7 @@ const jsonLd = {
       provider: { "@id": "https://www.tecnozero.cl/#organization" },
       areaServed: { "@type": "Country", name: "Chile" },
     },
+    faqSchema("https://www.tecnozero.cl/mineria#faq", FAQ_MINERIA),
     {
       "@type": "BreadcrumbList",
       itemListElement: [

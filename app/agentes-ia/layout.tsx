@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import { faqSchema, FAQ_AGENTES_IA } from "../../lib/faqs"
 
 export const metadata: Metadata = {
   title: "TITAN — Agentes IA para SAP y Oracle en Chile",
@@ -57,6 +58,7 @@ const jsonLd = {
         ],
       },
     },
+    faqSchema("https://www.tecnozero.cl/agentes-ia#faq", FAQ_AGENTES_IA),
     {
       "@type": "BreadcrumbList",
       itemListElement: [

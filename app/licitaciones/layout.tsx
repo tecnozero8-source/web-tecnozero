@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import { faqSchema, FAQ_LICITACIONES } from "../../lib/faqs"
 
 export const metadata: Metadata = {
   title: "Agentes de Licitaciones para Mercado Público",
@@ -88,36 +89,7 @@ const jsonLd = {
         ],
       },
     },
-    {
-      "@type": "FAQPage",
-      "@id": "https://www.tecnozero.cl/licitaciones#faq",
-      mainEntity: [
-        {
-          "@type": "Question",
-          name: "¿Cómo entran a los portales privados como WhereEx o iConstruye?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "Con las credenciales de tu empresa y un mandato firmado que autoriza la operación. Cada acción del robot queda registrada con fecha, usuario y resultado. Es el mismo mecanismo con que operamos el portal de la Dirección del Trabajo para Metro de Santiago.",
-          },
-        },
-        {
-          "@type": "Question",
-          name: "¿En qué se diferencia de una plataforma de alertas de licitaciones?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "Las plataformas de alerta avisan y resumen las bases. Nuestros agentes además entran a portales privados, verifican que tus certificados sigan vigentes, avisan de adendas y cambios de cierre, y dejan la carpeta administrativa armada para tu firma.",
-          },
-        },
-        {
-          "@type": "Question",
-          name: "¿Qué incluye el piloto de 30 días?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "Tus reglas cargadas por rubro, monto, región y portales; medición diaria de cuántas licitaciones alcanzaste a postular; alertas de adendas; y sin permanencia. Al terminar el mes decides tú si sigues.",
-          },
-        },
-      ],
-    },
+    faqSchema("https://www.tecnozero.cl/licitaciones#faq", FAQ_LICITACIONES),
     {
       "@type": "BreadcrumbList",
       itemListElement: [
