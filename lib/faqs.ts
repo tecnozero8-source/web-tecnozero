@@ -53,7 +53,17 @@ export const FAQ_CAPACITACION: Faq[] = [
   },
 ]
 
-export const FAQ_MINERIA: Faq[] = [
+/**
+ * La primera pregunta responde la consulta de marca. Quien escribe
+ * "minepass" en Google quiere saber qué es antes que cualquier otra cosa,
+ * y esa respuesta tiene que estar completa en un párrafo para que sirva
+ * como fragmento destacado o cita en un buscador con IA.
+ */
+export const FAQ_MINEPASS: Faq[] = [
+  {
+    q: "¿Qué es MinePass?",
+    a: "MinePass es la plataforma de Tecnozero que automatiza la Acreditación de Ingreso de Contratistas (AIC) en faenas mineras chilenas. Un agente de IA reúne los documentos del contratista, un OCR extrae y valida los datos, la plataforma comprueba el cumplimiento ante Sernageomin y emite una credencial digital tokenizada. El proceso baja de hasta 10 días hábiles a horas y deja un expediente auditable de cada decisión.",
+  },
   {
     q: "¿Cuánto se demora una acreditación de contratistas con MinePass?",
     a: "Horas, frente a los hasta 10 días hábiles que toma el proceso manual. El tiempo se recupera al eliminar el ida y vuelta de pedir documentos faltantes de a uno.",

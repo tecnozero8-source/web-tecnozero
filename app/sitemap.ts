@@ -53,10 +53,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: lastMod('portal-dt', 'page.tsx'),
     },
     {
-      url: 'https://www.tecnozero.cl/mineria',
+      url: 'https://www.tecnozero.cl/minepass',
       changeFrequency: 'monthly',
       priority: 0.9,
-      lastModified: lastMod('mineria', 'page.tsx'),
+      lastModified: lastMod('minepass', 'page.tsx'),
     },
     {
       url: 'https://www.tecnozero.cl/agentes-ia',

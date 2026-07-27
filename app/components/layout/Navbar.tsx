@@ -9,7 +9,7 @@ import { motion, AnimatePresence } from "framer-motion"
 const navLinks = [
   { label: "Capacitación", href: "/capacitacion" },
   { label: "Portal DT", href: "/portal-dt" },
-  { label: "Minería", href: "/mineria" },
+  { label: "MinePass", href: "/minepass" },
   { label: "Agentes IA", href: "/agentes-ia" },
   { label: "Licitaciones", href: "/licitaciones" },
   { label: "Blog", href: "/blog" },

@@ -23,6 +23,13 @@ const nextConfig: NextConfig = {
    */
   async redirects() {
     return [
+      /**
+       * /mineria pasó a /minepass. En 90 días esa página recibió 70 de sus
+       * 81 impresiones y sus 6 clics desde la consulta "minepass": Google la
+       * trataba como la página del producto mientras la URL, el título y el
+       * H1 hablaban del rubro. El 301 traspasa lo que ya tenía.
+       */
+      { source: "/mineria", destination: "/minepass", permanent: true },
       { source: "/agenda-tecnozero", destination: "/contacto", permanent: true },
       { source: "/descarga-dt", destination: "/portal-dt", permanent: true },
       { source: "/category/rpa", destination: "/agentes-ia", permanent: true },

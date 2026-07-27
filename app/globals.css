@@ -603,9 +603,14 @@ ul, ol {
 }
 
 /* ═══════════════════════════════════════════════════════
-   MOBILE — Minería page
+   MOBILE — MinePass page
 ══════════════════════════════════════════════════════ */
 @media (max-width: 767px) {
+  /* Los tres datos de la definición van en columna: con dos columnas
+     el tercero queda solo y abre un hueco en la rejilla de 1px. */
+  .min-def-grid {
+    grid-template-columns: 1fr !important;
+  }
   .min-hero {
     grid-template-columns: 1fr !important;
     min-height: auto !important;

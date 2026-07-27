@@ -356,7 +356,7 @@ export const posts: BlogPost[] = [
       { type: "p", text: "MinePass es la solución de Tecnozero para acreditar contratistas en la gran minería chilena. Combina OCR, agentes de IA y credencial tokenizada, y libera a los equipos de prevención de un trabajo que les consumía días enteros." },
       { type: "p", text: "Junto a MinePass opera VehiclePass, que aplica la misma lógica a la flota: revisión técnica, permiso de circulación, seguro obligatorio y mantenciones, con cero vehículos en faena con documentación vencida." },
       { type: "callout", text: "El objetivo no es acreditar más rápido. Es que la faena nunca tenga adentro a alguien con un documento vencido, y poder probarlo." },
-      { type: "cta", label: "Ver soluciones para minería", href: "/mineria" },
+      { type: "cta", label: "Ver MinePass", href: "/minepass" },
     ],
     faq: [
       { q: "¿Qué es la acreditación de ingreso de contratistas (AIC)?", a: "Es el proceso por el que una empresa minera mandante verifica que cada trabajador y cada empresa contratista cumplen los requisitos documentales antes de entrar a faena: identidad, contrato, afiliación previsional, exámenes ocupacionales según el riesgo del cargo, cursos de seguridad y certificados de cumplimiento laboral." },

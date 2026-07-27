@@ -4,7 +4,7 @@ import { motion } from "framer-motion"
 import { Shield, CheckCircle2, ArrowRight, Clock, AlertTriangle, Truck } from "lucide-react"
 import { PhotoBand } from "../components/shared/PhotoBand"
 import { FaqSection } from "../components/shared/FaqSection"
-import { FAQ_MINERIA } from "../../lib/faqs"
+import { FAQ_MINEPASS } from "../../lib/faqs"
 
 /* ─── Animation variant shared across sections ───────────────────── */
 
@@ -648,7 +648,7 @@ function FeatureTile({
 }
 
 /* ─── PAGE ───────────────────────────────────────────────────────── */
-export default function MineriaPage() {
+export default function MinePassPage() {
   return (
     <>
       {/* ═══════════════════════════════════════════════════════
@@ -766,10 +766,10 @@ export default function MineriaPage() {
             }}
           >
             {[
-              { text: "Acreditación de", color: "#FFFFFF" },
-              { text: "contratistas.", color: "#FFFFFF" },
-              { text: "De 10 días a", color: "#FFFFFF" },
-              { text: "horas.", color: "#F5A020" },
+              { text: "MinePass.", color: "#FFFFFF" },
+              { text: "Acreditación AIC", color: "#FFFFFF" },
+              { text: "de 10 días", color: "#FFFFFF" },
+              { text: "a horas.", color: "#F5A020" },
             ].map((line, i) => (
               <motion.div
                 key={i}
@@ -792,8 +792,9 @@ export default function MineriaPage() {
             }}
           >
             El contratista llega el lunes. Sus documentos AIC, 10 días después.
-            Mientras tanto, la faena espera. MinePass y VehiclePass eliminan esa
-            espera: agentes IA, OCR y credencial digital en horas, no días.
+            Mientras tanto la faena espera. MinePass reúne los documentos con un
+            agente de IA, los valida ante Sernageomin y emite la credencial
+            digital el mismo día.
           </motion.p>
 
           {/* Client badge */}
@@ -929,6 +930,145 @@ export default function MineriaPage() {
               fill="#FFFFFF"
             />
           </svg>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════════════════
+          QUÉ ES MINEPASS
+
+          Quien escribe "minepass" en Google llega buscando la
+          definición. Antes esta página abría con tres módulos y una
+          tabla comparativa, sin decir en ninguna parte qué era el
+          producto. El primer párrafo se sostiene solo para que sirva
+          de fragmento destacado y de cita en buscadores con IA.
+      ═══════════════════════════════════════════════════════ */}
+      <section
+        className="min-section-pad"
+        style={{
+          backgroundColor: "#FFFFFF",
+          padding: "88px 48px 72px",
+        }}
+      >
+        <div style={{ maxWidth: "820px", margin: "0 auto" }}>
+          <p
+            style={{
+              fontSize: "0.7rem",
+              fontWeight: 800,
+              letterSpacing: "0.16em",
+              textTransform: "uppercase" as const,
+              color: "#F5A020",
+              margin: "0 0 16px",
+            }}
+          >
+            Qué es MinePass
+          </p>
+
+          <h2
+            style={{
+              fontFamily: "var(--font-display), system-ui, sans-serif",
+              fontSize: "clamp(1.8rem, 3.4vw, 2.6rem)",
+              fontWeight: 800,
+              letterSpacing: "-0.05em",
+              lineHeight: 1.06,
+              color: "#0B1E3D",
+              margin: "0 0 28px",
+            }}
+          >
+            La acreditación de contratistas,
+            <br />
+            resuelta por un agente de IA.
+          </h2>
+
+          <p
+            style={{
+              fontSize: "1.05rem",
+              color: "#334155",
+              lineHeight: 1.8,
+              margin: "0 0 20px",
+            }}
+          >
+            <strong style={{ color: "#0B1E3D" }}>MinePass</strong> es la
+            plataforma de Tecnozero que automatiza la Acreditación de Ingreso de
+            Contratistas (AIC) en faenas mineras chilenas. Un agente de IA le
+            pide al contratista los documentos que faltan, un OCR extrae los
+            datos de cédulas, certificados y resoluciones, la plataforma
+            comprueba el cumplimiento ante Sernageomin y emite una credencial
+            digital tokenizada. Lo que tomaba hasta 10 días hábiles termina en
+            horas.
+          </p>
+
+          <p
+            style={{
+              fontSize: "1.05rem",
+              color: "#334155",
+              lineHeight: 1.8,
+              margin: "0 0 40px",
+            }}
+          >
+            En la faena la ocupan prevención de riesgos y el equipo de contratos.
+            Cada lectura y cada decisión quedan registradas con fecha, usuario y
+            resultado, de modo que el expediente de un trabajador se reconstruye
+            entero cuando llega un fiscalizador.
+          </p>
+
+          <div
+            className="min-def-grid"
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(3, 1fr)",
+              gap: "1px",
+              backgroundColor: "#E8EFF8",
+              border: "1px solid #E8EFF8",
+              borderRadius: "16px",
+              overflow: "hidden",
+            }}
+          >
+            {[
+              {
+                titulo: "Qué normativa cubre",
+                texto:
+                  "El DS 76 obliga a la empresa principal a mantener el registro de contratistas actualizado y disponible en faena. El DS 132 suma el Libro Sernageomin.",
+              },
+              {
+                titulo: "Qué reemplaza",
+                texto:
+                  "El correo con PDF adjuntos y la planilla donde alguien anota a mano cuándo vence cada certificado.",
+              },
+              {
+                titulo: "Con qué se conecta",
+                texto:
+                  "El portal de la Dirección del Trabajo para verificar contratos vigentes, y los registros de Sernageomin para la acreditación.",
+              },
+            ].map((f) => (
+              <div
+                key={f.titulo}
+                style={{ backgroundColor: "#FFFFFF", padding: "28px 26px" }}
+              >
+                <h3
+                  style={{
+                    fontFamily: "var(--font-display), system-ui, sans-serif",
+                    fontSize: "0.95rem",
+                    fontWeight: 800,
+                    color: "#0B1E3D",
+                    letterSpacing: "-0.02em",
+                    margin: "0 0 10px",
+                  }}
+                >
+                  {f.titulo}
+                </h3>
+                <p
+                  style={{
+                    fontSize: "0.84rem",
+                    color: "#64748B",
+                    lineHeight: 1.7,
+                    margin: 0,
+                  }}
+                >
+                  {f.texto}
+                </p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -1603,7 +1743,7 @@ export default function MineriaPage() {
         </div>
       </section>
 
-      <FaqSection faqs={FAQ_MINERIA} bajada="Lo que preguntan los equipos de prevención antes de cambiar el proceso de acreditación." />
+      <FaqSection faqs={FAQ_MINEPASS} bajada="Lo que preguntan los equipos de prevención antes de cambiar el proceso de acreditación." />
 
       {/* ═══════════════════════════════════════════════════════
           CTA FINAL

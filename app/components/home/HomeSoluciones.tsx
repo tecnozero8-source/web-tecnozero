@@ -183,7 +183,7 @@ export function HomeSoluciones() {
         { valor: "100%", label: "trazabilidad" },
       ],
       cta: "Ver solución minera →",
-      href: "/mineria",
+      href: "/minepass",
       accentColor: "#F5A020",
       Icon: IconMine,
     },
