@@ -20,9 +20,9 @@ https://www.tecnozero.cl/
 ======================================================================
 
 # Procesos críticos automatizados. Tu equipo enfocado en lo que importa.
-Robots de software que operan 24/7 sin errores. +20 en producción hoy en Metro de Santiago, la gran minería del norte y el retail.
+Empresas de servicios transitorios y de outsourcing de personal usan nuestros robots para registrar el ciclo laboral completo. Una cuenta de 3.000 movimientos al mes se carga sola y deja constancia con fecha y hora.
 Operación real, en producción
-Robots de software y agentes de IA trabajando hoy para Metro de Santiago, la gran minería del norte y el retail.
+Robots que cargan el ciclo laboral completo en el portal de la Dirección del Trabajo para empresas de servicios transitorios y outsourcing de personal.
 Qué hacemos
 ## Cinco líneas. Un solo equipo. Cero tolerancia al error.
 Software en producción hoy. Sin demos de humo. Resultados medibles.
@@ -45,12 +45,12 @@ Casos verificables
 ## Tres clientes. Robots en producción hoy.
 Contactos de referencia disponibles para validación directa.
 TRANSPORTE PÚBLICO · CHILE
-### Metro de Santiago
+### Transporte público masivo, 4.600 trabajadores
 El proyecto que lo cambió todo
 4.600 contratos debían registrarse en la Dirección del Trabajo en 30 días. Era humanamente imposible hacerlo a tiempo de forma manual.
 HOY: 9 robots activos · ciclo laboral completo de 4.600 trabajadores
 RETAIL · OUTSOURCING MASIVO
-### Tawa + Activos Chile
+### Outsourcing de personal para retail
 RRHH masivo para el retail nacional
 Gestión del ciclo laboral de más de 10.000 personas por mes. Contratos, finiquitos y licencias médicas — a diario, sin margen de error.
 HOY: 6 robots · IMED · Medipass · Portalempleador.cl
@@ -58,7 +58,7 @@ MINERÍA · GRAN FAENA NORTE CHILE
 ### MinePass · Minería
 Cuando el contratista llegó, los papeles no
 Un contratista llegaba el lunes con su equipo listo. Sus documentos AIC, 10 días después. El jefe de faena paraba todo mientras esperaba. Con MinePass, ese día ya no existe.
-HOY: Agentes IA + OCR + mandato digital tokenizado · Gran Minería Chile
+HOY: Agentes IA + OCR + mandato digital tokenizado · acreditación AIC
 ## ¿Cuántas horas pierde tu área esta semana?
 Una conversación de 30 minutos es suficiente para identificar el proceso de mayor impacto en tu operación y calcular el ROI de automatizarlo.
 Respuesta en menos de 24 horas hábiles
@@ -77,7 +77,7 @@ Nuestros robots y agentes no solo ejecutan. Razonan, detectan excepciones y act�
 Cada robot corre sobre infraestructura AWS cifrada, con alertas automáticas y soporte que actúa antes de que el proceso falle.
 ## Cinco compromisos, cero excusas
 Cada robot se construye con tolerancia cero a fallos. Operamos donde el error cuesta dinero.
-Tres meses operando en paralelo con Metro de Santiago, sin una sola diferencia de dos centavos.
+Tres meses operando en paralelo con el sistema del cliente, sin una sola diferencia de dos centavos.
 Pasamos de RPA a IA, y ahora a IA Agéntica. Siempre un paso adelante.
 De un requerimiento a un robot en producción en 8 semanas, con metodología Agile Scrum.
 Infraestructura AWS. Los datos nunca salen del entorno cifrado. SLA de 99,5% de disponibilidad.
@@ -89,7 +89,7 @@ Opera sobre SAP, Oracle, PDFs y correos con precisión sobre 90%. Alianza estrat
 El ciclo laboral completo ante la Dirección del Trabajo: contratos, anexos, finiquitos, licencias médicas y teletrabajo. Gestionamos miles de trabajadores al mes.
 Conciliación bancaria, facturas con OCR, integración SAP y auditoría de adquisiciones. Tres meses sin diferencias en distribución de sueldos.
 Acreditaciones, autorizaciones y trazabilidad 100% auditable para la gran minería chilena. MinePass reduce la acreditación de contratistas de días a minutos.
-## Metro de Santiago: el proyecto que lo cambió todo
+## 4.600 contratos, treinta días y un portal que no perdona
 En septiembre de 2023, Metro nos convocó con un plazo imposible: 4.600 contratos debían entrar al portal de la Dirección del Trabajo antes del 31 de octubre. Pusimos robots a operar día y noche. Lo que empezó como una emergencia hoy es un ecosistema de 9 robots que cuida el ciclo laboral de 4.600 personas.
 Confían en Tecnozero
 ## De un desafío real a producción en 8 semanas
@@ -367,7 +367,7 @@ Redacta los anexos, adjunta las declaraciones juradas y deja la oferta lista par
 El hueco del mercado
 ## Donde termina una plataforma de alertas.
 En Chile hay seis plataformas que avisan de licitaciones y resumen las bases. Ninguna entra a un portal privado ni deja la oferta armada.
-Entramos a los portales privados con las credenciales de tu empresa y un mandato firmado que autoriza la operación. Cada acción del robot queda registrada con fecha, usuario y resultado. Es el mismo mecanismo con que operamos el portal de la Dirección del Trabajo para Metro de Santiago y para el retail a través de Tawa.
+Entramos a los portales privados con las credenciales de tu empresa y un mandato firmado que autoriza la operación. Cada acción del robot queda registrada con fecha, usuario y resultado. Es el mismo mecanismo con que operamos el portal de la Dirección del Trabajo para un operador de transporte público masivo y para el retail.
 Portales privados
 WhereEx, iConstruye y Ariba mueven contratos que nunca pasan por Mercado Público.
 Planes
@@ -507,7 +507,7 @@ Lee los documentos con OCR en cualquier formato, extrae los campos y las fechas 
 P: ¿Qué trazabilidad queda para una fiscalización de Sernageomin?
 Cada acción queda registrada: qué documento se leyó, qué datos se extrajeron, contra qué portal se validó, qué se decidió y cuándo. Los mandatos digitales quedan tokenizados, de modo que el expediente permite reconstruir por qué un trabajador determinado ingresó a faena en una fecha determinada.
 Robert Yasuda, PhD
-PhD por la Universidad de Almería. Dirige Tecnozero desde La Serena, donde su equipo opera más de 20 robots de software en producción para Metro de Santiago, la gran minería y el retail.
+PhD por la Universidad de Almería. Dirige Tecnozero desde La Serena, donde su equipo opera más de 20 robots de software en producción para empresas de servicios transitorios, outsourcing de personal y transporte público.
 
 ======================================================================
 Blog: agentes-ia-sap-oracle-datos-privados
@@ -576,7 +576,7 @@ Con un proceso acotado y un set de evaluación de unos 30 casos con la respuesta
 P: ¿Qué es TITAN?
 TITAN es la plataforma de IA agéntica de Tecnozero para entornos empresariales. Opera sobre SAP, Oracle, PDFs y correos con respuestas en menos de 5 segundos y precisión sobre el 90%. Nace de la alianza con Accéder (Montreal), laboratorio integrado a los ecosistemas MILA y Scale AI.
 Robert Yasuda, PhD
-PhD por la Universidad de Almería. Dirige Tecnozero desde La Serena, donde su equipo opera más de 20 robots de software en producción para Metro de Santiago, la gran minería y el retail.
+PhD por la Universidad de Almería. Dirige Tecnozero desde La Serena, donde su equipo opera más de 20 robots de software en producción para empresas de servicios transitorios, outsourcing de personal y transporte público.
 
 ======================================================================
 Blog: automatizar-registro-contratos-portal-direccion-del-trabajo
@@ -633,7 +633,7 @@ Comprobante con folio por movimiento
 Aquí está la pregunta que hace todo cliente serio antes de firmar, y con razón. Un portal público cambia sin avisar: mueven un botón, agregan un campo obligatorio, cambian el orden de un desplegable. Un robot escrito a la mala se cae esa mañana y nadie se entera hasta el mediodía.
 Lo resolvemos en dos capas. La primera es un monitor que corre antes del lote y verifica que la estructura del formulario sea la esperada; si algo cambió, avisa en vez de seguir. La segunda es un agente que interpreta la pantalla cuando el selector fijo falla, y decide si puede continuar o si escala a una persona.
 Esa combinación es el motivo por el que separamos el RPA determinista de los agentes que razonan . El flujo estable lo hace un robot barato y predecible. La excepción la resuelve un agente, que cuesta más por ejecución y se usa donde vale la pena.
-## El caso Metro de Santiago
+## El caso del operador de transporte público
 En septiembre de 2023, Metro necesitaba registrar 4.600 contratos antes de una fecha imposible. Los robots de Tecnozero cargaron 4.000 en 20 días, con 0 errores. Lo que empezó como una emergencia hoy es un ecosistema de 9 robots que cuida el ciclo laboral de 4.600 personas.
 ## A partir de qué volumen conviene
 Automatizar por debajo de cierto umbral es un gasto. La regla que usamos es simple: cuenta tus movimientos mensuales, multiplícalos por el tiempo real que le toma a tu equipo cada uno y compara ese costo con el precio por registro.
@@ -653,7 +653,7 @@ Alrededor de 150 movimientos mensuales la automatización se paga con las horas 
 P: ¿Cuánto cuesta el registro automatizado?
 El Gestor Laboral 360 cobra por registro, desde 640 pesos en el primer tramo hasta 290 pesos sobre los 2.000 registros mensuales.
 Robert Yasuda, PhD
-PhD por la Universidad de Almería. Dirige Tecnozero desde La Serena, donde su equipo opera más de 20 robots de software en producción para Metro de Santiago, la gran minería y el retail.
+PhD por la Universidad de Almería. Dirige Tecnozero desde La Serena, donde su equipo opera más de 20 robots de software en producción para empresas de servicios transitorios, outsourcing de personal y transporte público.
 
 ======================================================================
 Blog: ia-nativa-edtech-tutor-inteligente
@@ -722,7 +722,7 @@ Sí. AulaZero funciona como plataforma propia o se integra sobre el LMS que la e
 P: ¿Los datos de los alumnos entrenan modelos públicos?
 No. Los datos del alumno se mantienen en el entorno controlado y no se usan para entrenar modelos de terceros.
 Robert Yasuda, PhD
-PhD por la Universidad de Almería. Dirige Tecnozero desde La Serena, donde su equipo opera más de 20 robots de software en producción para Metro de Santiago, la gran minería y el retail.
+PhD por la Universidad de Almería. Dirige Tecnozero desde La Serena, donde su equipo opera más de 20 robots de software en producción para empresas de servicios transitorios, outsourcing de personal y transporte público.
 
 ======================================================================
 Blog: integrar-ia-nativa-plataforma-web-guia
@@ -784,7 +784,7 @@ Hay tres señales: existe una pregunta que tus usuarios repiten y que hoy respon
 P: ¿Se puede integrar sobre una plataforma que ya existe?
 Sí. Tecnozero integra sobre la plataforma que ya usas o construye una nueva, según lo que convenga al caso.
 Robert Yasuda, PhD
-PhD por la Universidad de Almería. Dirige Tecnozero desde La Serena, donde su equipo opera más de 20 robots de software en producción para Metro de Santiago, la gran minería y el retail.
+PhD por la Universidad de Almería. Dirige Tecnozero desde La Serena, donde su equipo opera más de 20 robots de software en producción para empresas de servicios transitorios, outsourcing de personal y transporte público.
 
 ======================================================================
 Blog: ley-karin-capacitacion-obligatoria-automatizar
@@ -867,7 +867,7 @@ Sí, a través de un OTEC. Los cursos de AulaZero son compatibles con franquicia
 P: ¿Qué multa arriesga una empresa que no cumple?
 El artículo 506 del Código del Trabajo gradúa la multa según el tamaño de la empresa: de 1 a 5 UTM en microempresas y de 3 a 60 UTM en grandes empresas. Las empresas de 49 trabajadores o menos pueden sustituir el pago por un programa de capacitación en algunos casos, según el artículo 506 ter.
 Robert Yasuda, PhD
-PhD por la Universidad de Almería. Dirige Tecnozero desde La Serena, donde su equipo opera más de 20 robots de software en producción para Metro de Santiago, la gran minería y el retail.
+PhD por la Universidad de Almería. Dirige Tecnozero desde La Serena, donde su equipo opera más de 20 robots de software en producción para empresas de servicios transitorios, outsourcing de personal y transporte público.
 
 ======================================================================
 Blog: rpa-vs-ia-agentica-cuando-usar-cada-uno
@@ -939,4 +939,4 @@ Es lo habitual en producción. El agente lee documentos, clasifica y decide qué
 P: ¿Qué pasa cuando un portal cambia y rompe el robot?
 Un robot bien construido corre un monitor de estructura antes de cada lote y avisa si algo cambió, en vez de seguir cargando mal. Para los cambios menores, un agente reinterpreta la pantalla y decide si continúa o escala a una persona.
 Robert Yasuda, PhD
-PhD por la Universidad de Almería. Dirige Tecnozero desde La Serena, donde su equipo opera más de 20 robots de software en producción para Metro de Santiago, la gran minería y el retail.
+PhD por la Universidad de Almería. Dirige Tecnozero desde La Serena, donde su equipo opera más de 20 robots de software en producción para empresas de servicios transitorios, outsourcing de personal y transporte público.

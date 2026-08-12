@@ -17,28 +17,27 @@ const BASE_URL = "https://www.tecnozero.cl"
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
   title: {
-    default: "Tecnozero — RPA, IA Agéntica y EdTech · Chile",
+    default: "Tecnozero — Registro laboral automatizado en el portal DT · Chile",
     template: "%s · Tecnozero",
   },
   description:
-    "Automatización RPA, agentes de IA y plataformas web con IA nativa (EdTech) para empresas en Chile. +20 robots en producción para Metro de Santiago, la gran minería y el retail.",
+    "Robots que registran contratos, anexos y finiquitos en el portal de la Dirección del Trabajo para empresas de servicios transitorios y outsourcing de personal en Chile. Agentes de IA sobre SAP y capacitación con IA.",
   keywords: [
+    "empresa de servicios transitorios",
+    "EST Chile",
+    "outsourcing de personal Chile",
+    "registro de contratos Dirección del Trabajo",
+    "Portal DT",
+    "automatizar portal DT",
+    "finiquitos portal DT",
+    "gestión laboral tercerizada",
     "RPA Chile",
-    "automatización procesos",
-    "IA agéntica",
     "agentes de IA",
-    "robots software",
-    "plataformas web con IA",
+    "IA agéntica",
     "EdTech Chile",
     "AulaZero",
-    "capacitación con IA empresas",
     "Ley Karin capacitación",
-    "Portal DT",
-    "Dirección del Trabajo",
-    "automatización minería",
     "MinePass",
-    "VehiclePass",
-    "TITAN IA",
   ],
   authors: [{ name: "Tecnozero SpA" }],
   creator: "Tecnozero SpA",
@@ -49,9 +48,9 @@ export const metadata: Metadata = {
     locale: "es_CL",
     url: BASE_URL,
     siteName: "Tecnozero",
-    title: "Tecnozero — RPA, IA Agéntica y EdTech · Chile",
+    title: "Tecnozero — Registro laboral automatizado en el portal DT · Chile",
     description:
-      "Automatización RPA, agentes de IA y plataformas web con IA nativa. +20 robots en producción: Metro de Santiago, gran minería y retail. Evaluación gratuita.",
+      "Altas, bajas, anexos y finiquitos en el portal de la Dirección del Trabajo, sin que nadie los teclee. Para empresas de servicios transitorios y outsourcing de personal.",
     images: [
       {
         url: "/og/home.png",
@@ -63,8 +62,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Tecnozero — RPA, IA Agéntica y EdTech · Chile",
-    description: "RPA, agentes de IA y plataformas web con IA nativa. +20 robots en producción en Chile.",
+    title: "Tecnozero — Registro laboral automatizado en el portal DT · Chile",
+    description: "Contratos, anexos y finiquitos en el portal de la Dirección del Trabajo, sin que nadie los teclee.",
     images: ["/og/home.png"],
   },
   alternates: {

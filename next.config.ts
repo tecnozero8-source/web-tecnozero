@@ -6,7 +6,11 @@ const CSP = [
   "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
   "font-src 'self' https://fonts.gstatic.com data:",
   "img-src 'self' data: blob: https:",
-  "connect-src 'self' https://*.supabase.co https://www.google-analytics.com https://region1.google-analytics.com https://region1.analytics.google.com",
+  // GA4 no manda todo a google-analytics.com: el page_view sale por
+  // analytics.google.com y el ping de audiencias por stats.g.doubleclick.net y
+  // www.google.com. Sin estos tres hosts la consola escupe un CSP violation por
+  // cada visita y la medición llega incompleta.
+  "connect-src 'self' https://*.supabase.co https://www.google-analytics.com https://region1.google-analytics.com https://region1.analytics.google.com https://analytics.google.com https://stats.g.doubleclick.net https://www.google.com",
   "frame-src https://webpay.transbank.cl https://webpay3gint.transbank.cl",
   "object-src 'none'",
   "base-uri 'self'",

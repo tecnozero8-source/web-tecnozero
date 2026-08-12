@@ -306,7 +306,7 @@ function TimelineCard() {
             letterSpacing: "0.06em",
           }}
         >
-          Gran Minería Chile · En producción hoy
+          DS 76 · DS 132 · Trazabilidad Sernageomin
         </span>
       </div>
     </motion.div>
@@ -747,7 +747,7 @@ export default function MinePassPage() {
                   color: "#F5A020",
                 }}
               >
-                Gran Minería · En producción hoy
+                Acreditación de contratistas en faena
               </span>
             </div>
           </motion.div>
@@ -1163,7 +1163,7 @@ export default function MinePassPage() {
               cta="Ver MinePass →"
               href="/contacto"
               accentColor="#F5A020"
-              panelBadge="Gran Minería Chile"
+              panelBadge="Acreditación AIC"
               panelMetrics={[
                 { valor: "10d", label: "→ horas" },
                 { valor: "100%", label: "trazabilidad" },

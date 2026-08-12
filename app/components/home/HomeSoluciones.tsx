@@ -28,17 +28,6 @@ function IconEdu({ color }: { color: string }) {
   )
 }
 
-function IconMine({ color }: { color: string }) {
-  return (
-    <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-      <polygon points="16,4 28,28 4,28" stroke={color} strokeWidth="1.5" strokeLinejoin="round" fill="none"/>
-      <line x1="16" y1="4" x2="16" y2="28" stroke={color} strokeWidth="1" strokeDasharray="3 3" opacity="0.5"/>
-      <circle cx="16" cy="14" r="3" fill={color} opacity="0.8"/>
-      <path d="M10 22h12" stroke={color} strokeWidth="1.5" strokeLinecap="round"/>
-    </svg>
-  )
-}
-
 function IconAI({ color }: { color: string }) {
   return (
     <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
@@ -132,6 +121,25 @@ function VisualPanel({ accentColor, metricas, badge }: {
 export function HomeSoluciones() {
   const soluciones = [
     {
+      badge: "Línea principal · Portal DT",
+      titulo: "Gestión laboral · Portal DT",
+      subtitulo: "Servicios transitorios y outsourcing de personal",
+      descripcion: "Altas, bajas, anexos y finiquitos cargados en el portal de la Dirección del Trabajo, con los 47 campos que exige cada ingreso. Pagas por registro, el precio baja con el volumen y cada movimiento queda con fecha, hora y constancia descargable.",
+      metricas: [
+        { valor: "3.179", label: "movimientos al mes en una sola cuenta" },
+        { valor: "47", label: "campos por ingreso que el robot completa" },
+        { valor: "0", label: "errores regulatorios en producción" },
+      ],
+      metricasPanel: [
+        { valor: "3.179", label: "al mes" },
+        { valor: "0", label: "errores" },
+      ],
+      cta: "Ver la solución para EST →",
+      href: "/servicios-transitorios",
+      accentColor: "#1FB3E5",
+      Icon: IconRobot,
+    },
+    {
       badge: "Nueva línea · EdTech",
       titulo: "Capacitación · AulaZero",
       subtitulo: "Cursos e-learning con IA para empresas",
@@ -152,40 +160,40 @@ export function HomeSoluciones() {
     },
     {
       badge: "SaaS · Pago por uso",
-      titulo: "Portal DT · Gestor Laboral 360",
-      subtitulo: "Para PYMEs y oficinas contables",
-      descripcion: "Tres robots que suben contratos, anexos y bajas al portal de la Dirección del Trabajo. Sin instalaciones. Sin mensualidad. Pagas solo lo que usas.",
+      titulo: "Portal DT · volumen bajo",
+      subtitulo: "PYMEs y oficinas contables",
+      descripcion: "El mismo robot, para quien mueve decenas de registros al mes y no cientos. Subes tu planilla, el robot detecta ingresos, bajas y anexos y los registra. Sin instalaciones y sin mensualidad fija.",
       metricas: [
         { valor: "87%", label: "menos tiempo en el proceso" },
         { valor: "$640", label: "precio de entrada por registro" },
-        { valor: "0", label: "errores en Dirección del Trabajo" },
+        { valor: "50", label: "registros mínimos por carga" },
       ],
       metricasPanel: [
         { valor: "87%", label: "menos tiempo" },
         { valor: "$640", label: "por registro" },
       ],
-      cta: "Ver cómo funciona →",
+      cta: "Ver precios por tramo →",
       href: "/portal-dt",
-      accentColor: "#1FB3E5",
+      accentColor: "#0957C3",
       Icon: IconRobot,
     },
     {
-      badge: "Enterprise · SaaS minero",
-      titulo: "Minería",
-      subtitulo: "MinePass · VehiclePass · AIC",
-      descripcion: "MinePass y VehiclePass: acreditación digital de contratistas e inspección de flota para gran minería. El proceso AIC que tardaba 10 días, hoy toma horas. Trazabilidad 100% auditable ante Sernageomin.",
+      badge: "IA Agéntica · Enterprise",
+      titulo: "Agentes de vigilancia documental",
+      subtitulo: "SAP · Oracle · contratos y cumplimiento",
+      descripcion: "Un agente que revisa el flujo, avisa antes de que algo se venza y deja la carpeta armada para firmar. Adherencia de procesos, auditoría interna, contratos y cartas. Representantes exclusivos de TITAN en Chile.",
       metricas: [
-        { valor: "10d→hrs", label: "proceso AIC automatizado" },
-        { valor: "100%", label: "trazabilidad auditable Sernageomin" },
+        { valor: "10×", label: "más rápido en SAP / Oracle" },
+        { valor: "90%+", label: "precisión en consultas" },
       ],
       metricasPanel: [
-        { valor: "10d", label: "→ horas" },
-        { valor: "100%", label: "trazabilidad" },
+        { valor: "10×", label: "más rápido" },
+        { valor: "90%+", label: "precisión" },
       ],
-      cta: "Ver solución minera →",
-      href: "/minepass",
-      accentColor: "#F5A020",
-      Icon: IconMine,
+      cta: "Ver agentes IA →",
+      href: "/agentes-ia",
+      accentColor: "#A78BFA",
+      Icon: IconAI,
     },
     {
       badge: "Nueva línea · Licitaciones",
@@ -204,24 +212,6 @@ export function HomeSoluciones() {
       href: "/licitaciones",
       accentColor: "#D4F040",
       Icon: IconBid,
-    },
-    {
-      badge: "IA Agéntica · Enterprise",
-      titulo: "Agentes IA",
-      subtitulo: "TITAN · SAP · Oracle",
-      descripcion: "Agentes que razonan y actúan en tus sistemas. Representantes exclusivos de TITAN en Chile. Precisión 90%+.",
-      metricas: [
-        { valor: "10×", label: "más rápido en SAP / Oracle" },
-        { valor: "90%+", label: "precisión en consultas" },
-      ],
-      metricasPanel: [
-        { valor: "10×", label: "más rápido" },
-        { valor: "90%+", label: "precisión" },
-      ],
-      cta: "Ver TITAN →",
-      href: "/agentes-ia",
-      accentColor: "#A78BFA",
-      Icon: IconAI,
     },
   ]
 
@@ -251,15 +241,16 @@ export function HomeSoluciones() {
               fontWeight: 800, letterSpacing: "-0.05em", lineHeight: 1.02,
               color: "#0B1E3D", margin: 0,
             }}>
-              Cinco líneas. Un solo equipo.
+              Una línea principal.
               <br />
-              <span style={{ color: "#1FB3E5" }}>Cero tolerancia al error.</span>
+              <span style={{ color: "#1FB3E5" }}>Cuatro que la acompañan.</span>
             </h2>
             <p style={{
               fontSize: "0.9rem", color: "#64748B",
               maxWidth: "280px", lineHeight: 1.7, margin: 0,
             }}>
-              Software en producción hoy. Sin demos de humo. Resultados medibles.
+              El registro laboral es lo que corre todos los días en nuestros
+              clientes. Todo lo demás nació de ahí.
             </p>
           </div>
         </motion.div>

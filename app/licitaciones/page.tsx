@@ -1179,7 +1179,7 @@ export default function LicitacionesPage() {
               y un mandato firmado que autoriza la operación. Cada acción del
               robot queda registrada con fecha, usuario y resultado. Es el mismo
               mecanismo con que operamos el portal de la Dirección del Trabajo
-              para Metro de Santiago y para el retail a través de Tawa.
+              para un operador de transporte público masivo y para el retail.
             </p>
           </motion.div>
         </div>

@@ -5,48 +5,48 @@ import { motion } from "framer-motion"
 const casos = [
   {
     numero: "01",
-    cliente: "Metro de Santiago",
-    tagline: "El proyecto que lo cambió todo",
-    contexto: "4.600 contratos debían registrarse en la Dirección del Trabajo en 30 días. Era humanamente imposible hacerlo a tiempo de forma manual.",
+    cliente: "Una EST que mueve 3.000 movimientos al mes",
+    tagline: "La bolsa se agotó en el mes siete",
+    contexto: "Contrató 21.600 registros al año calculando 1.800 al mes. El ritmo real resultó ser 3.179. El robot cargó 35.278 registros en 19 meses y no se detuvo nunca: cada alta, cada baja y cada finiquito quedó registrado dentro del plazo legal.",
     metricas: [
-      { valor: "4.000", label: "contratos cargados", detalle: "en 20 días" },
-      { valor: "87%", label: "reducción de tiempo", detalle: "en el proceso" },
-      { valor: "0", label: "errores", detalle: "en registros DT" },
+      { valor: "35.278", label: "registros cargados", detalle: "en 19 meses" },
+      { valor: "3.179", label: "movimientos al mes", detalle: "ritmo sostenido" },
+      { valor: "0", label: "errores regulatorios", detalle: "en todo el período" },
     ],
-    hoy: "9 robots activos · ciclo laboral completo de 4.600 trabajadores",
+    hoy: "Altas, bajas, anexos y finiquitos · tres empresas usuarias bajo una misma cuenta",
     accentColor: "#1FB3E5",
     gradientFrom: "rgba(31,179,229,0.15)",
-    industry: "TRANSPORTE PÚBLICO · CHILE",
+    industry: "SERVICIOS TRANSITORIOS · CHILE",
   },
   {
     numero: "02",
-    cliente: "Tawa + Activos Chile",
-    tagline: "RRHH masivo para el retail nacional",
-    contexto: "Gestión del ciclo laboral de más de 10.000 personas por mes. Contratos, finiquitos y licencias médicas — a diario, sin margen de error.",
+    cliente: "Outsourcing de personal para retail",
+    tagline: "10.000 documentos al mes, todos los meses",
+    contexto: "El ciclo laboral de más de 10.000 personas al mes: contratos, finiquitos y licencias médicas. Seis robots operan el portal de la Dirección del Trabajo, IMED, Medipass y Portalempleador sin que nadie los mire.",
     metricas: [
-      { valor: "10.000+", label: "documentos / mes", detalle: "procesados" },
+      { valor: "10.000+", label: "documentos al mes", detalle: "procesados" },
       { valor: "0", label: "errores regulatorios", detalle: "en todo el período" },
-      { valor: "7 días", label: "operación autónoma", detalle: "sin intervención humana" },
+      { valor: "7 días", label: "de operación autónoma", detalle: "sin intervención humana" },
     ],
-    hoy: "6 robots · IMED · Medipass · Portalempleador.cl",
+    hoy: "6 robots · Portal DT · IMED · Medipass · Portalempleador.cl",
     accentColor: "#D4F040",
     gradientFrom: "rgba(212,240,64,0.12)",
-    industry: "RETAIL · OUTSOURCING MASIVO",
+    industry: "OUTSOURCING DE PERSONAL · RETAIL",
   },
   {
     numero: "03",
-    cliente: "MinePass · Minería",
-    tagline: "Cuando el contratista llegó, los papeles no",
-    contexto: "Un contratista llegaba el lunes con su equipo listo. Sus documentos AIC, 10 días después. El jefe de faena paraba todo mientras esperaba. Con MinePass, ese día ya no existe.",
+    cliente: "Transporte público masivo, 4.600 trabajadores",
+    tagline: "Treinta días para registrar 4.600 contratos",
+    contexto: "El plazo legal corría y el equipo de personas no daba abasto a mano. Hoy nueve robots sostienen el ciclo laboral completo y un agente vigila la adherencia de los procesos en SAP, avisa antes de que algo se venza y deja la carpeta armada para auditoría.",
     metricas: [
-      { valor: "10d→hrs", label: "proceso AIC completo", detalle: "automatizado" },
-      { valor: "100%", label: "trazabilidad", detalle: "auditable Sernageomin" },
-      { valor: "~1.4m", label: "payback", detalle: "vs. proceso manual" },
+      { valor: "4.000", label: "contratos cargados", detalle: "en 20 días" },
+      { valor: "9", label: "robots activos", detalle: "desde 2023" },
+      { valor: "0", label: "errores", detalle: "en registros DT" },
     ],
-    hoy: "Agentes IA + OCR + mandato digital tokenizado · Gran Minería Chile",
-    accentColor: "#F5A020",
-    gradientFrom: "rgba(245,160,32,0.12)",
-    industry: "MINERÍA · GRAN FAENA NORTE CHILE",
+    hoy: "Portal DT · adherencia de procesos en SAP · auditoría interna · SharePoint",
+    accentColor: "#A78BFA",
+    gradientFrom: "rgba(167,139,250,0.12)",
+    industry: "TRANSPORTE PÚBLICO · SAP",
   },
 ]
 
@@ -89,7 +89,7 @@ export function HomeCasos() {
               fontWeight: 800, letterSpacing: "-0.05em", lineHeight: 1.02,
               color: "#FFFFFF", margin: 0,
             }}>
-              Tres clientes.
+              Tres cuentas.
               <br />
               <span style={{ color: "#1FB3E5" }}>Robots en producción hoy.</span>
             </h2>
@@ -98,7 +98,8 @@ export function HomeCasos() {
             fontSize: "0.85rem", color: "#4A607A",
             maxWidth: "260px", lineHeight: 1.65, margin: 0,
           }}>
-            Contactos de referencia disponibles para validación directa.
+            No publicamos el nombre de nuestros clientes. Entregamos referencias
+            directas bajo acuerdo de confidencialidad.
           </p>
         </motion.div>
 

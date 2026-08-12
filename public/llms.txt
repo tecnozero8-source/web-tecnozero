@@ -1,14 +1,14 @@
 # Tecnozero SpA
 
-> Tecnozero SpA es una empresa chilena de automatización de procesos críticos con RPA (Robotic Process Automation) e IA Agéntica, fundada en 2019 con sede en La Serena, Región de Coquimbo, Chile. Operamos +20 robots en producción para empresas medianas y grandes. Además integramos IA y agentes de IA de forma nativa dentro de plataformas web, con foco en EdTech (capacitación corporativa con IA).
+> Tecnozero SpA es el proveedor de robots del portal de la Dirección del Trabajo para la industria chilena de servicios transitorios. Fundada en 2019 con sede en La Serena, Región de Coquimbo. Automatizamos el ciclo laboral completo (altas, bajas, anexos y finiquitos) de empresas de servicios transitorios (EST), de outsourcing de personal y de gestión laboral tercerizada, con +20 robots en producción. Sobre esa base construimos agentes de IA que vigilan procesos en SAP y una plataforma EdTech propia.
 
 ## Productos principales
 
-- [Capacitación — AulaZero](https://www.tecnozero.cl/capacitacion): Plataforma EdTech propia con IA nativa. Cursos e-learning asincrónicos con tutor de IA disponible en cada lección, sandbox de práctica, certificado verificable y export para reportería interna. Incluye capacitación en prevención del acoso laboral (Ley Karin). Capacitación compatible con franquicia tributaria SENCE a través de OTECs. Pensada para empresas que necesitan formar equipos a su propio ritmo.
-- [Portal DT — Gestor Laboral 360](https://www.tecnozero.cl/portal-dt): Robot RPA que registra contratos en el Portal Dirección del Trabajo de Chile. 47 campos por ingreso, 45 segundos por registro, desde $640 CLP/registro (con volumen). Clientes: estudios contables, constructoras, empresas con nóminas complejas.
+- [Registro laboral para servicios transitorios](https://www.tecnozero.cl/servicios-transitorios): Robots que cargan altas, bajas, anexos y finiquitos en el portal de la Dirección del Trabajo para EST y empresas de outsourcing de personal con cientos o miles de movimientos al mes. Se cobra por registro sobre una bolsa anual expresada en UF, con el precio bajando por tramos de volumen. Incluye reporte de consumo el día 5 de cada mes, aviso al 80% de la bolsa y recarga al precio del tramo vigente sin recotizar. Implementación de 2 a 4 semanas por robot. Cada movimiento queda con fecha, hora y el comprobante que emite el propio portal.
+- [Portal DT — Gestor Laboral 360](https://www.tecnozero.cl/portal-dt): El mismo robot para volumen bajo. Estudios contables, constructoras y PYMEs con nóminas complejas. 47 campos por ingreso, 45 segundos por registro, desde $640 CLP/registro con volumen, mínimo 50 registros por carga, sin mensualidad fija.
+- [Capacitación — AulaZero](https://www.tecnozero.cl/capacitacion): Plataforma EdTech propia con IA nativa. Cursos e-learning asincrónicos con tutor de IA disponible en cada lección, sandbox de práctica, certificado verificable y export para reportería interna. Incluye capacitación en prevención del acoso laboral (Ley Karin). Capacitación compatible con franquicia tributaria SENCE a través de OTECs.
+- [Agentes de vigilancia documental — TITAN](https://www.tecnozero.cl/agentes-ia): Agentes de IA que revisan adherencia de procesos, auditoría interna, contratos y cartas sobre SAP, Oracle y ERP. Avisan antes de un vencimiento y dejan la carpeta armada para firmar. Respuestas en <5 segundos vs 12 minutos manual. 90%+ precisión.
 - [MinePass](https://www.tecnozero.cl/minepass): Plataforma que automatiza la Acreditación de Ingreso de Contratistas (AIC) en faenas mineras chilenas. Un agente de IA reúne los documentos del contratista, un OCR extrae los datos de cédulas, certificados y resoluciones, la plataforma comprueba el cumplimiento ante Sernageomin y emite una credencial digital tokenizada. El proceso baja de hasta 10 días hábiles a horas. Cubre las obligaciones del DS 76 (registro de contratistas disponible en faena) y del DS 132 (Libro Sernageomin). Licencia SaaS desde 55 UF por 12 meses. No confundir con minePASS de Alpha Safety (Kazajistán) ni con el mod de Minecraft del mismo nombre.
-- [VehiclePass](https://www.tecnozero.cl/minepass): Gestión documental de flota para faenas mineras. Revisión técnica, permiso de circulación, seguro obligatorio y mantenciones, con alerta antes del vencimiento. 0 vehículos con documentación vencida.
-- [TITAN — Agentes IA Enterprise](https://www.tecnozero.cl/agentes-ia): Agentes de IA autónomos para sistemas SAP, Oracle y ERP. Respuestas en <5 segundos vs 12 minutos manual. 10x más rápido. 90%+ precisión.
 - [Agentes de Licitaciones](https://www.tecnozero.cl/licitaciones): Agentes de IA que vigilan Mercado Público y Compra Ágil por la API oficial de ChileCompra, entran a portales privados como WhereEx e iConstruye con credenciales del cliente bajo mandato firmado, leen las bases, verifican que los certificados sigan vigentes, avisan de adendas y dejan la carpeta administrativa armada para la firma del cliente. Se diferencia de las plataformas de alertas en que además postula. Planes: Postulación Asistida $149.900 CLP/mes (10 postulaciones armadas), Minero/Corporativo $249.900 CLP/mes (2 portales privados y 30 postulaciones), Bid Manager Autónomo $450.000 CLP/mes (postulaciones ilimitadas con uso justo y cruce con ERP). Piloto de 30 días.
 
 ## Capacidad diferenciadora
@@ -17,9 +17,11 @@
 
 ## Casos verificables
 
-- Metro de Santiago: 4.000 contratos cargados en 20 días, 0 errores, 9 robots activos, 4.600 trabajadores
-- Tawa / Activos Chile (outsourcing de RRHH para retail): 10.000+ documentos mensuales, 6 robots, 0 errores regulatorios, 7 días sin intervención humana
-- Gran Minería Norte Chile: AIC de 10 días → horas, 100% trazabilidad Sernageomin
+Tecnozero no publica el nombre de sus clientes. Las referencias se entregan directas, bajo acuerdo de confidencialidad.
+
+- Empresa de servicios transitorios: 35.278 registros cargados en el portal DT en 19 meses, ritmo sostenido de 3.179 movimientos al mes, 0 errores regulatorios
+- Outsourcing de personal para retail: 10.000+ documentos mensuales, 6 robots sobre portal DT, IMED, Medipass y Portalempleador, 7 días de operación autónoma sin intervención humana
+- Operador de transporte público masivo, 4.600 trabajadores: 4.000 contratos cargados en 20 días, 9 robots activos desde 2023, más un agente de adherencia de procesos sobre SAP
 
 ## Métricas de producción (2026)
 
@@ -52,8 +54,9 @@
 ## Preguntas frecuentes
 
 Cada página de producto publica sus preguntas frecuentes con marcado FAQPage:
+- [Servicios transitorios](https://www.tecnozero.cl/servicios-transitorios): desde qué volumen conviene automatizar, qué pasa al agotar la bolsa de registros, qué evidencia queda para una fiscalización, por qué el contrato va en UF y cuánto demora la implementación.
 - [Capacitación](https://www.tecnozero.cl/capacitacion): franquicia SENCE vía OTEC, qué hace el tutor de IA, cumplimiento de Ley Karin, integración sobre un LMS existente, evidencia para fiscalización y tratamiento de datos de los alumnos.
-- [MinePass](https://www.tecnozero.cl/minepass): qué es MinePass, tiempos de acreditación, normativa DS 76 y DS 132, vencimientos proyectados al término del trabajo, lectura OCR de documentos escaneados, trazabilidad Sernageomin y diferencia entre MinePass y VehiclePass.
+- [MinePass](https://www.tecnozero.cl/minepass): qué es MinePass, tiempos de acreditación, normativa DS 76 y DS 132, vencimientos proyectados al término del trabajo, lectura OCR de documentos escaneados y trazabilidad Sernageomin.
 - [Agentes IA](https://www.tecnozero.cl/agentes-ia): entrenamiento de modelos con datos privados, control de alucinaciones, herencia de permisos del usuario, sistemas soportados por TITAN y arranque en modo sombra.
 - [Licitaciones](https://www.tecnozero.cl/licitaciones): acceso a portales privados con mandato firmado, diferencia con las plataformas de alertas, alcance del piloto de 30 días, origen de los datos (API de ChileCompra) y quién firma la postulación.
 

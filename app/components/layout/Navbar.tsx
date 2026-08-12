@@ -7,6 +7,7 @@ import { Menu, X } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 
 const navLinks = [
+  { label: "Servicios transitorios", href: "/servicios-transitorios" },
   { label: "Capacitación", href: "/capacitacion" },
   { label: "Portal DT", href: "/portal-dt" },
   { label: "MinePass", href: "/minepass" },

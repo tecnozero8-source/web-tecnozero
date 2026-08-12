@@ -25,7 +25,7 @@ const homeJsonLd = {
         "https://www.tecnozero.cl/nosotros/equipo-colaborando.jpg",
       ],
       description:
-        "Automatización de procesos críticos con RPA e IA Agéntica para empresas en Chile. +20 robots en producción. Metro de Santiago, Tawa, Activos Chile.",
+        "Robots que registran contratos, anexos y finiquitos en el portal de la Dirección del Trabajo para empresas de servicios transitorios y outsourcing de personal en Chile. Cobro por registro, con constancia descargable.",
       telephone: "+56988693864",
       email: "contacto@tecnozero.cl",
       taxID: "77.043.128-K",
@@ -99,7 +99,7 @@ export default function HomePage() {
           }}>
             <div style={{ width: "5px", height: "5px", borderRadius: "50%", backgroundColor: "#1FB3E5" }} />
             <span style={{ fontSize: "0.7rem", fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase" as const, color: "#1FB3E5" }}>
-              RPA · IA Agéntica · EdTech · Chile
+              Servicios transitorios · Outsourcing de personal · Chile
             </span>
           </div>
 
@@ -113,19 +113,20 @@ export default function HomePage() {
             color: "#FFFFFF",
             margin: "0 0 1.75rem",
           }}>
-            Procesos críticos
+            Contratos, anexos
             <br />
+            y finiquitos{" "}
             <span style={{
               background: "linear-gradient(135deg, #1FB3E5 0%, #0957C3 100%)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
             }}>
-              automatizados.
+              en el
+              <br />
+              portal de la DT.
             </span>
             <br />
-            Tu equipo enfocado
-            <br />
-            en lo que importa.
+            Sin que nadie los teclee.
           </h1>
 
           {/* Subtítulo — específico, con prueba social */}
@@ -134,13 +135,14 @@ export default function HomePage() {
             lineHeight: 1.8, maxWidth: "440px",
             margin: "0 0 2.5rem", fontWeight: 400,
           }}>
-            Robots de software que operan 24/7 sin errores. +20 en producción
-            hoy en Metro de Santiago, la gran minería del norte y el retail.
+            Empresas de servicios transitorios y de outsourcing de personal usan
+            nuestros robots para registrar el ciclo laboral completo. Una cuenta de
+            3.000 movimientos al mes se carga sola y deja constancia con fecha y hora.
           </p>
 
           {/* CTAs */}
           <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" as const }}>
-            <a href="/contacto" style={{
+            <a href="/servicios-transitorios" style={{
               display: "inline-flex", alignItems: "center", gap: "8px",
               padding: "14px 28px",
               backgroundColor: "#D4F040", color: "#050C1A",
@@ -149,16 +151,16 @@ export default function HomePage() {
               boxShadow: "0 0 32px rgba(212,240,64,0.2)",
               letterSpacing: "-0.01em",
             }}>
-              Evaluar mi proceso gratis →
+              Ver cómo funciona en una EST →
             </a>
-            <a href="/nosotros" style={{
+            <a href="/contacto" style={{
               display: "inline-flex", alignItems: "center",
               padding: "14px 24px",
               border: "1px solid rgba(255,255,255,0.1)",
               color: "#94A3B8", fontWeight: 500, fontSize: "0.92rem",
               borderRadius: "99px", textDecoration: "none",
             }}>
-              Ver casos reales
+              Pedir una evaluación de mi volumen
             </a>
           </div>
 
@@ -171,7 +173,7 @@ export default function HomePage() {
             <span style={{ fontSize: "0.7rem", color: "#3A5068", fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase" as const }}>
               Hoy en producción
             </span>
-            {["Metro · 9 robots", "MinePass · Gran Minería", "Activos Chile · 6 robots", "AulaZero · Capacitación IA"].map((c) => (
+            {["Servicios transitorios · 6 cuentas", "35.278 registros en una sola cuenta", "0 errores regulatorios"].map((c) => (
               <span key={c} style={{ fontSize: "0.78rem", color: "#4A607A", fontWeight: 500 }}>{c}</span>
             ))}
           </div>
@@ -221,11 +223,11 @@ export default function HomePage() {
             {/* Robots list */}
             <div style={{ padding: "8px 0" }}>
               {[
-                { name: "Registro DT · Contratos", client: "Metro de Santiago", status: "Ejecutando", ops: "847 ops hoy", color: "#22C55E" },
-                { name: "VehiclePass · Inspección Flota", client: "Gran Minería Norte", status: "Activo", ops: "23 vehículos", color: "#1FB3E5" },
-                { name: "MinePass · AIC Contratistas", client: "Gran Minería Norte", status: "Activo", ops: "12 AICs hoy", color: "#1FB3E5" },
-                { name: "Licencias Médicas IMED", client: "Tawa · Activos Chile", status: "Ejecutando", ops: "38 revisiones", color: "#22C55E" },
-                { name: "Contratos + Finiquitos DT", client: "Tawa · Activos Chile", status: "Activo", ops: "156 docs/día", color: "#1FB3E5" },
+                { name: "Ingresos y contratos · Portal DT", client: "Servicios transitorios", status: "Ejecutando", ops: "3.179 al mes", color: "#22C55E" },
+                { name: "Finiquitos · Portal DT", client: "Outsourcing de personal", status: "Activo", ops: "5.216 acumulados", color: "#1FB3E5" },
+                { name: "Anexos de contrato · Portal DT", client: "Gestión laboral tercerizada", status: "Activo", ops: "47 campos por registro", color: "#1FB3E5" },
+                { name: "Licencias médicas · IMED", client: "Outsourcing de personal", status: "Ejecutando", ops: "10.000 docs al mes", color: "#22C55E" },
+                { name: "Adherencia de procesos · SAP", client: "Auditoría interna", status: "Activo", ops: "9 robots", color: "#1FB3E5" },
               ].map((robot, i) => (
                 <div key={i} style={{
                   display: "flex", alignItems: "center", justifyContent: "space-between",
@@ -306,8 +308,8 @@ export default function HomePage() {
         }}>
           {[
             { value: "+20", label: "Robots activos", sub: "en producción hoy" },
-            { value: "4.000", label: "Contratos DT", sub: "Metro · 20 días · 0 errores" },
-            { value: "87%", label: "Ahorro de tiempo", sub: "promedio por proceso" },
+            { value: "35.278", label: "Registros en el portal DT", sub: "una sola cuenta, 19 meses" },
+            { value: "47", label: "Campos por ingreso", sub: "que el robot completa solo" },
             { value: "8 sem.", label: "A producción", sub: "de requerimiento a robot live" },
           ].map((s, i) => (
             <div key={s.label} className="stat-item" style={{
@@ -352,7 +354,7 @@ export default function HomePage() {
             En producción hoy
           </span>
           <div style={{ width: "1px", height: "28px", backgroundColor: "rgba(255,255,255,0.06)" }} />
-          {["Metro de Santiago", "Minería Gran Norte", "Tawa Outsourcing", "Activos Chile", "Marimaca Copper"].map((c) => (
+          {["Servicios transitorios", "Outsourcing de personal", "Gestión laboral tercerizada", "Transporte público masivo", "Auditoría interna sobre SAP"].map((c) => (
             <span key={c} style={{ fontSize: "0.85rem", fontWeight: 500, color: "#3A5068" }}>{c}</span>
           ))}
         </div>
@@ -362,7 +364,7 @@ export default function HomePage() {
         src="/paginas/home-operaciones.jpg"
         alt="Equipo de Tecnozero operando robots de software y agentes de IA para empresas en Chile desde La Serena"
         eyebrow="Operación real, en producción"
-        caption="Robots de software y agentes de IA trabajando hoy para Metro de Santiago, la gran minería del norte y el retail."
+        caption="Robots que cargan el ciclo laboral completo en el portal de la Dirección del Trabajo para empresas de servicios transitorios y outsourcing de personal."
         accent="#1FB3E5"
       />
 

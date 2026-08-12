@@ -315,7 +315,7 @@ function OperacionesBand() {
 function PilaresSection() {
   const pilares = [
     { icon: "🎯", title: "Precisión Industrial", desc: "Cada robot se construye con tolerancia cero a fallos. Operamos donde el error cuesta dinero." },
-    { icon: "🛡️", title: "Tolerancia Cero", desc: "Tres meses operando en paralelo con Metro de Santiago, sin una sola diferencia de dos centavos." },
+    { icon: "🛡️", title: "Tolerancia Cero", desc: "Tres meses operando en paralelo con el sistema del cliente, sin una sola diferencia de dos centavos." },
     { icon: "🚀", title: "Evolución Continua", desc: "Pasamos de RPA a IA, y ahora a IA Agéntica. Siempre un paso adelante." },
     { icon: "⚡", title: "Velocidad de Entrega", desc: "De un requerimiento a un robot en producción en 8 semanas, con metodología Agile Scrum." },
     { icon: "🔒", title: "Seguridad Enterprise", desc: "Infraestructura AWS. Los datos nunca salen del entorno cifrado. SLA de 99,5% de disponibilidad." },
@@ -504,7 +504,7 @@ function CasoSection() {
     { value: "87%", label: "reducción de tiempo" },
     { value: "0 errores", label: "en registros DT" },
   ]
-  const clientes = ["Metro de Santiago", "Tawa", "Activos Chile", "Despapeliza"]
+  const clientes = ["Transporte público masivo", "Servicios transitorios", "Outsourcing de personal", "Gestión laboral tercerizada"]
   return (
     <section className="nos-section" style={{ backgroundColor: B.dark, padding: "104px 48px" }}>
       <div className="nos-split" style={{
@@ -523,15 +523,16 @@ function CasoSection() {
             fontSize: "clamp(1.8rem, 3.2vw, 2.4rem)", fontWeight: 800,
             color: B.white, letterSpacing: "-0.035em", lineHeight: 1.12, margin: "0 0 1.2rem",
           }}>
-            Metro de Santiago: el proyecto que lo cambió todo
+            4.600 contratos, treinta días y un portal que no perdona
           </motion.h2>
           <motion.p style={{
             fontSize: "1.02rem", color: "rgba(255,255,255,0.72)", lineHeight: 1.74, margin: "0 0 1.8rem",
           }}>
-            En septiembre de 2023, Metro nos convocó con un plazo imposible: 4.600 contratos
-            debían entrar al portal de la Dirección del Trabajo antes del 31 de octubre. Pusimos
-            robots a operar día y noche. Lo que empezó como una emergencia hoy es un ecosistema
-            de 9 robots que cuida el ciclo laboral de 4.600 personas.
+            En septiembre de 2023, un operador de transporte público masivo nos convocó con un
+            plazo imposible: 4.600 contratos debían entrar al portal de la Dirección del Trabajo
+            antes del 31 de octubre. Pusimos robots a operar día y noche. Lo que empezó como una
+            emergencia hoy es un ecosistema de 9 robots que cuida el ciclo laboral de 4.600
+            personas.
           </motion.p>
 
           <motion.div className="nos-kpis" style={{ display: "flex", gap: "28px", flexWrap: "wrap" as const }}>

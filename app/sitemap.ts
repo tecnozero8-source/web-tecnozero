@@ -47,6 +47,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: lastMod('capacitacion', 'page.tsx'),
     },
     {
+      url: 'https://www.tecnozero.cl/servicios-transitorios',
+      changeFrequency: 'monthly',
+      priority: 0.95,
+      lastModified: lastMod('servicios-transitorios', 'page.tsx'),
+    },
+    {
       url: 'https://www.tecnozero.cl/portal-dt',
       changeFrequency: 'monthly',
       priority: 0.9,
