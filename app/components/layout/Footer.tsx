@@ -45,7 +45,7 @@ export function Footer() {
       }}/>
 
       {/* ─── MINI CTA STRIP ─────────────────────────────────────── */}
-      <div style={{
+      <div className="footer-cta" style={{
         borderBottom: "1px solid rgba(255,255,255,0.05)",
         padding: "48px 48px",
         maxWidth: "1100px",
@@ -116,7 +116,11 @@ export function Footer() {
       </div>
 
       {/* ─── LINKS GRID ─────────────────────────────────────────── */}
-      <div style={{
+      {/* La clase `footer-grid` la usa globals.css para pasar a una columna en
+          el teléfono. Sin ella, las cuatro columnas se apretaban en los 279 px
+          útiles de una pantalla de 375 y la de Productos se cortaba por la
+          derecha, con el badge "NUEVO" partido a la mitad. */}
+      <div className="footer-grid" style={{
         maxWidth: "1100px",
         margin: "0 auto",
         padding: "56px 48px 40px",
@@ -293,7 +297,7 @@ export function Footer() {
       <div style={{
         borderTop: "1px solid rgba(255,255,255,0.04)",
       }}>
-        <div style={{
+        <div className="footer-bottom" style={{
           maxWidth: "1100px", margin: "0 auto",
           padding: "20px 48px",
           display: "flex", alignItems: "center",

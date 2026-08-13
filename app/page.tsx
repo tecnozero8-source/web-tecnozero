@@ -230,7 +230,12 @@ export default function HomePage() {
                 { name: "Licencias médicas · IMED", client: "Outsourcing de personal", status: "Ejecutando", ops: "10.000 docs al mes", color: "#22C55E" },
                 { name: "Adherencia de procesos · SAP", client: "Auditoría interna", status: "Activo", ops: "9 robots", color: "#1FB3E5" },
               ].map((robot, i) => (
-                <div key={i} style={{
+                <div
+                  key={i}
+                  // En el teléfono se muestran solo las tres primeras: cinco filas
+                  // estiran el hero más de lo que aporta la quinta.
+                  className={i > 2 ? "hero-robot-extra" : undefined}
+                  style={{
                   display: "flex", alignItems: "center", justifyContent: "space-between",
                   padding: "12px 20px",
                   borderBottom: i < 4 ? "1px solid rgba(255,255,255,0.04)" : "none",

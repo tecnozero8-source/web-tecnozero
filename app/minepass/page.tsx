@@ -344,7 +344,7 @@ function SolutionCard({
       className="min-solution-card"
       style={{
         display: "grid",
-        gridTemplateColumns: "1fr 280px",
+        gridTemplateColumns: "minmax(0, 1fr) 280px",
         border: "1px solid #E8EFF8",
         borderRadius: "20px",
         overflow: "hidden",

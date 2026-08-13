@@ -173,12 +173,19 @@ export function Navbar() {
               borderRadius: "10px",
               color: "#FFFFFF",
               cursor: "pointer",
-              padding: "7px 8px",
+              // 44x44 es el mínimo que piden Apple y Google para algo que se
+              // toca con el dedo. Antes medía 36x34, y en el teléfono este
+              // botón es la única navegación del sitio.
+              width: "44px",
+              height: "44px",
+              alignItems: "center",
+              justifyContent: "center",
+              padding: 0,
               lineHeight: 0,
               transition: "background 0.2s ease",
             }}
           >
-            {mobileOpen ? <X size={18} /> : <Menu size={18} />}
+            {mobileOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
         </div>
       </motion.header>

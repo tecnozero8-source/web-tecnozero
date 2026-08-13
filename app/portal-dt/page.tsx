@@ -37,6 +37,7 @@ const WORKERS = [
 function TerminalRow({ rut, nombre, tipo, delay }: { rut: string; nombre: string; tipo: string; delay: number }) {
   return (
     <motion.div
+      className="terminal-fila"
       style={{
         display: "grid",
         gridTemplateColumns: "140px 1fr 200px 80px",
@@ -52,7 +53,7 @@ function TerminalRow({ rut, nombre, tipo, delay }: { rut: string; nombre: string
     >
       <span style={{ color: C.cyan }}>{rut}</span>
       <span style={{ color: "#CBD5E1" }}>{nombre}</span>
-      <span style={{ color: "#94A3B8", fontSize: "0.68rem" }}>{tipo}</span>
+      <span className="terminal-tipo" style={{ color: "#94A3B8", fontSize: "0.68rem" }}>{tipo}</span>
       <motion.span
         style={{
           color: C.lime,
@@ -90,7 +91,10 @@ function Hero() {
         pointerEvents: "none",
       }} />
 
-      <div style={{ maxWidth: "1200px", margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "64px", alignItems: "center" }}>
+      {/* `pdt-hero-grid`: sin clase, este grid seguía en dos columnas en el
+          teléfono. La segunda medía 1,6px y la maqueta del terminal se salía
+          por ahí hasta los 573px. */}
+      <div className="pdt-hero-grid" style={{ maxWidth: "1200px", margin: "0 auto", display: "grid", gridTemplateColumns: "minmax(0, 1fr) minmax(0, 1fr)", gap: "64px", alignItems: "center" }}>
 
         {/* Texto */}
         <div>
@@ -198,14 +202,14 @@ function Hero() {
           </div>
 
           {/* Header tabla */}
-          <div style={{
+          <div className="terminal-fila" style={{
             display: "grid", gridTemplateColumns: "140px 1fr 200px 80px",
             gap: "12px", padding: "8px 16px",
             fontSize: "0.65rem", color: "#475569",
             fontFamily: "monospace", fontWeight: 700, letterSpacing: "0.1em",
             textTransform: "uppercase",
           }}>
-            <span>RUT</span><span>NOMBRE</span><span>TIPO</span><span>ESTADO</span>
+            <span>RUT</span><span>NOMBRE</span><span className="terminal-tipo">TIPO</span><span>ESTADO</span>
           </div>
 
           {/* Filas */}

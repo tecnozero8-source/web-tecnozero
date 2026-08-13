@@ -369,6 +369,10 @@ ul, ol {
 /* ══════════════════════════════════════════
    NAVBAR RESPONSIVE
    ══════════════════════════════════════════ */
+/* OJO: estas dos reglas están muertas. Ningún elemento lleva las clases
+   `nav-desktop` ni `nav-hamburger`. El corte real de la hamburguesa vive en un
+   <style> dentro de `app/components/layout/Navbar.tsx`, sobre `#nav-hamburger`,
+   y ocurre a 1089px, no a 679px. Si vas a mover el breakpoint, es allá. */
 @media (max-width: 679px) {
   .nav-desktop  { display: none !important; }
   .nav-hamburger { display: flex !important; }
@@ -452,7 +456,7 @@ ul, ol {
 /* CTA card: 2-col → 1-col */
 @media (max-width: 767px) {
   .cta-inner-card {
-    grid-template-columns: 1fr !important;
+    grid-template-columns: minmax(0, 1fr) !important;
   }
   .cta-left {
     border-right: none !important;
@@ -474,13 +478,28 @@ ul, ol {
   }
 }
 
-/* Footer grid: 1 col on mobile */
-@media (max-width: 767px) {
+/* Footer grid: 4 col → 1 col en teléfono, 2 col en tablet */
+@media (max-width: 1023px) and (min-width: 640px) {
   .footer-grid {
-    grid-template-columns: 1fr !important;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
+    gap: 40px !important;
+  }
+}
+@media (max-width: 639px) {
+  .footer-grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+    padding: 44px 24px 32px !important;
+    gap: 36px !important;
   }
   .footer-links {
-    grid-template-columns: 1fr 1fr !important;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
+  }
+  /* 48px de padding a cada lado dejan 279px útiles en una pantalla de 375 */
+  .footer-cta {
+    padding: 40px 24px !important;
+  }
+  .footer-bottom {
+    padding: 20px 24px !important;
   }
 }
 
@@ -491,26 +510,43 @@ ul, ol {
 /* Hero: 2 cols → 1 col, hide dashboard card */
 @media (max-width: 767px) {
   .hero-section {
-    grid-template-columns: 1fr !important;
+    grid-template-columns: minmax(0, 1fr) !important;
     min-height: auto !important;
     padding-bottom: 64px;
   }
   .hero-col-left {
-    padding: 100px 24px 48px !important;
+    padding: 88px 24px 20px !important;
   }
+  /* El titular a 2,8rem ocupaba cuatro líneas de 45px y empujaba el panel de
+     robots fuera de la primera pantalla. */
+  .hero-col-left h1 {
+    font-size: 2.35rem !important;
+    margin-bottom: 1.25rem !important;
+  }
+  .hero-col-left h1 + p {
+    margin-bottom: 1.75rem !important;
+  }
+  /* El panel de robots estaba oculto en el teléfono, así que la portada abría
+     con dos pantallas y media de texto seguido antes de la primera imagen.
+     Se muestra compacto: tres filas en vez de cinco. */
   .hero-col-right {
+    padding: 0 24px 40px !important;
+  }
+  .hero-robot-extra {
     display: none !important;
   }
   .hero-social-proof {
     flex-wrap: wrap !important;
     gap: 8px 16px !important;
+    margin-top: 2rem !important;
+    padding-top: 1.75rem !important;
   }
 }
 
 /* Stats: 4 cols → 2 cols */
 @media (max-width: 767px) {
   .stats-grid {
-    grid-template-columns: 1fr 1fr !important;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
   }
   .stat-item {
     padding: 32px 24px !important;
@@ -554,7 +590,7 @@ ul, ol {
 ══════════════════════════════════════════════════════ */
 @media (max-width: 767px) {
   .ai-hero {
-    grid-template-columns: 1fr !important;
+    grid-template-columns: minmax(0, 1fr) !important;
     min-height: auto !important;
     padding-bottom: 64px;
   }
@@ -565,10 +601,10 @@ ul, ol {
     display: none !important;
   }
   .ai-cap-grid {
-    grid-template-columns: 1fr !important;
+    grid-template-columns: minmax(0, 1fr) !important;
   }
   .ai-usecase-row {
-    grid-template-columns: 1fr !important;
+    grid-template-columns: minmax(0, 1fr) !important;
   }
   .ai-usecase-num {
     display: none !important;
@@ -582,7 +618,7 @@ ul, ol {
     min-width: 480px;
   }
   .ai-cta-grid {
-    grid-template-columns: 1fr !important;
+    grid-template-columns: minmax(0, 1fr) !important;
   }
   .ai-section-pad {
     padding: 72px 24px !important;
@@ -601,10 +637,10 @@ ul, ol {
     grid-template-columns: repeat(2, 1fr) !important;
   }
   .nos-equipo-grid {
-    grid-template-columns: 1fr !important;
+    grid-template-columns: minmax(0, 1fr) !important;
   }
   .nos-valores-grid {
-    grid-template-columns: 1fr !important;
+    grid-template-columns: minmax(0, 1fr) !important;
   }
   .nos-section-pad {
     padding: 72px 24px !important;
@@ -618,10 +654,10 @@ ul, ol {
   /* Los tres datos de la definición van en columna: con dos columnas
      el tercero queda solo y abre un hueco en la rejilla de 1px. */
   .min-def-grid {
-    grid-template-columns: 1fr !important;
+    grid-template-columns: minmax(0, 1fr) !important;
   }
   .min-hero {
-    grid-template-columns: 1fr !important;
+    grid-template-columns: minmax(0, 1fr) !important;
     min-height: auto !important;
     padding-bottom: 64px;
   }
@@ -632,23 +668,23 @@ ul, ol {
     display: none !important;
   }
   .min-solution-card {
-    grid-template-columns: 1fr !important;
+    grid-template-columns: minmax(0, 1fr) !important;
   }
   .min-solution-panel {
     display: none !important;
   }
   .min-metric-strip {
-    grid-template-columns: 1fr !important;
+    grid-template-columns: minmax(0, 1fr) !important;
     border-radius: 16px;
   }
   .min-case-grid {
-    grid-template-columns: 1fr !important;
+    grid-template-columns: minmax(0, 1fr) !important;
   }
   .min-feat-grid {
     grid-template-columns: repeat(2, 1fr) !important;
   }
   .min-cta-grid {
-    grid-template-columns: 1fr !important;
+    grid-template-columns: minmax(0, 1fr) !important;
   }
   .min-section-pad {
     padding: 72px 24px !important;
@@ -665,7 +701,7 @@ ul, ol {
 /* Tablet: el hero pasa a una columna, la bandeja va abajo */
 @media (max-width: 1023px) {
   .lic-hero {
-    grid-template-columns: 1fr !important;
+    grid-template-columns: minmax(0, 1fr) !important;
     min-height: auto !important;
     padding-top: 108px !important;
     padding-bottom: 72px;
@@ -681,20 +717,20 @@ ul, ol {
     display: none !important;
   }
   .lic-problema-grid {
-    grid-template-columns: 1fr !important;
+    grid-template-columns: minmax(0, 1fr) !important;
     gap: 40px !important;
   }
   .lic-pasos-grid {
-    grid-template-columns: 1fr 1fr !important;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
   }
   .lic-planes-grid {
-    grid-template-columns: 1fr !important;
+    grid-template-columns: minmax(0, 1fr) !important;
   }
   .lic-ancla-grid {
-    grid-template-columns: 1fr !important;
+    grid-template-columns: minmax(0, 1fr) !important;
   }
   .lic-cta-grid {
-    grid-template-columns: 1fr !important;
+    grid-template-columns: minmax(0, 1fr) !important;
   }
   .lic-cta-left {
     border-right: none !important;
@@ -711,7 +747,7 @@ ul, ol {
     padding: 0 20px 40px !important;
   }
   .lic-pasos-grid {
-    grid-template-columns: 1fr !important;
+    grid-template-columns: minmax(0, 1fr) !important;
   }
   .lic-section-pad {
     padding: 64px 20px !important;
@@ -744,7 +780,7 @@ ul, ol {
     padding: 60px 24px !important;
   }
   .contact-form-grid {
-    grid-template-columns: 1fr !important;
+    grid-template-columns: minmax(0, 1fr) !important;
   }
 }
 
@@ -756,6 +792,49 @@ ul, ol {
     padding: 32px 20px 28px !important;
   }
 }
+/* ═══════════════════════════════════════════════════════
+   Formularios en el teléfono
+   Safari de iPhone hace zoom automático al tocar un campo cuya letra mide
+   menos de 16px, y después el usuario tiene que pellizcar para volver. Los
+   campos del formulario de contacto estaban en 14px.
+══════════════════════════════════════════════════════ */
+@media (max-width: 767px) {
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="number"],
+  input[type="password"],
+  input[type="search"],
+  input[type="date"],
+  select,
+  textarea {
+    font-size: 16px !important;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════
+   Portal DT — la maqueta del terminal
+   Sus columnas suman 420px más los gaps, así que en un teléfono de 375
+   se salía hasta los 573px y la tarjeta la recortaba en silencio.
+══════════════════════════════════════════════════════ */
+@media (max-width: 899px) {
+  .pdt-hero-grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 40px !important;
+  }
+}
+@media (max-width: 767px) {
+  .terminal-fila {
+    grid-template-columns: 84px minmax(0, 1fr) 52px !important;
+    gap: 8px !important;
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+  }
+  .terminal-tipo {
+    display: none !important;
+  }
+}
+
 /* ═══════════════════════════════════════════════════════
    PhotoBand — la cifra sobreimpresa estorba en pantalla chica
 ══════════════════════════════════════════════════════ */
