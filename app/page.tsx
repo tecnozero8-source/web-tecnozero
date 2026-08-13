@@ -21,9 +21,9 @@ const homeJsonLd = {
       },
       // Google pide `image` para mostrar fichas de LocalBusiness.
       image: [
-        "https://www.tecnozero.cl/capacitacion/trabajadora-planta.jpg",
-        "https://www.tecnozero.cl/paginas/portal-dt-rrhh.jpg",
-        "https://www.tecnozero.cl/nosotros/equipo-colaborando.jpg",
+        "https://www.tecnozero.cl/est/faena-trabajadores.jpg",
+        "https://www.tecnozero.cl/est/hero-contrato.jpg",
+        "https://www.tecnozero.cl/soluciones/gestion-laboral.jpg",
       ],
       description:
         "Robots que registran contratos, anexos y finiquitos en el portal de la Dirección del Trabajo para empresas de servicios transitorios y outsourcing de personal en Chile. Cobro por registro, con constancia descargable.",
@@ -365,6 +365,7 @@ export default function HomePage() {
       <PhotoBand
         src={bandaPortada.src}
         alt={bandaPortada.alt}
+        pos={bandaPortada.pos}
         eyebrow="Trabajadores en misión"
         caption="Cada persona que entra a una faena es un registro con plazo legal. Nosotros cargamos ese registro el mismo día."
         stat={{ valor: "35.278", label: "registros en el portal DT en una sola cuenta" }}

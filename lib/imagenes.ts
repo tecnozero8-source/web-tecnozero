@@ -1,77 +1,72 @@
 /**
- * Rutas de las fotografías del sitio, en un solo lugar.
+ * Fotografías del sitio, en un solo lugar.
  *
- * Cada entrada apunta hoy a una foto de banco que ya vivía en el repositorio.
- * Cuando lleguen las imágenes propias descritas en
- * `ESTRATEGIA/PROMPTS-IMAGENES-WEB-2026-08.md`, se cambia la ruta aquí y la
- * página entera queda actualizada. El `alt` viaja con la ruta porque describe
- * la foto, no la sección: si cambia la foto, cambia el `alt`.
+ * Son imágenes propias, generadas para Tecnozero el 13 de agosto de 2026 a
+ * partir de los prompts de `ESTRATEGIA/PROMPTS-IMAGENES-WEB-2026-08.md`, y
+ * comprimidas a JPEG de entre 81 y 142 KB. El `alt` viaja con la ruta porque
+ * describe la foto: si cambia la foto, cambia el `alt`.
+ *
+ * `pos` es el `object-position`. Solo se declara donde el recorte por defecto
+ * corta mal: la banda ancha de la portada se lleva los cascos si se centra, y
+ * el retrato del cierre pierde la cara.
  */
 
-export type Foto = { src: string; alt: string }
+export type Foto = { src: string; alt: string; pos?: string }
 
 /* ── Portada ──────────────────────────────────────────────────────────── */
 
-/** Reemplazo previsto: `/est/faena-trabajadores.jpg` (prompt 1). */
 export const bandaPortada: Foto = {
-  src: "/capacitacion/trabajadora-planta.jpg",
-  alt: "Trabajadora de planta en su puesto durante el turno, en una bodega con estanterías industriales",
+  src: "/est/faena-trabajadores.jpg",
+  alt: "Trabajadores en misión con casco y chaleco reflectante entrando a una bodega al inicio del turno, mientras un supervisor con tablet los registra",
+  pos: "center top",
 }
 
 /* ── Tarjetas de soluciones de la portada ─────────────────────────────── */
 
-/** Reemplazo previsto: `/soluciones/gestion-laboral.jpg` (prompt 2). */
 export const solGestionLaboral: Foto = {
-  src: "/paginas/portal-dt-rrhh.jpg",
-  alt: "Manos firmando un contrato de trabajo sobre un escritorio",
+  src: "/soluciones/gestion-laboral.jpg",
+  alt: "Encargada de personas revisando un fajo de contratos de trabajo junto a su computador, con cajas de documentación al fondo",
 }
 
-/** Reemplazo previsto: `/soluciones/capacitacion.jpg` (prompt 3). */
 export const solCapacitacion: Foto = {
-  src: "/capacitacion/hero-alumna.jpg",
-  alt: "Alumna con audífonos siguiendo un curso en línea desde su computador",
+  src: "/soluciones/capacitacion.jpg",
+  alt: "Trabajador siguiendo un curso en línea desde el comedor de la planta, con su casco sobre la mesa",
 }
 
-/** Reemplazo previsto: `/soluciones/pyme.jpg` (prompt 4). */
 export const solPyme: Foto = {
-  src: "/paginas/home-operaciones.jpg",
-  alt: "Puesto de trabajo con un computador portátil junto a un ventanal de oficina",
+  src: "/soluciones/pyme.jpg",
+  alt: "Oficina contable pequeña de una ciudad de provincia, con dos personas revisando carpetas de remuneraciones",
 }
 
-/** Reemplazo previsto: `/soluciones/agentes-documentales.jpg` (prompt 5). */
 export const solAgentes: Foto = {
-  src: "/paginas/agentes-ia-datos.jpg",
-  alt: "Racks de servidores con cableado de red iluminados en penumbra",
+  src: "/soluciones/agentes-documentales.jpg",
+  alt: "Analista revisando un contrato impreso frente a dos monitores con paneles de control",
 }
 
-/** Reemplazo previsto: `/soluciones/licitaciones.jpg` (prompt 6). */
 export const solLicitaciones: Foto = {
-  src: "/nosotros/ingenieria-trabajo.jpg",
-  alt: "Mesa de trabajo vista desde arriba con computadores, documentos y cuadernos de un equipo armando una carpeta",
+  src: "/soluciones/licitaciones.jpg",
+  alt: "Equipo armando sobre la mesa los documentos de una licitación, con calculadora y computadores",
 }
 
 /* ── Servicios transitorios ───────────────────────────────────────────── */
 
-/** Reemplazo previsto: `/est/hero-contrato.jpg` (prompt 7). */
 export const estHero: Foto = {
-  src: "/paginas/portal-dt-rrhh.jpg",
-  alt: "Trabajador firmando su contrato de trabajo frente a la coordinadora de personas",
+  src: "/est/hero-contrato.jpg",
+  alt: "Trabajador firmando su contrato de trabajo frente a la coordinadora de personas, con el chaleco reflectante doblado sobre la mesa",
 }
 
-/** Reemplazo previsto: `/est/peak-administrativo.jpg` (prompt 8). */
 export const estPeak: Foto = {
-  src: "/capacitacion/trabajadora-planta.jpg",
-  alt: "Trabajadora en misión en el piso de una bodega, durante su turno",
+  src: "/est/peak-administrativo.jpg",
+  alt: "Oficina administrativa de una empresa de servicios transitorios en plena carga de trabajo",
 }
 
-/** Reemplazo previsto: `/est/fiscalizacion.jpg` (prompt 9). */
 export const estFiscalizacion: Foto = {
-  src: "/capacitacion/conversacion-equipo.jpg",
-  alt: "Dos personas revisando documentación laboral juntas frente a un computador",
+  src: "/est/fiscalizacion.jpg",
+  alt: "Fiscalizador revisando una carpeta ordenada de registros laborales frente a la encargada de personas de la empresa",
 }
 
-/** Reemplazo previsto: `/est/cierre-gerente.jpg` (prompt 10). */
 export const estCierre: Foto = {
-  src: "/capacitacion/gerencia-personas.jpg",
-  alt: "Gerenta de personas en su oficina, mirando a la cámara",
+  src: "/est/cierre-gerente.jpg",
+  alt: "Gerenta de operaciones en el pasillo de su oficina, mirando a la cámara",
+  pos: "center top",
 }

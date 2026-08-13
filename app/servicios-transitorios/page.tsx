@@ -766,7 +766,7 @@ function Cta() {
             alt={estCierre.alt}
             fill
             sizes="(max-width: 899px) 320px, 300px"
-            style={{ objectFit: "cover", objectPosition: "center" }}
+            style={{ objectFit: "cover", objectPosition: estCierre.pos ?? "center" }}
           />
           <div style={{
             position: "absolute", inset: 0,
@@ -786,8 +786,9 @@ export default function ServiciosTransitoriosPage() {
       <PhotoBand
         src={estPeak.src}
         alt={estPeak.alt}
-        eyebrow="Trabajadores en misión"
-        caption="Cada persona que entra a una faena abre un plazo de quince días. El robot lo cierra el mismo día."
+        pos={estPeak.pos}
+        eyebrow="Carga administrativa"
+        caption="Mientras decides quién digita los ingresos de la cuenta nueva, el plazo de quince días ya está corriendo."
         stat={{ valor: "15 días", label: "es el plazo de la Ley 21.327 para registrar cada contrato" }}
         accent={C.ambar}
       />

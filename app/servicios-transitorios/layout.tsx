@@ -13,13 +13,13 @@ export const metadata: Metadata = {
     description:
       "Altas, bajas, anexos y finiquitos en el portal de la Dirección del Trabajo, sin que nadie los teclee. Para EST y outsourcing de personal con cientos de movimientos al mes.",
     url: "https://www.tecnozero.cl/servicios-transitorios",
-    images: [{ url: "/og/portal-dt.png", width: 1200, height: 630, alt: "Registro laboral automatizado para empresas de servicios transitorios" }],
+    images: [{ url: "/og/servicios-transitorios.jpg", width: 1200, height: 630, alt: "Registro laboral automatizado para empresas de servicios transitorios" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Registro laboral para empresas de servicios transitorios · Tecnozero",
     description: "Altas, bajas, anexos y finiquitos en el portal de la DT, sin que nadie los teclee.",
-    images: ["/og/portal-dt.png"],
+    images: ["/og/servicios-transitorios.jpg"],
   },
 }
 

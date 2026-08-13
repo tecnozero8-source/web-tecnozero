@@ -82,7 +82,7 @@ function VisualPanel({ foto, accentColor, metricas, badge }: {
         alt={foto.alt}
         fill
         sizes="(max-width: 767px) 100vw, 320px"
-        style={{ objectFit: "cover", objectPosition: "center" }}
+        style={{ objectFit: "cover", objectPosition: foto.pos ?? "center" }}
       />
 
       {/* Velo oscuro teñido con el acento de la línea */}

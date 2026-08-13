@@ -17,6 +17,7 @@ export function PhotoBand({
   stat,
   accent = "#1FB3E5",
   priority = false,
+  pos = "center",
 }: {
   src: string
   alt: string
@@ -26,6 +27,8 @@ export function PhotoBand({
   stat?: { valor: string; label: string }
   accent?: string
   priority?: boolean
+  /** `object-position`. La banda es muy apaisada y el centro no siempre sirve. */
+  pos?: string
 }) {
   return (
     <section
@@ -43,7 +46,7 @@ export function PhotoBand({
         fill
         sizes="100vw"
         priority={priority}
-        style={{ objectFit: "cover", objectPosition: "center" }}
+        style={{ objectFit: "cover", objectPosition: pos }}
       />
 
       {/* Overlay para legibilidad del texto */}
