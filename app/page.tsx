@@ -1,8 +1,8 @@
-import { Footer } from "./components/layout/Footer"
 import { HomeCTA } from "./components/home/HomeCTA"
 import { HomeCasos } from "./components/home/HomeCasos"
 import { HomeSoluciones } from "./components/home/HomeSoluciones"
 import { PhotoBand } from "./components/shared/PhotoBand"
+import { bandaPortada } from "@/lib/imagenes"
 
 const homeJsonLd = {
   "@context": "https://schema.org",
@@ -21,7 +21,8 @@ const homeJsonLd = {
       },
       // Google pide `image` para mostrar fichas de LocalBusiness.
       image: [
-        "https://www.tecnozero.cl/paginas/home-operaciones.jpg",
+        "https://www.tecnozero.cl/capacitacion/trabajadora-planta.jpg",
+        "https://www.tecnozero.cl/paginas/portal-dt-rrhh.jpg",
         "https://www.tecnozero.cl/nosotros/equipo-colaborando.jpg",
       ],
       description:
@@ -307,19 +308,20 @@ export default function HomePage() {
           display: "grid", gridTemplateColumns: "repeat(4, 1fr)",
         }}>
           {[
-            { value: "+20", label: "Robots activos", sub: "en producción hoy" },
-            { value: "35.278", label: "Registros en el portal DT", sub: "una sola cuenta, 19 meses" },
-            { value: "47", label: "Campos por ingreso", sub: "que el robot completa solo" },
-            { value: "8 sem.", label: "A producción", sub: "de requerimiento a robot live" },
+            { value: "+20", label: "Robots activos", sub: "en producción hoy", color: "#1FB3E5" },
+            { value: "35.278", label: "Registros en el portal DT", sub: "una sola cuenta, 19 meses", color: "#0957C3" },
+            { value: "47", label: "Campos por ingreso", sub: "que el robot completa solo", color: "#0957C3" },
+            { value: "8 sem.", label: "A producción", sub: "de requerimiento a robot live", color: "#16A34A" },
           ].map((s, i) => (
             <div key={s.label} className="stat-item" style={{
               padding: "52px 40px",
               borderRight: i < 3 ? "1px solid #E8F0FA" : "none",
+              borderTop: `3px solid ${s.color}`,
             }}>
               <div style={{
                 fontFamily: "var(--font-display), system-ui, sans-serif",
                 fontSize: "clamp(2rem, 3vw, 2.8rem)",
-                fontWeight: 800, color: "#0957C3",
+                fontWeight: 800, color: s.color,
                 letterSpacing: "-0.04em", lineHeight: 1,
                 marginBottom: "10px",
               }}>
@@ -361,10 +363,11 @@ export default function HomePage() {
       </section>
 
       <PhotoBand
-        src="/paginas/home-operaciones.jpg"
-        alt="Equipo de Tecnozero operando robots de software y agentes de IA para empresas en Chile desde La Serena"
-        eyebrow="Operación real, en producción"
-        caption="Robots que cargan el ciclo laboral completo en el portal de la Dirección del Trabajo para empresas de servicios transitorios y outsourcing de personal."
+        src={bandaPortada.src}
+        alt={bandaPortada.alt}
+        eyebrow="Trabajadores en misión"
+        caption="Cada persona que entra a una faena es un registro con plazo legal. Nosotros cargamos ese registro el mismo día."
+        stat={{ valor: "35.278", label: "registros en el portal DT en una sola cuenta" }}
         accent="#1FB3E5"
       />
 

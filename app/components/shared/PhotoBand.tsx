@@ -1,33 +1,38 @@
-"use client"
-
-import { motion } from "framer-motion"
 import Image from "next/image"
 
 /**
  * Banda de imagen full-bleed con overlay oscuro y texto sobreimpreso.
- * Pensada para dar textura humana y valor SEO (alt descriptivo) entre
- * secciones de contenido. El overlay es siempre oscuro para mantener
- * el texto legible sobre cualquier foto.
+ * Da textura humana entre secciones de contenido y aporta el `alt` al SEO.
+ * El overlay es siempre oscuro para que el texto se lea sobre cualquier foto.
+ *
+ * Es componente de servidor a propósito: antes envolvía el texto en un
+ * `motion.div` sin una sola prop de animación, lo que arrastraba framer-motion
+ * al bundle de cliente a cambio de nada.
  */
 export function PhotoBand({
   src,
   alt,
   eyebrow,
   caption,
+  stat,
   accent = "#1FB3E5",
+  priority = false,
 }: {
   src: string
   alt: string
   eyebrow?: string
   caption?: string
+  /** Cifra grande sobre la foto, a la derecha. Se oculta bajo 900 px. */
+  stat?: { valor: string; label: string }
   accent?: string
+  priority?: boolean
 }) {
   return (
     <section
       style={{
         position: "relative",
         width: "100%",
-        height: "clamp(300px, 40vw, 480px)",
+        height: "clamp(320px, 42vw, 500px)",
         overflow: "hidden",
         backgroundColor: "#060C18",
       }}
@@ -37,10 +42,8 @@ export function PhotoBand({
         alt={alt}
         fill
         sizes="100vw"
-        style={{
-          objectFit: "cover",
-          objectPosition: "center",
-        }}
+        priority={priority}
+        style={{ objectFit: "cover", objectPosition: "center" }}
       />
 
       {/* Overlay para legibilidad del texto */}
@@ -49,7 +52,7 @@ export function PhotoBand({
           position: "absolute",
           inset: 0,
           background:
-            "linear-gradient(180deg, rgba(6,12,24,0.10) 0%, rgba(6,12,24,0.50) 58%, rgba(6,12,24,0.90) 100%)",
+            "linear-gradient(180deg, rgba(6,12,24,0.14) 0%, rgba(6,12,24,0.52) 58%, rgba(6,12,24,0.92) 100%)",
           pointerEvents: "none",
         }}
       />
@@ -66,9 +69,9 @@ export function PhotoBand({
         }}
       />
 
-      {/* Texto sobreimpreso */}
-      {(eyebrow || caption) && (
+      {(eyebrow || caption || stat) && (
         <div
+          className="photoband-inner"
           style={{
             position: "absolute",
             left: "50%",
@@ -78,10 +81,13 @@ export function PhotoBand({
             maxWidth: "1100px",
             padding: "0 48px 44px",
             zIndex: 1,
+            display: "flex",
+            alignItems: "flex-end",
+            justifyContent: "space-between",
+            gap: "40px",
           }}
         >
-          <motion.div
-          >
+          <div>
             {eyebrow && (
               <p
                 style={{
@@ -106,14 +112,43 @@ export function PhotoBand({
                   lineHeight: 1.25,
                   color: "#FFFFFF",
                   margin: 0,
-                  maxWidth: "760px",
+                  maxWidth: "700px",
                   textShadow: "0 2px 24px rgba(0,0,0,0.5)",
                 }}
               >
                 {caption}
               </p>
             )}
-          </motion.div>
+          </div>
+
+          {stat && (
+            <div className="photoband-stat" style={{ textAlign: "right" as const, flexShrink: 0 }}>
+              <div
+                style={{
+                  fontFamily: "var(--font-display), system-ui, sans-serif",
+                  fontSize: "clamp(2.2rem, 4vw, 3.4rem)",
+                  fontWeight: 800,
+                  letterSpacing: "-0.05em",
+                  lineHeight: 1,
+                  color: accent,
+                  textShadow: "0 2px 24px rgba(0,0,0,0.6)",
+                }}
+              >
+                {stat.valor}
+              </div>
+              <div
+                style={{
+                  fontSize: "0.76rem",
+                  color: "rgba(255,255,255,0.72)",
+                  fontWeight: 500,
+                  marginTop: "6px",
+                  maxWidth: "190px",
+                }}
+              >
+                {stat.label}
+              </div>
+            </div>
+          )}
         </div>
       )}
     </section>

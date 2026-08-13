@@ -1,6 +1,15 @@
 "use client"
 
 import { motion } from "framer-motion"
+import Image from "next/image"
+import {
+  solGestionLaboral,
+  solCapacitacion,
+  solPyme,
+  solAgentes,
+  solLicitaciones,
+  type Foto,
+} from "@/lib/imagenes"
 
 /* ─── Icono SVG inline por solución ──────────────────────────── */
 function IconRobot({ color }: { color: string }) {
@@ -53,65 +62,81 @@ function IconBid({ color }: { color: string }) {
   )
 }
 
-/* ─── Visual accent panel por solución ──────────────────────────── */
-function VisualPanel({ accentColor, metricas, badge }: {
+/* ─── Panel visual por solución: foto con la cifra encima ────────── */
+function VisualPanel({ foto, accentColor, metricas, badge }: {
+  foto: Foto
   accentColor: string
   metricas: { valor: string; label: string }[]
   badge: string
 }) {
   return (
     <div style={{
-      background: `linear-gradient(135deg, ${accentColor}18 0%, ${accentColor}06 100%)`,
-      border: `1px solid ${accentColor}25`,
-      borderRadius: "20px",
-      padding: "36px 32px",
-      height: "100%",
-      display: "flex",
-      flexDirection: "column" as const,
-      justifyContent: "space-between",
       position: "relative",
+      height: "100%",
+      minHeight: "300px",
       overflow: "hidden",
+      backgroundColor: "#0B1425",
     }}>
-      {/* Orbe decorativo */}
+      <Image
+        src={foto.src}
+        alt={foto.alt}
+        fill
+        sizes="(max-width: 767px) 100vw, 320px"
+        style={{ objectFit: "cover", objectPosition: "center" }}
+      />
+
+      {/* Velo oscuro teñido con el acento de la línea */}
       <div style={{
-        position: "absolute", bottom: "-40%", right: "-20%",
-        width: "200px", height: "200px", borderRadius: "50%",
-        background: `radial-gradient(circle, ${accentColor}20 0%, transparent 70%)`,
+        position: "absolute", inset: 0,
+        background: `linear-gradient(180deg, rgba(6,12,24,0.30) 0%, rgba(6,12,24,0.62) 45%, rgba(6,12,24,0.90) 100%),
+                     linear-gradient(140deg, ${accentColor}30 0%, transparent 60%)`,
         pointerEvents: "none",
       }}/>
-      <div style={{
-        display: "inline-flex", alignItems: "center", gap: "6px",
-        padding: "4px 12px", borderRadius: "99px",
-        border: `1px solid ${accentColor}40`,
-        backgroundColor: `${accentColor}12`,
-        width: "fit-content",
-        marginBottom: "auto",
-      }}>
-        <div style={{ width: "5px", height: "5px", borderRadius: "50%", backgroundColor: accentColor }}/>
-        <span style={{
-          fontSize: "0.62rem", fontWeight: 700, letterSpacing: "0.08em",
-          textTransform: "uppercase" as const, color: accentColor,
-        }}>
-          {badge}
-        </span>
-      </div>
 
-      <div style={{ display: "flex", flexDirection: "column" as const, gap: "24px", marginTop: "32px" }}>
-        {metricas.map((m) => (
-          <div key={m.label}>
-            <div style={{
-              fontFamily: "var(--font-display), system-ui, sans-serif",
-              fontSize: "2.4rem", fontWeight: 800,
-              color: accentColor, letterSpacing: "-0.05em", lineHeight: 1,
-              marginBottom: "4px",
-            }}>
-              {m.valor}
+      <div style={{
+        position: "relative", zIndex: 1, height: "100%",
+        padding: "24px 26px",
+        display: "flex", flexDirection: "column" as const,
+        justifyContent: "space-between", gap: "24px",
+      }}>
+        <div style={{
+          display: "inline-flex", alignItems: "center", gap: "6px",
+          padding: "4px 12px", borderRadius: "99px",
+          border: `1px solid ${accentColor}55`,
+          backgroundColor: "rgba(6,12,24,0.55)",
+          backdropFilter: "blur(6px)",
+          width: "fit-content",
+        }}>
+          <div style={{ width: "5px", height: "5px", borderRadius: "50%", backgroundColor: accentColor }}/>
+          <span style={{
+            fontSize: "0.62rem", fontWeight: 700, letterSpacing: "0.08em",
+            textTransform: "uppercase" as const, color: accentColor,
+          }}>
+            {badge}
+          </span>
+        </div>
+
+        <div style={{ display: "flex", flexDirection: "column" as const, gap: "18px" }}>
+          {metricas.map((m) => (
+            <div key={m.label}>
+              <div style={{
+                fontFamily: "var(--font-display), system-ui, sans-serif",
+                fontSize: "2.2rem", fontWeight: 800,
+                color: accentColor, letterSpacing: "-0.05em", lineHeight: 1,
+                marginBottom: "4px",
+                textShadow: "0 2px 20px rgba(0,0,0,0.7)",
+              }}>
+                {m.valor}
+              </div>
+              <div style={{
+                fontSize: "0.76rem", color: "rgba(255,255,255,0.72)", fontWeight: 500,
+                textShadow: "0 1px 12px rgba(0,0,0,0.8)",
+              }}>
+                {m.label}
+              </div>
             </div>
-            <div style={{ fontSize: "0.78rem", color: "#64748B", fontWeight: 500 }}>
-              {m.label}
-            </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   )
@@ -138,6 +163,7 @@ export function HomeSoluciones() {
       href: "/servicios-transitorios",
       accentColor: "#1FB3E5",
       Icon: IconRobot,
+      foto: solGestionLaboral,
     },
     {
       badge: "Nueva línea · EdTech",
@@ -157,6 +183,7 @@ export function HomeSoluciones() {
       href: "/capacitacion",
       accentColor: "#22C55E",
       Icon: IconEdu,
+      foto: solCapacitacion,
     },
     {
       badge: "SaaS · Pago por uso",
@@ -176,6 +203,7 @@ export function HomeSoluciones() {
       href: "/portal-dt",
       accentColor: "#0957C3",
       Icon: IconRobot,
+      foto: solPyme,
     },
     {
       badge: "IA Agéntica · Enterprise",
@@ -194,6 +222,7 @@ export function HomeSoluciones() {
       href: "/agentes-ia",
       accentColor: "#A78BFA",
       Icon: IconAI,
+      foto: solAgentes,
     },
     {
       badge: "Nueva línea · Licitaciones",
@@ -212,6 +241,7 @@ export function HomeSoluciones() {
       href: "/licitaciones",
       accentColor: "#D4F040",
       Icon: IconBid,
+      foto: solLicitaciones,
     },
   ]
 
@@ -265,7 +295,10 @@ export function HomeSoluciones() {
                 className="sol-card"
               style={{
                   display: "grid",
-                  gridTemplateColumns: "1fr 320px",
+                  // `minmax(0, …)` y no `1fr`: el piso implícito de `1fr` es el
+                  // min-content, y el botón con `nowrap` estiraba la columna
+                  // hasta 386 px dentro de una tarjeta de 335 px.
+                  gridTemplateColumns: "minmax(0, 1fr) 320px",
                   gap: "0",
                   border: "1px solid #E8EFF8",
                   borderRadius: "20px",
@@ -320,11 +353,12 @@ export function HomeSoluciones() {
 
                   {/* Métricas inline */}
                   <div style={{
-                    display: "flex", gap: "36px",
+                    display: "flex", gap: "24px 36px",
                     paddingTop: "24px",
                     borderTop: "1px solid #F0F4FA",
                     alignItems: "center",
                     justifyContent: "space-between",
+                    flexWrap: "wrap" as const,
                   }}>
                     <div style={{ display: "flex", gap: "36px", flexWrap: "wrap" as const }}>
                       {s.metricas.map((m) => (
@@ -343,7 +377,7 @@ export function HomeSoluciones() {
                         </div>
                       ))}
                     </div>
-                    <a href={s.href} style={{
+                    <a href={s.href} className="sol-card-cta" style={{
                       fontSize: "0.85rem", fontWeight: 700,
                       color: s.accentColor, textDecoration: "none",
                       whiteSpace: "nowrap" as const,
@@ -363,6 +397,7 @@ export function HomeSoluciones() {
                 {/* Right: Panel visual con acento */}
                 <div className="sol-card-visual">
                   <VisualPanel
+                    foto={s.foto}
                     accentColor={s.accentColor}
                     metricas={s.metricasPanel}
                     badge={s.badge}

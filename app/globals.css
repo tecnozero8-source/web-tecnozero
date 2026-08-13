@@ -413,13 +413,22 @@ ul, ol {
    RESPONSIVE — Mobile-first breakpoints
    ══════════════════════════════════════════ */
 
-/* Soluciones: horizontal card → single column, hide visual panel */
+/* Soluciones: horizontal card → single column.
+   La foto no se esconde en móvil: sube al tope de la tarjeta. */
 @media (max-width: 767px) {
   .sol-card {
-    grid-template-columns: 1fr !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+  .sol-card-cta {
+    white-space: normal !important;
+    text-align: center;
   }
   .sol-card-visual {
-    display: none !important;
+    order: -1;
+  }
+  .sol-card-visual > div {
+    min-height: 200px !important;
+    height: 200px !important;
   }
   .sol-card > div:first-child {
     padding: 28px !important;
@@ -429,7 +438,7 @@ ul, ol {
 /* Casos: 3-col → 1-col */
 @media (max-width: 767px) {
   .caso-card {
-    grid-template-columns: 1fr !important;
+    grid-template-columns: minmax(0, 1fr) !important;
   }
   .caso-sidebar {
     display: none !important;
@@ -745,5 +754,41 @@ ul, ol {
 @media (max-width: 480px) {
   .auth-card {
     padding: 32px 20px 28px !important;
+  }
+}
+/* ═══════════════════════════════════════════════════════
+   PhotoBand — la cifra sobreimpresa estorba en pantalla chica
+══════════════════════════════════════════════════════ */
+@media (max-width: 899px) {
+  .photoband-inner {
+    padding: 0 24px 32px !important;
+  }
+  .photoband-stat {
+    display: none !important;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════
+   Servicios transitorios — grillas de dos columnas
+══════════════════════════════════════════════════════ */
+@media (max-width: 899px) {
+  .est-hero-grid,
+  .est-split,
+  .est-cta-grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+  /* `justify-self` y no `margin: 0 auto`: en un ítem de grilla los márgenes
+     automáticos ganan sobre el `stretch`, y la foto del hero, que solo declara
+     `width: 100%`, se quedaba sin ancho de referencia y colapsaba a 2 px. */
+  .est-hero-foto {
+    width: 100%;
+    max-width: 460px;
+    justify-self: center;
+  }
+  .est-cta-foto {
+    order: -1;
+    max-width: 320px;
+    justify-self: center;
+    margin-bottom: 28px;
   }
 }
