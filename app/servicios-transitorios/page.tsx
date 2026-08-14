@@ -137,7 +137,10 @@ function Hero() {
                   Registrado en el portal DT
                 </span>
               </div>
-              <div style={{ fontSize: "0.68rem", color: "#5A7291", lineHeight: 1.6 }}>
+              {/* Iba a 0,68rem, o sea 10,9px en el teléfono, y en #5A7291 daba
+                  3,6 de contraste. Es la bajada que explica qué queda
+                  registrado, así que sube de tamaño y de tono. */}
+              <div style={{ fontSize: "0.78rem", color: C.textMuted, lineHeight: 1.6 }}>
                 Contrato · 47 campos · comprobante con fecha y hora, descargable
               </div>
             </div>
