@@ -15,6 +15,7 @@ import {
 import { PhotoBand } from "../components/shared/PhotoBand"
 import { FaqSection } from "../components/shared/FaqSection"
 import { FAQ_LICITACIONES } from "../../lib/faqs"
+import { licCarpetaNocturna } from "@/lib/imagenes"
 
 /* ─── Animation variant shared across sections ───────────────────── */
 
@@ -867,12 +868,16 @@ export default function LicitacionesPage() {
         </div>
       </section>
 
+      {/* Era la foto genérica de oficina que también usa la portada. Esta
+          muestra lo que dice el texto: la carpeta armándose a mano, de noche,
+          con los formularios separados en pilas. */}
       <PhotoBand
-        src="/paginas/home-operaciones.jpg"
-        alt="Equipo de operaciones revisando procesos de licitación en pantalla"
+        src={licCarpetaNocturna.src}
+        alt={licCarpetaNocturna.alt}
         eyebrow="Lo que tu equipo deja de hacer"
         caption="Ochenta y siete horas al mes que hoy se van en revisar portales y llenar anexos."
-        accent={ACCENT}
+        stat={{ valor: "87 h", label: "al mes, con el sueldo de un analista" }}
+        accent="#F59E0B"
       />
 
       {/* ═══════════════════════════════════════════════════════

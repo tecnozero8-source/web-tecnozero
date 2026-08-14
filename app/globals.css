@@ -586,6 +586,21 @@ ul, ol {
 }
 
 /* ═══════════════════════════════════════════════════════
+   Agentes IA — la definición de TITAN y el retrato
+   El texto pide 680px y la foto 300: con el gap y el padding de
+   la sección, bajo 1024 las dos columnas se estrujan.
+══════════════════════════════════════════════════════ */
+@media (max-width: 1023px) {
+  .ai-intro-grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 32px !important;
+  }
+  .ai-intro-foto {
+    max-width: 320px;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════
    MOBILE — Agentes IA page
 ══════════════════════════════════════════════════════ */
 @media (max-width: 767px) {
@@ -595,10 +610,30 @@ ul, ol {
     padding-bottom: 64px;
   }
   .ai-hero-left {
-    padding: 0 24px 40px !important;
+    padding: 0 24px 32px !important;
   }
+  .ai-hero-left h1 {
+    font-size: 2.5rem !important;
+  }
+  /* El diagrama de agentes era lo único visual del encabezado. Oculto, la
+     página abría con pantalla y media de texto en el teléfono. */
   .ai-hero-right {
-    display: none !important;
+    display: flex !important;
+    padding: 0 24px 48px !important;
+  }
+  /* Y al mostrarlo aparece el problema del `viewBox`: sobre 375px de ancho el
+     SVG de 468 unidades se dibuja a 286, o sea al 61%. Los 9,5 del rótulo
+     terminaban midiendo 5,8px reales, ilegibles. Estos valores son unidades
+     del viewBox, así que hay que subirlos hasta que 61% de eso pase de 9px.
+     Una regla CSS le gana al atributo `font-size` del SVG sin `!important`. */
+  .ai-net-label {
+    font-size: 16px;
+  }
+  .ai-net-titan {
+    font-size: 17px;
+  }
+  .ai-net-sub {
+    font-size: 13px;
   }
   .ai-cap-grid {
     grid-template-columns: minmax(0, 1fr) !important;
@@ -648,6 +683,36 @@ ul, ol {
 }
 
 /* ═══════════════════════════════════════════════════════
+   MinePass — la credencial y las baldosas de cumplimiento
+   A 900px de ancho la fila deja 254px por baldosa y el
+   título de dos palabras ya no cabe en una línea.
+══════════════════════════════════════════════════════ */
+@media (max-width: 1023px) {
+  .min-cumple-grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 28px !important;
+    justify-items: center;
+  }
+  .min-cumple-grid > *:first-child {
+    width: 100%;
+    max-width: 420px;
+  }
+  .min-feat-grid {
+    width: 100%;
+  }
+  /* La foto de la mesa baja bajo el texto. Se le pone techo de 320px: a
+     ancho completo, un retrato de 2 de ancho por 3 de alto ocupa una
+     pantalla entera antes de llegar a los tres datos. */
+  .min-def-intro {
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 32px !important;
+  }
+  .min-def-foto {
+    max-width: 320px;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════
    MOBILE — MinePass page
 ══════════════════════════════════════════════════════ */
 @media (max-width: 767px) {
@@ -662,16 +727,46 @@ ul, ol {
     padding-bottom: 64px;
   }
   .min-hero-left {
-    padding: 0 24px 40px !important;
+    padding: 0 24px 32px !important;
   }
+  /* El titular sale a 3rem del `clamp`, y a 48px sobre 375 de ancho ocupa
+     cuatro líneas. A 2.5rem entra en tres y la tarjeta de abajo sube 50px. */
+  .min-hero-left h1 {
+    font-size: 2.5rem !important;
+  }
+  /* La tarjeta «antes / hoy» es el argumento de venta de esta página, y
+     estaba oculta en el teléfono: quien entra desde el celular leía dos
+     pantallas de texto sin ver nunca los 10 días contra las horas. */
   .min-hero-right {
-    display: none !important;
+    display: flex !important;
+    padding: 0 20px 48px !important;
+  }
+  .min-timeline-col {
+    padding: 22px 16px !important;
+  }
+  .min-timeline-cifra {
+    font-size: 1.55rem !important;
+  }
+  .min-timeline-sello {
+    font-size: 0.6rem !important;
+    letter-spacing: 0.02em !important;
   }
   .min-solution-card {
     grid-template-columns: minmax(0, 1fr) !important;
   }
+  /* Mismo caso: el panel trae las cifras de cada módulo. Baja bajo el texto
+     y las pone en fila en vez de desaparecer. */
   .min-solution-panel {
-    display: none !important;
+    display: flex !important;
+    border-left: 0 !important;
+    border-top: 1px solid #E8EFF8 !important;
+    padding: 26px 24px !important;
+  }
+  .min-panel-metrics {
+    flex-direction: row !important;
+    flex-wrap: wrap;
+    gap: 28px !important;
+    margin-top: 20px !important;
   }
   .min-metric-strip {
     grid-template-columns: minmax(0, 1fr) !important;
@@ -680,8 +775,14 @@ ul, ol {
   .min-case-grid {
     grid-template-columns: minmax(0, 1fr) !important;
   }
+  .min-cumple-grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 28px !important;
+  }
+  /* A 375 de ancho, dos columnas dejan 101px útiles por baldosa: ocho
+     caracteres por línea. Una sola columna a partir de aquí. */
   .min-feat-grid {
-    grid-template-columns: repeat(2, 1fr) !important;
+    grid-template-columns: minmax(0, 1fr) !important;
   }
   .min-cta-grid {
     grid-template-columns: minmax(0, 1fr) !important;
@@ -822,6 +923,30 @@ ul, ol {
     grid-template-columns: minmax(0, 1fr) !important;
     gap: 40px !important;
   }
+  .pdt-aritmetica {
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 32px !important;
+    padding: 32px 24px !important;
+  }
+  /* El retrato mide dos tercios de alto por uno de ancho. Apilado empuja el
+     botón «crear cuenta gratis» una pantalla y media hacia abajo, así que en
+     teléfono se va y el bloque vuelve a quedar centrado como estaba. */
+  .pdt-precios-grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+  .pdt-trial-grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+    max-width: 720px !important;
+  }
+  .pdt-trial-foto {
+    display: none !important;
+  }
+  .pdt-trial-grid > div:last-child {
+    text-align: center !important;
+  }
+  .pdt-trial-grid > div:last-child > div > div {
+    justify-content: center !important;
+  }
 }
 @media (max-width: 767px) {
   .terminal-fila {
@@ -829,6 +954,19 @@ ul, ol {
     gap: 8px !important;
     padding-left: 12px !important;
     padding-right: 12px !important;
+  }
+  .terminal-tipo {
+    display: none !important;
+  }
+}
+/* Entre 900 y 1079 el encabezado vuelve a dos columnas y la tarjeta baja a
+   390px, pero las columnas fijas de la fila suman 456px con los gaps: el
+   «OK» del final se salía y quedaba recortado. Bajo 900 no pasa porque el
+   encabezado ya va en una columna y la tarjeta ocupa todo el ancho. */
+@media (min-width: 900px) and (max-width: 1079px) {
+  .terminal-fila {
+    grid-template-columns: 104px minmax(0, 1fr) 60px !important;
+    gap: 10px !important;
   }
   .terminal-tipo {
     display: none !important;

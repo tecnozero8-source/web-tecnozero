@@ -1,10 +1,12 @@
 "use client"
 
 import { motion } from "framer-motion"
+import Image from "next/image"
 import { Shield, CheckCircle2, ArrowRight, Clock, AlertTriangle, Truck } from "lucide-react"
 import { PhotoBand } from "../components/shared/PhotoBand"
 import { FaqSection } from "../components/shared/FaqSection"
 import { FAQ_MINEPASS } from "../../lib/faqs"
+import { minPortonFaena, minMesaAcreditacion } from "@/lib/imagenes"
 
 /* ─── Animation variant shared across sections ───────────────────── */
 
@@ -102,9 +104,12 @@ function TimelineCard() {
         }}
       />
 
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0" }}>
+      {/* `minmax(0, …)` y no `1fr`: las etiquetas de los pasos no se pueden
+          encoger y en el teléfono empujaban la columna fuera de la tarjeta. */}
+      <div className="min-timeline-grid" style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr) minmax(0, 1fr)", gap: "0" }}>
         {/* OLD PROCESS */}
         <div
+          className="min-timeline-col"
           style={{
             padding: "28px 24px",
             borderRight: "1px solid rgba(255,255,255,0.06)",
@@ -139,6 +144,7 @@ function TimelineCard() {
             </span>
           </div>
           <div
+            className="min-timeline-cifra"
             style={{
               fontFamily: "var(--font-display), system-ui, sans-serif",
               fontSize: "2rem",
@@ -196,7 +202,7 @@ function TimelineCard() {
         </div>
 
         {/* NEW PROCESS */}
-        <div style={{ padding: "28px 24px" }}>
+        <div className="min-timeline-col" style={{ padding: "28px 24px" }}>
           <div
             style={{
               display: "flex",
@@ -228,6 +234,7 @@ function TimelineCard() {
             </span>
           </div>
           <div
+            className="min-timeline-cifra"
             style={{
               fontFamily: "var(--font-display), system-ui, sans-serif",
               fontSize: "2rem",
@@ -297,13 +304,15 @@ function TimelineCard() {
           backgroundColor: "rgba(245,160,32,0.05)",
         }}
       >
-        <Shield size={13} color="#F5A020" />
+        <Shield size={13} color="#F5A020" style={{ flexShrink: 0 }} />
         <span
+          className="min-timeline-sello"
           style={{
             fontSize: "0.68rem",
             color: "#F5A020",
             fontWeight: 700,
             letterSpacing: "0.06em",
+            textAlign: "center" as const,
           }}
         >
           DS 76 · DS 132 · Trazabilidad Sernageomin
@@ -548,6 +557,7 @@ function SolutionCard({
           </span>
         </div>
         <div
+          className="min-panel-metrics"
           style={{
             display: "flex",
             flexDirection: "column" as const,
@@ -593,28 +603,32 @@ function FeatureTile({
   title,
   description,
   delay,
+  accent = "#0957C3",
 }: {
   icon: React.ReactNode
   title: string
   description: string
   delay: number
+  /** Un acento por baldosa: cuatro azules idénticos se leen como una textura. */
+  accent?: string
 }) {
   return (
     <motion.div
       style={{
         backgroundColor: "#FFFFFF",
         borderRadius: "16px",
-        padding: "32px 28px",
+        padding: "28px 26px",
         border: "1px solid #D1E0FA",
         boxShadow: "0 2px 12px rgba(9,87,195,0.06)",
+        borderTop: `3px solid ${accent}`,
       }}
     >
       <div
         style={{
           padding: "10px",
           borderRadius: "12px",
-          backgroundColor: "#EEF4FF",
-          border: "1px solid #C3D5EE",
+          backgroundColor: `${accent}12`,
+          border: `1px solid ${accent}2E`,
           width: "fit-content",
           marginBottom: "16px",
         }}
@@ -644,6 +658,180 @@ function FeatureTile({
         {description}
       </p>
     </motion.div>
+  )
+}
+
+/* ─── Credencial ─────────────────────────────────────────────────── */
+/**
+ * Lo que MinePass entrega al final del proceso, dibujado.
+ *
+ * La página explicaba la acreditación durante ocho mil píxeles sin mostrar
+ * nunca el resultado. Los datos son inventados y la tarjeta lleva el sello
+ * «Ejemplo» encima, para que nadie la lea como la credencial de una faena
+ * real.
+ */
+function CredencialMock() {
+  const documentos = [
+    "Cédula de identidad",
+    "Certificado de afiliación previsional",
+    "Examen de altura geográfica",
+    "Inducción hombre nuevo · DS 132",
+  ]
+
+  return (
+    <div
+      style={{
+        backgroundColor: "#0B1425",
+        borderRadius: "20px",
+        border: "1px solid rgba(245,160,32,0.22)",
+        overflow: "hidden",
+        boxShadow: "0 24px 60px rgba(11,30,61,0.18)",
+        position: "relative",
+      }}
+    >
+      {/* Barra superior */}
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          gap: "12px",
+          padding: "14px 20px",
+          borderBottom: "1px solid rgba(255,255,255,0.07)",
+          backgroundColor: "rgba(245,160,32,0.07)",
+        }}
+      >
+        <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+          <Shield size={13} color="#F5A020" />
+          <span
+            style={{
+              fontSize: "0.64rem",
+              fontWeight: 800,
+              letterSpacing: "0.12em",
+              textTransform: "uppercase" as const,
+              color: "#F5A020",
+            }}
+          >
+            Credencial digital
+          </span>
+        </div>
+        <span
+          style={{
+            fontSize: "0.6rem",
+            fontWeight: 700,
+            letterSpacing: "0.08em",
+            textTransform: "uppercase" as const,
+            color: "rgba(255,255,255,0.42)",
+            border: "1px solid rgba(255,255,255,0.16)",
+            borderRadius: "99px",
+            padding: "3px 9px",
+          }}
+        >
+          Ejemplo
+        </span>
+      </div>
+
+      <div style={{ padding: "24px 22px 22px" }}>
+        <div
+          style={{
+            fontSize: "0.66rem",
+            fontWeight: 700,
+            letterSpacing: "0.1em",
+            textTransform: "uppercase" as const,
+            color: "rgba(255,255,255,0.38)",
+            marginBottom: "6px",
+          }}
+        >
+          Contratista
+        </div>
+        <div
+          style={{
+            fontFamily: "var(--font-display), system-ui, sans-serif",
+            fontSize: "1.25rem",
+            fontWeight: 800,
+            letterSpacing: "-0.03em",
+            color: "#FFFFFF",
+            lineHeight: 1.1,
+          }}
+        >
+          Empresa contratista B
+        </div>
+        <div
+          style={{
+            fontSize: "0.76rem",
+            color: "rgba(255,255,255,0.42)",
+            marginTop: "5px",
+            fontFamily: "'JetBrains Mono', monospace",
+          }}
+        >
+          14 trabajadores · turno 7×7
+        </div>
+
+        {/* Estado */}
+        <div
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "7px",
+            marginTop: "20px",
+            padding: "7px 14px",
+            borderRadius: "99px",
+            backgroundColor: "rgba(34,197,94,0.12)",
+            border: "1px solid rgba(34,197,94,0.32)",
+          }}
+        >
+          <CheckCircle2 size={13} color="#22C55E" strokeWidth={2.5} />
+          <span style={{ fontSize: "0.78rem", fontWeight: 800, color: "#22C55E", letterSpacing: "0.02em" }}>
+            Acreditado · ingreso habilitado
+          </span>
+        </div>
+
+        {/* Documentos */}
+        <div
+          style={{
+            fontSize: "0.66rem",
+            fontWeight: 700,
+            letterSpacing: "0.1em",
+            textTransform: "uppercase" as const,
+            color: "rgba(255,255,255,0.38)",
+            margin: "24px 0 12px",
+          }}
+        >
+          Documentos validados
+        </div>
+        {documentos.map((d) => (
+          <div
+            key={d}
+            style={{
+              display: "flex",
+              alignItems: "flex-start",
+              gap: "9px",
+              marginBottom: "9px",
+            }}
+          >
+            <CheckCircle2 size={13} color="#22C55E" strokeWidth={2.4} style={{ flexShrink: 0, marginTop: "2px" }} />
+            <span style={{ fontSize: "0.82rem", color: "rgba(255,255,255,0.72)", lineHeight: 1.4 }}>
+              {d}
+            </span>
+          </div>
+        ))}
+      </div>
+
+      {/* Pie */}
+      <div
+        style={{
+          padding: "13px 20px",
+          borderTop: "1px solid rgba(255,255,255,0.07)",
+          backgroundColor: "rgba(255,255,255,0.02)",
+          fontSize: "0.68rem",
+          color: "rgba(255,255,255,0.4)",
+          fontFamily: "'JetBrains Mono', monospace",
+          lineHeight: 1.5,
+        }}
+      >
+        Vence 12-11-2026 · verificable en portería
+      </div>
+    </div>
   )
 }
 
@@ -949,7 +1137,20 @@ export default function MinePassPage() {
           padding: "88px 48px 72px",
         }}
       >
-        <div style={{ maxWidth: "820px", margin: "0 auto" }}>
+        <div style={{ maxWidth: "1060px", margin: "0 auto" }}>
+          {/* El texto a la izquierda y la foto a la derecha. Antes era una
+              columna de 820 px de puro párrafo, la sección más larga de la
+              página sin nada que mirar. */}
+          <div
+            className="min-def-intro"
+            style={{
+              display: "grid",
+              gridTemplateColumns: "minmax(0, 1fr) minmax(0, 300px)",
+              gap: "48px",
+              alignItems: "start",
+            }}
+          >
+          <div>
           <p
             style={{
               fontSize: "0.7rem",
@@ -1010,17 +1211,56 @@ export default function MinePassPage() {
             resultado, de modo que el expediente de un trabajador se reconstruye
             entero cuando llega un fiscalizador.
           </p>
+          </div>
+
+            <figure
+              className="min-def-foto"
+              style={{ margin: 0 }}
+            >
+              <div
+                style={{
+                  position: "relative",
+                  width: "100%",
+                  aspectRatio: "2 / 3",
+                  borderRadius: "16px",
+                  overflow: "hidden",
+                  border: "1px solid #E8EFF8",
+                  boxShadow: "0 16px 40px rgba(11,30,61,0.14)",
+                }}
+              >
+                <Image
+                  src={minMesaAcreditacion.src}
+                  alt={minMesaAcreditacion.alt}
+                  fill
+                  sizes="(max-width: 900px) 100vw, 300px"
+                  style={{ objectFit: "cover" }}
+                />
+              </div>
+              <figcaption
+                style={{
+                  fontSize: "0.78rem",
+                  color: "#64748B",
+                  lineHeight: 1.6,
+                  marginTop: "12px",
+                }}
+              >
+                El mostrador que MinePass reemplaza: los papeles llegan en mano
+                y alguien los revisa hoja por hoja.
+              </figcaption>
+            </figure>
+          </div>
 
           <div
             className="min-def-grid"
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(3, 1fr)",
+              gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
               gap: "1px",
               backgroundColor: "#E8EFF8",
               border: "1px solid #E8EFF8",
               borderRadius: "16px",
               overflow: "hidden",
+              marginTop: "40px",
             }}
           >
             {[
@@ -1071,6 +1311,19 @@ export default function MinePassPage() {
           </div>
         </div>
       </section>
+
+      {/* La banda va entre «qué es MinePass» y los tres módulos: las dos
+          secciones son blancas y sumaban 2.461 px seguidos del mismo color.
+          Además es el único lugar de la página donde se ve el costo del que
+          habla el producto, que es gente parada esperando. */}
+      <PhotoBand
+        src={minPortonFaena.src}
+        alt={minPortonFaena.alt}
+        eyebrow="Portería de faena · 07:10"
+        caption="La cuadrilla llegó. La acreditación de dos de ellos todavía no sale, así que no entra ninguno."
+        stat={{ valor: "10 días", label: "de trámite AIC en el proceso manual" }}
+        accent="#F5A020"
+      />
 
       {/* ═══════════════════════════════════════════════════════
           SOLUTIONS SECTION
@@ -1212,14 +1465,6 @@ export default function MinePassPage() {
           </div>
         </div>
       </section>
-
-      <PhotoBand
-        src="/paginas/mineria-faena.jpg"
-        alt="Contratistas en faena minera con acreditación AIC digital lista mediante MinePass de Tecnozero"
-        eyebrow="Faena minera · Acreditación AIC"
-        caption="El contratista llega con su gente y con sus papeles listos. El proceso AIC que tardaba 10 días, hoy toma horas."
-        accent="#F5A020"
-      />
 
       {/* ═══════════════════════════════════════════════════════
           CASO DE USO MINERÍA
@@ -1444,9 +1689,9 @@ export default function MinePassPage() {
                   paddingLeft: "20px",
                 }}
               >
-                "El contratista llegó el lunes con todo su equipo. Sus
+                &ldquo;El contratista llegó el lunes con todo su equipo. Sus
                 documentos AIC, 10 días hábiles después. El jefe de faena
-                explicaba por qué el trabajo no avanzaba."
+                explicaba por qué el trabajo no avanzaba.&rdquo;
               </blockquote>
               <div
                 style={{
@@ -1666,29 +1911,45 @@ export default function MinePassPage() {
             </p>
           </motion.div>
 
-          {/* Feature tiles */}
+          {/* La credencial a la izquierda y las baldosas a la derecha: la
+              sección explicaba el cumplimiento sin enseñar nunca lo que sale
+              del proceso. */}
+          <div
+            className="min-cumple-grid"
+            style={{
+              display: "grid",
+              gridTemplateColumns: "minmax(0, 340px) minmax(0, 1fr)",
+              gap: "32px",
+              alignItems: "start",
+            }}
+          >
+            <CredencialMock />
+
           <div
             className="min-feat-grid"
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(4, 1fr)",
+              gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
               gap: "20px",
             }}
           >
             <FeatureTile
               delay={0}
-              icon={<CheckCircle2 size={22} color="#0957C3" />}
+              accent="#16A34A"
+              icon={<CheckCircle2 size={22} color="#16A34A" />}
               title="Trazabilidad 100% auditable"
               description="Cada acción queda registrada con timestamp, usuario y resultado. Exportable para auditorías Sernageomin en cualquier momento."
             />
             <FeatureTile
               delay={0.08}
+              accent="#0957C3"
               icon={<Shield size={22} color="#0957C3" />}
               title="Integración sistemas DT"
               description="Conexión directa con el portal de la Dirección del Trabajo para validación de contratos vigentes y situación laboral del contratista."
             />
             <FeatureTile
               delay={0.16}
+              accent="#1FB3E5"
               icon={
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
                   <rect
@@ -1697,12 +1958,12 @@ export default function MinePassPage() {
                     width="18"
                     height="18"
                     rx="3"
-                    stroke="#0957C3"
+                    stroke="#1FB3E5"
                     strokeWidth="1.5"
                   />
                   <path
                     d="M7 8h10M7 12h10M7 16h6"
-                    stroke="#0957C3"
+                    stroke="#1FB3E5"
                     strokeWidth="1.5"
                     strokeLinecap="round"
                   />
@@ -1713,24 +1974,25 @@ export default function MinePassPage() {
             />
             <FeatureTile
               delay={0.24}
+              accent="#F5A020"
               icon={
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
                   <circle
                     cx="12"
                     cy="12"
                     r="9"
-                    stroke="#0957C3"
+                    stroke="#F5A020"
                     strokeWidth="1.5"
                   />
                   <path
                     d="M12 7v5l3 3"
-                    stroke="#0957C3"
+                    stroke="#F5A020"
                     strokeWidth="1.5"
                     strokeLinecap="round"
                   />
                   <path
                     d="M8 3.5C9.2 3 10.5 2.7 12 2.7"
-                    stroke="#0957C3"
+                    stroke="#F5A020"
                     strokeWidth="1.5"
                     strokeLinecap="round"
                   />
@@ -1740,8 +2002,20 @@ export default function MinePassPage() {
               description="Firma y mandato tokenizado con validez legal. Elimina el papel del proceso y garantiza autenticidad e inmutabilidad del documento."
             />
           </div>
+          </div>
         </div>
       </section>
+
+      {/* Antes iba pegada a la sección oscura del caso de uso y las dos
+          sumaban 1.408px de negro corrido. Aquí cierra: es la misma faena de
+          la banda de arriba, pero con la gente adentro. */}
+      <PhotoBand
+        src="/paginas/mineria-faena.jpg"
+        alt="Contratistas en faena minera con acreditación AIC digital lista mediante MinePass de Tecnozero"
+        eyebrow="Faena minera · Acreditación AIC"
+        caption="El contratista llega con su gente y con sus papeles listos. El proceso AIC que tardaba 10 días, hoy toma horas."
+        accent="#F5A020"
+      />
 
       <FaqSection faqs={FAQ_MINEPASS} bajada="Lo que preguntan los equipos de prevención antes de cambiar el proceso de acreditación." />
 

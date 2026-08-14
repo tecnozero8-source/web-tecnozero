@@ -1,10 +1,12 @@
 "use client"
 
 import { motion } from "framer-motion"
+import Image from "next/image"
 import { Brain, Zap, ArrowRight, CheckCircle2, X, Database, Cpu } from "lucide-react"
 import { PhotoBand } from "../components/shared/PhotoBand"
 import { FaqSection } from "../components/shared/FaqSection"
 import { FAQ_AGENTES_IA } from "../../lib/faqs"
+import { aiSalaMonitoreo, aiGerenteTI } from "@/lib/imagenes"
 
 /* ─── fade-up spring shared variant ───────────────────────────────── */
 
@@ -85,7 +87,12 @@ function AgentNetwork() {
             fill={`${s.color}18`} stroke={s.color} strokeOpacity={0.5} strokeWidth={1}
           />
           <circle cx={s.x} cy={s.y} r={5} fill={s.color} filter="url(#glowV)" />
+          {/* El `font-size` va en unidades del viewBox, no en píxeles de
+              pantalla: en el teléfono este SVG de 468 se dibuja a 286, así
+              que todo lo de aquí adentro se encoge un 39%. Las clases están
+              para que `globals.css` compense esa reducción. */}
           <text
+            className="ai-net-label"
             x={s.x} y={s.y + 33}
             fill={s.color} fillOpacity={0.85}
             fontSize={9.5}
@@ -107,6 +114,7 @@ function AgentNetwork() {
         transition={{ duration: 2.4, repeat: Infinity, ease: "easeOut" }}
       />
       <text
+        className="ai-net-titan"
         x={234} y={230}
         fill="#FFFFFF" fontSize={10} fontWeight={800}
         fontFamily="Manrope, system-ui, sans-serif"
@@ -115,6 +123,7 @@ function AgentNetwork() {
         TITAN
       </text>
       <text
+        className="ai-net-sub"
         x={234} y={244}
         fill="#A78BFA" fontSize={8} fontWeight={700}
         fontFamily="Manrope, system-ui, sans-serif"
@@ -479,9 +488,21 @@ export default function AgentesIAPage() {
       <section id="titan" style={{ backgroundColor: "#FFFFFF", padding: "104px 48px 96px" }}>
         <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
 
-          {/* Header */}
+          {/* Header a la izquierda, retrato a la derecha. La sección que
+              define TITAN medía 640px de texto seguido y era el primer
+              contenido después del encabezado. */}
+          <div
+            className="ai-intro-grid"
+            style={{
+              display: "grid",
+              gridTemplateColumns: "minmax(0, 1fr) minmax(0, 300px)",
+              gap: "48px",
+              alignItems: "start",
+              marginBottom: "72px",
+            }}
+          >
           <motion.div
-            style={{ maxWidth: "680px", marginBottom: "72px" }}
+            style={{ maxWidth: "680px" }}
           >
             <p style={{
               fontSize: "0.7rem", fontWeight: 800,
@@ -531,6 +552,40 @@ export default function AgentesIAPage() {
             </div>
           </motion.div>
 
+            <figure className="ai-intro-foto" style={{ margin: 0 }}>
+              <div
+                style={{
+                  position: "relative",
+                  width: "100%",
+                  aspectRatio: "2 / 3",
+                  borderRadius: "16px",
+                  overflow: "hidden",
+                  border: "1px solid #E4ECF8",
+                  boxShadow: "0 16px 40px rgba(11,30,61,0.14)",
+                }}
+              >
+                <Image
+                  src={aiGerenteTI.src}
+                  alt={aiGerenteTI.alt}
+                  fill
+                  sizes="(max-width: 900px) 100vw, 300px"
+                  style={{ objectFit: "cover", objectPosition: aiGerenteTI.pos }}
+                />
+              </div>
+              <figcaption
+                style={{
+                  fontSize: "0.78rem",
+                  color: "#64748B",
+                  lineHeight: 1.6,
+                  marginTop: "12px",
+                }}
+              >
+                La conversación que abre el proyecto: quién responde si el
+                agente toca el sistema productivo.
+              </figcaption>
+            </figure>
+          </div>
+
           {/* 2×2 capability cards */}
           <div className="ai-cap-grid" style={{
             display: "grid",
@@ -564,14 +619,6 @@ export default function AgentesIAPage() {
           </div>
         </div>
       </section>
-
-      <PhotoBand
-        src="/paginas/agentes-ia-datos.jpg"
-        alt="Infraestructura de datos y sistemas ERP SAP y Oracle donde operan los agentes de IA TITAN de Tecnozero"
-        eyebrow="Agentes IA sobre SAP y Oracle"
-        caption="Agentes que razonan y actúan dentro de tus sistemas enterprise. Respuestas en segundos, no en minutos."
-        accent="#A78BFA"
-      />
 
       {/* ═══════════════════════════════════════════════════════
           USE CASES — Dark background, horizontal stacked cards
@@ -800,6 +847,17 @@ export default function AgentesIAPage() {
         </div>
       </section>
 
+      {/* La banda va aquí y no antes de los casos de uso: allá quedaba pegada
+          a una sección oscura y el par sumaba 2.070 px del mismo #060C18, que
+          se leen como un solo bloque. Aquí corta el oscuro y entrega al claro. */}
+      <PhotoBand
+        src="/paginas/agentes-ia-datos.jpg"
+        alt="Infraestructura de datos y sistemas ERP SAP y Oracle donde operan los agentes de IA TITAN de Tecnozero"
+        eyebrow="Agentes IA sobre SAP y Oracle"
+        caption="Agentes que razonan y actúan dentro de tus sistemas enterprise. Respuestas en segundos, no en minutos."
+        accent="#A78BFA"
+      />
+
       {/* ═══════════════════════════════════════════════════════
           COMPARISON — Sin TITAN vs Con TITAN
       ═══════════════════════════════════════════════════════ */}
@@ -961,6 +1019,16 @@ export default function AgentesIAPage() {
           </motion.div>
         </div>
       </section>
+
+      {/* Entre la tabla comparativa y las preguntas: las dos son claras y de
+          puro texto, y sumadas dejaban 1.900 px sin una foto. */}
+      <PhotoBand
+        src={aiSalaMonitoreo.src}
+        alt={aiSalaMonitoreo.alt}
+        eyebrow="Sala de operaciones"
+        caption="El agente trabaja donde ya trabaja tu equipo. Nadie cambia de sistema ni aprende una pantalla nueva."
+        accent="#A78BFA"
+      />
 
       <FaqSection faqs={FAQ_AGENTES_IA} bajada="Lo que pregunta el área de TI antes de dejar entrar un agente al ERP." />
 

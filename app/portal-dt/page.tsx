@@ -3,15 +3,20 @@
 import { motion, AnimatePresence } from "framer-motion"
 import { useState } from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { PhotoBand } from "../components/shared/PhotoBand"
+import { dtEstudioContable, dtCoordinadora } from "@/lib/imagenes"
 import {
   ArrowRight, CheckCircle2, Clock, FileText, Users, Zap,
   ChevronDown, ChevronUp, Upload, Shield, TrendingDown,
-  AlertCircle, Sparkles
+  AlertCircle, Sparkles, UserPlus, UserMinus, FilePen
 } from "lucide-react"
 
 // ─── Colores ─────────────────────────────────────────────────────────────────
 
+// Los cuatro últimos son los tokens semánticos que fija AGENTS.md: el costo en
+// rojo o ámbar, el alivio en verde, el CTA en lima. El violeta queda de cuarto
+// acento para los anexos, que no son ni costo ni alivio.
 const C = {
   blue:     "#0957C3",
   cyan:     "#1FB3E5",
@@ -22,6 +27,10 @@ const C = {
   bgCard:   "#FFFFFF",
   textMain: "#0F172A",
   textMuted:"#64748B",
+  rojo:     "#E11D48",
+  ambar:    "#F59E0B",
+  verde:    "#16A34A",
+  violeta:  "#8B5CF6",
 }
 
 // ─── Terminal animada ─────────────────────────────────────────────────────────
@@ -40,7 +49,11 @@ function TerminalRow({ rut, nombre, tipo, delay }: { rut: string; nombre: string
       className="terminal-fila"
       style={{
         display: "grid",
-        gridTemplateColumns: "140px 1fr 200px 80px",
+        // El nombre va en `minmax(0, …)`: con `1fr` a secas su contenido
+        // mínimo empujaba la fila fuera de la tarjeta, y como la tarjeta
+        // lleva `overflow: hidden` el «OK» del final desaparecía sin dejar
+        // barra de desplazamiento ni ninguna otra señal.
+        gridTemplateColumns: "140px minmax(0, 1fr) 200px 80px",
         gap: "12px",
         alignItems: "center",
         padding: "9px 16px",
@@ -245,22 +258,22 @@ function Hero() {
 function Pain() {
   const pains = [
     {
-      icon: <Clock size={24} color="#EF4444" />,
-      title: "8–15 minutos por trabajador",
-      desc: "Ingresar datos uno a uno en el Portal DT es agotador. Con 20 trabajadores nuevos al mes, perdes más de 4 horas en trabajo puramente manual.",
-      color: "#EF4444",
+      icon: <Clock size={24} color={C.rojo} />,
+      title: "8 a 15 minutos por trabajador",
+      desc: "Ingresar los datos uno a uno en el Portal DT agota. Con 20 trabajadores nuevos al mes pierdes más de 4 horas tipeando.",
+      color: C.rojo,
     },
     {
-      icon: <AlertCircle size={24} color="#F59E0B" />,
+      icon: <AlertCircle size={24} color={C.ambar} />,
       title: "Errores que generan multas",
-      desc: "Un RUT mal digitado, una fecha equivocada o un campo vacío pueden generar observaciones de la DT y exponer a tus clientes a sanciones.",
-      color: "#F59E0B",
+      desc: "Un RUT mal digitado, una fecha cambiada o un campo vacío te dejan una observación de la DT y a tu cliente expuesto a una sanción.",
+      color: C.ambar,
     },
     {
-      icon: <FileText size={24} color="#8B5CF6" />,
+      icon: <FileText size={24} color={C.violeta} />,
       title: "Fechas límite imposibles",
-      desc: "Los contratos deben registrarse dentro de 15 días. En periodos de alto volumen, cumplir el plazo para todos los clientes es casi imposible sin automatización.",
-      color: "#8B5CF6",
+      desc: "El contrato tiene 15 días para quedar registrado. En temporada alta, cumplir ese plazo con todos los clientes a mano no da.",
+      color: C.violeta,
     },
   ]
 
@@ -302,8 +315,115 @@ function Pain() {
             </motion.div>
           ))}
         </div>
+
+        <Aritmetica />
       </div>
     </section>
+  )
+}
+
+/**
+ * La cuenta de lo que cuesta digitar a mano.
+ *
+ * Las tres tarjetas de arriba describen el dolor con palabras. Esto lo pone en
+ * una barra, que es lo único que se entiende de una pasada. Las dos cifras son
+ * las mismas que ya declara la página: 8 a 15 minutos a mano y 45 segundos de
+ * robot. La barra verde mide 5%, que es 45 segundos sobre los 15 minutos del
+ * peor caso.
+ */
+function Aritmetica() {
+  return (
+    <div
+      className="pdt-aritmetica"
+      style={{
+        marginTop: "56px",
+        backgroundColor: C.bgCard,
+        border: "1px solid rgba(0,0,0,0.07)",
+        borderRadius: "20px",
+        padding: "40px 44px",
+        display: "grid",
+        gridTemplateColumns: "minmax(0, 0.9fr) minmax(0, 1.1fr)",
+        gap: "48px",
+        alignItems: "center",
+        boxShadow: "0 4px 24px rgba(0,0,0,0.06)",
+      }}
+    >
+      <div>
+        <p style={{
+          fontSize: "0.7rem", fontWeight: 800, letterSpacing: "0.16em",
+          textTransform: "uppercase", color: C.rojo, margin: "0 0 14px",
+        }}>
+          La cuenta
+        </p>
+        <h3 style={{
+          fontSize: "clamp(1.25rem, 2.2vw, 1.7rem)", fontWeight: 800,
+          color: C.textMain, lineHeight: 1.2, margin: "0 0 14px",
+          letterSpacing: "-0.02em",
+        }}>
+          Lo mismo, pero veinte veces más rápido.
+        </h3>
+        <p style={{ fontSize: "0.95rem", color: C.textMuted, lineHeight: 1.7, margin: 0 }}>
+          Sesenta trabajadores al mes son 12 horas de digitación. El robot los
+          registra en 45 minutos y te devuelve el comprobante de cada uno.
+        </p>
+      </div>
+
+      <div style={{ display: "flex", flexDirection: "column", gap: "26px" }}>
+        {[
+          {
+            label: "A mano, en el Portal DT",
+            valor: "8 a 15 min",
+            ancho: "100%",
+            fondo: `linear-gradient(90deg, ${C.ambar} 0%, ${C.rojo} 100%)`,
+            color: C.rojo,
+          },
+          {
+            label: "Con el robot",
+            valor: "45 seg",
+            ancho: "5%",
+            fondo: C.verde,
+            color: C.verde,
+          },
+        ].map((b) => (
+          <div key={b.label}>
+            <div style={{
+              display: "flex", justifyContent: "space-between",
+              alignItems: "baseline", marginBottom: "10px", gap: "12px",
+            }}>
+              <span style={{ fontSize: "0.85rem", color: C.textMuted, fontWeight: 600 }}>
+                {b.label}
+              </span>
+              <span style={{
+                fontSize: "1.1rem", fontWeight: 800, color: b.color,
+                letterSpacing: "-0.02em", whiteSpace: "nowrap",
+              }}>
+                {b.valor}
+              </span>
+            </div>
+            <div style={{
+              height: "14px", borderRadius: "99px",
+              backgroundColor: "#E8EFF8", overflow: "hidden",
+            }}>
+              <div style={{
+                width: b.ancho, height: "100%",
+                borderRadius: "99px", background: b.fondo,
+                minWidth: "14px",
+              }} />
+            </div>
+          </div>
+        ))}
+
+        <p style={{
+          fontSize: "0.78rem", color: C.textMuted, margin: 0,
+          paddingTop: "4px", borderTop: "1px solid #E8EFF8",
+          lineHeight: 1.6,
+        }}>
+          <span style={{ display: "inline-block", paddingTop: "14px" }}>
+            Por trabajador registrado. El robot no se cansa en el número 40.
+          </span>
+        </p>
+      </div>
+    </div>
   )
 }
 
@@ -391,8 +511,11 @@ function OnboardingGuide() {
     { n: "08", title: "Recibe la confirmación", desc: "Recibes email con los comprobantes DT. Todo queda en tu historial para cualquier auditoría." },
   ]
 
+  // Blanco y no `bgPage`: la sección de los 8 pasos y la de los 3 robots miden
+  // juntas 1.700 px del mismo azul clarito, y se leen como un solo bloque.
+  // Aquí se invierte el par (fondo blanco, tarjetas azules) y aparece el corte.
   return (
-    <section style={{ backgroundColor: C.bgPage, padding: "96px 24px" }}>
+    <section style={{ backgroundColor: C.bgCard, padding: "96px 24px" }}>
       <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
 
         {/* Header */}
@@ -447,11 +570,10 @@ function OnboardingGuide() {
             <motion.div
               key={s.n}
               style={{
-                backgroundColor: C.bgCard,
+                backgroundColor: C.bgPage,
                 borderRadius: "14px",
                 padding: "24px",
-                border: "1px solid #E8F0FA",
-                boxShadow: "0 2px 12px rgba(0,0,0,0.04)",
+                border: "1px solid #DCE7F8",
                 position: "relative" as const,
                 overflow: "hidden",
               }}
@@ -542,8 +664,8 @@ function Robots() {
   const robots = [
     {
       badge: "INGRESOS",
-      badgeColor: C.blue,
-      emoji: "📄",
+      badgeColor: C.verde,
+      icon: <UserPlus size={22} color={C.verde} strokeWidth={1.9} />,
       title: "Robot de Ingresos",
       tagline: "Registra contratos nuevos en el Portal DT automáticamente.",
       fields: 47,
@@ -556,8 +678,8 @@ function Robots() {
     },
     {
       badge: "BAJAS",
-      badgeColor: "#EF4444",
-      emoji: "📤",
+      badgeColor: C.rojo,
+      icon: <UserMinus size={22} color={C.rojo} strokeWidth={1.9} />,
       title: "Robot de Bajas",
       tagline: "Registra finiquitos y términos de contrato con causal correcta.",
       fields: 5,
@@ -570,8 +692,8 @@ function Robots() {
     },
     {
       badge: "ANEXOS",
-      badgeColor: "#8B5CF6",
-      emoji: "📎",
+      badgeColor: C.violeta,
+      icon: <FilePen size={22} color={C.violeta} strokeWidth={1.9} />,
       title: "Robot de Anexos",
       tagline: "Modifica contratos vigentes: sueldos, jornadas, cargos.",
       fields: 52,
@@ -620,7 +742,18 @@ function Robots() {
                   }}>
                     {r.badge}
                   </span>
-                  <span style={{ fontSize: "1.5rem" }}>{r.emoji}</span>
+                  {/* Un icono dibujado y no un emoji: el emoji lo pinta el
+                      sistema operativo, así que cambia de forma y de color
+                      entre Windows, Android y iPhone. */}
+                  <div style={{
+                    width: "44px", height: "44px", borderRadius: "12px",
+                    backgroundColor: `${r.badgeColor}14`,
+                    border: `1px solid ${r.badgeColor}2E`,
+                    display: "flex", alignItems: "center", justifyContent: "center",
+                    flexShrink: 0,
+                  }}>
+                    {r.icon}
+                  </div>
                 </div>
                 <h3 style={{ fontSize: "1.15rem", fontWeight: 800, color: C.textMain, marginBottom: "6px" }}>
                   {r.title}
@@ -739,7 +872,15 @@ function Pricing() {
           </p>
         </motion.div>
 
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "24px" }}>
+        {/* `1fr 1fr` dejaba la tabla en 84px de ancho en el teléfono: la
+            columna de la derecha pesa más en contenido mínimo y se comía a la
+            izquierda, que además tiene `overflow: hidden` y recortaba sin
+            avisar. Con `minmax(0, …)` reparten parejo, y bajo 899 van una
+            sobre otra. */}
+        <div
+          className="pdt-precios-grid"
+          style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr) minmax(0, 1fr)", gap: "24px" }}
+        >
           {/* Tabla */}
           <motion.div style={{
             backgroundColor: C.bgCard,
@@ -855,7 +996,43 @@ function TrialBanner() {
       background: `linear-gradient(135deg, ${C.blue} 0%, #0743A8 60%, #062E7A 100%)`,
       padding: "96px 24px",
     }}>
-      <div style={{ maxWidth: "720px", margin: "0 auto", textAlign: "center" }}>
+      {/* Dos columnas y no una centrada: el bloque azul medía 640 px de puro
+          texto sobre degradado y era el único trecho de la página sin una
+          cara. El retrato va a la izquierda y el texto se alinea a la
+          izquierda con él. */}
+      <div
+        className="pdt-trial-grid"
+        style={{
+          maxWidth: "1000px",
+          margin: "0 auto",
+          display: "grid",
+          gridTemplateColumns: "minmax(0, 300px) minmax(0, 1fr)",
+          gap: "48px",
+          alignItems: "center",
+        }}
+      >
+        <div
+          className="pdt-trial-foto"
+          style={{
+            position: "relative",
+            width: "100%",
+            aspectRatio: "2 / 3",
+            borderRadius: "18px",
+            overflow: "hidden",
+            border: "1px solid rgba(255,255,255,0.16)",
+            boxShadow: "0 20px 50px rgba(0,0,0,0.32)",
+          }}
+        >
+          <Image
+            src={dtCoordinadora.src}
+            alt={dtCoordinadora.alt}
+            fill
+            sizes="(max-width: 900px) 0px, 300px"
+            style={{ objectFit: "cover", objectPosition: dtCoordinadora.pos }}
+          />
+        </div>
+
+        <div style={{ textAlign: "left" }}>
         <motion.div>
           <div style={{
             display: "inline-flex", alignItems: "center", gap: "8px",
@@ -877,7 +1054,7 @@ function TrialBanner() {
             Sin letra chica, sin compromiso. Un registro = un trabajador procesado.
           </p>
 
-          <div style={{ display: "flex", gap: "12px", justifyContent: "center", flexWrap: "wrap" }}>
+          <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
             <Link href="/checkout" style={{ textDecoration: "none" }}>
               <div style={{
                 display: "flex", alignItems: "center", gap: "8px",
@@ -903,7 +1080,7 @@ function TrialBanner() {
             </Link>
           </div>
 
-          <div style={{ display: "flex", gap: "32px", justifyContent: "center", marginTop: "40px", flexWrap: "wrap" }}>
+          <div style={{ display: "flex", gap: "24px", marginTop: "40px", flexWrap: "wrap" }}>
             {[
               "Sin tarjeta de crédito",
               "50 registros reales incluidos",
@@ -916,6 +1093,7 @@ function TrialBanner() {
             ))}
           </div>
         </motion.div>
+        </div>
       </div>
     </section>
   )
@@ -1022,7 +1200,24 @@ export default function PortalDTPage() {
     <>
       <Hero />
       <Pain />
+      {/* Cierra el bloque del dolor con la cara del dolor. La página venía
+          contando la digitación a mano con tarjetas y una barra; esto la
+          muestra. Va antes de «cómo funciona» a propósito: primero el
+          problema, después el robot. */}
+      <PhotoBand
+        src={dtEstudioContable.src}
+        alt={dtEstudioContable.alt}
+        eyebrow="Fin de mes en un estudio contable"
+        caption="Cada contrato entra al portal a mano, uno por uno. El plazo son 15 días y no espera."
+        stat={{ valor: "12 h", label: "de digitación al mes con 60 trabajadores" }}
+        accent="#F59E0B"
+      />
       <HowItWorks />
+      <OnboardingGuide />
+      {/* Esta banda estaba justo después de «tan simple como subir un
+          archivo», que es oscura, y con la de arriba dejaba 1.646px de negro
+          seguido. Aquí parte los 1.693px claros de los 8 pasos y los 3
+          robots, que era el otro tramo largo de un solo color. */}
       <PhotoBand
         src="/paginas/portal-dt-rrhh.jpg"
         alt="Registro automático de contratos laborales en el Portal de la Dirección del Trabajo con robots RPA de Tecnozero"
@@ -1030,7 +1225,6 @@ export default function PortalDTPage() {
         caption="Del Excel al comprobante DT en minutos. Tu equipo firma el contrato, el robot lo registra."
         accent="#1FB3E5"
       />
-      <OnboardingGuide />
       <Robots />
       <SocialProof />
       <Pricing />
