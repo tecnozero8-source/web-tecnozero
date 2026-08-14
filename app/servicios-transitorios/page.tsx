@@ -249,7 +249,7 @@ function Aritmetica() {
 
             <div style={{
               paddingTop: "18px", borderTop: "1px solid #E8EFF8",
-              fontSize: "0.82rem", color: "#64748B", lineHeight: 1.65,
+              fontSize: "0.92rem", color: "#64748B", lineHeight: 1.65,
             }}>
               Equivale a entre{" "}
               <strong style={{ color: C.rojo }}>2,5 y 4,7 personas</strong>{" "}
@@ -287,7 +287,7 @@ function Aritmetica() {
                 fontSize: "1.02rem", fontWeight: 700, color: C.textMain,
                 margin: "0 0 10px", letterSpacing: "-0.02em",
               }}>{c.t}</h3>
-              <p style={{ fontSize: "0.9rem", color: "#64748B", lineHeight: 1.7, margin: 0 }}>{c.d}</p>
+              <p style={{ fontSize: "0.95rem", color: "#64748B", lineHeight: 1.7, margin: 0 }}>{c.d}</p>
             </div>
           ))}
         </div>
@@ -380,13 +380,16 @@ function Alcance() {
                 fontSize: "1.05rem", fontWeight: 800, color,
                 margin: "0 0 10px", letterSpacing: "-0.02em",
               }}>{t}</div>
-              <p style={{ fontSize: "0.88rem", color: C.textMuted, lineHeight: 1.7, margin: 0 }}>{d}</p>
+              <p style={{ fontSize: "0.95rem", color: C.textMuted, lineHeight: 1.7, margin: 0 }}>{d}</p>
             </div>
           ))}
         </div>
 
+        {/* Iba en #4A607A, que sobre el fondo #060C18 da 3,0 de contraste y la
+            norma pide 4,5. Es un párrafo entero, no un rótulo, así que pasa al
+            gris de texto de la sección (7,6). */}
         <p style={{
-          fontSize: "0.92rem", color: "#4A607A", lineHeight: 1.8,
+          fontSize: "1rem", color: C.textMuted, lineHeight: 1.8,
           maxWidth: "700px", margin: "36px 0 0",
         }}>
           Entregas tu planilla en el formato que ya usas. El robot detecta qué tipo de
@@ -533,7 +536,7 @@ function ComoSeCobra() {
                     letterSpacing: "-0.04em", marginBottom: "10px",
                   }}>{s.n}</div>
                   <h3 style={{ fontSize: "0.96rem", fontWeight: 700, color: C.textMain, margin: "0 0 8px" }}>{s.t}</h3>
-                  <p style={{ fontSize: "0.85rem", color: "#64748B", lineHeight: 1.7, margin: 0 }}>{s.d}</p>
+                  <p style={{ fontSize: "0.95rem", color: "#64748B", lineHeight: 1.7, margin: 0 }}>{s.d}</p>
                 </div>
               ))}
             </div>

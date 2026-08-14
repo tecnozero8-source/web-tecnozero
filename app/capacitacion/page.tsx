@@ -307,7 +307,11 @@ export default function CapacitacionPage() {
                   borderRadius: "14px 14px 14px 4px",
                   backgroundColor: `${GREEN}12`,
                   border: `1px solid ${GREEN}26`,
-                  fontSize: "0.74rem",
+                  /* La tarjeta simula una pantalla, así que el texto va más
+                     chico que el del sitio a propósito. Aun así 0,74rem son
+                     11,8px en el teléfono y aquí se explica la regla de los 3
+                     días hábiles, que es argumento de venta. */
+                  fontSize: "0.82rem",
                   color: "#D6E4D9",
                   lineHeight: 1.55,
                 }}
@@ -519,7 +523,7 @@ export default function CapacitacionPage() {
                   >
                     {c.titulo}
                   </h3>
-                  <p style={{ fontSize: "0.9rem", color: "#8FA3BF", lineHeight: 1.65, margin: 0 }}>{c.desc}</p>
+                  <p style={{ fontSize: "0.95rem", color: "#8FA3BF", lineHeight: 1.65, margin: 0 }}>{c.desc}</p>
                 </motion.div>
               )
             })}
@@ -613,7 +617,7 @@ export default function CapacitacionPage() {
                       {i + 1}
                     </span>
                   </div>
-                  <p style={{ fontSize: "0.9rem", color: "#475569", lineHeight: 1.6, margin: 0 }}>{p.texto}</p>
+                  <p style={{ fontSize: "0.95rem", color: "#475569", lineHeight: 1.6, margin: 0 }}>{p.texto}</p>
                 </motion.div>
               )
             })}
@@ -686,7 +690,7 @@ export default function CapacitacionPage() {
                   >
                     {a.titulo}
                   </h3>
-                  <p style={{ fontSize: "0.9rem", color: "#8FA3BF", lineHeight: 1.65, margin: 0, flex: 1 }}>{a.desc}</p>
+                  <p style={{ fontSize: "0.95rem", color: "#8FA3BF", lineHeight: 1.65, margin: 0, flex: 1 }}>{a.desc}</p>
                   {a.cta && (
                     <a
                       href={a.cta.href}

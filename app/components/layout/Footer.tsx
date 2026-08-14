@@ -4,6 +4,14 @@ import { motion } from "framer-motion"
 import Image from "next/image"
 import { ArrowUpRight, MapPin, Mail, Phone } from "lucide-react"
 
+/* Contraste sobre el fondo #060C18 del pie, medido con la fórmula de la WCAG.
+   Antes el texto iba en #4A607A (3,0:1) y la barra de abajo en #2A3D52
+   (1,8:1). La norma AA pide 4,5:1 para texto normal, así que la barra de
+   abajo estaba prácticamente invisible. Estos dos tonos pasan y mantienen el
+   gris azulado del diseño. */
+const TEXTO = "#6B7F98"  // 4,77:1
+const HOVER = "#8FA3BF"  // 7,61:1
+
 const productos = [
   { label: "AulaZero · Capacitación", href: "/capacitacion", badge: "Nuevo" },
   { label: "Gestor Laboral 360", href: "/portal-dt", badge: "SaaS" },
@@ -66,7 +74,7 @@ export function Footer() {
             }}>
               ¿Listo para operar sin errores?
             </p>
-            <p style={{ fontSize: "0.88rem", color: "#4A607A", margin: 0 }}>
+            <p style={{ fontSize: "0.95rem", color: TEXTO, margin: 0 }}>
               Evaluación de procesos gratuita · Respuesta en menos de 24 horas
             </p>
           </div>
@@ -107,7 +115,7 @@ export function Footer() {
               }}>
                 {s.val}
               </span>
-              <span style={{ fontSize: "0.78rem", color: "#4A607A", fontWeight: 500 }}>
+              <span style={{ fontSize: "0.85rem", color: TEXTO, fontWeight: 500 }}>
                 {s.label}
               </span>
             </div>
@@ -149,37 +157,37 @@ export function Footer() {
           </div>
 
           <p style={{
-            fontSize: "0.85rem", color: "#4A607A",
+            fontSize: "0.95rem", color: TEXTO,
             lineHeight: 1.72, margin: 0, maxWidth: "270px",
           }}>
             Ingeniería en eficiencia operacional. RPA e IA Agéntica para empresas
             que no aceptan el error humano.
           </p>
 
-          <div style={{ display: "flex", flexDirection: "column" as const, gap: "8px" }}>
+          <div className="footer-link-col" style={{ display: "flex", flexDirection: "column" as const, gap: "8px" }}>
             {[
               { icon: MapPin, text: "La Serena, Región de Coquimbo, Chile", href: null },
               { icon: Mail,   text: "contacto@tecnozero.cl",   href: "mailto:contacto@tecnozero.cl" },
               { icon: Phone,  text: "(+569) 8869 3864",    href: "tel:+56988693864" },
             ].map(({ icon: Icon, text, href }) => (
               href ? (
-                <a key={text} href={href} style={{
+                <a className="footer-link" key={text} href={href} style={{
                   display: "flex", alignItems: "center", gap: "8px",
-                  fontSize: "0.8rem", color: "#4A607A",
+                  fontSize: "0.85rem", color: TEXTO,
                   transition: "color 0.2s ease",
                 }}
-                onMouseEnter={(e) => { e.currentTarget.style.color = "#8FA3BF" }}
-                onMouseLeave={(e) => { e.currentTarget.style.color = "#4A607A" }}
+                onMouseEnter={(e) => { e.currentTarget.style.color = HOVER }}
+                onMouseLeave={(e) => { e.currentTarget.style.color = TEXTO }}
                 >
-                  <Icon size={12} style={{ flexShrink: 0 }}/>
+                  <Icon size={14} style={{ flexShrink: 0 }}/>
                   {text}
                 </a>
               ) : (
-                <div key={text} style={{
+                <div className="footer-link" key={text} style={{
                   display: "flex", alignItems: "center", gap: "8px",
-                  fontSize: "0.8rem", color: "#4A607A",
+                  fontSize: "0.85rem", color: TEXTO,
                 }}>
-                  <Icon size={12} style={{ flexShrink: 0 }}/>
+                  <Icon size={14} style={{ flexShrink: 0 }}/>
                   {text}
                 </div>
               )
@@ -190,23 +198,24 @@ export function Footer() {
         {/* Productos */}
         <div style={{ display: "flex", flexDirection: "column" as const, gap: "16px" }}>
           <p style={{
-            fontSize: "0.62rem", fontWeight: 800, letterSpacing: "0.14em",
+            fontSize: "0.72rem", fontWeight: 800, letterSpacing: "0.14em",
             textTransform: "uppercase" as const, color: "#1FB3E5", margin: 0,
           }}>
             Productos
           </p>
-          <div style={{ display: "flex", flexDirection: "column" as const, gap: "10px" }}>
+          <div className="footer-link-col" style={{ display: "flex", flexDirection: "column" as const, gap: "10px" }}>
             {productos.map((item) => (
               <a
+                className="footer-link"
                 key={item.label}
                 href={item.href}
                 style={{
                   display: "flex", alignItems: "center", gap: "8px",
-                  fontSize: "0.85rem", color: "#4A607A",
+                  fontSize: "0.85rem", color: TEXTO,
                   transition: "color 0.2s ease",
                 }}
-                onMouseEnter={(e) => { e.currentTarget.style.color = "#8FA3BF" }}
-                onMouseLeave={(e) => { e.currentTarget.style.color = "#4A607A" }}
+                onMouseEnter={(e) => { e.currentTarget.style.color = HOVER }}
+                onMouseLeave={(e) => { e.currentTarget.style.color = TEXTO }}
               >
                 {item.label}
                 {item.badge && (
@@ -229,22 +238,24 @@ export function Footer() {
         {/* Empresa */}
         <div style={{ display: "flex", flexDirection: "column" as const, gap: "16px" }}>
           <p style={{
-            fontSize: "0.62rem", fontWeight: 800, letterSpacing: "0.14em",
+            fontSize: "0.72rem", fontWeight: 800, letterSpacing: "0.14em",
             textTransform: "uppercase" as const, color: "#1FB3E5", margin: 0,
           }}>
             Empresa
           </p>
-          <div style={{ display: "flex", flexDirection: "column" as const, gap: "10px" }}>
+          <div className="footer-link-col" style={{ display: "flex", flexDirection: "column" as const, gap: "10px" }}>
             {empresa.map((item) => (
               <a
+                className="footer-link"
                 key={item.label}
                 href={item.href}
                 style={{
-                  fontSize: "0.85rem", color: "#4A607A",
+                  display: "flex", alignItems: "center",
+                  fontSize: "0.85rem", color: TEXTO,
                   transition: "color 0.2s ease",
                 }}
-                onMouseEnter={(e) => { e.currentTarget.style.color = "#8FA3BF" }}
-                onMouseLeave={(e) => { e.currentTarget.style.color = "#4A607A" }}
+                onMouseEnter={(e) => { e.currentTarget.style.color = HOVER }}
+                onMouseLeave={(e) => { e.currentTarget.style.color = TEXTO }}
               >
                 {item.label}
               </a>
@@ -255,7 +266,7 @@ export function Footer() {
         {/* Alianzas */}
         <div style={{ display: "flex", flexDirection: "column" as const, gap: "16px" }}>
           <p style={{
-            fontSize: "0.62rem", fontWeight: 800, letterSpacing: "0.14em",
+            fontSize: "0.72rem", fontWeight: 800, letterSpacing: "0.14em",
             textTransform: "uppercase" as const, color: "#1FB3E5", margin: 0,
           }}>
             Alianzas
@@ -270,21 +281,22 @@ export function Footer() {
               <p style={{ fontSize: "0.78rem", fontWeight: 700, color: "#A78BFA", margin: "0 0 3px" }}>
                 Accéder × Tecnozero
               </p>
-              <p style={{ fontSize: "0.68rem", color: "#4A607A", margin: 0, lineHeight: 1.5 }}>
+              <p style={{ fontSize: "0.78rem", color: TEXTO, margin: 0, lineHeight: 1.5 }}>
                 IA Agéntica enterprise<br/>Montreal, Canadá · exclusivo Chile
               </p>
             </div>
             <a
+              className="footer-link"
               href="https://www.linkedin.com/company/rpa-ia/"
               target="_blank"
               rel="noopener noreferrer"
               style={{
                 display: "inline-flex", alignItems: "center", gap: "5px",
-                fontSize: "0.82rem", color: "#4A607A",
+                fontSize: "0.85rem", color: TEXTO,
                 transition: "color 0.2s ease",
               }}
               onMouseEnter={(e) => { e.currentTarget.style.color = "#1FB3E5" }}
-              onMouseLeave={(e) => { e.currentTarget.style.color = "#4A607A" }}
+              onMouseLeave={(e) => { e.currentTarget.style.color = TEXTO }}
             >
               LinkedIn
               <ArrowUpRight size={12} />
@@ -304,18 +316,18 @@ export function Footer() {
           justifyContent: "space-between",
           flexWrap: "wrap" as const, gap: "12px",
         }}>
-          <div style={{ display: "flex", alignItems: "center", gap: "16px", flexWrap: "wrap" as const }}>
-            <p style={{ fontSize: "0.72rem", color: "#2A3D52", margin: 0 }}>
+          <div className="footer-legal" style={{ display: "flex", alignItems: "center", gap: "16px", flexWrap: "wrap" as const }}>
+            <p style={{ fontSize: "0.78rem", color: TEXTO, margin: 0 }}>
               © {new Date().getFullYear()} Tecnozero SpA · La Serena, Chile
             </p>
-            <a href="/politica-privacidad" style={{ fontSize: "0.72rem", color: "#2A3D52", textDecoration: "none", transition: "color 0.2s" }}
-              onMouseEnter={(e) => { e.currentTarget.style.color = "#4A607A" }}
-              onMouseLeave={(e) => { e.currentTarget.style.color = "#2A3D52" }}>
+            <a className="footer-legal-link" href="/politica-privacidad" style={{ fontSize: "0.78rem", color: TEXTO, textDecoration: "none", transition: "color 0.2s" }}
+              onMouseEnter={(e) => { e.currentTarget.style.color = HOVER }}
+              onMouseLeave={(e) => { e.currentTarget.style.color = TEXTO }}>
               Privacidad
             </a>
-            <a href="/terminos" style={{ fontSize: "0.72rem", color: "#2A3D52", textDecoration: "none", transition: "color 0.2s" }}
-              onMouseEnter={(e) => { e.currentTarget.style.color = "#4A607A" }}
-              onMouseLeave={(e) => { e.currentTarget.style.color = "#2A3D52" }}>
+            <a className="footer-legal-link" href="/terminos" style={{ fontSize: "0.78rem", color: TEXTO, textDecoration: "none", transition: "color 0.2s" }}
+              onMouseEnter={(e) => { e.currentTarget.style.color = HOVER }}
+              onMouseLeave={(e) => { e.currentTarget.style.color = TEXTO }}>
               Términos
             </a>
           </div>
@@ -330,7 +342,7 @@ export function Footer() {
                 boxShadow: "0 0 8px rgba(34,197,94,0.6)",
               }}
             />
-            <span style={{ fontSize: "0.72rem", color: "#2A3D52" }}>
+            <span style={{ fontSize: "0.78rem", color: TEXTO }}>
               +20 robots en producción ahora mismo
             </span>
           </div>

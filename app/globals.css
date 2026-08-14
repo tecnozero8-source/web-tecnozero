@@ -503,6 +503,33 @@ ul, ol {
   }
 }
 
+/* Blancos de toque del pie
+   Los enlaces medían entre 18 y 22px de alto con 8 a 10px de separación: con
+   el dedo le pegabas al de al lado. La norma WCAG 2.5.8 pide 24px y Apple y
+   Google piden 44. Se les da 44 de alto y se anula el `gap` del contenedor,
+   así el pie crece lo mínimo y los blancos quedan pegados en vez de
+   solapados. Va hasta 1023 porque el tablet también se toca. */
+@media (max-width: 1023px) {
+  .footer-link-col {
+    gap: 0 !important;
+  }
+  .footer-link {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
+  /* Estos dos van en línea dentro de la barra de abajo, y `min-height` no le
+     hace nada a un elemento en línea. */
+  .footer-legal-link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+  .footer-legal {
+    gap: 18px !important;
+  }
+}
+
 /* ══════════════════════════════════════════
    HOME — Mobile fixes
    ══════════════════════════════════════════ */
