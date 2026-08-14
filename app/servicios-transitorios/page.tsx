@@ -165,7 +165,11 @@ function Hero() {
                 fontSize: "2rem", fontWeight: 800, color: s.color,
                 letterSpacing: "-0.04em", lineHeight: 1, marginBottom: "8px",
               }}>{s.val}</div>
-              <div style={{ fontSize: "0.78rem", color: "#4A607A", lineHeight: 1.5 }}>{s.label}</div>
+              {/* La bajada es lo único que explica qué cuenta la cifra. Iba a
+                  0,78rem (12,5px en el teléfono) y en #4A607A daba 3,0 de
+                  contraste sobre el fondo #060C18. Sube a 14,1px y al gris de
+                  texto de la página, que da 7,6. */}
+              <div style={{ fontSize: "0.88rem", color: C.textMuted, lineHeight: 1.5 }}>{s.label}</div>
             </div>
           ))}
         </div>
@@ -651,7 +655,11 @@ function Evidencia() {
                 </div>
                 <div>
                   <div style={{ fontSize: "0.86rem", color: "#E2E8F0", fontWeight: 600 }}>{a}</div>
-                  <div style={{ fontSize: "0.72rem", color: "#4A607A", marginTop: "2px" }}>{b}</div>
+                  {/* Mismo gris de 3,0 y encima a 11,5px, y aquí van los
+                      artículos de la causal. Queda medio punto bajo el rótulo
+                      de arriba para que se sigan distinguiendo: 13,6px con 7,2
+                      de contraste sobre la tarjeta #0B1425. */}
+                  <div style={{ fontSize: "0.85rem", color: C.textMuted, marginTop: "2px" }}>{b}</div>
                 </div>
               </div>
             ))}
