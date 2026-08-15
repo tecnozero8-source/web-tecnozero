@@ -63,9 +63,13 @@ function IconBid({ color }: { color: string }) {
 }
 
 /* ─── Panel visual por solución: foto con la cifra encima ────────── */
-function VisualPanel({ foto, accentColor, metricas, badge }: {
+function VisualPanel({ foto, accentColor, panelTinta, metricas, badge }: {
   foto: Foto
   accentColor: string
+  /* El acento de marca pinta el velo y el borde. Para el TEXTO sobre la
+     foto hace falta otro: medido contra el pixel mas claro de cada foto,
+     el azul #0957C3 daba 1,11 en la pastilla y 2,66 en la cifra. */
+  panelTinta: string
   metricas: { valor: string; label: string }[]
   badge: string
 }) {
@@ -103,14 +107,16 @@ function VisualPanel({ foto, accentColor, metricas, badge }: {
           display: "inline-flex", alignItems: "center", gap: "6px",
           padding: "4px 12px", borderRadius: "99px",
           border: `1px solid ${accentColor}55`,
-          backgroundColor: "rgba(6,12,24,0.55)",
+          /* Al 55% el fondo de la pastilla dejaba pasar la foto y el peor
+             caso caia a 3,17. Al 82% el acento mas flojo queda en 5,13. */
+          backgroundColor: "rgba(6,12,24,0.82)",
           backdropFilter: "blur(6px)",
           width: "fit-content",
         }}>
           <div style={{ width: "5px", height: "5px", borderRadius: "50%", backgroundColor: accentColor }}/>
           <span style={{
             fontSize: "0.62rem", fontWeight: 700, letterSpacing: "0.08em",
-            textTransform: "uppercase" as const, color: accentColor,
+            textTransform: "uppercase" as const, color: panelTinta,
           }}>
             {badge}
           </span>
@@ -122,7 +128,7 @@ function VisualPanel({ foto, accentColor, metricas, badge }: {
               <div style={{
                 fontFamily: "var(--font-display), system-ui, sans-serif",
                 fontSize: "2.2rem", fontWeight: 800,
-                color: accentColor, letterSpacing: "-0.05em", lineHeight: 1,
+                color: panelTinta, letterSpacing: "-0.05em", lineHeight: 1,
                 marginBottom: "4px",
                 textShadow: "0 2px 20px rgba(0,0,0,0.7)",
               }}>
@@ -162,6 +168,8 @@ export function HomeSoluciones() {
       cta: "Ver la solución para EST →",
       href: "/servicios-transitorios",
       accentColor: "#1FB3E5",
+      panelTinta: "#1FB3E5",  // ya pasaba
+      accentTinta: "#0E7490",  // el acento daba 2,43 sobre la tarjeta blanca
       Icon: IconRobot,
       foto: solGestionLaboral,
     },
@@ -182,6 +190,8 @@ export function HomeSoluciones() {
       cta: "Conocer AulaZero →",
       href: "/capacitacion",
       accentColor: "#22C55E",
+      panelTinta: "#22C55E",  // ya pasaba
+      accentTinta: "#15803D",  // el acento daba 2,28 sobre la tarjeta blanca
       Icon: IconEdu,
       foto: solCapacitacion,
     },
@@ -202,6 +212,8 @@ export function HomeSoluciones() {
       cta: "Ver precios por tramo →",
       href: "/portal-dt",
       accentColor: "#0957C3",
+      panelTinta: "#60A5FA",  // el azul de marca daba 1,11 sobre la foto
+      accentTinta: "#0957C3",  // el acento daba 6,64 y ya pasaba sobre la tarjeta blanca
       Icon: IconRobot,
       foto: solPyme,
     },
@@ -221,6 +233,8 @@ export function HomeSoluciones() {
       cta: "Ver agentes IA →",
       href: "/agentes-ia",
       accentColor: "#A78BFA",
+      panelTinta: "#A78BFA",  // ya pasaba
+      accentTinta: "#6D28D9",  // el acento daba 2,72 sobre la tarjeta blanca
       Icon: IconAI,
       foto: solAgentes,
     },
@@ -240,6 +254,8 @@ export function HomeSoluciones() {
       cta: "Ver Agentes de Licitaciones →",
       href: "/licitaciones",
       accentColor: "#D4F040",
+      panelTinta: "#D4F040",  // ya pasaba
+      accentTinta: "#5F6E10",  // el acento daba 1,29 sobre la tarjeta blanca
       Icon: IconBid,
       foto: solLicitaciones,
     },
@@ -273,7 +289,10 @@ export function HomeSoluciones() {
             }}>
               Una línea principal.
               <br />
-              <span style={{ color: "#1FB3E5" }}>Cuatro que la acompañan.</span>
+              {/* El cyan de marca sobre blanco da 2,43, y esta mitad del
+                  titular es la que lleva el mensaje. Va con el cyan
+                  oscurecido, que da 5,36. */}
+              <span style={{ color: "#0E7490" }}>Cuatro que la acompañan.</span>
             </h2>
             <p style={{
               fontSize: "0.9rem", color: "#64748B",
@@ -337,7 +356,7 @@ export function HomeSoluciones() {
                         }}>
                           {s.titulo}
                         </h3>
-                        <p style={{ fontSize: "0.8rem", color: "#94A3B8", margin: 0, fontWeight: 500 }}>
+                        <p style={{ fontSize: "0.8rem", color: "#64748B", margin: 0, fontWeight: 500 }}>
                           {s.subtitulo}
                         </p>
                       </div>
@@ -366,12 +385,12 @@ export function HomeSoluciones() {
                           <div style={{
                             fontFamily: "var(--font-display), system-ui, sans-serif",
                             fontSize: "1.6rem", fontWeight: 800,
-                            color: s.accentColor, letterSpacing: "-0.04em",
+                            color: s.accentTinta, letterSpacing: "-0.04em",
                             lineHeight: 1, marginBottom: "4px",
                           }}>
                             {m.valor}
                           </div>
-                          <div style={{ fontSize: "0.72rem", color: "#94A3B8", fontWeight: 500 }}>
+                          <div style={{ fontSize: "0.72rem", color: "#64748B", fontWeight: 500 }}>
                             {m.label}
                           </div>
                         </div>
@@ -379,7 +398,7 @@ export function HomeSoluciones() {
                     </div>
                     <a href={s.href} className="sol-card-cta" style={{
                       fontSize: "0.85rem", fontWeight: 700,
-                      color: s.accentColor, textDecoration: "none",
+                      color: s.accentTinta, textDecoration: "none",
                       whiteSpace: "nowrap" as const,
                       padding: "10px 20px",
                       border: `1px solid ${s.accentColor}40`,
@@ -399,6 +418,7 @@ export function HomeSoluciones() {
                   <VisualPanel
                     foto={s.foto}
                     accentColor={s.accentColor}
+                    panelTinta={s.panelTinta}
                     metricas={s.metricasPanel}
                     badge={s.badge}
                   />

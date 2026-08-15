@@ -13,6 +13,16 @@ const C = {
   rojo: "#E11D48",
   textMain: "#0B1E3D",
   textMuted: "#8FA3BF",
+
+  /* Los acentos de arriba están calibrados contra el fondo oscuro. Puestos
+     sobre blanco el cyan da 2,43 de contraste y el ámbar 2,15, cuando AA pide
+     4,5. Estas son las mismas familias oscurecidas hasta pasar, y se usan solo
+     en las secciones claras. El brillante sigue mandando en los bordes y en
+     las barras, donde es decoración y no texto. */
+  cyanTinta: "#0E7490",   // 5,36 sobre blanco
+  verdeTinta: "#15803D",  // 5,02 sobre blanco
+  ambarTinta: "#B45309",  // 5,02 sobre blanco
+  gris: "#64748B",        // 4,76 sobre blanco; reemplaza al #94A3B8 de 2,5
 }
 
 /* ─── 1. Hero ─────────────────────────────────────────────────────────── */
@@ -217,11 +227,11 @@ function Aritmetica() {
           }}>
             <p style={{
               fontSize: "0.64rem", fontWeight: 800, letterSpacing: "0.14em",
-              textTransform: "uppercase" as const, color: "#94A3B8", margin: "0 0 4px",
+              textTransform: "uppercase" as const, color: C.gris, margin: "0 0 4px",
             }}>
               Con 3.000 movimientos al mes
             </p>
-            <p style={{ fontSize: "0.78rem", color: "#94A3B8", margin: "0 0 24px" }}>
+            <p style={{ fontSize: "0.78rem", color: C.gris, margin: "0 0 24px" }}>
               horas de digitación al mes
             </p>
 
@@ -433,7 +443,7 @@ function ReporteMock() {
         </span>
         <span style={{
           fontSize: "0.6rem", fontWeight: 700, letterSpacing: "0.1em",
-          textTransform: "uppercase" as const, color: "#94A3B8",
+          textTransform: "uppercase" as const, color: C.gris,
           border: "1px solid #E2E8F0", borderRadius: "99px", padding: "3px 9px",
         }}>
           Ejemplo
@@ -443,7 +453,7 @@ function ReporteMock() {
       <div style={{ padding: "22px" }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: "10px" }}>
           <span style={{ fontSize: "0.8rem", color: "#64748B" }}>Bolsa anual · 21.600 registros</span>
-          <span style={{ fontSize: "0.86rem", fontWeight: 800, color: C.ambar }}>82%</span>
+          <span style={{ fontSize: "0.86rem", fontWeight: 800, color: C.ambarTinta }}>82%</span>
         </div>
         <div style={{ height: "14px", borderRadius: "99px", backgroundColor: "#F1F5F9", overflow: "hidden", marginBottom: "12px" }}>
           <div style={{
@@ -451,7 +461,7 @@ function ReporteMock() {
             background: `linear-gradient(90deg, ${C.cyan} 0%, ${C.ambar} 100%)`,
           }} />
         </div>
-        <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.74rem", color: "#94A3B8", marginBottom: "20px" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.74rem", color: C.gris, marginBottom: "20px" }}>
           <span>17.712 cargados</span>
           <span>3.888 disponibles</span>
         </div>
@@ -473,7 +483,7 @@ function ReporteMock() {
 
         <p style={{
           fontSize: "0.64rem", fontWeight: 800, letterSpacing: "0.12em",
-          textTransform: "uppercase" as const, color: "#94A3B8", margin: "0 0 12px",
+          textTransform: "uppercase" as const, color: C.gris, margin: "0 0 12px",
         }}>
           Por empresa usuaria
         </p>
@@ -527,10 +537,13 @@ function ComoSeCobra() {
               display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "16px",
             }}>
               {[
-                { n: "01", t: "Dimensionamos con tu historia", d: "Contamos tus movimientos de los últimos doce meses. Si no los tienes consolidados, los consolidamos nosotros.", color: C.blue },
-                { n: "02", t: "Implementación por robot", d: "Entre dos y cuatro semanas desde la orden de compra, con calibración de tu formato de planilla y credenciales del portal.", color: C.cyan },
-                { n: "03", t: "Reporte el día 5 de cada mes", d: "Cuántos registros llevas, por empresa usuaria y por tipo de trámite. Sin pedirlo.", color: C.verde },
-                { n: "04", t: "Aviso al 80% de la bolsa", d: "Antes de que te pases. La recarga sale al precio del tramo vigente, sin recotizar y sin frenar el procesamiento.", color: C.ambar },
+                /* `color` pinta el borde, que es decoración y puede ir en el
+                   acento brillante. `tinta` pinta el numeral, que es texto y
+                   tiene que llegar a 4,5 sobre la tarjeta blanca. */
+                { n: "01", t: "Dimensionamos con tu historia", d: "Contamos tus movimientos de los últimos doce meses. Si no los tienes consolidados, los consolidamos nosotros.", color: C.blue, tinta: C.blue },
+                { n: "02", t: "Implementación por robot", d: "Entre dos y cuatro semanas desde la orden de compra, con calibración de tu formato de planilla y credenciales del portal.", color: C.cyan, tinta: C.cyanTinta },
+                { n: "03", t: "Reporte el día 5 de cada mes", d: "Cuántos registros llevas, por empresa usuaria y por tipo de trámite. Sin pedirlo.", color: C.verde, tinta: C.verdeTinta },
+                { n: "04", t: "Aviso al 80% de la bolsa", d: "Antes de que te pases. La recarga sale al precio del tramo vigente, sin recotizar y sin frenar el procesamiento.", color: C.ambar, tinta: C.ambarTinta },
               ].map((s) => (
                 <div key={s.n} style={{
                   backgroundColor: "#FFFFFF", border: "1px solid #E8EFF8",
@@ -539,7 +552,7 @@ function ComoSeCobra() {
                 }}>
                   <div style={{
                     fontFamily: "var(--font-display), system-ui, sans-serif",
-                    fontSize: "1.4rem", fontWeight: 800, color: s.color,
+                    fontSize: "1.4rem", fontWeight: 800, color: s.tinta,
                     letterSpacing: "-0.04em", marginBottom: "10px",
                   }}>{s.n}</div>
                   <h3 style={{ fontSize: "0.96rem", fontWeight: 700, color: C.textMain, margin: "0 0 8px" }}>{s.t}</h3>

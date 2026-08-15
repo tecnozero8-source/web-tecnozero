@@ -7,6 +7,10 @@ import Image from "next/image"
 /* ─── Brand tokens ─────────────────────────────────────────── */
 const B = {
   blue:   "#0957C3",
+  /* El azul y el cyan de marca no se leen como texto chico: 2,73 sobre la
+     tarjeta oscura y 2,43 sobre blanco. Estas son sus versiones legibles. */
+  blueClaro: "#60A5FA",
+  cyanTinta: "#0E7490",
   cyan:   "#1FB3E5",
   lime:   "#D4F040",
   dark:   "#060C18",
@@ -253,7 +257,9 @@ function NumerosSection() {
             <div style={{
               fontFamily: "var(--font-display), system-ui, sans-serif",
               fontSize: "clamp(2rem, 3.4vw, 2.9rem)", fontWeight: 800,
-              background: `linear-gradient(135deg, ${B.cyan} 0%, ${B.blue} 100%)`,
+              /* El blanco sobre la punta cyan de este degradado daba 3,94
+                 y estos numeros son texto normal, no titular. */
+              background: `linear-gradient(135deg, ${B.blue} 0%, #062E7A 100%)`,
               WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text",
               letterSpacing: "-0.04em", lineHeight: 1, marginBottom: "10px",
             }}>
@@ -414,7 +420,8 @@ function HacemosSection() {
             }}>
               <span style={{
                 display: "inline-block", fontSize: "0.66rem", fontWeight: 800,
-                letterSpacing: "0.12em", color: l.accent, marginBottom: "16px",
+                /* B.blue sobre esta tarjeta oscura da 2,73. */
+                letterSpacing: "0.12em", color: l.accent === "#0957C3" ? B.blueClaro : l.accent, marginBottom: "16px",
                 padding: "5px 12px", borderRadius: "99px", border: `1px solid ${l.accent}55`,
               }}>
                 {l.tag}
@@ -632,13 +639,13 @@ function MetodologiaSection() {
             }}>
               <div style={{
                 width: "34px", height: "34px", borderRadius: "10px",
-                background: `linear-gradient(135deg, ${B.blue}, ${B.cyan})`,
+                background: `linear-gradient(135deg, ${B.blue}, #062E7A)`,
                 color: B.white, display: "flex", alignItems: "center", justifyContent: "center",
                 fontWeight: 800, fontSize: "0.95rem", marginBottom: "16px",
               }}>
                 {i + 1}
               </div>
-              <div style={{ fontSize: "0.72rem", fontWeight: 800, color: B.cyan, letterSpacing: "0.06em", marginBottom: "6px" }}>
+              <div style={{ fontSize: "0.72rem", fontWeight: 800, color: B.cyanTinta, letterSpacing: "0.06em", marginBottom: "6px" }}>
                 {p.fase}
               </div>
               <div style={{
@@ -695,7 +702,9 @@ function LiderazgoSection() {
             }}>
               <div style={{
                 width: "58px", height: "58px", borderRadius: "14px", flexShrink: 0,
-                background: `linear-gradient(135deg, ${p.accent}, ${B.blue})`,
+                /* El acento cyan deja el blanco en 3,94 y estas iniciales son
+                   texto normal. El azul de marca lo sube a 6,64. */
+                background: `linear-gradient(135deg, ${p.accent === "#1FB3E5" ? B.blue : p.accent}, #062E7A)`,
                 display: "flex", alignItems: "center", justifyContent: "center",
                 fontFamily: "var(--font-display), system-ui, sans-serif",
                 fontWeight: 800, fontSize: "1.15rem", color: B.white, letterSpacing: "0.02em",
@@ -729,7 +738,7 @@ function LiderazgoSection() {
               border: "1px solid rgba(255,255,255,0.10)", backgroundColor: "rgba(255,255,255,0.03)",
               textAlign: "center" as const,
             }}>
-              <div style={{ fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase" as const, color: "rgba(255,255,255,0.4)", marginBottom: "5px" }}>
+              <div style={{ fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase" as const, color: "rgba(255,255,255,0.62)", marginBottom: "5px" }}>
                 {c.label}
               </div>
               {c.plain ? (

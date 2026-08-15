@@ -26,11 +26,22 @@ const C = {
   bgPage:   "#F0F5FF",
   bgCard:   "#FFFFFF",
   textMain: "#0F172A",
-  textMuted:"#64748B",
+  // Antes había un solo #64748B para todo, y no pasaba en ningún lado: 4,35
+  // sobre el fondo de página, 3,96 sobre el azul claro de la tabla de costos
+  // y 3,66 sobre las tarjetas oscuras. Son dos grises distintos porque son
+  // dos fondos distintos.
+  textMuted:"#475569",  // 5,80 en el peor de los fondos claros de la página
+  textMutedOsc:"#94A3B8", // 6,80 en el peor de los oscuros
   rojo:     "#E11D48",
   ambar:    "#F59E0B",
   verde:    "#16A34A",
   violeta:  "#8B5CF6",
+  // Los tres acentos de arriba se leen bien como icono o como barra, pero
+  // como texto chico sobre su propia pastilla clara se quedan entre 2,7 y
+  // 3,6. Estas son las mismas familias bajadas hasta pasar el 4,5.
+  verdeTinta:   "#14713A",
+  rojoTinta:    "#BE123C",
+  violetaTinta: "#6D28D9",
 }
 
 // ─── Terminal animada ─────────────────────────────────────────────────────────
@@ -185,7 +196,7 @@ function Hero() {
             ].map((s) => (
               <div key={s.val}>
                 <div style={{ fontSize: "1.5rem", fontWeight: 800, color: C.lime }}>{s.val}</div>
-                <div style={{ fontSize: "0.78rem", color: "#64748B", marginTop: "2px" }}>{s.label}</div>
+                <div style={{ fontSize: "0.78rem", color: C.textMutedOsc, marginTop: "2px" }}>{s.label}</div>
               </div>
             ))}
           </motion.div>
@@ -209,7 +220,7 @@ function Hero() {
             {["#FF5F57","#FFBD2E","#28C840"].map((c) => (
               <div key={c} style={{ width: "11px", height: "11px", borderRadius: "50%", backgroundColor: c }} />
             ))}
-            <span style={{ marginLeft: "8px", fontSize: "0.72rem", color: "#475569", fontFamily: "monospace" }}>
+            <span style={{ marginLeft: "8px", fontSize: "0.72rem", color: C.textMutedOsc, fontFamily: "monospace" }}>
               tecnozero — robot-dt — procesando nómina.xlsx
             </span>
           </div>
@@ -218,7 +229,7 @@ function Hero() {
           <div className="terminal-fila" style={{
             display: "grid", gridTemplateColumns: "140px 1fr 200px 80px",
             gap: "12px", padding: "8px 16px",
-            fontSize: "0.65rem", color: "#475569",
+            fontSize: "0.65rem", color: C.textMutedOsc,
             fontFamily: "monospace", fontWeight: 700, letterSpacing: "0.1em",
             textTransform: "uppercase",
           }}>
@@ -382,7 +393,7 @@ function Aritmetica() {
             valor: "45 seg",
             ancho: "5%",
             fondo: C.verde,
-            color: C.verde,
+            color: C.verdeTinta,
           },
         ].map((b) => (
           <div key={b.label}>
@@ -458,7 +469,7 @@ function HowItWorks() {
           <h2 style={{ fontSize: "clamp(1.6rem, 3vw, 2.3rem)", fontWeight: 800, color: "#FFFFFF", marginBottom: "14px" }}>
             Tan simple como subir un archivo
           </h2>
-          <p style={{ fontSize: "1rem", color: "#64748B", maxWidth: "480px", margin: "0 auto" }}>
+          <p style={{ fontSize: "1rem", color: C.textMutedOsc, maxWidth: "480px", margin: "0 auto" }}>
             Sin instalaciones, sin configuración compleja. Desde el Excel al comprobante DT en minutos.
           </p>
         </motion.div>
@@ -479,14 +490,14 @@ function HowItWorks() {
                 }}>
                   {s.icon}
                 </div>
-                <span style={{ fontSize: "0.7rem", fontWeight: 800, color: "#334155", letterSpacing: "0.15em" }}>
+                <span style={{ fontSize: "0.7rem", fontWeight: 800, color: C.textMutedOsc, letterSpacing: "0.15em" }}>
                   PASO {s.n}
                 </span>
               </div>
               <h3 style={{ fontSize: "1.05rem", fontWeight: 700, color: "#F1F5F9", marginBottom: "10px" }}>
                 {s.title}
               </h3>
-              <p style={{ fontSize: "0.88rem", color: "#64748B", lineHeight: 1.65 }}>
+              <p style={{ fontSize: "0.88rem", color: C.textMutedOsc, lineHeight: 1.65 }}>
                 {s.desc}
               </p>
             </motion.div>
@@ -578,8 +589,10 @@ function OnboardingGuide() {
                 overflow: "hidden",
               }}
             >
-              {/* Número de fondo */}
-              <div style={{
+              {/* Número de fondo: decoración al 3%, y el número legible
+                  está en la pastilla de abajo. `aria-hidden` para que el
+                  lector de pantalla no lo lea dos veces. */}
+              <div aria-hidden="true" style={{
                 position: "absolute" as const, top: "-8px", right: "12px",
                 fontSize: "3.5rem", fontWeight: 800,
                 color: `${C.blue}08`, letterSpacing: "-0.05em",
@@ -665,6 +678,7 @@ function Robots() {
     {
       badge: "INGRESOS",
       badgeColor: C.verde,
+      badgeTinta: C.verdeTinta,
       icon: <UserPlus size={22} color={C.verde} strokeWidth={1.9} />,
       title: "Robot de Ingresos",
       tagline: "Registra contratos nuevos en el Portal DT automáticamente.",
@@ -679,6 +693,7 @@ function Robots() {
     {
       badge: "BAJAS",
       badgeColor: C.rojo,
+      badgeTinta: C.rojoTinta,
       icon: <UserMinus size={22} color={C.rojo} strokeWidth={1.9} />,
       title: "Robot de Bajas",
       tagline: "Registra finiquitos y términos de contrato con causal correcta.",
@@ -693,6 +708,7 @@ function Robots() {
     {
       badge: "ANEXOS",
       badgeColor: C.violeta,
+      badgeTinta: C.violetaTinta,
       icon: <FilePen size={22} color={C.violeta} strokeWidth={1.9} />,
       title: "Robot de Anexos",
       tagline: "Modifica contratos vigentes: sueldos, jornadas, cargos.",
@@ -735,7 +751,7 @@ function Robots() {
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "16px" }}>
                   <span style={{
                     backgroundColor: `${r.badgeColor}15`,
-                    color: r.badgeColor,
+                    color: r.badgeTinta,
                     border: `1px solid ${r.badgeColor}30`,
                     borderRadius: "6px", padding: "4px 10px",
                     fontSize: "0.68rem", fontWeight: 800, letterSpacing: "0.1em",
@@ -837,7 +853,7 @@ function SocialProof() {
                 </div>
                 <div>
                   <div style={{ fontWeight: 700, color: "#F1F5F9", fontSize: "0.9rem" }}>{t.name}</div>
-                  <div style={{ color: "#64748B", fontSize: "0.78rem" }}>{t.role}</div>
+                  <div style={{ color: C.textMutedOsc, fontSize: "0.78rem" }}>{t.role}</div>
                 </div>
               </div>
             </motion.div>
@@ -916,7 +932,7 @@ function Pricing() {
                   <span style={{ color: C.textMuted }}>{t.range}</span>
                   <span style={{ fontWeight: 700, color: C.blue }}>{t.clp}</span>
                   <span style={{ color: C.textMuted, fontSize: "0.8rem" }}>{t.uf} UF</span>
-                  <span style={{ color: "#16A34A", fontSize: "0.75rem", fontWeight: 600 }}>{t.saving}</span>
+                  <span style={{ color: C.verdeTinta, fontSize: "0.75rem", fontWeight: 600 }}>{t.saving}</span>
                 </div>
               ))}
             </div>
@@ -949,7 +965,7 @@ function Pricing() {
                   <span style={{ fontSize: "0.85rem", color: C.textMuted }}>{row.label}</span>
                   <span style={{
                     fontSize: "0.85rem", fontWeight: 700,
-                    color: row.type === "good" ? "#16A34A" : "#DC2626",
+                    color: row.type === "good" ? C.verdeTinta : C.rojoTinta,
                   }}>
                     {row.val}
                   </span>
@@ -967,7 +983,7 @@ function Pricing() {
                 <Shield size={18} color={C.lime} />
                 <span style={{ fontWeight: 700, color: "#FFFFFF" }}>Sin riesgo para empezar</span>
               </div>
-              <p style={{ fontSize: "0.88rem", color: "rgba(255,255,255,0.75)", lineHeight: 1.65, marginBottom: "20px" }}>
+              <p style={{ fontSize: "0.88rem", color: "rgba(255,255,255,0.85)", lineHeight: 1.65, marginBottom: "20px" }}>
                 Los primeros 50 registros son gratis, sin tarjeta de crédito. Procesa una nómina real de un cliente y decide.
               </p>
               <Link href="/checkout" style={{ textDecoration: "none" }}>
@@ -1036,7 +1052,7 @@ function TrialBanner() {
         <motion.div>
           <div style={{
             display: "inline-flex", alignItems: "center", gap: "8px",
-            backgroundColor: "rgba(255,255,255,0.12)",
+            backgroundColor: "rgba(0,0,0,0.18)",
             borderRadius: "100px", padding: "6px 18px", marginBottom: "24px",
           }}>
             <Sparkles size={13} color={C.lime} />
@@ -1048,7 +1064,7 @@ function TrialBanner() {
           <h2 style={{ fontSize: "clamp(1.8rem, 3.5vw, 2.8rem)", fontWeight: 800, color: "#FFFFFF", marginBottom: "16px", lineHeight: 1.2 }}>
             50 registros gratis.<br />Hoy mismo.
           </h2>
-          <p style={{ fontSize: "1rem", color: "rgba(255,255,255,0.75)", lineHeight: 1.7, marginBottom: "36px" }}>
+          <p style={{ fontSize: "1rem", color: "rgba(255,255,255,0.85)", lineHeight: 1.7, marginBottom: "36px" }}>
             Crea tu cuenta en 2 minutos, sube la planilla de un cliente real y
             ve cómo Tecnozero registra cada contrato en el Portal DT.
             Sin letra chica, sin compromiso. Un registro = un trabajador procesado.
@@ -1088,7 +1104,7 @@ function TrialBanner() {
             ].map((label) => (
               <div key={label} style={{ display: "flex", alignItems: "center", gap: "7px" }}>
                 <CheckCircle2 size={14} color={C.lime} />
-                <span style={{ color: "rgba(255,255,255,0.7)", fontSize: "0.85rem" }}>{label}</span>
+                <span style={{ color: "rgba(255,255,255,0.85)", fontSize: "0.85rem" }}>{label}</span>
               </div>
             ))}
           </div>
@@ -1149,7 +1165,7 @@ function FAQ() {
               >
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                   <span style={{ fontWeight: 600, color: "#F1F5F9", fontSize: "0.95rem" }}>{faq.q}</span>
-                  {open === i ? <ChevronUp size={18} color="#64748B" /> : <ChevronDown size={18} color="#64748B" />}
+                  {open === i ? <ChevronUp size={18} color={C.textMutedOsc} /> : <ChevronDown size={18} color={C.textMutedOsc} />}
                 </div>
 
                 <AnimatePresence>
@@ -1160,7 +1176,7 @@ function FAQ() {
                     >
                       <p style={{
                         marginTop: "12px", fontSize: "0.9rem",
-                        color: "#64748B", lineHeight: 1.7,
+                        color: C.textMutedOsc, lineHeight: 1.7,
                       }}>
                         {faq.a}
                       </p>
@@ -1181,7 +1197,7 @@ function FAQ() {
 function FooterCTA() {
   return (
     <section style={{ backgroundColor: "#02060F", padding: "56px 24px", textAlign: "center" }}>
-      <p style={{ color: "#334155", fontSize: "0.88rem" }}>
+      <p style={{ color: C.textMutedOsc, fontSize: "0.88rem" }}>
         ¿Tienes más preguntas?{" "}
         <Link href="/contacto" style={{ color: C.cyan, textDecoration: "none", fontWeight: 600 }}>
           Escríbenos

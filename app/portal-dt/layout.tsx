@@ -1,24 +1,30 @@
 import type { Metadata } from "next"
 
+/* El título empezaba por «Portal DT», que es justo lo que la gente escribe
+   cuando busca el sitio de la Dirección del Trabajo, no un proveedor. A 90
+   días la página juntó 223 impresiones y 0 clics: 156 vienen de «portaldt»
+   y 39 de «portal 360 genera», que es el portal de otra empresa. Solo 5
+   impresiones tenían intención de compra. Ahora el título arranca con el
+   verbo del comprador y deja «Portal DT» al final, para la relevancia. */
 export const metadata: Metadata = {
-  title: "Portal DT — Registro Automático de Contratos",
+  title: "Automatiza el registro de contratos en el Portal DT",
   description:
-    "Robot RPA que registra contratos, anexos y bajas en el Portal Dirección del Trabajo. 45 segundos por registro. Desde $640 CLP/registro. Sin mensualidad fija.",
+    "El robot sube tus ingresos, anexos y bajas al portal de la Dirección del Trabajo en 45 segundos cada uno. Desde $640 por registro, sin mensualidad fija.",
   alternates: { canonical: "https://www.tecnozero.cl/portal-dt" },
   openGraph: {
     type: "website",
     locale: "es_CL",
     siteName: "Tecnozero",
-    title: "Portal DT — Registro Automático de Contratos · Tecnozero",
+    title: "Automatiza el registro de contratos en el Portal DT · Tecnozero",
     description:
-      "Robot RPA que registra contratos en el Portal Dirección del Trabajo. 45 segundos por registro. Desde $640 CLP/registro. Sin mensualidad fija.",
+      "El robot sube tus ingresos, anexos y bajas al portal de la Dirección del Trabajo en 45 segundos cada uno. Desde $640 por registro, sin mensualidad fija.",
     url: "https://www.tecnozero.cl/portal-dt",
     images: [{ url: "/og/portal-dt.png", width: 1200, height: 630, alt: "Portal DT de Tecnozero: registro automático de contratos" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Portal DT — Registro Automático de Contratos · Tecnozero",
-    description: "Robot RPA que registra contratos en el Portal DT. Desde $640 CLP/registro.",
+    title: "Automatiza el registro de contratos en el Portal DT · Tecnozero",
+    description: "El robot sube ingresos, anexos y bajas al portal de la Dirección del Trabajo en 45 segundos cada uno. Desde $640 por registro.",
     images: ["/og/portal-dt.png"],
   },
 }

@@ -65,7 +65,7 @@ function ProcessStep({
         {ok ? (
           <CheckCircle2 size={11} color={color} strokeWidth={2.5} />
         ) : (
-          <span style={{ fontSize: "10px", color: "#EF4444", lineHeight: 1, fontWeight: 800 }}>✕</span>
+          <span style={{ fontSize: "10px", color: "#F87171", lineHeight: 1, fontWeight: 800 }}>✕</span>
         )}
       </div>
       <span style={{ fontSize: "0.75rem", color: "rgba(255,255,255,0.65)", fontWeight: 500 }}>
@@ -137,7 +137,7 @@ function TimelineCard() {
                 fontWeight: 800,
                 letterSpacing: "0.12em",
                 textTransform: "uppercase" as const,
-                color: "rgba(255,255,255,0.4)",
+                color: "rgba(255,255,255,0.62)",
               }}
             >
               Antes
@@ -149,7 +149,7 @@ function TimelineCard() {
               fontFamily: "var(--font-display), system-ui, sans-serif",
               fontSize: "2rem",
               fontWeight: 800,
-              color: "#EF4444",
+              color: "#F87171",
               letterSpacing: "-0.05em",
               lineHeight: 1,
               marginBottom: "4px",
@@ -160,7 +160,7 @@ function TimelineCard() {
           <div
             style={{
               fontSize: "0.72rem",
-              color: "rgba(255,255,255,0.4)",
+              color: "rgba(255,255,255,0.62)",
               marginBottom: "20px",
               fontWeight: 500,
             }}
@@ -191,7 +191,7 @@ function TimelineCard() {
               <span
                 style={{
                   fontSize: "0.68rem",
-                  color: "#EF4444",
+                  color: "#F87171",
                   fontWeight: 600,
                 }}
               >
@@ -227,7 +227,7 @@ function TimelineCard() {
                 fontWeight: 800,
                 letterSpacing: "0.12em",
                 textTransform: "uppercase" as const,
-                color: "rgba(255,255,255,0.4)",
+                color: "rgba(255,255,255,0.62)",
               }}
             >
               HOY
@@ -250,7 +250,7 @@ function TimelineCard() {
           <div
             style={{
               fontSize: "0.72rem",
-              color: "rgba(255,255,255,0.4)",
+              color: "rgba(255,255,255,0.62)",
               marginBottom: "20px",
               fontWeight: 500,
             }}
@@ -332,6 +332,7 @@ function SolutionCard({
   cta,
   href,
   accentColor,
+  accentTinta,
   panelBadge,
   panelMetrics,
   index,
@@ -344,6 +345,9 @@ function SolutionCard({
   cta: string
   href: string
   accentColor: string
+  /* El acento pinta bordes y velos. Como TEXTO sobre la tarjeta blanca
+     el ambar daba 2,11 y el cyan 2,43. Esta es la version que pasa. */
+  accentTinta: string
   panelBadge: string
   panelMetrics: { valor: string; label: string }[]
   index: number
@@ -411,7 +415,7 @@ function SolutionCard({
               <p
                 style={{
                   fontSize: "0.8rem",
-                  color: "#94A3B8",
+                  color: "#64748B",
                   margin: 0,
                   fontWeight: 500,
                 }}
@@ -452,7 +456,7 @@ function SolutionCard({
                     fontFamily: "var(--font-display), system-ui, sans-serif",
                     fontSize: "1.6rem",
                     fontWeight: 800,
-                    color: accentColor,
+                    color: accentTinta,
                     letterSpacing: "-0.04em",
                     lineHeight: 1,
                     marginBottom: "4px",
@@ -463,7 +467,7 @@ function SolutionCard({
                 <div
                   style={{
                     fontSize: "0.72rem",
-                    color: "#94A3B8",
+                    color: "#64748B",
                     fontWeight: 500,
                   }}
                 >
@@ -477,7 +481,7 @@ function SolutionCard({
             style={{
               fontSize: "0.85rem",
               fontWeight: 700,
-              color: accentColor,
+              color: accentTinta,
               textDecoration: "none",
               whiteSpace: "nowrap" as const,
               padding: "10px 20px",
@@ -550,7 +554,7 @@ function SolutionCard({
               fontWeight: 700,
               letterSpacing: "0.08em",
               textTransform: "uppercase" as const,
-              color: accentColor,
+              color: accentTinta,
             }}
           >
             {panelBadge}
@@ -572,7 +576,7 @@ function SolutionCard({
                   fontFamily: "var(--font-display), system-ui, sans-serif",
                   fontSize: "2.4rem",
                   fontWeight: 800,
-                  color: accentColor,
+                  color: accentTinta,
                   letterSpacing: "-0.05em",
                   lineHeight: 1,
                   marginBottom: "4px",
@@ -721,7 +725,7 @@ function CredencialMock() {
             fontWeight: 700,
             letterSpacing: "0.08em",
             textTransform: "uppercase" as const,
-            color: "rgba(255,255,255,0.42)",
+            color: "rgba(255,255,255,0.62)",
             border: "1px solid rgba(255,255,255,0.16)",
             borderRadius: "99px",
             padding: "3px 9px",
@@ -738,7 +742,7 @@ function CredencialMock() {
             fontWeight: 700,
             letterSpacing: "0.1em",
             textTransform: "uppercase" as const,
-            color: "rgba(255,255,255,0.38)",
+            color: "rgba(255,255,255,0.62)",
             marginBottom: "6px",
           }}
         >
@@ -759,7 +763,7 @@ function CredencialMock() {
         <div
           style={{
             fontSize: "0.76rem",
-            color: "rgba(255,255,255,0.42)",
+            color: "rgba(255,255,255,0.62)",
             marginTop: "5px",
             fontFamily: "'JetBrains Mono', monospace",
           }}
@@ -793,7 +797,7 @@ function CredencialMock() {
             fontWeight: 700,
             letterSpacing: "0.1em",
             textTransform: "uppercase" as const,
-            color: "rgba(255,255,255,0.38)",
+            color: "rgba(255,255,255,0.62)",
             margin: "24px 0 12px",
           }}
         >
@@ -824,7 +828,7 @@ function CredencialMock() {
           borderTop: "1px solid rgba(255,255,255,0.07)",
           backgroundColor: "rgba(255,255,255,0.02)",
           fontSize: "0.68rem",
-          color: "rgba(255,255,255,0.4)",
+          color: "rgba(255,255,255,0.62)",
           fontFamily: "'JetBrains Mono', monospace",
           lineHeight: 1.5,
         }}
@@ -1376,7 +1380,9 @@ export default function MinePassPage() {
               >
                 Tres módulos. Un solo stack.
                 <br />
-                <span style={{ color: "#F5A020" }}>
+                {/* El ámbar de marca da 2,11 sobre blanco y esta es la
+                    mitad del titular que carga el mensaje. */}
+                <span style={{ color: "#8F5A00" }}>
                   Faena sin fricciones.
                 </span>
               </h2>
@@ -1416,6 +1422,7 @@ export default function MinePassPage() {
               cta="Ver MinePass →"
               href="/contacto"
               accentColor="#F5A020"
+              accentTinta="#8F5A00"
               panelBadge="Acreditación AIC"
               panelMetrics={[
                 { valor: "10d", label: "→ horas" },
@@ -1436,6 +1443,7 @@ export default function MinePassPage() {
               cta="Ver VehiclePass →"
               href="/contacto"
               accentColor="#F5A020"
+              accentTinta="#8F5A00"
               panelBadge="Flota siempre operativa"
               panelMetrics={[
                 { valor: "95%", label: "más rápido" },
@@ -1456,6 +1464,7 @@ export default function MinePassPage() {
               cta="Ver AIC Renovación →"
               href="/contacto"
               accentColor="#1FB3E5"
+              accentTinta="#0E7490"
               panelBadge="IA agéntica"
               panelMetrics={[
                 { valor: "100%", label: "automático" },
@@ -1547,7 +1556,7 @@ export default function MinePassPage() {
               <span
                 style={{
                   display: "block",
-                  color: "rgba(255,255,255,0.4)",
+                  color: "rgba(255,255,255,0.62)",
                   fontSize: "0.55em",
                   fontWeight: 600,
                   letterSpacing: "-0.02em",
@@ -1627,7 +1636,7 @@ export default function MinePassPage() {
                 <div
                   style={{
                     fontSize: "0.72rem",
-                    color: "rgba(255,255,255,0.4)",
+                    color: "rgba(255,255,255,0.62)",
                     lineHeight: 1.4,
                   }}
                 >
@@ -1670,7 +1679,7 @@ export default function MinePassPage() {
                     fontWeight: 700,
                     letterSpacing: "0.1em",
                     textTransform: "uppercase" as const,
-                    color: "rgba(255,255,255,0.3)",
+                    color: "rgba(255,255,255,0.62)",
                   }}
                 >
                   El problema
@@ -1712,7 +1721,7 @@ export default function MinePassPage() {
                     style={{
                       fontSize: "0.68rem",
                       fontWeight: 600,
-                      color: "rgba(239,68,68,0.8)",
+                      color: "#F87171",
                       padding: "3px 10px",
                       borderRadius: "99px",
                       backgroundColor: "rgba(239,68,68,0.08)",
@@ -2245,7 +2254,7 @@ export default function MinePassPage() {
                 <span
                   style={{
                     fontSize: "0.78rem",
-                    color: "rgba(255,255,255,0.4)",
+                    color: "rgba(255,255,255,0.62)",
                   }}
                 >
                   Sin compromiso · Solo ingenieros especializados
@@ -2332,7 +2341,7 @@ export default function MinePassPage() {
               <p
                 style={{
                   fontSize: "0.72rem",
-                  color: "rgba(255,255,255,0.35)",
+                  color: "rgba(255,255,255,0.62)",
                   margin: 0,
                   lineHeight: 1.5,
                 }}
@@ -2380,7 +2389,7 @@ export default function MinePassPage() {
                 <span
                   style={{
                     fontSize: "0.78rem",
-                    color: "rgba(255,255,255,0.45)",
+                    color: "rgba(255,255,255,0.62)",
                     fontWeight: 500,
                   }}
                 >

@@ -6,7 +6,11 @@ import { ArrowRight, Clock, CheckCircle2, Zap } from "lucide-react"
 export function HomeCTA() {
   return (
     <section style={{
-      background: "linear-gradient(135deg, #0744A8 0%, #0957C3 35%, #0A70CE 65%, #0F96D8 85%, #1FB3E5 100%)",
+      /* Cerraba en el cyan #1FB3E5. Medido en el punto donde cae cada
+         texto, la esquina clara dejaba el blanco puro en 2,43 y los grises
+         translucidos entre 1,54 y 2,04. Ahora la punta mas clara es
+         #0A62B4, donde el blanco da 6,14 y la lima 4,78. */
+      background: "linear-gradient(135deg, #06398C 0%, #0744A8 30%, #0957C3 65%, #0A62B4 100%)",
       padding: "0",
       position: "relative",
       overflow: "hidden",
@@ -81,7 +85,7 @@ export function HomeCTA() {
           </h2>
 
           <p style={{
-            fontSize: "1.1rem", color: "rgba(255,255,255,0.78)",
+            fontSize: "1.1rem", color: "rgba(255,255,255,0.92)",
             lineHeight: 1.72, maxWidth: "540px", margin: "0 auto",
           }}>
             Una conversación de 30 minutos es suficiente para identificar
@@ -130,7 +134,7 @@ export function HomeCTA() {
               ].map((tag) => (
                 <div key={tag} style={{ display: "flex", alignItems: "center", gap: "10px" }}>
                   <CheckCircle2 size={16} color="#D4F040" strokeWidth={2.5}/>
-                  <span style={{ fontSize: "0.88rem", color: "rgba(255,255,255,0.85)", fontWeight: 500 }}>
+                  <span style={{ fontSize: "0.88rem", color: "rgba(255,255,255,0.92)", fontWeight: 500 }}>
                     {tag}
                   </span>
                 </div>
@@ -142,8 +146,8 @@ export function HomeCTA() {
               paddingTop: "20px",
               borderTop: "1px solid rgba(255,255,255,0.12)",
             }}>
-              <Clock size={14} color="rgba(255,255,255,0.4)"/>
-              <span style={{ fontSize: "0.78rem", color: "rgba(255,255,255,0.45)" }}>
+              <Clock size={14} color="rgba(255,255,255,0.92)"/>
+              <span style={{ fontSize: "0.78rem", color: "rgba(255,255,255,0.92)" }}>
                 Sin compromiso · Sin vendedores · Solo ingenieros especializados
               </span>
             </div>
@@ -171,7 +175,7 @@ export function HomeCTA() {
                 30 min.
               </div>
               <div style={{
-                fontSize: "0.8rem", color: "rgba(255,255,255,0.6)",
+                fontSize: "0.8rem", color: "rgba(255,255,255,0.92)",
                 fontWeight: 500,
               }}>
                 es todo lo que necesitas para
@@ -202,7 +206,7 @@ export function HomeCTA() {
             </motion.a>
 
             <p style={{
-              fontSize: "0.72rem", color: "rgba(255,255,255,0.4)",
+              fontSize: "0.72rem", color: "rgba(255,255,255,0.92)",
               margin: 0, lineHeight: 1.5,
             }}>
               Respuesta en menos de 24 horas hábiles
@@ -233,7 +237,7 @@ export function HomeCTA() {
                 {s.val}
               </span>
               <span style={{
-                fontSize: "0.78rem", color: "rgba(255,255,255,0.55)",
+                fontSize: "0.78rem", color: "rgba(255,255,255,0.92)",
                 fontWeight: 500,
               }}>
                 {s.txt}

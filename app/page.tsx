@@ -118,7 +118,11 @@ export default function HomePage() {
             <br />
             y finiquitos{" "}
             <span style={{
-              background: "linear-gradient(135deg, #1FB3E5 0%, #0957C3 100%)",
+              /* El titular va recortado sobre el degradado, asi que el color
+                 que se ve ES el degradado. La punta #0957C3 daba 2,95 sobre el
+                 fondo #060C18 y la norma pide 3,0 para texto grande: las
+                 ultimas palabras se apagaban. #2E86E8 da 5,30. */
+              background: "linear-gradient(135deg, #1FB3E5 0%, #2E86E8 100%)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
             }}>
@@ -171,11 +175,11 @@ export default function HomePage() {
             marginTop: "3.5rem", paddingTop: "2.5rem",
             borderTop: "1px solid rgba(255,255,255,0.05)",
           }}>
-            <span style={{ fontSize: "0.7rem", color: "#3A5068", fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase" as const }}>
+            <span style={{ fontSize: "0.7rem", color: "#94A3B8", fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase" as const }}>
               Hoy en producción
             </span>
             {["Servicios transitorios · 6 cuentas", "35.278 registros en una sola cuenta", "0 errores regulatorios"].map((c) => (
-              <span key={c} style={{ fontSize: "0.78rem", color: "#4A607A", fontWeight: 500 }}>{c}</span>
+              <span key={c} style={{ fontSize: "0.78rem", color: "#94A3B8", fontWeight: 500 }}>{c}</span>
             ))}
           </div>
         </div>
@@ -218,7 +222,7 @@ export default function HomePage() {
                   Algunos robots activos y trabajando en nuestros clientes
                 </span>
               </div>
-              <span style={{ fontSize: "0.7rem", color: "#3A5068" }}>Tiempo real</span>
+              <span style={{ fontSize: "0.7rem", color: "#94A3B8" }}>Tiempo real</span>
             </div>
 
             {/* Robots list */}
@@ -251,7 +255,7 @@ export default function HomePage() {
                       <div style={{ fontSize: "0.8rem", fontWeight: 600, color: "#E2E8F0", lineHeight: 1.3 }}>
                         {robot.name}
                       </div>
-                      <div style={{ fontSize: "0.68rem", color: "#4A607A", marginTop: "1px" }}>
+                      <div style={{ fontSize: "0.68rem", color: "#94A3B8", marginTop: "1px" }}>
                         {robot.client}
                       </div>
                     </div>
@@ -263,7 +267,7 @@ export default function HomePage() {
                     }}>
                       {robot.status}
                     </div>
-                    <div style={{ fontSize: "0.65rem", color: "#3A5068", marginTop: "1px" }}>
+                    <div style={{ fontSize: "0.65rem", color: "#94A3B8", marginTop: "1px" }}>
                       {robot.ops}
                     </div>
                   </div>
@@ -278,7 +282,7 @@ export default function HomePage() {
               display: "flex", justifyContent: "space-between", alignItems: "center",
               backgroundColor: "#0D1830",
             }}>
-              <span style={{ fontSize: "0.7rem", color: "#3A5068" }}>
+              <span style={{ fontSize: "0.7rem", color: "#94A3B8" }}>
                 SLA 99.5% · AWS · Cifrado en tránsito
               </span>
               <div style={{
@@ -313,10 +317,13 @@ export default function HomePage() {
           display: "grid", gridTemplateColumns: "repeat(4, 1fr)",
         }}>
           {[
-            { value: "+20", label: "Robots activos", sub: "en producción hoy", color: "#1FB3E5" },
-            { value: "35.278", label: "Registros en el portal DT", sub: "una sola cuenta, 19 meses", color: "#0957C3" },
-            { value: "47", label: "Campos por ingreso", sub: "que el robot completa solo", color: "#0957C3" },
-            { value: "8 sem.", label: "A producción", sub: "de requerimiento a robot live", color: "#16A34A" },
+            /* El cyan de marca da 2,33 sobre este fondo casi blanco. La
+               franja de arriba de la tarjeta se queda con el cyan; la cifra
+               pasa al mismo cyan oscurecido, que da 5,13. */
+            { value: "+20", label: "Robots activos", sub: "en producción hoy", color: "#1FB3E5", tinta: "#0E7490" },
+            { value: "35.278", label: "Registros en el portal DT", sub: "una sola cuenta, 19 meses", color: "#0957C3", tinta: "#0957C3" },
+            { value: "47", label: "Campos por ingreso", sub: "que el robot completa solo", color: "#0957C3", tinta: "#0957C3" },
+            { value: "8 sem.", label: "A producción", sub: "de requerimiento a robot live", color: "#16A34A", tinta: "#15803D" },
           ].map((s, i) => (
             <div key={s.label} className="stat-item" style={{
               padding: "52px 40px",
@@ -326,7 +333,7 @@ export default function HomePage() {
               <div style={{
                 fontFamily: "var(--font-display), system-ui, sans-serif",
                 fontSize: "clamp(2rem, 3vw, 2.8rem)",
-                fontWeight: 800, color: s.color,
+                fontWeight: 800, color: s.tinta,
                 letterSpacing: "-0.04em", lineHeight: 1,
                 marginBottom: "10px",
               }}>
@@ -356,13 +363,13 @@ export default function HomePage() {
         }}>
           <span style={{
             fontSize: "0.68rem", fontWeight: 600, letterSpacing: "0.12em",
-            textTransform: "uppercase" as const, color: "#2A3D52",
+            textTransform: "uppercase" as const, color: "#94A3B8",
           }}>
             En producción hoy
           </span>
           <div style={{ width: "1px", height: "28px", backgroundColor: "rgba(255,255,255,0.06)" }} />
           {["Servicios transitorios", "Outsourcing de personal", "Gestión laboral tercerizada", "Transporte público masivo", "Auditoría interna sobre SAP"].map((c) => (
-            <span key={c} style={{ fontSize: "0.85rem", fontWeight: 500, color: "#3A5068" }}>{c}</span>
+            <span key={c} style={{ fontSize: "0.85rem", fontWeight: 500, color: "#94A3B8" }}>{c}</span>
           ))}
         </div>
       </section>

@@ -206,11 +206,11 @@ export default function CapacitacionPage() {
               borderTop: "1px solid rgba(255,255,255,0.05)",
             }}
           >
-            <span style={{ fontSize: "0.7rem", color: "#3A5068", fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase" }}>
+            <span style={{ fontSize: "0.7rem", color: "#94A3B8", fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase" }}>
               Plataforma en producción
             </span>
             {["3 cursos listos", "Tutor IA 24/7", "100% asincrónico"].map((c) => (
-              <span key={c} style={{ fontSize: "0.78rem", color: "#4A607A", fontWeight: 500 }}>
+              <span key={c} style={{ fontSize: "0.78rem", color: "#94A3B8", fontWeight: 500 }}>
                 {c}
               </span>
             ))}
@@ -376,7 +376,8 @@ export default function CapacitacionPage() {
             >
               La Ley Karin no pregunta
               <br />
-              <span style={{ color: GREEN }}>si estás listo.</span>
+              {/* GREEN es #22C55E y da 2,28 sobre blanco. */}
+              <span style={{ color: "#15803D" }}>si estás listo.</span>
             </h2>
             <p style={{ fontSize: "1.05rem", color: "#475569", lineHeight: 1.8, margin: 0 }}>
               Desde agosto de 2024, la Ley 21.643 exige a toda empresa en Chile un protocolo de prevención del acoso
@@ -609,7 +610,7 @@ export default function CapacitacionPage() {
                         fontFamily: "var(--font-display), system-ui, sans-serif",
                         fontSize: "2rem",
                         fontWeight: 800,
-                        color: "#E2E8F0",
+                        color: "#64748B",
                         letterSpacing: "-0.04em",
                         lineHeight: 1,
                       }}

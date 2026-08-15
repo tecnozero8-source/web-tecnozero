@@ -95,7 +95,7 @@ export function HomeCasos() {
             </h2>
           </div>
           <p style={{
-            fontSize: "0.85rem", color: "#4A607A",
+            fontSize: "0.85rem", color: "#94A3B8",
             maxWidth: "260px", lineHeight: 1.65, margin: 0,
           }}>
             No publicamos el nombre de nuestros clientes. Entregamos referencias
@@ -136,7 +136,10 @@ export function HomeCasos() {
                 <span style={{
                   fontFamily: "var(--font-display), system-ui, sans-serif",
                   fontSize: "1.8rem", fontWeight: 800,
-                  color: `${caso.accentColor}60`, letterSpacing: "-0.05em",
+                  /* El sufijo `60` deja el acento al 37% y el numeral cae
+                     entre 1,96 y 2,82 sobre su propia barra. A opacidad
+                     completa queda entre 5,69 y 10,89. */
+                  color: caso.accentColor, letterSpacing: "-0.05em",
                   writingMode: "vertical-rl" as const,
                   transform: "rotate(180deg)",
                 }}>
@@ -171,7 +174,10 @@ export function HomeCasos() {
                   </h3>
                   <p style={{
                     fontSize: "0.75rem", fontWeight: 600,
-                    color: `${caso.accentColor}90`,
+                    /* Iba con sufijo `90`, o sea al 56% de opacidad, y sobre
+                       la tarjeta oscura daba entre 2,97 y 3,22. A opacidad
+                       completa el mismo acento da entre 7,2 y 14. */
+                    color: caso.accentColor,
                     margin: 0, textTransform: "uppercase" as const,
                     letterSpacing: "0.06em",
                   }}>
@@ -202,7 +208,7 @@ export function HomeCasos() {
                       boxShadow: `0 0 8px ${caso.accentColor}80`,
                     }}
                   />
-                  <p style={{ fontSize: "0.8rem", color: "#4A607A", margin: 0, lineHeight: 1.5 }}>
+                  <p style={{ fontSize: "0.8rem", color: "#94A3B8", margin: 0, lineHeight: 1.5 }}>
                     <span style={{ color: "#CBD5E1", fontWeight: 700 }}>HOY: </span>
                     {caso.hoy}
                   </p>
@@ -233,7 +239,7 @@ export function HomeCasos() {
                     }}>
                       {m.label}
                     </div>
-                    <div style={{ fontSize: "0.68rem", color: "#4A607A" }}>
+                    <div style={{ fontSize: "0.68rem", color: "#94A3B8" }}>
                       {m.detalle}
                     </div>
                   </div>

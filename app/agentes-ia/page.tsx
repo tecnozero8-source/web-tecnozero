@@ -181,7 +181,7 @@ function CapCard({
         {title}
       </div>
       <div style={{
-        fontSize: "0.86rem", color: "#4A607A", lineHeight: 1.72,
+        fontSize: "0.86rem", color: "#94A3B8", lineHeight: 1.72,
       }}>
         {description}
       </div>
@@ -349,7 +349,7 @@ export default function AgentesIAPage() {
             }}
           >
             <span style={{
-              fontSize: "0.65rem", color: "rgba(255,255,255,0.4)",
+              fontSize: "0.65rem", color: "rgba(255,255,255,0.92)",
               fontWeight: 700, letterSpacing: "0.1em",
               textTransform: "uppercase" as const,
             }}>
@@ -415,7 +415,7 @@ export default function AgentesIAPage() {
               <div style={{ fontSize: "1.05rem", fontWeight: 800, color: "#A78BFA", letterSpacing: "-0.03em", lineHeight: 1 }}>
                 90%+
               </div>
-              <div style={{ fontSize: "0.65rem", color: "rgba(255,255,255,0.5)", marginTop: "3px", fontWeight: 600, letterSpacing: "0.04em" }}>
+              <div style={{ fontSize: "0.65rem", color: "rgba(255,255,255,0.92)", marginTop: "3px", fontWeight: 600, letterSpacing: "0.04em" }}>
                 precisión
               </div>
             </motion.div>
@@ -435,7 +435,7 @@ export default function AgentesIAPage() {
               <div style={{ fontSize: "1.05rem", fontWeight: 800, color: "#1FB3E5", letterSpacing: "-0.03em", lineHeight: 1 }}>
                 10×
               </div>
-              <div style={{ fontSize: "0.65rem", color: "rgba(255,255,255,0.5)", marginTop: "3px", fontWeight: 600, letterSpacing: "0.04em" }}>
+              <div style={{ fontSize: "0.65rem", color: "rgba(255,255,255,0.92)", marginTop: "3px", fontWeight: 600, letterSpacing: "0.04em" }}>
                 más rápido
               </div>
             </motion.div>
@@ -455,7 +455,7 @@ export default function AgentesIAPage() {
               <div style={{ fontSize: "1.05rem", fontWeight: 800, color: "#D4F040", letterSpacing: "-0.03em", lineHeight: 1 }}>
                 24/7
               </div>
-              <div style={{ fontSize: "0.65rem", color: "rgba(255,255,255,0.5)", marginTop: "3px", fontWeight: 600, letterSpacing: "0.04em" }}>
+              <div style={{ fontSize: "0.65rem", color: "rgba(255,255,255,0.92)", marginTop: "3px", fontWeight: 600, letterSpacing: "0.04em" }}>
                 sin pausa
               </div>
             </motion.div>
@@ -518,11 +518,12 @@ export default function AgentesIAPage() {
               color: "#0B1E3D", margin: "0 0 24px",
             }}>
               TITAN —{" "}
-              <span style={{ color: "#A78BFA" }}>IA Agéntica</span>
+              {/* El violeta da 2,72 sobre blanco. Esta es la version que pasa (7,10). */}
+              <span style={{ color: "#6D28D9" }}>IA Agéntica</span>
               {" "}para sistemas enterprise
             </h2>
             <p style={{
-              fontSize: "1rem", color: "#4A607A",
+              fontSize: "1rem", color: "#94A3B8",
               lineHeight: 1.78, margin: "0 0 28px",
             }}>
               TITAN es la plataforma de agentes de IA diseñada para operar dentro de SAP, Oracle
@@ -544,7 +545,7 @@ export default function AgentesIAPage() {
                 style={{ width: "7px", height: "7px", borderRadius: "50%", backgroundColor: "#A78BFA" }}
               />
               <span style={{
-                fontSize: "0.78rem", fontWeight: 700, color: "#A78BFA",
+                fontSize: "0.78rem", fontWeight: 700, color: "#6D28D9",
                 letterSpacing: "0.04em",
               }}>
                 Representantes exclusivos en Chile
@@ -666,7 +667,7 @@ export default function AgentesIAPage() {
               </h2>
             </div>
             <p style={{
-              fontSize: "0.85rem", color: "#4A607A",
+              fontSize: "0.85rem", color: "#94A3B8",
               maxWidth: "260px", lineHeight: 1.65, margin: 0,
             }}>
               Implementaciones reales en entornos SAP y Oracle de gran escala.
@@ -790,7 +791,7 @@ export default function AgentesIAPage() {
                       {caso.tagline}
                     </p>
                   </div>
-                  <p style={{ fontSize: "0.9rem", color: "#8FA3BF", lineHeight: 1.75, margin: 0 }}>
+                  <p style={{ fontSize: "0.9rem", color: "#64748B", lineHeight: 1.75, margin: 0 }}>
                     {caso.contexto}
                   </p>
                   <div style={{
@@ -808,7 +809,7 @@ export default function AgentesIAPage() {
                         boxShadow: `0 0 8px ${caso.accentColor}80`,
                       }}
                     />
-                    <p style={{ fontSize: "0.8rem", color: "#4A607A", margin: 0, lineHeight: 1.5 }}>
+                    <p style={{ fontSize: "0.8rem", color: "#94A3B8", margin: 0, lineHeight: 1.5 }}>
                       <span style={{ color: "#CBD5E1", fontWeight: 700 }}>INTEGRACIÓN: </span>
                       {caso.hoy}
                     </p>
@@ -835,7 +836,7 @@ export default function AgentesIAPage() {
                       <div style={{ fontSize: "0.78rem", fontWeight: 600, color: "#CBD5E1", marginBottom: "2px" }}>
                         {m.label}
                       </div>
-                      <div style={{ fontSize: "0.68rem", color: "#4A607A" }}>
+                      <div style={{ fontSize: "0.68rem", color: "#94A3B8" }}>
                         {m.detalle}
                       </div>
                     </div>
@@ -879,10 +880,10 @@ export default function AgentesIAPage() {
               color: "#0B1E3D", margin: "0 0 16px",
             }}>
               Sin TITAN vs{" "}
-              <span style={{ color: "#A78BFA" }}>Con TITAN</span>
+              <span style={{ color: "#6D28D9" }}>Con TITAN</span>
             </h2>
             <p style={{
-              fontSize: "0.95rem", color: "#4A607A", lineHeight: 1.72,
+              fontSize: "0.95rem", color: "#94A3B8", lineHeight: 1.72,
               maxWidth: "480px", margin: "0 auto",
             }}>
               Lo que tarda días en modo manual, TITAN lo hace en segundos.
@@ -910,7 +911,7 @@ export default function AgentesIAPage() {
               <div style={{
                 padding: "20px 32px",
                 fontSize: "0.72rem", fontWeight: 800, letterSpacing: "0.12em",
-                textTransform: "uppercase" as const, color: "rgba(255,255,255,0.5)",
+                textTransform: "uppercase" as const, color: "rgba(255,255,255,0.92)",
               }}>
                 Indicador
               </div>
@@ -983,7 +984,7 @@ export default function AgentesIAPage() {
                 <div style={{
                   padding: "24px 32px",
                   borderLeft: "1px solid #E8EFF8",
-                  fontSize: "0.88rem", color: "#8FA3BF",
+                  fontSize: "0.88rem", color: "#64748B",
                   display: "flex", alignItems: "center", gap: "10px",
                 }}>
                   <div style={{
@@ -1036,7 +1037,9 @@ export default function AgentesIAPage() {
           CTA FINAL — Violet-blue gradient
       ═══════════════════════════════════════════════════════ */}
       <section style={{
-        background: "linear-gradient(135deg, #0D0820 0%, #0957C3 60%, #1FB3E5 100%)",
+        /* Cerraba en #1FB3E5 y ahi el blanco puro daba 2,69 y los blancos
+           translucidos 1,59. Ahora la punta mas clara es #0A62B4. */
+        background: "linear-gradient(135deg, #0D0820 0%, #0957C3 60%, #0A62B4 100%)",
         padding: "0",
         position: "relative",
         overflow: "hidden",
@@ -1159,7 +1162,7 @@ export default function AgentesIAPage() {
                 ].map((tag) => (
                   <div key={tag} style={{ display: "flex", alignItems: "center", gap: "10px" }}>
                     <CheckCircle2 size={16} color="#D4F040" strokeWidth={2.5} />
-                    <span style={{ fontSize: "0.88rem", color: "rgba(255,255,255,0.85)", fontWeight: 500 }}>
+                    <span style={{ fontSize: "0.88rem", color: "rgba(255,255,255,0.92)", fontWeight: 500 }}>
                       {tag}
                     </span>
                   </div>
@@ -1172,7 +1175,7 @@ export default function AgentesIAPage() {
                 borderTop: "1px solid rgba(255,255,255,0.1)",
               }}>
                 <Zap size={13} color="rgba(255,255,255,0.35)" />
-                <span style={{ fontSize: "0.78rem", color: "rgba(255,255,255,0.42)" }}>
+                <span style={{ fontSize: "0.78rem", color: "rgba(255,255,255,0.92)" }}>
                   Representantes exclusivos TITAN en Chile · La Serena
                 </span>
               </div>
@@ -1231,7 +1234,7 @@ export default function AgentesIAPage() {
               </motion.a>
 
               <p style={{
-                fontSize: "0.72rem", color: "rgba(255,255,255,0.38)",
+                fontSize: "0.72rem", color: "rgba(255,255,255,0.92)",
                 margin: 0, lineHeight: 1.5,
               }}>
                 Respuesta en menos de 24 horas hábiles
@@ -1260,7 +1263,7 @@ export default function AgentesIAPage() {
                   {s.val}
                 </span>
                 <span style={{
-                  fontSize: "0.78rem", color: "rgba(255,255,255,0.5)",
+                  fontSize: "0.78rem", color: "rgba(255,255,255,0.92)",
                   fontWeight: 500,
                 }}>
                   {s.txt}

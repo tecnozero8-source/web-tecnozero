@@ -86,7 +86,11 @@ export function Footer() {
               display: "inline-flex", alignItems: "center", gap: "8px",
               padding: "13px 28px",
               backgroundColor: "#1FB3E5",
-              color: "#FFFFFF",
+              /* Blanco sobre este cyan da 2,43:1, y esto es la llamada a la
+                 acción principal del pie, o sea de todas las páginas. El
+                 azul marino del fondo da 8,04 y deja el cyan de marca
+                 intacto, igual que hace el botón lima con su #050C1A. */
+              color: "#050C1A",
               fontWeight: 700, fontSize: "0.9rem",
               borderRadius: "99px",
               letterSpacing: "-0.01em",

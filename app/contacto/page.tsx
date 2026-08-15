@@ -108,7 +108,7 @@ function SuccessState() {
         }}>
           ¡Mensaje enviado!
         </h3>
-        <p style={{ fontSize: "0.95rem", color: "rgba(255,255,255,0.55)", margin: 0 }}>
+        <p style={{ fontSize: "0.95rem", color: "rgba(255,255,255,0.68)", margin: 0 }}>
           Te contactaremos pronto
         </p>
       </motion.div>
@@ -187,7 +187,7 @@ function ContactForm() {
             </h2>
             <p style={{
               fontSize: "0.9rem",
-              color: "rgba(255,255,255,0.5)",
+              color: "rgba(255,255,255,0.68)",
               margin: "0 0 36px",
             }}>
               Un especialista te responderá en menos de 24 horas
@@ -267,7 +267,7 @@ function ContactForm() {
                     flexShrink: 0,
                   }}
                 />
-                <span style={{ fontSize: "0.8rem", color: "rgba(255,255,255,0.45)", lineHeight: 1.5 }}>
+                <span style={{ fontSize: "0.8rem", color: "rgba(255,255,255,0.68)", lineHeight: 1.5 }}>
                   Acepto recibir información sobre productos Tecnozero
                 </span>
               </label>
@@ -337,7 +337,7 @@ function InfoCard({
           <div style={{
             fontSize: "0.7rem",
             fontWeight: 700,
-            color: "rgba(255,255,255,0.4)",
+            color: "rgba(255,255,255,0.68)",
             textTransform: "uppercase" as const,
             letterSpacing: "0.1em",
             marginBottom: "5px",
@@ -400,7 +400,7 @@ function ContactInfo() {
         </h3>
         <p style={{
           fontSize: "0.88rem",
-          color: "rgba(255,255,255,0.5)",
+          color: "rgba(255,255,255,0.68)",
           lineHeight: 1.65,
           margin: 0,
         }}>
@@ -441,7 +441,7 @@ function ContactInfo() {
           fontWeight: 700,
           letterSpacing: "0.1em",
           textTransform: "uppercase" as const,
-          color: "rgba(255,255,255,0.35)",
+          color: "rgba(255,255,255,0.68)",
           marginBottom: "4px",
         }}>
           Nuestro compromiso

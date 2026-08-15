@@ -20,6 +20,10 @@ import { licCarpetaNocturna } from "@/lib/imagenes"
 /* ─── Animation variant shared across sections ───────────────────── */
 
 const ACCENT = "#1FB3E5"
+/* El cyan de marca se lee bien sobre el fondo oscuro, pero sobre las
+   tarjetas #F8FAFF de la mitad clara da 2,33 y la norma pide 4,5. Este es
+   el mismo cyan bajado hasta 5,13 sobre ese fondo. */
+const ACCENT_TINTA = "#0E7490"
 
 /* ─── Cyan glow behind the hero card ─────────────────────────────── */
 function CyanGlow() {
@@ -68,7 +72,7 @@ function FilaDecision({
   delay?: number
 }) {
   const color =
-    tono === "ok" ? "#22C55E" : tono === "riesgo" ? "#F5A020" : "#64748B"
+    tono === "ok" ? "#22C55E" : tono === "riesgo" ? "#F5A020" : "#94A3B8"
 
   return (
     <motion.div
@@ -151,7 +155,7 @@ function FilaDecision({
         <p
           style={{
             fontSize: "0.65rem",
-            color: urgente ? "#D4F040" : "rgba(255,255,255,0.35)",
+            color: urgente ? "#D4F040" : "rgba(255,255,255,0.62)",
             margin: 0,
             fontWeight: urgente ? 700 : 500,
           }}
@@ -225,7 +229,7 @@ function BandejaCard() {
           style={{
             marginLeft: "auto",
             fontSize: "0.65rem",
-            color: "rgba(255,255,255,0.35)",
+            color: "rgba(255,255,255,0.62)",
           }}
         >
           Hoy · 247 revisadas
@@ -281,7 +285,7 @@ function BandejaCard() {
           flexWrap: "wrap" as const,
         }}
       >
-        <span style={{ fontSize: "0.66rem", color: "rgba(255,255,255,0.38)" }}>
+        <span style={{ fontSize: "0.66rem", color: "rgba(255,255,255,0.62)" }}>
           Mercado Público · Compra Ágil · 2 portales privados
         </span>
         <span
@@ -776,7 +780,7 @@ export default function LicitacionesPage() {
                     >
                       {h.act}
                     </p>
-                    <p style={{ fontSize: "0.78rem", color: "#94A3B8", margin: 0 }}>
+                    <p style={{ fontSize: "0.78rem", color: "#64748B", margin: 0 }}>
                       {h.sub}
                     </p>
                   </div>
@@ -813,7 +817,7 @@ export default function LicitacionesPage() {
                       fontWeight: 800,
                       letterSpacing: "-0.05em",
                       lineHeight: 1,
-                      color: ACCENT,
+                      color: ACCENT_TINTA,
                       margin: 0,
                       fontVariantNumeric: "tabular-nums",
                     }}
@@ -821,7 +825,7 @@ export default function LicitacionesPage() {
                     {totalHoras} h
                   </p>
                   <p
-                    style={{ fontSize: "0.8rem", color: "#94A3B8", margin: "6px 0 0" }}
+                    style={{ fontSize: "0.8rem", color: "#64748B", margin: "6px 0 0" }}
                   >
                     al mes, por empresa
                   </p>
@@ -842,7 +846,7 @@ export default function LicitacionesPage() {
                     $609.000
                   </p>
                   <p
-                    style={{ fontSize: "0.8rem", color: "#94A3B8", margin: "6px 0 0" }}
+                    style={{ fontSize: "0.8rem", color: "#64748B", margin: "6px 0 0" }}
                   >
                     a $7.000 la hora cargada
                   </p>
@@ -852,7 +856,7 @@ export default function LicitacionesPage() {
               <p
                 style={{
                   fontSize: "0.76rem",
-                  color: "#94A3B8",
+                  color: "#64748B",
                   lineHeight: 1.6,
                   margin: "24px 0 0",
                   paddingTop: "16px",
@@ -895,7 +899,7 @@ export default function LicitacionesPage() {
                 fontWeight: 800,
                 letterSpacing: "0.16em",
                 textTransform: "uppercase" as const,
-                color: ACCENT,
+                color: ACCENT_TINTA,
                 margin: "0 0 16px",
               }}
             >
@@ -940,7 +944,7 @@ export default function LicitacionesPage() {
                     fontFamily: "var(--font-display), system-ui, sans-serif",
                     fontSize: "0.78rem",
                     fontWeight: 800,
-                    color: ACCENT,
+                    color: ACCENT_TINTA,
                     letterSpacing: "0.08em",
                   }}
                 >
@@ -1009,7 +1013,7 @@ export default function LicitacionesPage() {
                 fontWeight: 800,
                 letterSpacing: "0.16em",
                 textTransform: "uppercase" as const,
-                color: ACCENT,
+                color: ACCENT_TINTA,
                 margin: "0 0 16px",
               }}
             >
@@ -1070,7 +1074,7 @@ export default function LicitacionesPage() {
                     fontWeight: 800,
                     letterSpacing: "0.14em",
                     textTransform: "uppercase" as const,
-                    color: "rgba(255,255,255,0.4)",
+                    color: "rgba(255,255,255,0.62)",
                   }}
                 >
                   Función
@@ -1081,7 +1085,7 @@ export default function LicitacionesPage() {
                     fontWeight: 800,
                     letterSpacing: "0.14em",
                     textTransform: "uppercase" as const,
-                    color: "rgba(255,255,255,0.4)",
+                    color: "rgba(255,255,255,0.62)",
                     textAlign: "center" as const,
                   }}
                 >
@@ -1128,7 +1132,7 @@ export default function LicitacionesPage() {
                     {r.otros ? (
                       <Check
                         size={17}
-                        color="rgba(255,255,255,0.35)"
+                        color="rgba(255,255,255,0.62)"
                         strokeWidth={2.5}
                         style={{ margin: "0 auto" }}
                       />
@@ -1399,7 +1403,7 @@ export default function LicitacionesPage() {
                     style={{
                       fontSize: "0.85rem",
                       fontWeight: 500,
-                      color: p.destacado ? "rgba(255,255,255,0.5)" : "#94A3B8",
+                      color: p.destacado ? "rgba(255,255,255,0.72)" : "#64748B",
                       letterSpacing: "-0.01em",
                     }}
                   >
@@ -1647,7 +1651,7 @@ export default function LicitacionesPage() {
                   fontWeight: 800,
                   letterSpacing: "0.14em",
                   textTransform: "uppercase" as const,
-                  color: "rgba(255,255,255,0.4)",
+                  color: "rgba(255,255,255,0.62)",
                   margin: "0 0 22px",
                 }}
               >
