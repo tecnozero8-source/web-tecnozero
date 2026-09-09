@@ -41,12 +41,31 @@ export async function POST(req: NextRequest) {
       customerName: string
       customerEmail: string
       empresa?: string
+      testKey?: string      // Modo prueba: ver TEST_CHECKOUT_KEY
     }
 
-    const { amount, plan, docsPerMonth, pricePerDoc, customerName, customerEmail, empresa } = body
+    const { plan, docsPerMonth, pricePerDoc, customerName, customerEmail, empresa, testKey } = body
+    let { amount } = body
 
     if (!amount || amount < 1 || !customerEmail) {
       return NextResponse.json({ error: "Parámetros inválidos" }, { status: 400 })
+    }
+
+    // ── Modo prueba ($50) ────────────────────────────────────────────────────
+    // La clave viaja del navegador al servidor pero nunca al revés: no es una
+    // variable NEXT_PUBLIC_, así que no queda en el bundle. Cuando el checkout
+    // muestra $50 y la clave no sirve, esto corta con un 403 en vez de cobrar
+    // el precio real: nadie paga un monto distinto del que vio en pantalla.
+    if (testKey !== undefined) {
+      const claveEsperada = process.env.TEST_CHECKOUT_KEY
+      if (!claveEsperada || testKey !== claveEsperada) {
+        console.warn("[Transbank Init] Intento de modo prueba con clave inválida")
+        return NextResponse.json(
+          { error: "El modo prueba no está disponible con esa clave." },
+          { status: 403 },
+        )
+      }
+      amount = 50
     }
 
     const buyOrder = `TZ-${Date.now()}`

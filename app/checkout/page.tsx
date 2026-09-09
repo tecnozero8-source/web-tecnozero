@@ -143,6 +143,12 @@ function CheckoutContent() {
   const searchParams = useSearchParams()
   const cancelled = searchParams.get("cancelled") === "1"
 
+  // Modo prueba: /checkout?prueba=CLAVE deja el total en $50. La clave la
+  // valida el servidor contra TEST_CHECKOUT_KEY; aquí solo sabemos que
+  // alguien la escribió. Si no sirve, el init responde 403 y no se cobra nada.
+  const clavePrueba = searchParams.get("prueba")
+  const modoPrueba = !!clavePrueba
+
   // Plan state
   const [selectedPlanId, setSelectedPlanId] = useState("profesional")
   const [isCustom, setIsCustom] = useState(false)
@@ -163,8 +169,10 @@ function CheckoutContent() {
     : { priceCLP: selectedPreset.priceCLP }
   const addonTotal = ADDONS.filter(a => selectedAddons.has(a.id)).reduce((s, a) => s + a.priceCLP, 0)
   const planTotal = activeDocs * activeTier.priceCLP
-  const totalCLP = planTotal + addonTotal
-  const planLabel = isCustom
+  const totalCLP = modoPrueba ? 50 : planTotal + addonTotal
+  const planLabel = modoPrueba
+    ? "Prueba técnica $50"
+    : isCustom
     ? `${activeDocs} docs/mes personalizado`
     : `${selectedPreset.name} — ${selectedPreset.docs} docs/mes`
   const formValid = form.name.trim().length > 0 && form.email.includes("@") && form.empresa.trim().length > 0
@@ -188,11 +196,12 @@ function CheckoutContent() {
         body: JSON.stringify({
           amount: totalCLP,
           plan: planLabel,
-          docsPerMonth: activeDocs,
-          pricePerDoc: activeTier.priceCLP,
+          docsPerMonth: modoPrueba ? 0 : activeDocs,
+          pricePerDoc: modoPrueba ? 0 : activeTier.priceCLP,
           customerName: form.name,
           customerEmail: form.email,
           empresa: form.empresa,
+          ...(clavePrueba ? { testKey: clavePrueba } : {}),
         }),
       })
       const data = await res.json() as { token?: string; url?: string; error?: string }
@@ -214,7 +223,12 @@ function CheckoutContent() {
     } catch (err) {
       console.error(err)
       setLoading(false)
-      setPayError("No pudimos iniciar el pago. Inténtalo otra vez o escríbenos a contacto@tecnozero.cl.")
+      // El servidor explica lo que puede explicarse (una clave de prueba que
+      // no sirve, por ejemplo); el resto cae en el mensaje general.
+      const delServidor = err instanceof Error && err.message && err.message !== "Error Transbank"
+        ? err.message
+        : null
+      setPayError(delServidor ?? "No pudimos iniciar el pago. Inténtalo otra vez o escríbenos a contacto@tecnozero.cl.")
     }
   }
 
@@ -226,6 +240,18 @@ function CheckoutContent() {
       display: "flex",
       flexDirection: "column",
     }}>
+      {/* Modo prueba: que nadie llegue a Webpay sin saber qué está pagando */}
+      {modoPrueba && (
+        <div style={{
+          backgroundColor: "rgba(212,240,64,0.12)",
+          borderBottom: "1px solid rgba(212,240,64,0.28)",
+          padding: "12px 32px", textAlign: "center",
+          fontSize: "0.875rem", fontWeight: 600, color: C.lime,
+        }}>
+          Modo prueba activo. El total es $50 y el cobro es real.
+        </div>
+      )}
+
       {/* Cancelled banner */}
       <AnimatePresence>
         {cancelled && (
