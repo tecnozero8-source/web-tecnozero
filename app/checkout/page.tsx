@@ -209,7 +209,7 @@ function CheckoutContent() {
       // siempre. A los 6 segundos damos la cara en vez de fingir que carga.
       window.setTimeout(() => {
         setLoading(false)
-        setPayError("No pudimos abrirte Transbank. Escríbenos a contacto@tecnozero.cl y lo resolvemos hoy mismo.")
+        setPayError("No pudimos abrirte Transbank. Escríbenos a contacto@tecnozero.cl y te ayudamos a completar la compra.")
       }, 6000)
     } catch (err) {
       console.error(err)
