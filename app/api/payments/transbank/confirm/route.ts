@@ -6,11 +6,10 @@
 import { NextRequest, NextResponse } from "next/server"
 import { WebpayPlus, Options, Environment, IntegrationCommerceCodes, IntegrationApiKeys } from "transbank-sdk"
 import { saveCRMRecord } from "@/lib/crm"
-import { runEmailAgent } from "@/lib/email-agent"
 import { decryptCookie } from "@/lib/cookie-crypto"
 import { findPaymentById } from "@/lib/db/payments"
 import { getSiteOrigin } from "@/lib/site-url"
-import { notificarVentaInterna } from "@/lib/notify-interno"
+import { notificarVentaInterna, enviarComprobanteAlCliente } from "@/lib/notify-interno"
 
 function getTbkTransaction() {
   const isProduction = process.env.NODE_ENV === "production" && process.env.TBK_COMMERCE_CODE
@@ -82,6 +81,7 @@ export async function POST(req: NextRequest) {
     // ── CRM ──────────────────────────────────────────────────────────────────
     // Transbank ya cobró. A partir de aquí nada puede tumbar el redirect al
     // comprobante: si el guardado falla, lo dejamos en el log y seguimos.
+    let guardadaEnBase = false
     try {
       const crmRecord = await saveCRMRecord({
         type: "payment",
@@ -99,6 +99,8 @@ export async function POST(req: NextRequest) {
         pricePerDoc: meta.pricePerDoc,
         source: "checkout",
       })
+      // Un id que empieza con "crm_" viene del respaldo en memoria, no de la base.
+      guardadaEnBase = !crmRecord.id.startsWith("crm_")
       console.log("[Transbank Confirm] CRM guardado:", crmRecord.id)
     } catch (err) {
       console.error("[Transbank Confirm] CRM falló, el pago sigue siendo válido:", err)
@@ -113,10 +115,11 @@ export async function POST(req: NextRequest) {
       }))
     }
 
-    // ── Aviso interno a Tecnozero ────────────────────────────────────────────
-    // Correo directo por Resend, sin pasar por el agente de IA: mientras la
-    // base no exista, este correo es la única constancia de la venta.
-    notificarVentaInterna({
+    // ── Correos ──────────────────────────────────────────────────────────────
+    // Los dos salen de plantillas fijas por Resend, sin esperar a que
+    // terminen: el cliente ya pagó y no tiene por qué mirar una pantalla en
+    // blanco mientras se despachan.
+    const datosCorreo = {
       buyOrder: commit.buy_order,
       authorizationCode: commit.authorization_code,
       amount: commit.amount,
@@ -126,29 +129,14 @@ export async function POST(req: NextRequest) {
       plan: meta.plan,
       docsPerMonth: meta.docsPerMonth,
       pricePerDoc: meta.pricePerDoc,
-    }).catch(err => console.error("[Aviso interno]", err))
+      guardadaEnBase,
+    }
 
-    // ── Email Agent (no bloqueamos el redirect) ───────────────────────────────
-    runEmailAgent({
-      type: "payment_confirmation",
-      customer: {
-        name: meta.customerName ?? "Cliente",
-        email: meta.customerEmail ?? "",
-        empresa: meta.empresa,
-        plan: meta.plan,
-        amount: commit.amount,
-        currency: "CLP",
-        paymentMethod: "transbank",
-        authorizationCode: commit.authorization_code,
-        buyOrder: commit.buy_order,
-        docsPerMonth: meta.docsPerMonth,
-        pricePerDoc: meta.pricePerDoc,
-      },
-    }).then(result => {
-      console.log("[Email Agent Transbank]", result.log.join(" | "))
-    }).catch(err => {
-      console.error("[Email Agent Transbank Error]", err)
-    })
+    notificarVentaInterna(datosCorreo)
+      .catch(err => console.error("[Aviso venta]", err))
+
+    enviarComprobanteAlCliente(datosCorreo)
+      .catch(err => console.error("[Comprobante]", err))
 
     // Construir params de éxito para la página
     const params = new URLSearchParams({

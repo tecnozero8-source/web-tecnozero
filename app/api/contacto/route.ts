@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import { saveContactToDB } from "@/lib/db/contacts"
-import { runEmailAgent } from "@/lib/email-agent"
-import { notificarConsultaInterna } from "@/lib/notify-interno"
+import { notificarConsultaInterna, enviarAcuseAlCliente } from "@/lib/notify-interno"
 
 export async function POST(req: NextRequest) {
   try {
@@ -59,9 +58,9 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    // Aviso interno a Tecnozero. Va siempre, guarde o no la base: si el
-    // registro no quedó, este correo es la única copia de la consulta.
-    notificarConsultaInterna({
+    // Dos correos, dos lectores. El interno va siempre, guarde o no la base:
+    // si el registro no quedó, es la única copia de la consulta.
+    const datosCorreo = {
       nombre: body.nombre,
       email: body.email,
       empresa: body.empresa,
@@ -69,19 +68,13 @@ export async function POST(req: NextRequest) {
       numEmpleados: body.num_empleados,
       mensaje: body.mensaje,
       guardadaEnBase: saved,
-    }).catch(err => console.error("[Aviso interno consulta]", err))
-
-    // Disparar email de seguimiento (no bloqueante)
-    if (body.email && body.nombre) {
-      runEmailAgent({
-        type: "contact_followup",
-        customer: {
-          name: body.nombre,
-          email: body.email,
-          empresa: body.empresa,
-        },
-      }).catch(err => console.error("[Email Contact Followup]", err))
     }
+
+    notificarConsultaInterna(datosCorreo)
+      .catch(err => console.error("[Aviso consulta]", err))
+
+    enviarAcuseAlCliente(datosCorreo)
+      .catch(err => console.error("[Acuse cliente]", err))
 
     // El formulario responde OK aunque la base falle: el aviso interno ya salió
     // y hacer que el visitante reintente no arregla nada del lado nuestro.
