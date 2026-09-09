@@ -1,7 +1,13 @@
 /**
- * POST /api/payments/transbank/confirm
- * Transbank redirige aquí después del pago (método POST con token_ws en body).
- * Confirma la transacción, guarda en CRM y dispara el email agent.
+ * /api/payments/transbank/confirm
+ * Transbank devuelve aquí al cliente después de pagar. Confirma la
+ * transacción, la guarda en el CRM y dispara los dos correos.
+ *
+ * Llega por POST con `token_ws` en el cuerpo del formulario, y también por GET
+ * con `token_ws` en la dirección. Las dos formas se ven en producción, así que
+ * las dos confirman: el 9 de septiembre de 2026 una vuelta por GET encontró un
+ * handler que solo miraba `TBK_TOKEN`, ignoró el token bueno y mandó al
+ * comprador de vuelta al checkout con la compra sin confirmar.
  */
 import { NextRequest, NextResponse } from "next/server"
 import { WebpayPlus, Options, Environment, IntegrationCommerceCodes, IntegrationApiKeys } from "transbank-sdk"
@@ -23,62 +29,66 @@ function getTbkTransaction() {
   )
 }
 
-export async function POST(req: NextRequest) {
-  // Mismo host por el que entró el cliente: ver lib/site-url.ts.
-  const BASE_URL = getSiteOrigin(req)
-  try {
-    // Transbank envía el token como form data
-    const formData = await req.formData().catch(() => null)
-    const token_ws = formData?.get("token_ws") as string | null
-    const TBK_TOKEN = formData?.get("TBK_TOKEN") as string | null // token de timeout/anulación
+type CheckoutMeta = {
+  buyOrder?: string; sessionId?: string; amount?: number; plan?: string
+  docsPerMonth?: number; pricePerDoc?: number; customerName?: string
+  customerEmail?: string; empresa?: string; createdAt?: string
+}
 
-    // Si Transbank envía TBK_TOKEN (sin token_ws), el pago fue anulado o expiró
-    if (!token_ws && TBK_TOKEN) {
+/** Confirma el pago venga por donde venga. Nunca lanza hacia afuera: cuando
+ *  algo falla después del cobro, el cliente igual llega a una pantalla que le
+ *  dice qué pasó. */
+async function procesarRetorno(
+  req: NextRequest,
+  tokenWs: string | null,
+  tbkToken: string | null,
+): Promise<NextResponse> {
+  const BASE_URL = getSiteOrigin(req)
+
+  try {
+    // Sin token bueno pero con TBK_TOKEN: el comprador anuló o se le venció.
+    if (!tokenWs && tbkToken) {
       return NextResponse.redirect(`${BASE_URL}/checkout/exito?status=cancelled`)
     }
-    if (!token_ws) {
-      return NextResponse.redirect(`${BASE_URL}/checkout/exito?status=error`)
+    // Sin ningún token no hay nada que confirmar: alguien entró a mano.
+    if (!tokenWs) {
+      return NextResponse.redirect(`${BASE_URL}/checkout`)
     }
 
-    // Commit de la transacción
     const tx = getTbkTransaction()
-    const commit = await tx.commit(token_ws)
+    const commit = await tx.commit(tokenWs)
 
-    // Obtener y descifrar metadatos de la cookie
-    type CheckoutMeta = {
-      buyOrder?: string; sessionId?: string; amount?: number; plan?: string
-      docsPerMonth?: number; pricePerDoc?: number; customerName?: string
-      customerEmail?: string; empresa?: string; createdAt?: string
-    }
     const cookie = req.cookies.get("tbk_checkout")
     const meta: CheckoutMeta = cookie
       ? await decryptCookie<CheckoutMeta>(cookie.value, process.env.NEXTAUTH_SECRET ?? "fallback-change-me").catch(() => ({}))
       : {}
 
-    const approved = commit.response_code === 0
-
-    if (!approved) {
+    if (commit.response_code !== 0) {
       console.warn("[Transbank Confirm] Pago rechazado:", commit)
       return NextResponse.redirect(
         `${BASE_URL}/checkout/exito?status=rejected&code=${commit.response_code}`
       )
     }
 
-    // ── Idempotencia: evitar doble procesamiento ──────────────────────────────
+    const params = new URLSearchParams({
+      status: "success",
+      method: "transbank",
+      amount: String(commit.amount),
+      auth: commit.authorization_code,
+      order: commit.buy_order,
+      plan: meta.plan ?? "",
+    })
+
+    // ── Idempotencia: evitar doble procesamiento ────────────────────────────
     const existing = await findPaymentById(commit.buy_order).catch(() => null)
     if (existing) {
       console.warn("[Transbank Confirm] Pago ya procesado:", commit.buy_order)
-      const params = new URLSearchParams({
-        status: "success", method: "transbank",
-        amount: String(commit.amount), auth: commit.authorization_code,
-        order: commit.buy_order, plan: meta.plan ?? "",
-      })
-      const redirect = NextResponse.redirect(`${BASE_URL}/checkout/exito?${params.toString()}`)
-      redirect.cookies.delete("tbk_checkout")
-      return redirect
+      const yaHecho = NextResponse.redirect(`${BASE_URL}/checkout/exito?${params.toString()}`)
+      yaHecho.cookies.delete("tbk_checkout")
+      return yaHecho
     }
 
-    // ── CRM ──────────────────────────────────────────────────────────────────
+    // ── CRM ─────────────────────────────────────────────────────────────────
     // Transbank ya cobró. A partir de aquí nada puede tumbar el redirect al
     // comprobante: si el guardado falla, lo dejamos en el log y seguimos.
     let guardadaEnBase = false
@@ -115,7 +125,7 @@ export async function POST(req: NextRequest) {
       }))
     }
 
-    // ── Correos ──────────────────────────────────────────────────────────────
+    // ── Correos ─────────────────────────────────────────────────────────────
     // Los dos salen de plantillas fijas por Resend, sin esperar a que
     // terminen: el cliente ya pagó y no tiene por qué mirar una pantalla en
     // blanco mientras se despachan.
@@ -138,18 +148,7 @@ export async function POST(req: NextRequest) {
     enviarComprobanteAlCliente(datosCorreo)
       .catch(err => console.error("[Comprobante]", err))
 
-    // Construir params de éxito para la página
-    const params = new URLSearchParams({
-      status: "success",
-      method: "transbank",
-      amount: String(commit.amount),
-      auth: commit.authorization_code,
-      order: commit.buy_order,
-      plan: meta.plan ?? "",
-    })
-
     const redirect = NextResponse.redirect(`${BASE_URL}/checkout/exito?${params.toString()}`)
-    // Limpiar cookie
     redirect.cookies.delete("tbk_checkout")
     return redirect
   } catch (err: unknown) {
@@ -158,13 +157,18 @@ export async function POST(req: NextRequest) {
   }
 }
 
-// Transbank también puede llamar con GET en algunos casos
-export async function GET(req: NextRequest) {
-  const BASE_URL = getSiteOrigin(req)
+export async function POST(req: NextRequest) {
+  const formData = await req.formData().catch(() => null)
   const { searchParams } = new URL(req.url)
-  const TBK_TOKEN = searchParams.get("TBK_TOKEN")
-  if (TBK_TOKEN) {
-    return NextResponse.redirect(`${BASE_URL}/checkout/exito?status=cancelled`)
-  }
-  return NextResponse.redirect(`${BASE_URL}/checkout`)
+
+  // El cuerpo manda, pero Transbank a veces deja el token en la dirección.
+  const tokenWs = (formData?.get("token_ws") as string | null) ?? searchParams.get("token_ws")
+  const tbkToken = (formData?.get("TBK_TOKEN") as string | null) ?? searchParams.get("TBK_TOKEN")
+
+  return procesarRetorno(req, tokenWs, tbkToken)
+}
+
+export async function GET(req: NextRequest) {
+  const { searchParams } = new URL(req.url)
+  return procesarRetorno(req, searchParams.get("token_ws"), searchParams.get("TBK_TOKEN"))
 }

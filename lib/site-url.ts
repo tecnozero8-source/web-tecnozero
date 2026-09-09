@@ -21,6 +21,12 @@ const ALLOWED_HOSTS = new Set([
   "www.tecnozero.cl",
 ])
 
+/** Hosts que responden con un redirect hacia otro. Nunca deben quedar dentro
+ *  de una URL de retorno de pago: el redirect es justo lo que rompe el POST. */
+const CANONICOS: Record<string, string> = {
+  "tecnozero.cl": "www.tecnozero.cl",
+}
+
 function isAllowedHost(host: string): boolean {
   const bare = host.split(":")[0]
   if (ALLOWED_HOSTS.has(bare)) return true
@@ -35,10 +41,12 @@ export function getSiteOrigin(req: NextRequest): string {
 
   // Cabecera bajo control de quien llama: se usa solo si es un host nuestro.
   if (host && isAllowedHost(host)) {
+    const bare = host.split(":")[0]
+    const destino = CANONICOS[bare] ?? host
     const forwardedProto = req.headers.get("x-forwarded-proto")
     const isLocal = host.startsWith("localhost") || host.startsWith("127.0.0.1")
     const proto = forwardedProto ?? (isLocal ? "http" : "https")
-    return `${proto}://${host}`
+    return `${proto}://${destino}`
   }
 
   return process.env.NEXTAUTH_URL ?? "http://localhost:3000"
