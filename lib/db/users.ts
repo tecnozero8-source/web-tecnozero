@@ -62,6 +62,44 @@ export async function getUserById(id: string): Promise<PublicUser | null> {
   return { id: u.id, email: u.email, name: u.name, empresa: u.empresa ?? "", plan: u.plan, rut: u.rut ?? "" }
 }
 
+/** Datos mínimos para armar y verificar un enlace de recuperación.
+ *  Devuelve el hash actual porque la firma del token se construye con él:
+ *  ver `lib/reset-token.ts`. No usar para nada que salga al navegador. */
+export async function getUserParaReset(
+  email: string
+): Promise<{ email: string; name: string; passwordHash: string } | null> {
+  const db = getAdminClient()
+  const { data, error } = await db
+    .from("users")
+    .select("email, name, password_hash")
+    .eq("email", email.toLowerCase().trim())
+    .single()
+
+  if (error || !data) return null
+  const u = data as DBUser
+  return { email: u.email, name: u.name, passwordHash: u.password_hash }
+}
+
+/** Cambiar la contraseña. Devuelve false si la fila no existe o si Supabase
+ *  rechaza la escritura. */
+export async function updatePassword(email: string, password: string): Promise<boolean> {
+  const db = getAdminClient()
+  const hash = await bcrypt.hash(password, 10)
+
+  const { data, error } = await db
+    .from("users")
+    .update({ password_hash: hash })
+    .eq("email", email.toLowerCase().trim())
+    .select("id")
+    .single()
+
+  if (error || !data) {
+    console.error("[updatePassword]", error)
+    return false
+  }
+  return true
+}
+
 /** Crear usuario nuevo (registro) */
 export async function createUser(input: {
   email: string

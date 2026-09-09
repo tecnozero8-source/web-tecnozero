@@ -18,6 +18,7 @@ import {
   emailConsultaRecibida,
   emailAvisoVentaInterno,
   emailAvisoConsultaInterno,
+  emailRecuperarClave,
 } from "@/lib/email-templates"
 
 const DESTINATARIOS_POR_DEFECTO = [
@@ -132,6 +133,31 @@ export async function enviarComprobanteAlCliente(venta: VentaInterna): Promise<b
     { to: [venta.customerEmail], ...plantilla, replyTo: "contacto@tecnozero.cl" },
     "Comprobante",
     venta,
+  )
+}
+
+// ─── Recuperar contraseña ─────────────────────────────────────────────────────
+
+/** Enlace para elegir contraseña nueva. Va solo al dueño de la cuenta: este
+ *  correo nunca se copia a las casillas internas, porque quien lo reciba entra
+ *  a la cuenta. */
+export async function enviarEnlaceDeRecuperacion(datos: {
+  email: string
+  nombre?: string
+  url: string
+  vigenciaHoras: number
+}): Promise<boolean> {
+  const plantilla = emailRecuperarClave({
+    nombre: datos.nombre,
+    url: datos.url,
+    vigenciaHoras: datos.vigenciaHoras,
+  })
+  // El respaldo del log lleva el correo, nunca el enlace: quien lea el log
+  // entraría a la cuenta.
+  return enviar(
+    { to: [datos.email], ...plantilla, replyTo: "contacto@tecnozero.cl" },
+    "Recuperar clave",
+    { email: datos.email },
   )
 }
 

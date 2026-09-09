@@ -393,6 +393,78 @@ export function emailConsultaRecibida(d: DatosConsulta): { subject: string; html
   }
 }
 
+// ─── Recuperar contraseña ─────────────────────────────────────────────────────
+//
+// Este correo no vende. Va sin oferta, sin artículo y sin cierre comercial: el
+// lector está bloqueado fuera de su cuenta y solo quiere entrar. Meter un aviso
+// de add-on aquí lo lee como un correo de marketing y baja la confianza justo
+// donde más falta hace.
+
+export interface DatosRecuperar {
+  nombre?: string
+  url: string
+  vigenciaHoras: number
+}
+
+export function emailRecuperarClave(d: DatosRecuperar): { subject: string; html: string; text: string } {
+  const nombrePila = (d.nombre ?? "").trim().split(" ")[0]
+  const saludo = nombrePila ? `Hola, ${nombrePila}.` : "Hola."
+  const horas = d.vigenciaHoras === 1 ? "una hora" : `${d.vigenciaHoras} horas`
+
+  const cuerpo = `
+    ${seccion(`
+      <div style="font-family:${FUENTE};font-size:12px;font-weight:700;color:${C.azul};letter-spacing:0.12em;text-transform:uppercase;padding-bottom:10px;">Recuperar acceso</div>
+      ${titulo(saludo, 28)}
+      <div style="height:14px;line-height:14px;font-size:0;">&nbsp;</div>
+      ${parrafo(`Alguien pidió recuperar la contraseña de tu cuenta en Tecnozero. Si fuiste tú, elige una nueva desde este botón.`)}
+      <div style="height:22px;line-height:22px;font-size:0;">&nbsp;</div>
+      ${boton("Elegir contraseña nueva", d.url, "lima")}
+    `, "32px 32px 26px 32px")}
+
+    ${seccion(`
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;background-color:${C.fondo};border-radius:10px;">
+        <tr><td style="padding:16px 18px;font-family:${FUENTE};font-size:14px;color:${C.texto};line-height:1.7;">
+          El enlace vence en <strong style="color:${C.tinta};">${esc(horas)}</strong> y sirve una sola vez. Cuando cambies la contraseña deja de funcionar solo.
+        </td></tr>
+      </table>
+    `)}
+
+    ${seccion(`
+      ${encabezadoSeccion("Si no fuiste tú")}
+      ${parrafo(`Ignora este correo. Tu contraseña sigue igual mientras nadie abra el enlace, y nadie más lo recibió. Si te preocupa, escríbenos a <a href="mailto:contacto@tecnozero.cl" style="color:${C.azul};text-decoration:none;font-weight:600;">contacto@tecnozero.cl</a> y lo revisamos contigo.`)}
+      <div style="height:16px;line-height:16px;font-size:0;">&nbsp;</div>
+      ${parrafo(`<span style="font-size:13px;color:${C.suave};">Si el botón no abre, copia esta dirección en tu navegador:</span><br /><span style="font-size:12px;color:${C.suave};word-break:break-all;">${esc(d.url)}</span>`)}
+    `)}
+  `
+
+  const text = [
+    saludo,
+    "",
+    "Alguien pidió recuperar la contraseña de tu cuenta en Tecnozero.",
+    "Si fuiste tú, elige una nueva aquí:",
+    d.url,
+    "",
+    `El enlace vence en ${horas} y sirve una sola vez.`,
+    "",
+    "SI NO FUISTE TÚ",
+    "Ignora este correo. Tu contraseña sigue igual mientras nadie abra el enlace.",
+    "Si te preocupa, escríbenos a contacto@tecnozero.cl.",
+    "",
+    "Tecnozero SpA, La Serena, Chile",
+  ].join("\n")
+
+  return {
+    subject: "Recupera el acceso a tu cuenta Tecnozero",
+    html: layout({
+      preheader: `Elige una contraseña nueva. El enlace vence en ${horas}.`,
+      antetitulo: "Seguridad",
+      cuerpo,
+      pie: `¿No pediste esto? Ignora el correo o escríbenos a <a href="mailto:contacto@tecnozero.cl" style="color:${C.azul};text-decoration:none;font-weight:600;">contacto@tecnozero.cl</a>.`,
+    }),
+    text,
+  }
+}
+
 // ─── Plantillas internas ──────────────────────────────────────────────────────
 //
 // Otro lector, otro diseño. Esto lo abre el equipo desde el teléfono y necesita

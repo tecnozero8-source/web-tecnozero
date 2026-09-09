@@ -49,6 +49,30 @@ export async function middleware(req: NextRequest) {
     }
   }
 
+  // Recuperar contraseña — 3 por cuarto de hora.
+  // Cada llamada manda un correo al dueño de la cuenta: sin tope, cualquiera
+  // le llena la bandeja a un cliente escribiendo su dirección en bucle.
+  if (pathname === "/api/auth/recuperar" && req.method === "POST") {
+    if (!rateLimit(`recuperar:${ip}`, 3, 15 * 60_000)) {
+      return NextResponse.json(
+        { error: "Ya pediste varios enlaces. Espera 15 minutos o escríbenos a contacto@tecnozero.cl." },
+        { status: 429 }
+      )
+    }
+  }
+
+  // Cambiar la contraseña con el token — 5 por cuarto de hora.
+  // El token está firmado y no se adivina, pero un tope barato le quita al
+  // atacante el derecho a intentarlo miles de veces.
+  if (pathname === "/api/auth/restablecer" && req.method === "POST") {
+    if (!rateLimit(`restablecer:${ip}`, 5, 15 * 60_000)) {
+      return NextResponse.json(
+        { error: "Demasiados intentos. Espera 15 minutos." },
+        { status: 429 }
+      )
+    }
+  }
+
   // Siempre permitir rutas de API de auth y estáticos
   if (
     pathname.startsWith("/api/auth") ||
