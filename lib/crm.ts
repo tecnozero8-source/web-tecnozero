@@ -67,12 +67,14 @@ function writeAll(records: CRMRecord[]): void {
  *  así que el fallback JSON falla siempre en producción; con Supabase caído
  *  eso bastaba para romper la confirmación. El registro se devuelve igual y
  *  el aviso por correo queda como la constancia de la venta. */
-export async function saveCRMRecord(record: Omit<CRMRecord, "id" | "createdAt">): Promise<CRMRecord> {
+export async function saveCRMRecord(
+  record: Omit<CRMRecord, "id" | "createdAt">
+): Promise<CRMRecord & { persisted: boolean }> {
   // Intentar Supabase
   try {
     const { savePaymentToDB } = await import("@/lib/db/payments")
     const result = await savePaymentToDB(record)
-    if (result) return result
+    if (result) return { ...result, persisted: true }
     console.error("[saveCRMRecord] Supabase no guardó el registro")
   } catch (err) {
     console.error("[saveCRMRecord] Supabase falló:", err)
@@ -89,12 +91,13 @@ export async function saveCRMRecord(record: Omit<CRMRecord, "id" | "createdAt">)
     const all = readAll()
     all.push(newRec)
     writeAll(all)
+    return { ...newRec, persisted: true }
   } catch (err) {
     console.error("[saveCRMRecord] Sin disco de escritura, registro solo en el log:", err)
     console.error("[saveCRMRecord] REGISTRO SIN PERSISTIR:", JSON.stringify(newRec))
   }
 
-  return newRec
+  return { ...newRec, persisted: false }
 }
 
 /** Actualiza campos de un registro existente por id */

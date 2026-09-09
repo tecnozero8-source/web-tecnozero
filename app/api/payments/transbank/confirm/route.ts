@@ -109,9 +109,14 @@ async function procesarRetorno(
         pricePerDoc: meta.pricePerDoc,
         source: "checkout",
       })
-      // Un id que empieza con "crm_" viene del respaldo en memoria, no de la base.
-      guardadaEnBase = !crmRecord.id.startsWith("crm_")
-      console.log("[Transbank Confirm] CRM guardado:", crmRecord.id)
+      // Lo dice el guardado, no la forma del id: `savePaymentToDB` también
+      // genera ids que empiezan con "crm_", así que mirarlos daba siempre
+      // "sin registrar" y el aviso interno salía con una alerta falsa.
+      guardadaEnBase = crmRecord.persisted
+      console.log(
+        `[Transbank Confirm] CRM ${crmRecord.persisted ? "guardado" : "SIN PERSISTIR"}:`,
+        crmRecord.id,
+      )
     } catch (err) {
       console.error("[Transbank Confirm] CRM falló, el pago sigue siendo válido:", err)
       console.error("[Transbank Confirm] VENTA SIN REGISTRAR:", JSON.stringify({
