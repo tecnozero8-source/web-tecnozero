@@ -59,26 +59,41 @@ function writeAll(records: CRMRecord[]): void {
 // ─── API pública ──────────────────────────────────────────────────────────────
 
 /** Guarda un nuevo registro en el CRM.
- *  Intenta Supabase primero; si falla (no configurado), usa JSON local. */
+ *  Intenta Supabase primero; si falla, escribe el JSON local de desarrollo.
+ *
+ *  Nunca lanza. Quien llama a esta función suele venir de un pago que
+ *  Transbank ya aprobó y cobró: si el guardado tumba esa ruta, el cliente
+ *  pagó y ve una pantalla de error. En Vercel el disco es de solo lectura,
+ *  así que el fallback JSON falla siempre en producción; con Supabase caído
+ *  eso bastaba para romper la confirmación. El registro se devuelve igual y
+ *  el aviso por correo queda como la constancia de la venta. */
 export async function saveCRMRecord(record: Omit<CRMRecord, "id" | "createdAt">): Promise<CRMRecord> {
   // Intentar Supabase
   try {
     const { savePaymentToDB } = await import("@/lib/db/payments")
     const result = await savePaymentToDB(record)
     if (result) return result
-  } catch {
-    // Supabase no configurado — continuar con JSON
+    console.error("[saveCRMRecord] Supabase no guardó el registro")
+  } catch (err) {
+    console.error("[saveCRMRecord] Supabase falló:", err)
   }
 
-  // Fallback JSON local
-  const all = readAll()
   const newRec: CRMRecord = {
     ...record,
     id: `crm_${Date.now()}_${Math.random().toString(36).slice(2, 9)}`,
     createdAt: new Date().toISOString(),
   }
-  all.push(newRec)
-  writeAll(all)
+
+  // Fallback JSON local (solo sirve en desarrollo)
+  try {
+    const all = readAll()
+    all.push(newRec)
+    writeAll(all)
+  } catch (err) {
+    console.error("[saveCRMRecord] Sin disco de escritura, registro solo en el log:", err)
+    console.error("[saveCRMRecord] REGISTRO SIN PERSISTIR:", JSON.stringify(newRec))
+  }
+
   return newRec
 }
 

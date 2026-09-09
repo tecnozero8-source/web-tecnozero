@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 import { saveContactToDB } from "@/lib/db/contacts"
 import { runEmailAgent } from "@/lib/email-agent"
+import { notificarConsultaInterna } from "@/lib/notify-interno"
 
 export async function POST(req: NextRequest) {
   try {
@@ -38,18 +39,37 @@ export async function POST(req: NextRequest) {
         source: "web",
       })
       saved = !!record
-    } catch {
-      // Fallback: guardar en JSON local si Supabase no está configurado
-      const { writeFileSync, readFileSync, existsSync, mkdirSync } = await import("fs")
-      const { join } = await import("path")
-      const dir = join(process.cwd(), "data")
-      if (!existsSync(dir)) mkdirSync(dir, { recursive: true })
-      const path = join(dir, "contactos.json")
-      const existing = existsSync(path) ? JSON.parse(readFileSync(path, "utf-8")) : []
-      existing.push({ ...body, timestamp: new Date().toISOString(), id: crypto.randomUUID() })
-      writeFileSync(path, JSON.stringify(existing, null, 2))
-      saved = true
+    } catch (err) {
+      console.error("[POST /api/contacto] Supabase falló:", err)
+      try {
+        // Fallback JSON local. En Vercel el disco es de solo lectura, así que
+        // esto solo sirve en desarrollo; el aviso por correo cubre el resto.
+        const { writeFileSync, readFileSync, existsSync, mkdirSync } = await import("fs")
+        const { join } = await import("path")
+        const dir = join(process.cwd(), "data")
+        if (!existsSync(dir)) mkdirSync(dir, { recursive: true })
+        const path = join(dir, "contactos.json")
+        const existing = existsSync(path) ? JSON.parse(readFileSync(path, "utf-8")) : []
+        existing.push({ ...body, timestamp: new Date().toISOString(), id: crypto.randomUUID() })
+        writeFileSync(path, JSON.stringify(existing, null, 2))
+        saved = true
+      } catch (err2) {
+        console.error("[POST /api/contacto] Sin disco de escritura:", err2)
+        console.error("[POST /api/contacto] CONTACTO SIN PERSISTIR:", JSON.stringify(body))
+      }
     }
+
+    // Aviso interno a Tecnozero. Va siempre, guarde o no la base: si el
+    // registro no quedó, este correo es la única copia de la consulta.
+    notificarConsultaInterna({
+      nombre: body.nombre,
+      email: body.email,
+      empresa: body.empresa,
+      cargo: body.cargo,
+      numEmpleados: body.num_empleados,
+      mensaje: body.mensaje,
+      guardadaEnBase: saved,
+    }).catch(err => console.error("[Aviso interno consulta]", err))
 
     // Disparar email de seguimiento (no bloqueante)
     if (body.email && body.nombre) {
@@ -63,7 +83,9 @@ export async function POST(req: NextRequest) {
       }).catch(err => console.error("[Email Contact Followup]", err))
     }
 
-    return NextResponse.json({ success: saved })
+    // El formulario responde OK aunque la base falle: el aviso interno ya salió
+    // y hacer que el visitante reintente no arregla nada del lado nuestro.
+    return NextResponse.json({ success: true, persisted: saved })
   } catch (e) {
     console.error("[POST /api/contacto]", e)
     return NextResponse.json({ error: "Error al guardar contacto" }, { status: 500 })

@@ -10,6 +10,7 @@ import { runEmailAgent } from "@/lib/email-agent"
 import { decryptCookie } from "@/lib/cookie-crypto"
 import { findPaymentById } from "@/lib/db/payments"
 import { getSiteOrigin } from "@/lib/site-url"
+import { notificarVentaInterna } from "@/lib/notify-interno"
 
 function getTbkTransaction() {
   const isProduction = process.env.NODE_ENV === "production" && process.env.TBK_COMMERCE_CODE
@@ -79,24 +80,53 @@ export async function POST(req: NextRequest) {
     }
 
     // ── CRM ──────────────────────────────────────────────────────────────────
-    const crmRecord = await saveCRMRecord({
-      type: "payment",
-      name: meta.customerName ?? "Cliente",
-      email: meta.customerEmail ?? "",
+    // Transbank ya cobró. A partir de aquí nada puede tumbar el redirect al
+    // comprobante: si el guardado falla, lo dejamos en el log y seguimos.
+    try {
+      const crmRecord = await saveCRMRecord({
+        type: "payment",
+        name: meta.customerName ?? "Cliente",
+        email: meta.customerEmail ?? "",
+        empresa: meta.empresa,
+        plan: meta.plan,
+        amount: commit.amount,
+        currency: "CLP",
+        paymentMethod: "transbank",
+        paymentId: commit.buy_order,
+        authorizationCode: commit.authorization_code,
+        status: "approved",
+        docsPerMonth: meta.docsPerMonth,
+        pricePerDoc: meta.pricePerDoc,
+        source: "checkout",
+      })
+      console.log("[Transbank Confirm] CRM guardado:", crmRecord.id)
+    } catch (err) {
+      console.error("[Transbank Confirm] CRM falló, el pago sigue siendo válido:", err)
+      console.error("[Transbank Confirm] VENTA SIN REGISTRAR:", JSON.stringify({
+        buyOrder: commit.buy_order,
+        auth: commit.authorization_code,
+        amount: commit.amount,
+        cliente: meta.customerName,
+        email: meta.customerEmail,
+        empresa: meta.empresa,
+        plan: meta.plan,
+      }))
+    }
+
+    // ── Aviso interno a Tecnozero ────────────────────────────────────────────
+    // Correo directo por Resend, sin pasar por el agente de IA: mientras la
+    // base no exista, este correo es la única constancia de la venta.
+    notificarVentaInterna({
+      buyOrder: commit.buy_order,
+      authorizationCode: commit.authorization_code,
+      amount: commit.amount,
+      customerName: meta.customerName,
+      customerEmail: meta.customerEmail,
       empresa: meta.empresa,
       plan: meta.plan,
-      amount: commit.amount,
-      currency: "CLP",
-      paymentMethod: "transbank",
-      paymentId: commit.buy_order,
-      authorizationCode: commit.authorization_code,
-      status: "approved",
       docsPerMonth: meta.docsPerMonth,
       pricePerDoc: meta.pricePerDoc,
-      source: "checkout",
-    })
-
-    console.log("[Transbank Confirm] CRM guardado:", crmRecord.id)
+    }).catch(err => console.error("[Aviso interno]", err))
 
     // ── Email Agent (no bloqueamos el redirect) ───────────────────────────────
     runEmailAgent({
