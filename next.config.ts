@@ -11,10 +11,14 @@ const CSP = [
   // www.google.com. Sin estos tres hosts la consola escupe un CSP violation por
   // cada visita y la medición llega incompleta.
   "connect-src 'self' https://*.supabase.co https://www.google-analytics.com https://region1.google-analytics.com https://region1.analytics.google.com https://analytics.google.com https://stats.g.doubleclick.net https://www.google.com",
-  "frame-src https://webpay.transbank.cl https://webpay3gint.transbank.cl",
+  // El host de PRODUCCIÓN de Webpay Plus es webpay3g.transbank.cl; el que
+  // termina en "int" es solo el de integración. Sin el primero, el navegador
+  // bloquea en silencio el POST del formulario con token_ws: el botón queda
+  // clavado en "Redirigiendo..." y el cliente nunca ve Transbank.
+  "frame-src https://webpay3g.transbank.cl https://webpay.transbank.cl https://webpay3gint.transbank.cl",
   "object-src 'none'",
   "base-uri 'self'",
-  "form-action 'self' https://webpay.transbank.cl https://webpay3gint.transbank.cl",
+  "form-action 'self' https://webpay3g.transbank.cl https://webpay.transbank.cl https://webpay3gint.transbank.cl",
   "upgrade-insecure-requests",
 ].join("; ")
 

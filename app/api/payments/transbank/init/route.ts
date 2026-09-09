@@ -6,6 +6,7 @@
 import { NextRequest, NextResponse } from "next/server"
 import { WebpayPlus, Options, Environment, IntegrationCommerceCodes, IntegrationApiKeys } from "transbank-sdk"
 import { encryptCookie } from "@/lib/cookie-crypto"
+import { getSiteOrigin } from "@/lib/site-url"
 
 function getTbkTransaction() {
   const isProduction = process.env.NODE_ENV === "production" && process.env.TBK_COMMERCE_CODE
@@ -50,7 +51,7 @@ export async function POST(req: NextRequest) {
 
     const buyOrder = `TZ-${Date.now()}`
     const sessionId = `sess_${Math.random().toString(36).slice(2, 11)}`
-    const returnUrl = `${process.env.NEXTAUTH_URL ?? "http://localhost:3000"}/api/payments/transbank/confirm`
+    const returnUrl = `${getSiteOrigin(req)}/api/payments/transbank/confirm`
 
     const tx = getTbkTransaction()
     const response = await tx.create(buyOrder, sessionId, amount, returnUrl)

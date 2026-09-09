@@ -17,6 +17,7 @@ import {
   Clock,
   ChevronDown,
   ChevronUp,
+  AlertCircle,
 } from "lucide-react"
 
 // ─── Brand ────────────────────────────────────────────────────────────────────
@@ -148,7 +149,7 @@ function CheckoutContent() {
   const [showCustom, setShowCustom] = useState(false)
   const [customDocs, setCustomDocs] = useState(300)
   const [selectedAddons, setSelectedAddons] = useState<Set<string>>(new Set())
-  const [isTestPlan, setIsTestPlan] = useState(false)
+  const [payError, setPayError] = useState<string | null>(null)
 
   // Form state
   const [form, setForm] = useState<CustomerForm>({ name: "", email: "", empresa: "", rut: "" })
@@ -162,10 +163,8 @@ function CheckoutContent() {
     : { priceCLP: selectedPreset.priceCLP }
   const addonTotal = ADDONS.filter(a => selectedAddons.has(a.id)).reduce((s, a) => s + a.priceCLP, 0)
   const planTotal = activeDocs * activeTier.priceCLP
-  const totalCLP = isTestPlan ? 50 : planTotal + addonTotal
-  const planLabel = isTestPlan
-    ? "Plan Prueba $50"
-    : isCustom
+  const totalCLP = planTotal + addonTotal
+  const planLabel = isCustom
     ? `${activeDocs} docs/mes personalizado`
     : `${selectedPreset.name} — ${selectedPreset.docs} docs/mes`
   const formValid = form.name.trim().length > 0 && form.email.includes("@") && form.empresa.trim().length > 0
@@ -181,6 +180,7 @@ function CheckoutContent() {
   async function handlePay() {
     if (!formValid || loading) return
     setLoading(true)
+    setPayError(null)
     try {
       const res = await fetch("/api/payments/transbank/init", {
         method: "POST",
@@ -188,8 +188,8 @@ function CheckoutContent() {
         body: JSON.stringify({
           amount: totalCLP,
           plan: planLabel,
-          docsPerMonth: isTestPlan ? 0 : activeDocs,
-          pricePerDoc: isTestPlan ? 0 : activeTier.priceCLP,
+          docsPerMonth: activeDocs,
+          pricePerDoc: activeTier.priceCLP,
           customerName: form.name,
           customerEmail: form.email,
           empresa: form.empresa,
@@ -203,9 +203,18 @@ function CheckoutContent() {
       const input = document.createElement("input")
       input.type = "hidden"; input.name = "token_ws"; input.value = data.token
       formEl.appendChild(input); document.body.appendChild(formEl); formEl.submit()
+
+      // Si el navegador bloquea el envío (una CSP mal configurada lo hace sin
+      // avisar), la página se queda donde está y el botón giraría para
+      // siempre. A los 6 segundos damos la cara en vez de fingir que carga.
+      window.setTimeout(() => {
+        setLoading(false)
+        setPayError("No pudimos abrirte Transbank. Escríbenos a contacto@tecnozero.cl y lo resolvemos hoy mismo.")
+      }, 6000)
     } catch (err) {
       console.error(err)
       setLoading(false)
+      setPayError("No pudimos iniciar el pago. Inténtalo otra vez o escríbenos a contacto@tecnozero.cl.")
     }
   }
 
@@ -274,26 +283,6 @@ function CheckoutContent() {
               </div>
             </div>
           </div>
-
-          {/* ⚠️ Test Plan toggle */}
-          <motion.button
-            whileHover={{ scale: 1.005 }} whileTap={{ scale: 0.995 }}
-            onClick={() => setIsTestPlan(p => !p)}
-            style={{
-              padding: "9px 16px", borderRadius: 10,
-              border: `1.5px dashed ${isTestPlan ? C.lime : "rgba(212,240,64,0.2)"}`,
-              backgroundColor: isTestPlan ? "rgba(212,240,64,0.07)" : "transparent",
-              cursor: "pointer", textAlign: "left",
-              display: "flex", alignItems: "center", gap: 10,
-              color: isTestPlan ? C.lime : "rgba(212,240,64,0.35)",
-              fontSize: "0.75rem", fontWeight: 700, transition: "all 0.2s",
-            }}
-          >
-            ⚠️{" "}
-            {isTestPlan
-              ? "✓ Plan Prueba $50 activo — clic para desactivar"
-              : "Activar Plan Prueba $50 (solo testing interno)"}
-          </motion.button>
 
           {/* ── PRESET PLAN CARDS ──────────────────────────────────────────── */}
           <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
@@ -604,41 +593,32 @@ function CheckoutContent() {
 
           {/* Summary lines */}
           <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-            {!isTestPlan ? (
-              <>
-                <div style={{ display: "flex", justifyContent: "space-between" }}>
-                  <span style={{ fontSize: "0.82rem", color: C.textMuted }}>Plan</span>
-                  <span style={{ fontSize: "0.82rem", fontWeight: 600, color: C.white }}>
-                    {isCustom ? "Personalizado" : PRESET_PLANS.find(p => p.id === selectedPlanId)?.name}
-                  </span>
-                </div>
-                <div style={{ display: "flex", justifyContent: "space-between" }}>
-                  <span style={{ fontSize: "0.82rem", color: C.textMuted }}>Documentos</span>
-                  <span style={{ fontSize: "0.82rem", fontWeight: 600, color: C.white }}>
-                    {activeDocs.toLocaleString("es-CL")}
-                  </span>
-                </div>
-                <div style={{ display: "flex", justifyContent: "space-between" }}>
-                  <span style={{ fontSize: "0.82rem", color: C.textMuted }}>Precio/doc</span>
-                  <span style={{ fontSize: "0.82rem", fontWeight: 600, color: C.cyan }}>
-                    {formatCLP(activeTier.priceCLP)}
-                  </span>
-                </div>
-                {ADDONS.filter(a => selectedAddons.has(a.id)).map(a => (
-                  <div key={a.id} style={{ display: "flex", justifyContent: "space-between" }}>
-                    <span style={{ fontSize: "0.78rem", color: C.textMuted }}>{a.icon} {a.title}</span>
-                    <span style={{ fontSize: "0.78rem", fontWeight: 600, color: C.cyan }}>
-                      +{formatCLP(a.priceCLP)}
-                    </span>
-                  </div>
-                ))}
-              </>
-            ) : (
-              <div style={{ display: "flex", justifyContent: "space-between" }}>
-                <span style={{ fontSize: "0.82rem", color: C.lime }}>⚠️ Plan Prueba</span>
-                <span style={{ fontSize: "0.82rem", fontWeight: 700, color: C.lime }}>$50</span>
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <span style={{ fontSize: "0.82rem", color: C.textMuted }}>Plan</span>
+              <span style={{ fontSize: "0.82rem", fontWeight: 600, color: C.white }}>
+                {isCustom ? "Personalizado" : PRESET_PLANS.find(p => p.id === selectedPlanId)?.name}
+              </span>
+            </div>
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <span style={{ fontSize: "0.82rem", color: C.textMuted }}>Documentos</span>
+              <span style={{ fontSize: "0.82rem", fontWeight: 600, color: C.white }}>
+                {activeDocs.toLocaleString("es-CL")}
+              </span>
+            </div>
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <span style={{ fontSize: "0.82rem", color: C.textMuted }}>Precio/doc</span>
+              <span style={{ fontSize: "0.82rem", fontWeight: 600, color: C.cyan }}>
+                {formatCLP(activeTier.priceCLP)}
+              </span>
+            </div>
+            {ADDONS.filter(a => selectedAddons.has(a.id)).map(a => (
+              <div key={a.id} style={{ display: "flex", justifyContent: "space-between" }}>
+                <span style={{ fontSize: "0.78rem", color: C.textMuted }}>{a.icon} {a.title}</span>
+                <span style={{ fontSize: "0.78rem", fontWeight: 600, color: C.cyan }}>
+                  +{formatCLP(a.priceCLP)}
+                </span>
               </div>
-            )}
+            ))}
 
             <div style={{ height: 1, backgroundColor: C.darkBorder }} />
 
@@ -705,6 +685,21 @@ function CheckoutContent() {
               <p style={{ margin: 0, fontSize: "0.72rem", color: C.textMuted, textAlign: "center" }}>
                 Completa los campos requeridos para continuar
               </p>
+            )}
+
+            {payError && (
+              <div role="alert" style={{
+                display: "flex", alignItems: "flex-start", gap: 8,
+                padding: "11px 14px",
+                backgroundColor: "rgba(248,113,113,0.08)",
+                border: "1px solid rgba(248,113,113,0.28)",
+                borderRadius: 10,
+              }}>
+                <AlertCircle size={15} color="#F87171" style={{ flexShrink: 0, marginTop: 1 }} />
+                <p style={{ margin: 0, fontSize: "0.75rem", color: "rgba(254,202,202,0.95)", lineHeight: 1.55 }}>
+                  {payError}
+                </p>
+              </div>
             )}
           </div>
 

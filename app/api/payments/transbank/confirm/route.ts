@@ -9,6 +9,7 @@ import { saveCRMRecord } from "@/lib/crm"
 import { runEmailAgent } from "@/lib/email-agent"
 import { decryptCookie } from "@/lib/cookie-crypto"
 import { findPaymentById } from "@/lib/db/payments"
+import { getSiteOrigin } from "@/lib/site-url"
 
 function getTbkTransaction() {
   const isProduction = process.env.NODE_ENV === "production" && process.env.TBK_COMMERCE_CODE
@@ -22,9 +23,9 @@ function getTbkTransaction() {
   )
 }
 
-const BASE_URL = process.env.NEXTAUTH_URL ?? "http://localhost:3000"
-
 export async function POST(req: NextRequest) {
+  // Mismo host por el que entró el cliente: ver lib/site-url.ts.
+  const BASE_URL = getSiteOrigin(req)
   try {
     // Transbank envía el token como form data
     const formData = await req.formData().catch(() => null)
@@ -141,6 +142,7 @@ export async function POST(req: NextRequest) {
 
 // Transbank también puede llamar con GET en algunos casos
 export async function GET(req: NextRequest) {
+  const BASE_URL = getSiteOrigin(req)
   const { searchParams } = new URL(req.url)
   const TBK_TOKEN = searchParams.get("TBK_TOKEN")
   if (TBK_TOKEN) {
