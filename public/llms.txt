@@ -31,14 +31,33 @@ Tecnozero no publica el nombre de sus clientes. Las referencias se entregan dire
 - SLA 99.5% garantizado
 - Implementación en 8 semanas promedio
 
-## Precios (Portal DT — precio por registro)
+## Precios (Portal DT — precio por registro, IVA incluido)
 
-- 1–50 registros: $640 CLP/registro (0.0162 UF)
-- 51–150: $570 CLP/registro (0.0144 UF)
-- 151–400: $500 CLP/registro (0.0127 UF)
-- 401–800: $430 CLP/registro (0.0109 UF)
-- 801–2.000: $360 CLP/registro (0.0091 UF)
-- 2.001+: $290 CLP/registro (0.0073 UF)
+Mínimo 50 registros por carga. Sin mensualidad fija ni permanencia.
+
+- 50–150 registros: $640 CLP/registro (0.0157 UF)
+- 151–400: $570 CLP/registro (0.0139 UF)
+- 401–800: $500 CLP/registro (0.0122 UF)
+- 801–2.000: $430 CLP/registro (0.0105 UF)
+- 2.001–5.000: $360 CLP/registro (0.0088 UF)
+- 5.001+: $290 CLP/registro (0.0071 UF)
+
+El precio que se cobra es el expresado en pesos. La equivalencia en UF es
+referencial y está calculada con la UF del 10-09-2026 ($40.893,78).
+Ejemplo: 50 registros = $32.000 IVA incluido.
+Garantía: devolución íntegra dentro de 30 días corridos del pago, sin justificar
+el motivo, por el mismo medio de pago y dentro de 10 días hábiles.
+
+## Cómo se entrega el servicio (Portal DT)
+
+El cliente sube la nómina en Excel desde su panel y el sistema valida cada fila
+al instante. Al confirmar, la carga queda registrada con un código. El robot RPA
+lo opera el equipo de Tecnozero, no el cliente: los registros quedan en el Portal
+DT dentro del siguiente día hábil y los comprobantes vuelven por correo.
+
+Tecnozero opera como Representante Laboral Electrónico (RLE) de la empresa. El
+cliente inscribe a Tecnozero en portal.dt.gob.cl con su ClaveÚnica y firma un
+mandato. Tecnozero no pide ni almacena la ClaveÚnica del cliente.
 
 ## Blog
 

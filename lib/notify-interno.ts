@@ -19,6 +19,8 @@ import {
   emailAvisoVentaInterno,
   emailAvisoConsultaInterno,
   emailRecuperarClave,
+  emailAvisoCargaInterno,
+  emailCargaRecibida,
 } from "@/lib/email-templates"
 
 const DESTINATARIOS_POR_DEFECTO = [
@@ -206,5 +208,60 @@ export async function enviarAcuseAlCliente(consulta: ConsultaInterna): Promise<b
     { to: [consulta.email], ...plantilla, replyTo: "contacto@tecnozero.cl" },
     "Acuse cliente",
     { email: consulta.email, nombre: consulta.nombre },
+  )
+}
+
+// ─── Carga de nómina ──────────────────────────────────────────────────────────
+
+export interface CargaInterna {
+  id: string
+  nombre?: string
+  correo: string
+  empresa?: string
+  tipo: string
+  archivo?: string
+  totalFilas: number
+  filasValidas: number
+  filasIncompletas: number
+  advertencias: { message: string; count: number }[]
+  guardadaEnBase: boolean
+}
+
+/**
+ * Avisa al equipo que hay una nómina esperando en el Portal DT.
+ *
+ * Este aviso es la constancia cuando la base no responde: por eso el respaldo
+ * del log lleva el resumen completo y por eso el correo dice en amarillo si la
+ * carga no quedó guardada.
+ */
+export async function notificarCargaInterna(carga: CargaInterna): Promise<boolean> {
+  const plantilla = emailAvisoCargaInterno(carga)
+  return enviar(
+    { to: destinatariosInternos(), ...plantilla, replyTo: carga.correo },
+    "Aviso carga",
+    carga,
+  )
+}
+
+/** Acuse a quien subió la planilla. */
+export async function enviarAcuseDeCarga(datos: {
+  id: string
+  correo: string
+  nombre?: string
+  tipo: string
+  totalFilas: number
+  filasIncompletas: number
+}): Promise<boolean> {
+  const plantilla = emailCargaRecibida({
+    id: datos.id,
+    nombre: datos.nombre,
+    tipo: datos.tipo,
+    totalFilas: datos.totalFilas,
+    filasIncompletas: datos.filasIncompletas,
+  })
+  return enviar(
+    { to: [datos.correo], ...plantilla, replyTo: "contacto@tecnozero.cl" },
+    "Acuse carga",
+    { id: datos.id, correo: datos.correo },
   )
 }

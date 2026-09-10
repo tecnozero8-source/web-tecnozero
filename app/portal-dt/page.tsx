@@ -6,8 +6,9 @@ import Link from "next/link"
 import Image from "next/image"
 import { PhotoBand } from "../components/shared/PhotoBand"
 import { dtEstudioContable, dtCoordinadora } from "@/lib/imagenes"
+import { PRICING_TIERS, UF_REFERENCIA, BASELINE_MANUAL_CLP, MIN_DOCS_POR_CARGA } from "@/lib/auth"
 import {
-  ArrowRight, CheckCircle2, Clock, FileText, Users, Zap,
+  ArrowRight, CheckCircle2, Clock, FileText,
   ChevronDown, ChevronUp, Upload, Shield, TrendingDown,
   AlertCircle, Sparkles, UserPlus, UserMinus, FilePen
 } from "lucide-react"
@@ -153,12 +154,16 @@ function Hero() {
             marginBottom: "36px",
             maxWidth: "480px",
           }}>
-            Sube tu planilla Excel, el robot detecta ingresos, bajas y anexos
-            y los registra automáticamente. <strong style={{ color: "#CBD5E1" }}>45 segundos por trabajador, cero errores manuales.</strong>
+            Subes tu planilla de ingresos, bajas o anexos, revisamos cada fila
+            contigo y dejamos los registros en el Portal DT. <strong style={{ color: "#CBD5E1" }}>45 segundos por trabajador, contra los 9 minutos que toma escribirlo a mano.</strong>
           </motion.p>
 
+          {/* Este botón decía «Prueba 50 registros gratis» y llevaba al
+              checkout, que pide tarjeta: la prueba gratis no existía en
+              ninguna parte del sistema. Ahora ofrece lo que el equipo sí hace
+              hoy, y lleva al formulario que llega a una persona. */}
           <motion.div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
-            <Link href="/checkout" style={{ textDecoration: "none" }}>
+            <Link href="/registro" style={{ textDecoration: "none" }}>
               <div style={{
                 display: "flex", alignItems: "center", gap: "8px",
                 backgroundColor: C.lime, color: "#000000",
@@ -167,7 +172,7 @@ function Hero() {
                 boxShadow: `0 0 30px ${C.lime}40`,
                 transition: "transform 0.15s",
               }}>
-                Prueba 50 registros gratis
+                Revisamos tu nómina gratis
                 <ArrowRight size={16} />
               </div>
             </Link>
@@ -440,25 +445,31 @@ function Aritmetica() {
 
 // ─── 3. Cómo funciona ────────────────────────────────────────────────────────
 
+/**
+ * Hasta el 10 de septiembre de 2026 el paso 02 decía "El robot procesa cada
+ * registro" y el 03 prometía comprobantes guardados en un historial que no
+ * existía. El robot lo opera el equipo desde fuera de la web, así que estos
+ * tres pasos describen lo que el cliente ve de verdad.
+ */
 function HowItWorks() {
   const steps = [
     {
       n: "01",
       icon: <Upload size={22} color={C.cyan} />,
-      title: "Sube tu planilla Excel",
-      desc: "Descarga nuestra plantilla oficial, completa los datos de tus trabajadores y súbela al dashboard. El robot valida columnas y formatos automáticamente.",
+      title: "Subes tu planilla",
+      desc: "Descargas la plantilla de Ingresos, Bajas o Anexos, la completas y la arrastras al panel. Nada que instalar.",
     },
     {
       n: "02",
-      icon: <Zap size={22} color={C.lime} />,
-      title: "El robot procesa cada registro",
-      desc: "Ingresa al Portal DT, navega los formularios y completa cada campo. Detecta errores antes de enviar y reintenta si hay problemas de conexión.",
+      icon: <Shield size={22} color={C.lime} />,
+      title: "Revisamos fila por fila",
+      desc: "Te decimos al instante cuántas filas están completas y a cuáles les falta un dato. Corriges antes de confirmar, no después.",
     },
     {
       n: "03",
       icon: <CheckCircle2 size={22} color="#22C55E" />,
-      title: "Recibes el comprobante",
-      desc: "Cada registro exitoso genera un número de comprobante DT. Los recibes por email y quedan guardados en tu historial para cualquier auditoría.",
+      title: "Te llegan los comprobantes",
+      desc: "Confirmas y tu nómina queda en cola con un código. Dejamos los registros en el Portal DT dentro del siguiente día hábil y te devolvemos los comprobantes por correo.",
     },
   ]
 
@@ -470,7 +481,7 @@ function HowItWorks() {
             Tan simple como subir un archivo
           </h2>
           <p style={{ fontSize: "1rem", color: C.textMutedOsc, maxWidth: "480px", margin: "0 auto" }}>
-            Sin instalaciones, sin configuración compleja. Desde el Excel al comprobante DT en minutos.
+            Sin instalaciones ni configuración. Tú cargas el Excel; el resto lo hacemos nosotros.
           </p>
         </motion.div>
 
@@ -512,14 +523,14 @@ function HowItWorks() {
 
 function OnboardingGuide() {
   const steps = [
-    { n: "01", title: "Crea tu cuenta", desc: "Regístrate en tecnozero.cl con tu email. Confirma y accede al dashboard en segundos." },
-    { n: "02", title: "Configura tu empresa", desc: "Ingresa el RUT de la empresa y tus credenciales del Portal DT. Todo queda cifrado." },
-    { n: "03", title: "Descarga la plantilla", desc: "Ve a Dashboard → Carga Excel y descarga la plantilla de Ingresos, Bajas o Anexos según lo que necesites." },
-    { n: "04", title: "Completa el Excel", desc: "Llena los datos de tus trabajadores: RUT, nombre, fechas y tipo de contrato. Guarda el archivo." },
-    { n: "05", title: "Sube el archivo", desc: "Arrastra el Excel al dashboard. El sistema valida los datos automáticamente antes de procesar." },
-    { n: "06", title: "Confirma y activa el robot", desc: "Revisa el resumen de registros y el costo total. Confirma y el robot comienza a trabajar al instante." },
-    { n: "07", title: "Robot trabaja 24/7", desc: "El robot accede al Portal DT por ti, carga cada documento y verifica cada envío. Sin errores." },
-    { n: "08", title: "Recibe la confirmación", desc: "Recibes email con los comprobantes DT. Todo queda en tu historial para cualquier auditoría." },
+    { n: "01", title: "Contratas", desc: "Pagas por Webpay o nos pides primero la revisión gratis de una nómina. El comprobante te llega al correo al minuto." },
+    { n: "02", title: "Defines tu contraseña", desc: "Ese mismo comprobante trae el enlace. La cuenta ya está creada con tu correo y la clave la eliges tú." },
+    { n: "03", title: "Registras tu empresa", desc: "RUT, razón social, nombre del apoderado y correo de facturación. Un formulario, dos minutos." },
+    { n: "04", title: "Firmas el mandato", desc: "Autorizas a Tecnozero a operar el Portal DT en representación de tu empresa. Firmas con tu RUT y te queda copia en PDF." },
+    { n: "05", title: "Nos inscribes en MiDT", desc: "Entras a portal.dt.gob.cl con tu ClaveÚnica y nos registras como Representante Laboral Electrónico. Lo haces tú una sola vez: el portal del Estado exige ClaveÚnica y nunca te pedimos la tuya." },
+    { n: "06", title: "Llenas la plantilla", desc: "Descargas el Excel de Ingresos, Bajas o Anexos y completas RUT, nombre, fechas y tipo de contrato." },
+    { n: "07", title: "Subes y confirmas", desc: "Revisamos cada fila y te mostramos qué falta. Confirmas y tu nómina queda en cola con un código que sigues desde el panel." },
+    { n: "08", title: "Recibes los comprobantes", desc: "Dejamos los registros en el Portal DT dentro del siguiente día hábil y te mandamos los números de comprobante por correo." },
   ]
 
   // Blanco y no `bgPage`: la sección de los 8 pasos y la de los 3 robots miden
@@ -538,17 +549,20 @@ function OnboardingGuide() {
           }}>
             Guía de incorporación
           </p>
+          <p style={{ fontSize: "0.95rem", color: C.textMuted, margin: "0 0 22px", maxWidth: "560px", lineHeight: 1.6 }}>
+            Del 1 al 5 los haces una sola vez. Desde la segunda nómina te quedan
+            dos: llenar el Excel y confirmar.
+          </p>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", gap: "24px", flexWrap: "wrap" as const }}>
             <h2 style={{
               fontSize: "clamp(1.6rem, 3vw, 2.3rem)", fontWeight: 800,
               color: C.textMain, margin: 0, lineHeight: 1.1,
             }}>
-              8 pasos para tener tu primer<br />
-              <span style={{ color: C.blue }}>robot corriendo hoy.</span>
+              Los 8 pasos de tu<br />
+              <span style={{ color: C.blue }}>primera carga.</span>
             </h2>
             <a
-              href="/guia-onboarding-portal-dt.pdf"
-              download
+              href="/contacto"
               style={{
                 display: "inline-flex", alignItems: "center", gap: "8px",
                 padding: "12px 24px",
@@ -564,9 +578,9 @@ function OnboardingGuide() {
               onMouseLeave={e => ((e.currentTarget as HTMLAnchorElement).style.opacity = "1")}
             >
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                <path d="M8 2v8M5 7l3 3 3-3M3 12h10" stroke="#FFFFFF" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M3 4h10v7H9l-3 3v-3H3z" stroke="#FFFFFF" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
-              Descargar guía PDF
+              Hablar con un ingeniero
             </a>
           </div>
         </motion.div>
@@ -650,7 +664,7 @@ function OnboardingGuide() {
                 ¿Tienes dudas sobre el proceso?
               </p>
               <p style={{ margin: 0, fontSize: "0.8rem", color: C.textMuted }}>
-                El equipo de Tecnozero responde en menos de 4 horas hábiles.
+                Te responde una persona del equipo dentro del día hábil siguiente.
               </p>
             </div>
           </div>
@@ -800,21 +814,32 @@ function Robots() {
 
 // ─── 5. Social Proof ─────────────────────────────────────────────────────────
 
+/**
+ * Hasta el 10 de septiembre de 2026 aquí había dos testimonios firmados por
+ * "Carolina Vásquez, Estudio Vásquez & Asociados" y "Rodrigo Fernández, Grupo
+ * Constructora Norte", con cartera de 34 empresas y todo. Ninguno de los dos
+ * existe. En su lugar van tres cosas que cualquiera puede verificar leyendo el
+ * contrato o probando el flujo.
+ */
 function SocialProof() {
-  const testimonials = [
+  const hechos = [
     {
-      quote: "Pasé de dedicar los lunes enteros a registrar contratos, a revisar el informe de lo que el robot hizo mientras dormía. Mis clientes no entienden cómo proceso volúmenes tan grandes.",
-      name: "Carolina Vásquez",
-      role: "Contadora · Estudio Vásquez & Asociados",
-      avatar: "CV",
+      icon: <FileText size={20} color={C.cyan} />,
       color: C.cyan,
+      title: "Los tres formularios, completos",
+      desc: "Ingresos, bajas y anexos. Las plantillas cubren los campos que el Portal DT pide en cada uno, incluidas las reglas que cambian según la causal o el tipo de jornada.",
     },
     {
-      quote: "Tengo 34 empresas en cartera. Antes de Tecnozero, enero y marzo eran una pesadilla. Ahora proceso 200+ ingresos en un fin de semana y el lunes ya tengo todos los comprobantes.",
-      name: "Rodrigo Fernández",
-      role: "RRHH · Grupo Constructora Norte",
-      avatar: "RF",
+      icon: <Shield size={20} color={C.lime} />,
       color: C.lime,
+      title: "Tu ClaveÚnica se queda contigo",
+      desc: "Nos inscribes como Representante Laboral Electrónico en MiDT y firmas un mandato con copia en PDF. Trabajamos con esa autorización, no con tu clave.",
+    },
+    {
+      icon: <Clock size={20} color="#F5A020" />,
+      color: "#F5A020",
+      title: "30 días para arrepentirte",
+      desc: "Si no te sirvió, escribes a contacto@tecnozero.cl y te devolvemos el total por el mismo medio de pago dentro de 10 días hábiles. Sin explicaciones.",
     },
   ]
 
@@ -823,39 +848,37 @@ function SocialProof() {
       <div style={{ maxWidth: "1000px", margin: "0 auto" }}>
         <motion.div style={{ textAlign: "center", marginBottom: "56px" }}>
           <h2 style={{ fontSize: "clamp(1.5rem, 3vw, 2.2rem)", fontWeight: 800, color: "#FFFFFF", marginBottom: "14px" }}>
-            Lo que dicen quienes ya automatizan
+            Lo que sí podemos probarte
           </h2>
+          <p style={{ fontSize: "1rem", color: C.textMutedOsc, maxWidth: "520px", margin: "0 auto" }}>
+            Tres afirmaciones que puedes revisar en el contrato o probando el flujo,
+            antes de poner un peso.
+          </p>
         </motion.div>
 
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "24px" }}>
-          {testimonials.map((t, i) => (
-            <motion.div key={t.name} style={{
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "24px" }}>
+          {hechos.map((h) => (
+            <motion.div key={h.title} style={{
               backgroundColor: "#0D1A2E",
               borderRadius: "16px",
               padding: "32px",
               border: "1px solid rgba(255,255,255,0.06)",
             }}>
-              <p style={{
-                fontSize: "0.95rem", color: "#CBD5E1", lineHeight: 1.75,
-                fontStyle: "italic", marginBottom: "28px",
+              <div style={{
+                width: "40px", height: "40px", borderRadius: "10px",
+                backgroundColor: `${h.color}18`,
+                border: `1px solid ${h.color}33`,
+                display: "flex", alignItems: "center", justifyContent: "center",
+                marginBottom: "20px",
               }}>
-                &ldquo;{t.quote}&rdquo;
-              </p>
-              <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-                <div style={{
-                  width: "40px", height: "40px", borderRadius: "10px",
-                  backgroundColor: `${t.color}22`,
-                  border: `1px solid ${t.color}44`,
-                  display: "flex", alignItems: "center", justifyContent: "center",
-                  fontSize: "0.7rem", fontWeight: 800, color: t.color,
-                }}>
-                  {t.avatar}
-                </div>
-                <div>
-                  <div style={{ fontWeight: 700, color: "#F1F5F9", fontSize: "0.9rem" }}>{t.name}</div>
-                  <div style={{ color: C.textMutedOsc, fontSize: "0.78rem" }}>{t.role}</div>
-                </div>
+                {h.icon}
               </div>
+              <h3 style={{ fontSize: "1rem", fontWeight: 700, color: "#F1F5F9", margin: "0 0 10px" }}>
+                {h.title}
+              </h3>
+              <p style={{ fontSize: "0.9rem", color: "#CBD5E1", lineHeight: 1.7, margin: 0 }}>
+                {h.desc}
+              </p>
             </motion.div>
           ))}
         </div>
@@ -866,14 +889,33 @@ function SocialProof() {
 
 // ─── 6. Precios ──────────────────────────────────────────────────────────────
 
-const TIERS = [
-  { range: "50 – 150",        clp: "$640",  uf: "0,0162", saving: "15% vs manual" },
-  { range: "151 – 400",       clp: "$570",  uf: "0,0144", saving: "25% vs manual" },
-  { range: "401 – 800",       clp: "$500",  uf: "0,0127", saving: "34% vs manual" },
-  { range: "801 – 2.000",     clp: "$430",  uf: "0,0109", saving: "43% vs manual" },
-  { range: "2.001 – 5.000",   clp: "$360",  uf: "0,0091", saving: "52% vs manual" },
-  { range: "5.001 y más",     clp: "$290",  uf: "0,0073", saving: "62% vs manual" },
-]
+/**
+ * La tabla se arma desde `lib/auth.ts`, que es la misma que usa el checkout
+ * para cobrar. Antes estaba escrita a mano aquí, otra vez a mano en los
+ * Términos de Servicio y una tercera vez en `llms.txt`, y las tres versiones
+ * se separaron: los Términos prometían $500 en el tramo donde el checkout
+ * cobraba $570. El ahorro tampoco es un texto fijo, sale del mismo baseline
+ * manual que declara la página más abajo.
+ */
+const TIERS = PRICING_TIERS.map(t => ({
+  range: t.maxDocs === null
+    ? `${t.minDocs.toLocaleString("es-CL")} y más`
+    : `${t.minDocs.toLocaleString("es-CL")} – ${t.maxDocs.toLocaleString("es-CL")}`,
+  clp: `$${t.priceCLP}`,
+  uf: t.priceUF.toLocaleString("es-CL", { minimumFractionDigits: 4 }),
+  saving: `${Math.round((1 - t.priceCLP / BASELINE_MANUAL_CLP) * 100)}% vs manual`,
+}))
+
+/** Los minutos que toma un registro a mano. El 9,45 no es un redondeo bonito:
+ *  es lo que sale de dividir el baseline manual ($756) por el costo hora
+ *  ($4.800). Hasta el 10 de septiembre de 2026 la página decía «8 min c/u» y
+ *  en la línea de abajo cobraba $37.800, que a $4.800 la hora son 7,9 horas y
+ *  no 6,7: la resta que el cliente podía hacer en la cabeza no daba. */
+const COSTO_HORA_MANUAL = 4800
+const MINUTOS_POR_REGISTRO_MANUAL = (BASELINE_MANUAL_CLP / COSTO_HORA_MANUAL) * 60 // 9,45
+const HORAS_50_MANUAL = (MINUTOS_POR_REGISTRO_MANUAL * 50) / 60                     // 7,9
+const COSTO_50_MANUAL = BASELINE_MANUAL_CLP * 50                                    // 37.800
+const COSTO_50_TECNOZERO = PRICING_TIERS[0].priceCLP * 50                           // 32.000
 
 function Pricing() {
   return (
@@ -884,7 +926,9 @@ function Pricing() {
             Más barato que hacerlo manual. Siempre.
           </h2>
           <p style={{ fontSize: "1rem", color: C.textMuted, maxWidth: "520px", margin: "0 auto" }}>
-            Sin cuota fija mensual. Sin contrato mínimo. Mínimo 50 registros por carga. El precio baja con el volumen — y siempre es menor que el costo real de un trabajador digitando.
+            Sin cuota fija mensual, sin contrato mínimo y con un piso de {MIN_DOCS_POR_CARGA} registros
+            por carga. El precio baja con el volumen y queda siempre por debajo de lo que cuesta
+            la misma carga digitada por una persona.
           </p>
         </motion.div>
 
@@ -936,6 +980,17 @@ function Pricing() {
                 </div>
               ))}
             </div>
+            {/* La UF se mueve todos los días. Sin esta fecha, la columna
+                envejece sola y termina diciendo un precio distinto del que
+                cobra el checkout, que cobra pesos. */}
+            <div style={{
+              padding: "12px 20px 16px",
+              borderTop: "1px solid rgba(0,0,0,0.05)",
+              fontSize: "0.72rem", color: C.textMuted, lineHeight: 1.6,
+            }}>
+              Se cobra el precio en pesos. La equivalencia en UF es referencial,
+              calculada con la UF del {UF_REFERENCIA.fecha} (${UF_REFERENCIA.valor.toLocaleString("es-CL")}).
+            </div>
           </motion.div>
 
           {/* Comparativa */}
@@ -951,11 +1006,19 @@ function Pricing() {
                 <span style={{ fontWeight: 700, color: C.textMain }}>vs. costo de hacerlo manual</span>
               </div>
               {[
-                { label: "Tiempo manual 50 registros (8 min c/u)", val: "~6,7 horas", type: "bad" },
-                { label: "Costo hora RRHH/admin (ref. CMC 2026)", val: "$4.800/hora", type: "bad" },
-                { label: "Costo real 50 registros manual", val: "~$37.800", type: "bad" },
-                { label: "Costo Tecnozero 50 registros (Tier 1)", val: "$32.000", type: "good" },
-                { label: "Ahorro directo", val: "~$5.800 (15%)", type: "good" },
+                {
+                  label: `Tiempo manual 50 registros (${MINUTOS_POR_REGISTRO_MANUAL.toLocaleString("es-CL", { maximumFractionDigits: 1 })} min c/u)`,
+                  val: `~${HORAS_50_MANUAL.toLocaleString("es-CL", { maximumFractionDigits: 1 })} horas`,
+                  type: "bad",
+                },
+                { label: "Costo hora RRHH/admin (ref. CMC 2026)", val: `$${COSTO_HORA_MANUAL.toLocaleString("es-CL")}/hora`, type: "bad" },
+                { label: "Costo real 50 registros manual", val: `~$${COSTO_50_MANUAL.toLocaleString("es-CL")}`, type: "bad" },
+                { label: "Costo Tecnozero 50 registros (Tramo 1)", val: `$${COSTO_50_TECNOZERO.toLocaleString("es-CL")}`, type: "good" },
+                {
+                  label: "Ahorro directo",
+                  val: `~$${(COSTO_50_MANUAL - COSTO_50_TECNOZERO).toLocaleString("es-CL")} (${Math.round((1 - COSTO_50_TECNOZERO / COSTO_50_MANUAL) * 100)}%)`,
+                  type: "good",
+                },
               ].map((row) => (
                 <div key={row.label} style={{
                   display: "flex", justifyContent: "space-between", alignItems: "center",
@@ -981,19 +1044,20 @@ function Pricing() {
             }}>
               <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "12px" }}>
                 <Shield size={18} color={C.lime} />
-                <span style={{ fontWeight: 700, color: "#FFFFFF" }}>Sin riesgo para empezar</span>
+                <span style={{ fontWeight: 700, color: "#FFFFFF" }}>Mira el número antes de pagarlo</span>
               </div>
               <p style={{ fontSize: "0.88rem", color: "rgba(255,255,255,0.85)", lineHeight: 1.65, marginBottom: "20px" }}>
-                Los primeros 50 registros son gratis, sin tarjeta de crédito. Procesa una nómina real de un cliente y decide.
+                Mándanos la planilla de un cliente real. Te devolvemos la lista de
+                errores que la DT rechazaría y el precio exacto de esa carga. Sin tarjeta.
               </p>
-              <Link href="/checkout" style={{ textDecoration: "none" }}>
+              <Link href="/registro" style={{ textDecoration: "none" }}>
                 <div style={{
                   display: "inline-flex", alignItems: "center", gap: "8px",
                   backgroundColor: C.lime, color: "#000000",
                   padding: "12px 22px", borderRadius: "10px",
                   fontWeight: 700, fontSize: "0.9rem", cursor: "pointer",
                 }}>
-                  Empezar gratis <ArrowRight size={15} />
+                  Pedir la revisión <ArrowRight size={15} />
                 </div>
               </Link>
             </div>
@@ -1057,21 +1121,22 @@ function TrialBanner() {
           }}>
             <Sparkles size={13} color={C.lime} />
             <span style={{ color: C.lime, fontSize: "0.78rem", fontWeight: 700, letterSpacing: "0.08em" }}>
-              50 REGISTROS GRATIS · SIN TARJETA
+              REVISIÓN GRATIS · SIN TARJETA
             </span>
           </div>
 
           <h2 style={{ fontSize: "clamp(1.8rem, 3.5vw, 2.8rem)", fontWeight: 800, color: "#FFFFFF", marginBottom: "16px", lineHeight: 1.2 }}>
-            50 registros gratis.<br />Hoy mismo.
+            Mándanos una nómina.<br />Te decimos qué falta.
           </h2>
           <p style={{ fontSize: "1rem", color: "rgba(255,255,255,0.85)", lineHeight: 1.7, marginBottom: "36px" }}>
-            Crea tu cuenta en 2 minutos, sube la planilla de un cliente real y
-            ve cómo Tecnozero registra cada contrato en el Portal DT.
-            Sin letra chica, sin compromiso. Un registro = un trabajador procesado.
+            Un ingeniero revisa la planilla de un cliente tuyo y te devuelve tres cosas:
+            los RUT y las fechas que la Dirección del Trabajo va a rechazar, cuántas horas
+            de digitación tiene esa carga, y lo que cuesta procesarla con el robot.
+            El informe queda tuyo aunque no contrates.
           </p>
 
           <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
-            <Link href="/checkout" style={{ textDecoration: "none" }}>
+            <Link href="/registro" style={{ textDecoration: "none" }}>
               <div style={{
                 display: "flex", alignItems: "center", gap: "8px",
                 backgroundColor: C.lime, color: "#000000",
@@ -1079,7 +1144,7 @@ function TrialBanner() {
                 fontWeight: 800, fontSize: "1rem", cursor: "pointer",
                 boxShadow: `0 8px 30px ${C.lime}40`,
               }}>
-                Crear cuenta gratis <ArrowRight size={17} />
+                Pedir la revisión <ArrowRight size={17} />
               </div>
             </Link>
             <Link href="/contacto" style={{ textDecoration: "none" }}>
@@ -1099,8 +1164,8 @@ function TrialBanner() {
           <div style={{ display: "flex", gap: "24px", marginTop: "40px", flexWrap: "wrap" }}>
             {[
               "Sin tarjeta de crédito",
-              "50 registros reales incluidos",
-              "Configuración en 2 min",
+              "Respuesta en 24 horas hábiles",
+              "El informe queda tuyo",
             ].map((label) => (
               <div key={label} style={{ display: "flex", alignItems: "center", gap: "7px" }}>
                 <CheckCircle2 size={14} color={C.lime} />
@@ -1120,19 +1185,23 @@ function TrialBanner() {
 const FAQS = [
   {
     q: "¿Necesito instalar algo para usar el robot?",
-    a: "No. Tecnozero funciona 100% desde el navegador. Solo necesitas subir tu planilla Excel, el robot hace el resto usando nuestros servidores.",
+    a: "No. Todo pasa en el navegador: descargas la plantilla, la completas, la subes y confirmas. El robot corre en nuestros servidores y lo opera nuestro equipo.",
   },
   {
-    q: "¿Qué pasa si el Portal DT tiene un error o está caído?",
-    a: "El robot reintenta automáticamente. Si el portal sigue con problemas, recibirás una notificación y el registro quedará en cola para procesarse en cuanto vuelva el servicio.",
+    q: "¿Cuánto se demora en quedar registrado en el Portal DT?",
+    a: "Dejamos los registros dentro del siguiente día hábil y te mandamos los números de comprobante por correo. Si el Portal DT está caído ese día, tu nómina se queda en cola y te escribimos apenas la procesemos.",
   },
   {
-    q: "¿Los datos de mis clientes están seguros?",
-    a: "Sí. Los datos se procesan en memoria y no se almacenan permanentemente. Usamos encriptación en tránsito (TLS 1.3) y en reposo. Cumplimos con la Ley 19.628 de protección de datos personales.",
+    q: "¿Me van a pedir mi ClaveÚnica?",
+    a: "No, y no la aceptaríamos. Tú nos inscribes como Representante Laboral Electrónico en portal.dt.gob.cl y firmas un mandato con copia en PDF. Con esa autorización operamos, y tu clave se queda contigo.",
   },
   {
-    q: "¿Puedo usar el robot para todas mis empresas a la vez?",
-    a: "Sí. El dashboard multi-empresa te permite gestionar toda tu cartera de clientes desde una sola cuenta. Puedes cargar planillas de distintas empresas en paralelo.",
+    q: "¿Qué hacen con los datos de mis trabajadores?",
+    a: "Guardamos la nómina que subes para procesarla y para dejar el respaldo de lo que nos pediste. Viaja por TLS y queda en una base con cifrado en reposo. Si nos pides por escrito que la borremos, la borramos. Nos rige la Ley 19.628 y estamos ajustando los procesos a la Ley 21.719.",
+  },
+  {
+    q: "¿Puedo cargar planillas de varias empresas?",
+    a: "Sí. Cambias de empresa en el panel y cada nómina queda asociada a la que tenías activa. Por ahora la cartera se guarda en el navegador donde la creaste, así que si cambias de computador la registras de nuevo.",
   },
 ]
 

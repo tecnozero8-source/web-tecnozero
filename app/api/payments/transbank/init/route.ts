@@ -7,6 +7,12 @@ import { NextRequest, NextResponse } from "next/server"
 import { WebpayPlus, Options, Environment, IntegrationCommerceCodes, IntegrationApiKeys } from "transbank-sdk"
 import { encryptCookie } from "@/lib/cookie-crypto"
 import { getSiteOrigin } from "@/lib/site-url"
+import {
+  getPriceTier,
+  MIN_DOCS_POR_CARGA,
+  MAX_DOCS_POR_CARGA,
+  PRECIOS_ADDON,
+} from "@/lib/auth"
 
 function getTbkTransaction() {
   const isProduction = process.env.NODE_ENV === "production" && process.env.TBK_COMMERCE_CODE
@@ -42,14 +48,55 @@ export async function POST(req: NextRequest) {
       customerEmail: string
       empresa?: string
       rut?: string          // RUT de la empresa, para la factura
+      addons?: string[]     // Ids de servicios adicionales: ver PRECIOS_ADDON
       testKey?: string      // Modo prueba: ver TEST_CHECKOUT_KEY
     }
 
-    const { plan, docsPerMonth, pricePerDoc, customerName, customerEmail, empresa, rut, testKey } = body
-    let { amount } = body
+    const { plan, docsPerMonth, customerName, customerEmail, empresa, rut, testKey, addons } = body
+    let { amount, pricePerDoc, docsPerMonth: docsFinal } = body
 
     if (!amount || amount < 1 || !customerEmail) {
       return NextResponse.json({ error: "Parámetros inválidos" }, { status: 400 })
+    }
+
+    // ── El monto lo decide el servidor ───────────────────────────────────────
+    // Hasta el 10 de septiembre de 2026 se cobraba el `amount` que mandaba el
+    // navegador. Cualquiera con la consola abierta podía pedir 5.000 registros
+    // y pagar $1: el checkout es código del cliente y el cliente lo edita.
+    // Aquí se recalcula desde la misma tabla que publica la página.
+    if (testKey === undefined) {
+      const docs = Math.floor(Number(docsPerMonth))
+      if (!Number.isFinite(docs) || docs < MIN_DOCS_POR_CARGA || docs > MAX_DOCS_POR_CARGA) {
+        return NextResponse.json(
+          { error: `La carga debe tener entre ${MIN_DOCS_POR_CARGA} y ${MAX_DOCS_POR_CARGA.toLocaleString("es-CL")} registros.` },
+          { status: 400 },
+        )
+      }
+
+      const tramo = getPriceTier(docs)
+      const extras = Array.isArray(addons) ? addons : []
+      const totalAddons = extras.reduce((suma: number, id: unknown) => {
+        const precio = PRECIOS_ADDON[String(id)]
+        return suma + (precio ?? 0)
+      }, 0)
+
+      const desconocidos = extras.filter(id => PRECIOS_ADDON[String(id)] === undefined)
+      if (desconocidos.length) {
+        return NextResponse.json({ error: "Servicio adicional no reconocido." }, { status: 400 })
+      }
+
+      const calculado = docs * tramo.priceCLP + totalAddons
+
+      if (calculado !== amount) {
+        // No es solo defensa: si el navegador y el servidor no coinciden, el
+        // cliente vio un número y pagaría otro, y eso no se hace nunca.
+        console.warn(
+          `[Transbank Init] Monto recalculado: el navegador pidió ${amount} y corresponden ${calculado}`,
+        )
+      }
+      amount = calculado
+      pricePerDoc = tramo.priceCLP
+      docsFinal = docs
     }
 
     // ── Modo prueba ($50) ────────────────────────────────────────────────────
@@ -91,7 +138,7 @@ export async function POST(req: NextRequest) {
       sessionId,
       amount,
       plan,
-      docsPerMonth,
+      docsPerMonth: docsFinal,
       pricePerDoc,
       customerName,
       customerEmail,

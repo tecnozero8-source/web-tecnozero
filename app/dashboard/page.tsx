@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react"
 import { motion } from "framer-motion"
 import { useSession } from "next-auth/react"
+import Link from "next/link"
 import { AuthBanner } from "../components/dashboard/AuthBanner"
 import { getActiveCompany, docsToNextTier, type CompanyProfile } from "@/lib/multi-empresa"
 import { getPriceTier } from "@/lib/auth"
@@ -31,23 +32,44 @@ const card: React.CSSProperties = {
   boxShadow: C.shadow,
 }
 
-const recentActivity = [
-  { hora: "09:41", tipo: "Contrato plazo fijo", estado: "CONFIRMADO", duracion: "2m 08s" },
-  { hora: "09:38", tipo: "Anexo contrato", estado: "CONFIRMADO", duracion: "1m 52s" },
-  { hora: "09:35", tipo: "Finiquito", estado: "CONFIRMADO", duracion: "2m 31s" },
-  { hora: "09:29", tipo: "Contrato plazo fijo", estado: "CONFIRMADO", duracion: "2m 14s" },
-  { hora: "09:22", tipo: "Liquidación", estado: "CONFIRMADO", duracion: "1m 48s" },
-  { hora: "09:18", tipo: "Anexo contrato", estado: "CONFIRMADO", duracion: "2m 03s" },
-  { hora: "09:11", tipo: "Contrato plazo fijo", estado: "CONFIRMADO", duracion: "2m 19s" },
-  { hora: "09:07", tipo: "Finiquito", estado: "ERROR", duracion: "0m 44s" },
-  { hora: "09:02", tipo: "Liquidación", estado: "CONFIRMADO", duracion: "1m 55s" },
-  { hora: "08:58", tipo: "Contrato plazo fijo", estado: "CONFIRMADO", duracion: "2m 22s" },
-]
+/**
+ * Hasta el 10 de septiembre de 2026 esta pantalla mostraba diez ejecuciones
+ * escritas a mano ("09:41 · Contrato plazo fijo · CONFIRMADO · 2m 08s") y dos
+ * robots con 99,8% de uptime y "última ejecución hace 3 minutos". Todo cliente
+ * veía exactamente lo mismo, incluido el que acababa de pagar y no tenía ni
+ * una carga. Ahora la tabla muestra las cargas de verdad, y cuando no hay
+ * ninguna lo dice.
+ */
+interface CargaResumen {
+  id: string
+  tipo: string
+  archivo: string | null
+  total_filas: number
+  filas_validas: number
+  filas_incompletas: number
+  estado: string
+  created_at: string
+}
 
-const robots = [
-  { name: "Gestor Laboral 360", type: "RPA · Portal DT", uptime: "99.8%", lastExec: "hace 3 minutos" },
-  { name: "Agente IA · Facturación", type: "IA Agéntica", uptime: "99.5%", lastExec: "hace 12 minutos" },
-]
+const ETIQUETA_ESTADO: Record<string, string> = {
+  recibida: "RECIBIDA",
+  procesando: "PROCESANDO",
+  lista: "CONFIRMADO",
+  error: "ERROR",
+}
+
+const ETIQUETA_TIPO: Record<string, string> = {
+  ingresos: "Ingresos",
+  bajas: "Bajas",
+  anexos: "Anexos",
+}
+
+function fechaCorta(iso: string): string {
+  const d = new Date(iso)
+  return d.toLocaleString("es-CL", {
+    day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit",
+  })
+}
 
 function PulsingDot() {
   return (
@@ -133,6 +155,18 @@ export default function DashboardPage() {
   const { data: session } = useSession()
   const userName = (session?.user?.name ?? "Usuario").split(" ")[0]
   const [activeCompany, setActiveCompany] = useState<CompanyProfile | null>(null)
+  const [cargas, setCargas] = useState<CargaResumen[]>([])
+  const [cargandoCargas, setCargandoCargas] = useState(true)
+
+  useEffect(() => {
+    let vivo = true
+    fetch("/api/cargas")
+      .then(r => (r.ok ? r.json() : { cargas: [] }))
+      .then(d => { if (vivo) setCargas(d.cargas ?? []) })
+      .catch(() => { if (vivo) setCargas([]) })
+      .finally(() => { if (vivo) setCargandoCargas(false) })
+    return () => { vivo = false }
+  }, [])
 
   useEffect(() => {
     setActiveCompany(getActiveCompany())
@@ -212,7 +246,7 @@ export default function DashboardPage() {
             <table style={{ width: "100%", borderCollapse: "collapse" }}>
               <thead>
                 <tr>
-                  {["Hora", "Tipo", "Estado", "Duración"].map((h) => (
+                  {["Fecha", "Tipo", "Estado", "Volumen"].map((h) => (
                     <th
                       key={h}
                       style={{
@@ -233,27 +267,44 @@ export default function DashboardPage() {
                 </tr>
               </thead>
               <tbody>
-                {recentActivity.map((row, i) => (
+                {cargas.map((carga) => (
                   <tr
-                    key={i}
+                    key={carga.id}
                     style={{ borderBottom: `1px solid #F1F5F9` }}
                     onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.backgroundColor = "#F8FAFF" }}
                     onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.backgroundColor = "transparent" }}
                   >
                     <td style={{ padding: "10px 16px 10px 0", fontSize: 13, color: C.textMuted, fontVariantNumeric: "tabular-nums" }}>
-                      {row.hora}
+                      {fechaCorta(carga.created_at)}
                     </td>
                     <td style={{ padding: "10px 16px 10px 0", fontSize: 13, color: C.textPrimary }}>
-                      {row.tipo}
+                      {ETIQUETA_TIPO[carga.tipo] ?? carga.tipo}
                     </td>
                     <td style={{ padding: "10px 16px 10px 0" }}>
-                      {estadoBadge(row.estado)}
+                      {estadoBadge(ETIQUETA_ESTADO[carga.estado] ?? carga.estado.toUpperCase())}
                     </td>
                     <td style={{ padding: "10px 0 10px 0", fontSize: 13, color: C.textSecondary, fontVariantNumeric: "tabular-nums" }}>
-                      {row.duracion}
+                      {carga.total_filas} registros
                     </td>
                   </tr>
                 ))}
+                {!cargandoCargas && cargas.length === 0 && (
+                  <tr>
+                    <td colSpan={4} style={{ padding: "28px 0", textAlign: "center", fontSize: 13, color: C.textMuted }}>
+                      Todavía no has subido ninguna nómina.{" "}
+                      <Link href="/dashboard/carga" style={{ color: C.blue, fontWeight: 600, textDecoration: "none" }}>
+                        Sube la primera
+                      </Link>
+                    </td>
+                  </tr>
+                )}
+                {cargandoCargas && (
+                  <tr>
+                    <td colSpan={4} style={{ padding: "28px 0", textAlign: "center", fontSize: 13, color: C.textMuted }}>
+                      Cargando tu historial...
+                    </td>
+                  </tr>
+                )}
               </tbody>
             </table>
           </div>

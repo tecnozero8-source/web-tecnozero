@@ -630,3 +630,171 @@ export function emailAvisoConsultaInterno(d: DatosConsultaInterna): { subject: s
     text,
   }
 }
+
+// ─── Carga de nómina ──────────────────────────────────────────────────────────
+
+const NOMBRE_TIPO: Record<string, string> = {
+  ingresos: "Ingresos (altas)",
+  bajas: "Bajas (finiquitos)",
+  anexos: "Anexos de contrato",
+}
+
+export interface DatosCargaInterna {
+  id: string
+  nombre?: string
+  correo: string
+  empresa?: string
+  tipo: string
+  archivo?: string
+  totalFilas: number
+  filasValidas: number
+  filasIncompletas: number
+  advertencias: { message: string; count: number }[]
+  guardadaEnBase: boolean
+}
+
+/**
+ * Aviso al equipo de que llegó una nómina para procesar en el Portal DT.
+ *
+ * Es la pieza que faltaba: hasta el 10 de septiembre de 2026 el cliente
+ * confirmaba la carga, veía una barra llenarse y nadie en Tecnozero se
+ * enteraba de nada.
+ */
+export function emailAvisoCargaInterno(d: DatosCargaInterna): { subject: string; html: string; text: string } {
+  const alerta = d.guardadaEnBase ? "" : `
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;background-color:${C.ambarFondo};border-radius:8px;">
+      <tr><td style="padding:12px 15px;font-family:${FUENTE};font-size:13px;color:${C.ambar};line-height:1.6;">
+        <strong>La base no guardó esta carga.</strong> Pídele la planilla al cliente antes de que cierre la pestaña.
+      </td></tr>
+    </table>
+    <div style="height:18px;line-height:18px;font-size:0;">&nbsp;</div>`
+
+  const listaAdvertencias = d.advertencias.length ? `
+    <div style="font-family:${FUENTE};font-size:12px;font-weight:700;color:${C.ambar};letter-spacing:0.12em;text-transform:uppercase;padding-bottom:10px;">Filas que la DT puede rechazar</div>
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
+      ${d.advertencias.map(a => filaDato(a.message, `${a.count} fila${a.count === 1 ? "" : "s"}`)).join("")}
+    </table>` : `
+    <div style="font-family:${FUENTE};font-size:14px;color:${C.verde};font-weight:600;">La validación no encontró campos condicionales pendientes.</div>`
+
+  const cuerpo = `
+    ${seccion(`
+      ${alerta}
+      <div style="font-family:${FUENTE};font-size:12px;font-weight:700;color:${C.azul};letter-spacing:0.12em;text-transform:uppercase;padding-bottom:8px;">Nómina para procesar</div>
+      ${titulo(`${d.totalFilas} registro${d.totalFilas === 1 ? "" : "s"} · ${NOMBRE_TIPO[d.tipo] ?? d.tipo}`, 24)}
+      <div style="height:6px;line-height:6px;font-size:0;">&nbsp;</div>
+      <div style="font-family:${FUENTE};font-size:16px;font-weight:600;color:${C.texto};">${esc(d.empresa ?? d.nombre ?? d.correo)}</div>
+    `, "30px 32px 22px 32px")}
+
+    ${seccion(`
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
+        ${filaDato("Carga", d.id)}
+        ${filaDato("Cliente", d.nombre)}
+        ${filaDato("Correo", d.correo)}
+        ${filaDato("Archivo", d.archivo)}
+        ${filaDato("Filas completas", d.filasValidas, true)}
+        ${filaDato("Filas incompletas", d.filasIncompletas)}
+        ${filaDato("Recibida", fechaChile())}
+      </table>
+    `)}
+
+    ${seccion(listaAdvertencias)}
+
+    ${seccion(boton("Escribirle al cliente", `mailto:${d.correo}?subject=${encodeURIComponent("Tu carga " + d.id + " en el Portal DT")}`))}
+  `
+
+  const text = [
+    `NOMINA PARA PROCESAR: ${d.totalFilas} registros de ${NOMBRE_TIPO[d.tipo] ?? d.tipo}`,
+    d.guardadaEnBase ? "" : "*** La base no guardó esta carga. Pídele la planilla al cliente. ***",
+    "",
+    `Carga: ${d.id}`,
+    `Cliente: ${d.nombre ?? "sin dato"}`,
+    `Empresa: ${d.empresa ?? "sin dato"}`,
+    `Correo: ${d.correo}`,
+    `Archivo: ${d.archivo ?? "sin dato"}`,
+    `Filas completas: ${d.filasValidas}`,
+    `Filas incompletas: ${d.filasIncompletas}`,
+    `Recibida: ${fechaChile()}`,
+    "",
+    d.advertencias.length
+      ? "Filas que la DT puede rechazar:\n" + d.advertencias.map(a => `- ${a.message} (${a.count})`).join("\n")
+      : "La validación no encontró campos condicionales pendientes.",
+  ].filter(Boolean).join("\n")
+
+  return {
+    subject: `Nómina: ${d.totalFilas} ${d.tipo} · ${d.empresa ?? d.correo}`,
+    html: layout({
+      preheader: `${d.empresa ?? d.correo} subió ${d.totalFilas} registros de ${d.tipo} para el Portal DT.`,
+      antetitulo: "Aviso interno",
+      cuerpo,
+      pie: "Aviso automático del dashboard de tecnozero.cl.",
+    }),
+    text,
+  }
+}
+
+export interface DatosCargaCliente {
+  id: string
+  nombre?: string
+  tipo: string
+  totalFilas: number
+  filasIncompletas: number
+}
+
+/** Acuse para quien subió la nómina. Dice qué pasa después y quién lo hace. */
+export function emailCargaRecibida(d: DatosCargaCliente): { subject: string; html: string; text: string } {
+  const tipoLegible = (NOMBRE_TIPO[d.tipo] ?? d.tipo).toLowerCase()
+
+  const cuerpo = `
+    ${seccion(`
+      <div style="font-family:${FUENTE};font-size:12px;font-weight:700;color:${C.azul};letter-spacing:0.12em;text-transform:uppercase;padding-bottom:8px;">Nómina recibida</div>
+      ${titulo(`Recibimos tus ${d.totalFilas} registro${d.totalFilas === 1 ? "" : "s"}`, 26)}
+      <div style="height:12px;line-height:12px;font-size:0;">&nbsp;</div>
+      ${parrafo(`${d.nombre ? esc(d.nombre) + ", tu" : "Tu"} planilla de ${esc(tipoLegible)} quedó en cola con el código ${esc(d.id)}. Guárdalo por si necesitas preguntarnos por ella.`)}
+    `, "30px 32px 22px 32px")}
+
+    ${seccion(`
+      ${encabezadoSeccion("Qué pasa ahora")}
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
+        ${paso(1, "Un ingeniero revisa la planilla", "Dentro del siguiente día hábil. Si falta un dato que la Dirección del Trabajo exige, te escribimos antes de subir nada.")}
+        ${paso(2, "El robot registra en el Portal DT", "Cada trabajador entra con sus campos y el robot verifica el envío.")}
+        ${paso(3, "Te llegan los comprobantes", "Un correo con el número de comprobante DT de cada registro, para tu respaldo ante una fiscalización.")}
+      </table>
+    `)}
+
+    ${d.filasIncompletas > 0 ? seccion(`
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;background-color:${C.ambarFondo};border-radius:10px;">
+        <tr><td style="padding:16px 18px;font-family:${FUENTE};font-size:14px;color:${C.ambar};line-height:1.7;">
+          <strong>${d.filasIncompletas} fila${d.filasIncompletas === 1 ? "" : "s"} llegó incompleta.</strong>
+          Te escribimos con el detalle antes de procesar esa parte. El resto sigue su curso.
+        </td></tr>
+      </table>
+    `) : ""}
+  `
+
+  const text = [
+    `Recibimos tus ${d.totalFilas} registros.`,
+    "",
+    `Código de la carga: ${d.id}`,
+    "",
+    "Qué pasa ahora:",
+    "1. Un ingeniero revisa la planilla dentro del siguiente día hábil.",
+    "2. El robot registra cada trabajador en el Portal DT.",
+    "3. Te llegan los comprobantes DT por correo.",
+    "",
+    d.filasIncompletas > 0
+      ? `${d.filasIncompletas} fila(s) llegó incompleta. Te escribimos con el detalle antes de procesar esa parte.`
+      : "",
+    "Dudas: responde este correo o escribe a contacto@tecnozero.cl",
+  ].filter(Boolean).join("\n")
+
+  return {
+    subject: `Recibimos tu nómina · ${d.totalFilas} registros · ${d.id}`,
+    html: layout({
+      preheader: "Tu planilla quedó en cola. Un ingeniero la revisa dentro del siguiente día hábil.",
+      antetitulo: "Carga recibida",
+      cuerpo,
+      pie: "Tecnozero SpA · contacto@tecnozero.cl",
+    }),
+    text,
+  }
+}

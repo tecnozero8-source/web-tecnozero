@@ -131,7 +131,7 @@ export default function CargaPage() {
   const [rows, setRows] = useState<any[]>([])
   const [stats, setStats] = useState<UploadStats | null>(null)
   const [errorMsg, setErrorMsg] = useState("")
-  const [processingCount, setProcessingCount] = useState(0)
+  const [cargaId, setCargaId] = useState<string | null>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
 
   const cfg = TYPE_CONFIG[uploadType]
@@ -174,23 +174,47 @@ export default function CargaPage() {
     e.target.value = ""
   }, [handleFile])
 
+  // Hasta el 10 de septiembre de 2026 esto era un contador de 80 ms por fila y
+  // terminaba en "¡Registros enviados al robot!". Las filas nunca salían del
+  // navegador: no había endpoint ni tabla donde dejarlas. Un cliente que había
+  // pagado veía la barra llenarse y no se registraba nada en el Portal DT.
   const handleConfirm = useCallback(async () => {
     setState("confirming")
-    setProcessingCount(0)
-    const total = rows.length
-    for (let i = 0; i <= total; i++) {
-      await new Promise((r) => setTimeout(r, 80))
-      setProcessingCount(i)
+    setErrorMsg("")
+    try {
+      const res = await fetch("/api/cargas", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          tipo: uploadType,
+          archivo: stats?.fileName,
+          empresaId: stats?.empresaId ?? null,
+          filas: rows,
+          filasValidas: stats?.validRows,
+          filasIncompletas: stats?.incompleteRows,
+          advertencias: stats?.conditionalIssues ?? [],
+        }),
+      })
+      const data = await res.json()
+      if (!res.ok) {
+        setErrorMsg(data.error ?? "No pudimos dejar registrada tu nómina.")
+        setState("error")
+        return
+      }
+      setCargaId(data.id)
+      setState("done")
+    } catch {
+      setErrorMsg("No se pudo conectar al servidor. Tu planilla no se envió: inténtalo otra vez o escríbenos a contacto@tecnozero.cl.")
+      setState("error")
     }
-    setState("done")
-  }, [rows])
+  }, [rows, stats, uploadType])
 
   const reset = () => {
     setState("idle")
     setRows([])
     setStats(null)
     setErrorMsg("")
-    setProcessingCount(0)
+    setCargaId(null)
   }
 
   return (
@@ -201,7 +225,7 @@ export default function CargaPage() {
           Carga de nómina
         </h1>
         <p style={{ fontSize: "0.9rem", color: C.textSecondary, margin: 0 }}>
-          Sube tu planilla Excel y el robot procesará los documentos automáticamente en el Portal DT
+          Sube tu planilla Excel. Validamos cada fila al instante y un ingeniero la deja registrada en el Portal DT.
         </p>
       </motion.div>
 
@@ -595,16 +619,16 @@ export default function CargaPage() {
             exit={{ opacity: 0 }}
             style={{ ...card, display: "flex", flexDirection: "column", alignItems: "center", padding: "72px 32px", gap: 24 }}
           >
-            <div style={{ fontSize: "1rem", fontWeight: 700, color: C.textPrimary }}>Enviando al robot...</div>
+            <div style={{ fontSize: "1rem", fontWeight: 700, color: C.textPrimary }}>Enviando tu nómina...</div>
             <div style={{ width: "100%", maxWidth: 400, backgroundColor: "#EEF4FF", borderRadius: 99, height: 10, overflow: "hidden" }}>
               <motion.div
-                animate={{ width: rows.length > 0 ? `${(processingCount / rows.length) * 100}%` : "0%" }}
-                transition={{ duration: 0.08, ease: "linear" }}
-                style={{ height: "100%", background: `linear-gradient(90deg, ${C.blue}, ${C.cyan})`, borderRadius: 99 }}
+                animate={{ x: ["-100%", "300%"] }}
+                transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut" }}
+                style={{ height: "100%", width: "33%", background: `linear-gradient(90deg, ${C.blue}, ${C.cyan})`, borderRadius: 99 }}
               />
             </div>
             <div style={{ fontSize: "0.85rem", color: C.textSecondary }}>
-              {processingCount} / {rows.length} registros
+              {rows.length} registro{rows.length !== 1 ? "s" : ""} en camino
             </div>
           </motion.div>
         )}
@@ -627,11 +651,23 @@ export default function CargaPage() {
             </motion.div>
             <div>
               <div style={{ fontSize: "1.4rem", fontWeight: 800, color: C.textPrimary, textAlign: "center", marginBottom: 6, letterSpacing: "-0.03em" }}>
-                ¡Registros enviados al robot!
+                Recibimos tu nómina
               </div>
-              <div style={{ fontSize: "0.9rem", color: C.textSecondary, textAlign: "center" }}>
-                {rows.length} registro{rows.length !== 1 ? "s" : ""} en cola para procesamiento en Portal DT
+              <div style={{ fontSize: "0.9rem", color: C.textSecondary, textAlign: "center", maxWidth: 420, lineHeight: 1.6 }}>
+                {rows.length} registro{rows.length !== 1 ? "s" : ""} de {cfg.label.toLowerCase()} quedaron en cola.
+                Un ingeniero revisa la planilla dentro del siguiente día hábil y te
+                escribe con los comprobantes DT. Te mandamos el acuse por correo.
               </div>
+              {cargaId && (
+                <div style={{
+                  marginTop: 4, padding: "8px 14px", borderRadius: 8,
+                  backgroundColor: "#EEF4FF", border: `1px solid ${C.border}`,
+                  fontSize: "0.78rem", color: C.blue, fontWeight: 700,
+                  fontFamily: "'JetBrains Mono', monospace",
+                }}>
+                  {cargaId}
+                </div>
+              )}
             </div>
             <div style={{ display: "flex", gap: 12, marginTop: 8 }}>
               <button
@@ -641,10 +677,10 @@ export default function CargaPage() {
                 Cargar otra planilla
               </button>
               <button
-                onClick={() => window.location.href = "/dashboard/documentos"}
+                onClick={() => window.location.href = "/dashboard/procesos"}
                 style={{ backgroundColor: C.blue, border: "none", borderRadius: 10, padding: "10px 24px", fontSize: 14, fontWeight: 700, color: "#fff", cursor: "pointer" }}
               >
-                Ver documentos
+                Ver mis cargas
               </button>
             </div>
           </motion.div>

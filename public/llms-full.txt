@@ -637,7 +637,7 @@ Esa combinación es el motivo por el que separamos el RPA determinista de los ag
 En septiembre de 2023, Metro necesitaba registrar 4.600 contratos antes de una fecha imposible. Los robots de Tecnozero cargaron 4.000 en 20 días, con 0 errores. Lo que empezó como una emergencia hoy es un ecosistema de 9 robots que cuida el ciclo laboral de 4.600 personas.
 ## A partir de qué volumen conviene
 Automatizar por debajo de cierto umbral es un gasto. La regla que usamos es simple: cuenta tus movimientos mensuales, multiplícalos por el tiempo real que le toma a tu equipo cada uno y compara ese costo con el precio por registro.
-El Gestor Laboral 360 cobra por registro y baja de precio con volumen: parte en 640 pesos por registro en el primer tramo y llega a 290 pesos sobre los 2.000 registros. Con 150 movimientos al mes, la automatización se paga con las horas que libera el equipo de personas. Con 20 movimientos al mes, sigue siendo más barato hacerlo a mano.
+El Gestor Laboral 360 cobra por registro y baja de precio con volumen: parte en 640 pesos por registro en el primer tramo y llega a 290 pesos sobre los 5.000 registros. Con 150 movimientos al mes, la automatización se paga con las horas que libera el equipo de personas. Con 20 movimientos al mes, sigue siendo más barato hacerlo a mano.
 Hay un segundo criterio que no aparece en la planilla: el riesgo. Si operas con contratos por faena, plazo fijo y alta rotación, la probabilidad de saltarte un plazo de 15 días es alta aunque tu volumen sea medio. Ahí el argumento no es el ahorro de horas.
 ## Preguntas frecuentes
 P: ¿Cuál es el plazo para registrar un contrato en el Portal de la Dirección del Trabajo?
@@ -651,7 +651,7 @@ El robot corre un monitor de estructura antes de cada lote. Si el formulario cam
 P: ¿Desde cuántos contratos al mes conviene automatizar?
 Alrededor de 150 movimientos mensuales la automatización se paga con las horas que libera el equipo de personas. Por debajo de eso conviene evaluar el riesgo de incumplimiento antes que el ahorro: con alta rotación y contratos por faena, saltarse un plazo es probable aunque el volumen sea medio.
 P: ¿Cuánto cuesta el registro automatizado?
-El Gestor Laboral 360 cobra por registro, desde 640 pesos en el primer tramo hasta 290 pesos sobre los 2.000 registros mensuales.
+El Gestor Laboral 360 cobra por registro, desde 640 pesos en el primer tramo hasta 290 pesos sobre los 5.000 registros mensuales.
 Robert Yasuda, PhD
 PhD por la Universidad de Almería. Dirige Tecnozero desde La Serena, donde su equipo opera más de 20 robots de software en producción para empresas de servicios transitorios, outsourcing de personal y transporte público.
 

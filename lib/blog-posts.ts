@@ -190,7 +190,7 @@ export const posts: BlogPost[] = [
 
       { type: "h2", text: "A partir de qué volumen conviene" },
       { type: "p", text: "Automatizar por debajo de cierto umbral es un gasto. La regla que usamos es simple: cuenta tus movimientos mensuales, multiplícalos por el tiempo real que le toma a tu equipo cada uno y compara ese costo con el precio por registro." },
-      { type: "p", text: "El Gestor Laboral 360 cobra por registro y baja de precio con volumen: parte en 640 pesos por registro en el primer tramo y llega a 290 pesos sobre los 2.000 registros. Con 150 movimientos al mes, la automatización se paga con las horas que libera el equipo de personas. Con 20 movimientos al mes, sigue siendo más barato hacerlo a mano." },
+      { type: "p", text: "El Gestor Laboral 360 cobra por registro y baja de precio con volumen: parte en 640 pesos por registro en el primer tramo y llega a 290 pesos sobre los 5.000 registros. Con 150 movimientos al mes, la automatización se paga con las horas que libera el equipo de personas. Con 20 movimientos al mes, sigue siendo más barato hacerlo a mano." },
       { type: "p", text: "Hay un segundo criterio que no aparece en la planilla: el riesgo. Si operas con contratos por faena, plazo fijo y alta rotación, la probabilidad de saltarte un plazo de 15 días es alta aunque tu volumen sea medio. Ahí el argumento no es el ahorro de horas." },
       { type: "cta", label: "Ver Portal DT", href: "/portal-dt" },
     ],
@@ -200,7 +200,7 @@ export const posts: BlogPost[] = [
       { q: "¿Cuánto se demora un robot en registrar un contrato?", a: "Cuarenta y cinco segundos por registro completo, incluyendo los 47 campos del ingreso y la validación previa de los datos. Un equipo humano tarda varios minutos por movimiento." },
       { q: "¿Qué pasa si la Dirección del Trabajo cambia el formulario del portal?", a: "El robot corre un monitor de estructura antes de cada lote. Si el formulario cambió, avisa en vez de seguir cargando mal. Para los cambios menores, un agente de IA interpreta la pantalla y decide si continúa o escala a una persona." },
       { q: "¿Desde cuántos contratos al mes conviene automatizar?", a: "Alrededor de 150 movimientos mensuales la automatización se paga con las horas que libera el equipo de personas. Por debajo de eso conviene evaluar el riesgo de incumplimiento antes que el ahorro: con alta rotación y contratos por faena, saltarse un plazo es probable aunque el volumen sea medio." },
-      { q: "¿Cuánto cuesta el registro automatizado?", a: "El Gestor Laboral 360 cobra por registro, desde 640 pesos en el primer tramo hasta 290 pesos sobre los 2.000 registros mensuales." },
+      { q: "¿Cuánto cuesta el registro automatizado?", a: "El Gestor Laboral 360 cobra por registro, desde 640 pesos en el primer tramo hasta 290 pesos sobre los 5.000 registros mensuales." },
     ],
     related: ["rpa-vs-ia-agentica-cuando-usar-cada-uno", "ley-karin-capacitacion-obligatoria-automatizar"],
   },

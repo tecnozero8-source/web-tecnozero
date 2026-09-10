@@ -125,12 +125,12 @@ export default function TerminosPage() {
           </thead>
           <tbody>
             {[
-              ["1 – 50", "$640 CLP", "0,0162 UF"],
-              ["51 – 150", "$570 CLP", "0,0144 UF"],
-              ["151 – 400", "$500 CLP", "0,0127 UF"],
-              ["401 – 800", "$430 CLP", "0,0109 UF"],
-              ["801 – 2.000", "$360 CLP", "0,0091 UF"],
-              ["2.001+", "$290 CLP", "0,0073 UF"],
+              ["50 – 150", "$640 CLP", "0,0157 UF"],
+              ["151 – 400", "$570 CLP", "0,0139 UF"],
+              ["401 – 800", "$500 CLP", "0,0122 UF"],
+              ["801 – 2.000", "$430 CLP", "0,0105 UF"],
+              ["2.001 – 5.000", "$360 CLP", "0,0088 UF"],
+              ["5.001+", "$290 CLP", "0,0071 UF"],
             ].map(([vol, clp, uf]) => (
               <tr key={vol}>
                 <td style={S.td}>{vol}</td>
@@ -141,6 +141,18 @@ export default function TerminosPage() {
           </tbody>
         </table>
         <p style={S.p}>
+          <strong style={{ color: "#FFFFFF" }}>Todos los precios de Portal DT son en pesos
+          chilenos con IVA incluido.</strong> El monto que usted ve en el checkout es el monto
+          que se cobra y el que aparece en la factura, sin recargos posteriores. La columna en
+          UF es una equivalencia de referencia calculada con la UF del 10 de septiembre de 2026
+          ($40.893,78); el precio que se cobra es el expresado en pesos.
+        </p>
+        <p style={S.p}>
+          <strong style={{ color: "#FFFFFF" }}>Mínimo por carga:</strong> 50 registros. El tramo
+          se determina por la cantidad de registros contratados en la carga, y el precio por
+          registro de ese tramo aplica a todos los registros de la carga.
+        </p>
+        <p style={S.p}>
           Los precios de MinePass, VehiclePass y TITAN se definen en la propuesta comercial
           específica de cada proyecto, expresados en UF o USD según corresponda.
         </p>
@@ -150,7 +162,7 @@ export default function TerminosPage() {
           <li style={S.li}>Los pagos se realizan mediante Transbank Webpay Plus (tarjetas de crédito y débito).</li>
           <li style={S.li}>Portal DT: facturación mensual según registros procesados en el período.</li>
           <li style={S.li}>MinePass / VehiclePass / TITAN: según el esquema acordado en el contrato (mensual, trimestral o según hitos).</li>
-          <li style={S.li}>Todos los precios son en pesos chilenos (CLP) o UF, más IVA cuando corresponda según legislación tributaria chilena.</li>
+          <li style={S.li}>Los precios de Portal DT publicados en el sitio son en pesos chilenos con IVA incluido. MinePass, VehiclePass y TITAN se cotizan en UF o USD y la propuesta comercial indica si el monto lleva IVA incluido o agregado.</li>
         </ul>
 
         <h2 style={S.h2}>4. Acuerdo de Nivel de Servicio (SLA)</h2>
@@ -197,8 +209,9 @@ export default function TerminosPage() {
           al evento que da origen al reclamo.
         </p>
 
-        <h2 style={S.h2}>9. Cancelación y término</h2>
+        <h2 style={S.h2}>9. Cancelación, garantía y término</h2>
         <ul style={S.ul}>
+          <li style={S.li}><strong style={{ color: "#FFFFFF" }}>Garantía de 30 días (Portal DT):</strong> Dentro de los 30 días corridos siguientes al pago, el cliente puede pedir la devolución íntegra escribiendo a contacto@tecnozero.cl, sin tener que justificar el motivo. La devolución se hace por el mismo medio de pago dentro de los 10 días hábiles siguientes a la solicitud. Si a esa fecha ya se procesaron registros en el Portal DT, se descuentan del reembolso al precio del tramo contratado y se devuelve el saldo.</li>
           <li style={S.li}><strong style={{ color: "#FFFFFF" }}>Portal DT:</strong> El cliente puede cancelar en cualquier momento sin penalidad. Se facturará hasta el último día de uso.</li>
           <li style={S.li}><strong style={{ color: "#FFFFFF" }}>MinePass / VehiclePass / TITAN:</strong> Según cláusulas de término del contrato específico (típicamente 30 días de aviso).</li>
           <li style={S.li}>Tecnozero puede suspender el servicio ante incumplimiento de pago con 10 días de aviso previo.</li>

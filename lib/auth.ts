@@ -21,17 +21,55 @@ export interface AuthData {
   }
 }
 
-// Tabla de precios Tecnozero — precio por registro DT
-// Mínimo: 50 registros por carga. Ahorro: 15% → 62% según volumen.
-// Baseline manual: ~$756 CLP/registro.
+/**
+ * Tabla de precios Tecnozero — precio por registro DT.
+ *
+ * Esta tabla es la única fuente. La página pública, los Términos de Servicio,
+ * el checkout y `llms.txt` tienen que decir exactamente estos tramos: hasta el
+ * 10 de septiembre de 2026 los Términos publicaban la tabla corrida un tramo
+ * (prometían $500 donde el checkout cobraba $570) y el documento que manda
+ * legalmente es el contrato, no la página.
+ *
+ * El precio que se cobra es el CLP: Transbank cobra pesos y el checkout calcula
+ * en pesos. La UF es una equivalencia de referencia y se recalcula cuando se
+ * mueve, porque una UF fija envejece sola. Ver UF_REFERENCIA.
+ *
+ * Mínimo: 50 registros por carga. Todos los montos son IVA incluido.
+ */
 export const PRICING_TIERS = [
-  { minDocs: 50,   maxDocs: 150,  priceCLP: 640,  priceUF: 0.0162 },
-  { minDocs: 151,  maxDocs: 400,  priceCLP: 570,  priceUF: 0.0144 },
-  { minDocs: 401,  maxDocs: 800,  priceCLP: 500,  priceUF: 0.0127 },
-  { minDocs: 801,  maxDocs: 2000, priceCLP: 430,  priceUF: 0.0109 },
-  { minDocs: 2001, maxDocs: 5000, priceCLP: 360,  priceUF: 0.0091 },
-  { minDocs: 5001, maxDocs: null, priceCLP: 290,  priceUF: 0.0073 },
+  { minDocs: 50,   maxDocs: 150,  priceCLP: 640,  priceUF: 0.0157 },
+  { minDocs: 151,  maxDocs: 400,  priceCLP: 570,  priceUF: 0.0139 },
+  { minDocs: 401,  maxDocs: 800,  priceCLP: 500,  priceUF: 0.0122 },
+  { minDocs: 801,  maxDocs: 2000, priceCLP: 430,  priceUF: 0.0105 },
+  { minDocs: 2001, maxDocs: 5000, priceCLP: 360,  priceUF: 0.0088 },
+  { minDocs: 5001, maxDocs: null, priceCLP: 290,  priceUF: 0.0071 },
 ]
+
+/** UF con la que se calculó la columna priceUF. La columna anterior venía de
+ *  una UF de ~$39.500 (fines de 2024) y publicaba $662 donde la tabla en pesos
+ *  decía $640: dos precios distintos para lo mismo, con 3,5% de diferencia.
+ *  Cuando se actualice la UF hay que recalcular priceUF y mover esta fecha. */
+export const UF_REFERENCIA = { valor: 40893.78, fecha: "10-09-2026" }
+
+/** Mínimo de registros por carga. El checkout no deja bajar de aquí. */
+export const MIN_DOCS_POR_CARGA = 50
+
+/** Tope por carga. El deslizador del checkout llega a 6.000; el servidor
+ *  rechaza cualquier cosa por encima antes de crear la transacción. */
+export const MAX_DOCS_POR_CARGA = 6000
+
+/** Servicios adicionales. Viven aquí y no en el checkout porque el servidor
+ *  tiene que poder recalcular el total sin creerle al navegador. */
+export const PRECIOS_ADDON: Record<string, number> = {
+  api: 29900,
+  soporte: 14900,
+  storage: 7900,
+}
+
+/** Lo que cuesta el mismo registro digitado a mano, según la referencia que usa
+ *  toda la página: 9,45 minutos por registro a $4.800 la hora de un
+ *  administrativo. De aquí sale la columna «ahorro vs manual». */
+export const BASELINE_MANUAL_CLP = 756
 
 export function getPriceTier(docs: number) {
   return PRICING_TIERS.find(t => t.minDocs <= docs && (t.maxDocs === null || t.maxDocs >= docs))

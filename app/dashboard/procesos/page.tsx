@@ -1,7 +1,7 @@
 "use client"
 
 import { motion, AnimatePresence } from "framer-motion"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 const C = {
   bgCard: "#FFFFFF",
@@ -37,8 +37,49 @@ interface ProcessEvent {
   status: StatusType
 }
 
-// Sin datos hardcodeados — el log real vendrá del pipeline de procesamiento
-const processLog: ProcessEvent[] = []
+/**
+ * Cada fila es una nómina que el cliente subió por el dashboard. Salen de la
+ * tabla `cargas`, que existe desde el 10 de septiembre de 2026: antes el botón
+ * "Confirmar" fingía una barra de progreso y no dejaba rastro de nada.
+ *
+ * Los estados los mueve el equipo mientras procesa: recibida → procesando →
+ * lista. Cuando el robot se conecte a la web, los va a mover él.
+ */
+interface CargaFila {
+  id: string
+  tipo: string
+  archivo: string | null
+  total_filas: number
+  filas_incompletas: number
+  estado: string
+  created_at: string
+}
+
+const TIPO_LEGIBLE: Record<string, string> = {
+  ingresos: "ingresos",
+  bajas: "bajas",
+  anexos: "anexos",
+}
+
+function cargaAEvento(c: CargaFila, indice: number): ProcessEvent {
+  const estado: StatusType =
+    c.estado === "lista" ? "OK" : c.estado === "error" ? "ERROR" : "RUNNING"
+  const accion: ActionType =
+    c.estado === "lista" ? "DT" : c.estado === "procesando" ? "RPA" : "DOC"
+  const incompletas = c.filas_incompletas > 0
+    ? ` · ${c.filas_incompletas} incompleta${c.filas_incompletas === 1 ? "" : "s"}`
+    : ""
+  return {
+    id: indice,
+    timestamp: new Date(c.created_at).toLocaleString("es-CL", {
+      day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit",
+    }),
+    actionType: accion,
+    description: `${c.total_filas} registros de ${TIPO_LEGIBLE[c.tipo] ?? c.tipo}${c.archivo ? " · " + c.archivo : ""}${incompletas}`,
+    duration: c.id,
+    status: estado,
+  }
+}
 
 const ACTION_ICONS: Record<ActionType, string> = {
   RPA: "🤖",
@@ -63,13 +104,13 @@ const ACTION_BORDER: Record<ActionType, string> = {
 }
 
 const STATUS_STYLE: Record<StatusType, { bg: string; color: string; label: string }> = {
-  OK: { bg: "#DCFCE7", color: "#16A34A", label: "OK" },
-  RUNNING: { bg: "#DBEAFE", color: "#1D4ED8", label: "RUNNING" },
+  OK: { bg: "#DCFCE7", color: "#16A34A", label: "REGISTRADA" },
+  RUNNING: { bg: "#DBEAFE", color: "#1D4ED8", label: "EN COLA" },
   ERROR: { bg: "#FEE2E2", color: "#DC2626", label: "ERROR" },
 }
 
-type Tab = "Todos" | "RPA" | "Agentes IA" | "Errores"
-const TABS: Tab[] = ["Todos", "RPA", "Agentes IA", "Errores"]
+type Tab = "Todos" | "En cola" | "Listas" | "Errores"
+const TABS: Tab[] = ["Todos", "En cola", "Listas", "Errores"]
 
 const flowSteps = [
   { label: "Subida documento", icon: "📄", color: C.blue },
@@ -81,11 +122,24 @@ const flowSteps = [
 
 export default function ProcesosPage() {
   const [activeTab, setActiveTab] = useState<Tab>("Todos")
+  const [processLog, setProcessLog] = useState<ProcessEvent[]>([])
+
+  useEffect(() => {
+    let vivo = true
+    fetch("/api/cargas")
+      .then(r => (r.ok ? r.json() : { cargas: [] }))
+      .then(d => {
+        if (!vivo) return
+        setProcessLog(((d.cargas ?? []) as CargaFila[]).map(cargaAEvento))
+      })
+      .catch(() => { if (vivo) setProcessLog([]) })
+    return () => { vivo = false }
+  }, [])
 
   const filtered = processLog.filter((e) => {
     if (activeTab === "Todos") return true
-    if (activeTab === "RPA") return e.actionType === "RPA"
-    if (activeTab === "Agentes IA") return e.actionType === "AI"
+    if (activeTab === "En cola") return e.status === "RUNNING"
+    if (activeTab === "Listas") return e.status === "OK"
     if (activeTab === "Errores") return e.status === "ERROR"
     return true
   })
@@ -95,10 +149,10 @@ export default function ProcesosPage() {
       {/* Header */}
       <motion.div initial={{ opacity: 0, y: -12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
         <h1 style={{ fontSize: "1.6rem", fontWeight: 800, color: C.textPrimary, margin: 0, marginBottom: 6, letterSpacing: "-0.04em" }}>
-          Mis Procesos Agénticos
+          Mis cargas
         </h1>
         <p style={{ fontSize: "0.9rem", color: C.textSecondary, margin: 0 }}>
-          Log en tiempo real de todas las acciones automatizadas
+          Cada nómina que subiste, en qué va y con qué código quedó
         </p>
       </motion.div>
 
@@ -234,10 +288,10 @@ export default function ProcesosPage() {
             <div style={{ padding: "48px 0", textAlign: "center" }}>
               <div style={{ fontSize: 36, marginBottom: 12 }}>📋</div>
               <p style={{ fontSize: 14, fontWeight: 600, color: "#0B1E3D", margin: "0 0 4px" }}>
-                Sin eventos registrados aún
+                Todavía no has subido ninguna nómina
               </p>
               <p style={{ fontSize: 13, color: "#64748B", margin: 0 }}>
-                El log de procesos aparecerá aquí en tiempo real una vez que el robot esté operativo.
+                Cuando subas tu primera nómina, aparece aquí con su código y su estado.
               </p>
             </div>
           )}
@@ -296,12 +350,13 @@ export default function ProcesosPage() {
                     </div>
                   </div>
 
-                  {/* Duration */}
+                  {/* Código de la carga */}
                   <span style={{
-                    fontSize: 12,
+                    fontSize: 11,
                     color: C.textMuted,
                     fontVariantNumeric: "tabular-nums",
                     whiteSpace: "nowrap",
+                    fontFamily: "monospace",
                   }}>
                     {event.duration}
                   </span>

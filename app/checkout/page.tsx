@@ -4,7 +4,7 @@ import { useState, Suspense } from "react"
 import { useSearchParams } from "next/navigation"
 import Link from "next/link"
 import { motion, AnimatePresence } from "framer-motion"
-import { PRICING_TIERS } from "@/lib/auth"
+import { PRICING_TIERS, PRECIOS_ADDON, MIN_DOCS_POR_CARGA, MAX_DOCS_POR_CARGA } from "@/lib/auth"
 import {
   ArrowLeft,
   Check,
@@ -74,7 +74,7 @@ const ADDONS = [
     id: "api",
     title: "Integración API/ERP",
     desc: "Conexión directa — sin Excel, sin carga manual",
-    priceCLP: 29_900,
+    priceCLP: PRECIOS_ADDON.api,
     icon: "⚡",
     badge: "POPULAR",
   },
@@ -82,7 +82,7 @@ const ADDONS = [
     id: "soporte",
     title: "Soporte Prioritario",
     desc: "Respuesta <2h, canal Slack dedicado",
-    priceCLP: 14_900,
+    priceCLP: PRECIOS_ADDON.soporte,
     icon: "🛡️",
     badge: null,
   },
@@ -90,7 +90,7 @@ const ADDONS = [
     id: "storage",
     title: "Almacenamiento Plus",
     desc: "Retención de documentos por 3 años",
-    priceCLP: 7_900,
+    priceCLP: PRECIOS_ADDON.storage,
     icon: "📁",
     badge: null,
   },
@@ -205,6 +205,9 @@ function CheckoutContent() {
           // llegaba la venta sin RUT y había que pedírselo al cliente por
           // correo como si nunca lo hubiera escrito.
           rut: form.rut,
+          // El servidor recalcula el total con estos ids; el precio de cada
+          // add-on vive en lib/auth.ts y no en este archivo, que es del navegador.
+          addons: [...selectedAddons],
           ...(clavePrueba ? { testKey: clavePrueba } : {}),
         }),
       })
@@ -305,7 +308,7 @@ function CheckoutContent() {
               <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
                 <span style={{ display: "flex", alignItems: "center", gap: 5, fontSize: "0.75rem", color: C.textMuted }}>
                   <Users size={12} color={C.cyan} />
-                  <strong style={{ color: C.cyan }}>18 empresas</strong> activas
+                  Mínimo <strong style={{ color: C.cyan }}>{MIN_DOCS_POR_CARGA} registros</strong> por carga
                 </span>
                 <span style={{ display: "flex", alignItems: "center", gap: 5, fontSize: "0.75rem", color: C.textMuted }}>
                   <ShieldCheck size={12} color={C.green} /> Pago seguro Transbank
@@ -452,9 +455,9 @@ function CheckoutContent() {
                     <span style={{ fontSize: "0.82rem", color: C.textSecondary }}>Documentos al mes</span>
                     <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
                       <input
-                        type="number" min={50} max={6000} value={customDocs}
+                        type="number" min={MIN_DOCS_POR_CARGA} max={MAX_DOCS_POR_CARGA} value={customDocs}
                         onChange={e => {
-                          setCustomDocs(Math.max(50, parseInt(e.target.value) || 50))
+                          setCustomDocs(Math.max(MIN_DOCS_POR_CARGA, parseInt(e.target.value) || MIN_DOCS_POR_CARGA))
                           setIsCustom(true)
                         }}
                         style={{
@@ -673,10 +676,10 @@ function CheckoutContent() {
             display: "flex", flexDirection: "column", gap: 8,
           }}>
             {[
-              "Robot IA para facturación",
-              "Gestión documentos SII",
-              "Dashboard en tiempo real",
-              "Activación inmediata",
+              "Robot RPA para el Portal DT",
+              "Ingresos, anexos y bajas",
+              "Validación del Excel antes de procesar",
+              "Activación con un ingeniero en 24 h hábiles",
             ].map(feat => (
               <div key={feat} style={{ display: "flex", alignItems: "center", gap: 8 }}>
                 <Check size={12} color={C.green} />
