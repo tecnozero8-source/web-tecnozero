@@ -212,12 +212,16 @@ function layout(opciones: {
 export interface DatosPago {
   nombre?: string
   empresa?: string
+  rut?: string
   plan?: string
   monto: number
   ordenCompra: string
   codigoAutorizacion: string
   documentosMes?: number
   precioPorDocumento?: number
+  /** Enlace para elegir contraseña. Va solo cuando la cuenta se acaba de crear
+   *  con la compra; quien ya tenía cuenta entra con la suya. */
+  urlClave?: string
 }
 
 export function emailPagoConfirmado(d: DatosPago): { subject: string; html: string; text: string } {
@@ -243,6 +247,15 @@ export function emailPagoConfirmado(d: DatosPago): { subject: string; html: stri
       </table>
     `)}
 
+    ${d.urlClave ? seccion(`
+      ${encabezadoSeccion("Tu acceso al panel")}
+      ${parrafo("Te dejamos la cuenta creada con este mismo correo. Elige tu contraseña y entras. Nadie la conoce, ni nosotros: la defines tú.")}
+      <div style="height:16px;line-height:16px;font-size:0;">&nbsp;</div>
+      ${boton("Definir mi contraseña", d.urlClave)}
+      <div style="height:12px;line-height:12px;font-size:0;">&nbsp;</div>
+      <div style="font-family:${FUENTE};font-size:13px;color:${C.suave};line-height:1.6;">El enlace vale una hora. Si se te vence, pide otro en <a href="${SITIO}/recuperar-contrasena" style="color:${C.azul};text-decoration:none;font-weight:600;">tecnozero.cl/recuperar-contrasena</a>.</div>
+    `) : ""}
+
     ${seccion(`
       ${encabezadoSeccion("Qué pasa ahora")}
       <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
@@ -250,8 +263,9 @@ export function emailPagoConfirmado(d: DatosPago): { subject: string; html: stri
         ${paso(2, "Configuramos tu primer robot", "Trabajamos con tus archivos reales, no con ejemplos. Toma entre dos y tres días hábiles.")}
         ${paso(3, "Marcha blanca y entrega", "Procesamos en paralelo con tu equipo hasta que los números calcen, y ahí el robot queda solo.")}
       </table>
+      ${d.urlClave ? "" : `
       <div style="height:6px;line-height:6px;font-size:0;">&nbsp;</div>
-      ${boton("Entrar al panel", SITIO + "/dashboard")}
+      ${boton("Entrar al panel", SITIO + "/dashboard")}`}
     `)}
 
     ${seccion(bloqueValor(
@@ -278,21 +292,30 @@ export function emailPagoConfirmado(d: DatosPago): { subject: string; html: stri
     `${nombrePila}, tu pago quedó confirmado y tu plan está activo.`,
     "",
     `Plan: ${d.plan ?? "sin dato"}`,
-    d.documentosMes ? `Documentos por mes: ${d.documentosMes.toLocaleString("es-CL")}` : "",
+    d.documentosMes ? `Documentos por mes: ${d.documentosMes.toLocaleString("es-CL")}` : null,
     `Orden de compra: ${d.ordenCompra}`,
     `Código de autorización: ${d.codigoAutorizacion}`,
     `Fecha: ${fechaChile()}`,
     "",
+    ...(d.urlClave ? [
+      "TU ACCESO AL PANEL",
+      "Te dejamos la cuenta creada con este mismo correo. Elige tu contraseña:",
+      d.urlClave,
+      `El enlace vale una hora. Si se te vence, pide otro en ${SITIO}/recuperar-contrasena`,
+      "",
+    ] : []),
     "QUÉ PASA AHORA",
     "1. Te llamamos en 24 horas hábiles para agendar la activación.",
     "2. Configuramos tu primer robot con tus archivos reales (2 a 3 días hábiles).",
     "3. Marcha blanca en paralelo con tu equipo, y el robot queda solo.",
     "",
-    `Panel: ${SITIO}/dashboard`,
-    "",
+    d.urlClave ? null : `Panel: ${SITIO}/dashboard`,
+    d.urlClave ? null : "",
     "¿Dudas? Responde este correo o escríbenos a contacto@tecnozero.cl",
     "Tecnozero SpA, La Serena, Chile",
-  ].filter(Boolean).join("\n")
+    // `filter(Boolean)` se comía las líneas en blanco junto con las opcionales,
+    // y el texto plano llegaba en un solo bloque. Las opcionales son `null`.
+  ].filter(l => l !== null).join("\n")
 
   return {
     subject: `Pago recibido por ${clp(d.monto)} · Orden ${d.ordenCompra}`,
@@ -497,6 +520,9 @@ export function emailAvisoVentaInterno(d: DatosVentaInterna): { subject: string;
       <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
         ${filaDato("Contacto", d.nombre)}
         ${filaDato("Correo", d.correo)}
+        ${/* Siempre visible, aunque venga vacío: es el dato que falta para
+             emitir la factura, y en blanco se nota. */ ""}
+        ${filaDato("RUT", d.rut)}
         ${filaDato("Plan", d.plan)}
         ${d.documentosMes ? filaDato("Documentos por mes", d.documentosMes.toLocaleString("es-CL")) : ""}
         ${d.precioPorDocumento ? filaDato("Precio por documento", clp(d.precioPorDocumento)) : ""}
@@ -516,6 +542,7 @@ export function emailAvisoVentaInterno(d: DatosVentaInterna): { subject: string;
     `Empresa: ${d.empresa ?? "sin dato"}`,
     `Contacto: ${d.nombre ?? "sin dato"}`,
     `Correo: ${d.correo ?? "sin dato"}`,
+    `RUT: ${d.rut ?? "sin dato"}`,
     `Plan: ${d.plan ?? "sin dato"}`,
     `Orden de compra: ${d.ordenCompra}`,
     `Código de autorización: ${d.codigoAutorizacion}`,

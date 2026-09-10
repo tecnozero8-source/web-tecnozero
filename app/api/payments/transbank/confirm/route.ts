@@ -14,6 +14,8 @@ import { WebpayPlus, Options, Environment, IntegrationCommerceCodes, Integration
 import { saveCRMRecord } from "@/lib/crm"
 import { decryptCookie } from "@/lib/cookie-crypto"
 import { findPaymentById } from "@/lib/db/payments"
+import { crearCuentaDeCompra } from "@/lib/db/users"
+import { crearTokenReset } from "@/lib/reset-token"
 import { getSiteOrigin } from "@/lib/site-url"
 import { notificarVentaInterna, enviarComprobanteAlCliente } from "@/lib/notify-interno"
 
@@ -32,7 +34,7 @@ function getTbkTransaction() {
 type CheckoutMeta = {
   buyOrder?: string; sessionId?: string; amount?: number; plan?: string
   docsPerMonth?: number; pricePerDoc?: number; customerName?: string
-  customerEmail?: string; empresa?: string; createdAt?: string
+  customerEmail?: string; empresa?: string; rut?: string; createdAt?: string
 }
 
 /** Confirma el pago venga por donde venga. Nunca lanza hacia afuera: cuando
@@ -98,6 +100,7 @@ async function procesarRetorno(
         name: meta.customerName ?? "Cliente",
         email: meta.customerEmail ?? "",
         empresa: meta.empresa,
+        rut: meta.rut,
         plan: meta.plan,
         amount: commit.amount,
         currency: "CLP",
@@ -126,8 +129,42 @@ async function procesarRetorno(
         cliente: meta.customerName,
         email: meta.customerEmail,
         empresa: meta.empresa,
+        rut: meta.rut,
         plan: meta.plan,
       }))
+    }
+
+    // ── Cuenta ──────────────────────────────────────────────────────────────
+    // El comprobante trae un botón al panel desde siempre, y hasta el 10 de
+    // septiembre de 2026 nadie creaba la cuenta detrás. La contraseña nace
+    // aleatoria y el comprador elige la suya con este enlace, así que ninguna
+    // clave viaja por correo. Si algo falla aquí el pago sigue siendo válido:
+    // la cuenta se puede crear a mano y el cliente entra por
+    // /recuperar-contrasena.
+    let urlClave: string | undefined
+    try {
+      const cuenta = meta.customerEmail
+        ? await crearCuentaDeCompra({
+            email: meta.customerEmail,
+            name: meta.customerName,
+            empresa: meta.empresa,
+            rut: meta.rut,
+            plan: meta.plan,
+          })
+        : null
+
+      if (cuenta && !cuenta.yaExistia) {
+        const token = crearTokenReset(cuenta.email, cuenta.passwordHash)
+        urlClave = `${BASE_URL}/recuperar-contrasena/nueva?token=${encodeURIComponent(token)}`
+      }
+      // Quien ya tenía cuenta entra con su contraseña de siempre: mandarle un
+      // enlace para cambiarla sería pedirle que la pierda.
+      console.log(
+        `[Transbank Confirm] Cuenta ${cuenta ? (cuenta.yaExistia ? "ya existía" : "creada") : "NO CREADA"}:`,
+        meta.customerEmail,
+      )
+    } catch (err) {
+      console.error("[Transbank Confirm] La cuenta no se creó, el pago sigue siendo válido:", err)
     }
 
     // ── Correos ─────────────────────────────────────────────────────────────
@@ -141,10 +178,12 @@ async function procesarRetorno(
       customerName: meta.customerName,
       customerEmail: meta.customerEmail,
       empresa: meta.empresa,
+      rut: meta.rut,
       plan: meta.plan,
       docsPerMonth: meta.docsPerMonth,
       pricePerDoc: meta.pricePerDoc,
       guardadaEnBase,
+      urlClave,
     }
 
     notificarVentaInterna(datosCorreo)

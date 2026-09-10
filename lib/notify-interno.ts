@@ -86,10 +86,14 @@ export interface VentaInterna {
   customerName?: string
   customerEmail?: string
   empresa?: string
+  rut?: string
   plan?: string
   docsPerMonth?: number
   pricePerDoc?: number
   guardadaEnBase?: boolean
+  /** Enlace para que el comprador elija su contraseña. Solo cuando la cuenta
+   *  se acaba de crear: quien ya tenía entra con la suya. */
+  urlClave?: string
 }
 
 /** Aviso al equipo. Es la constancia de la venta cuando la base no responde. */
@@ -98,6 +102,7 @@ export async function notificarVentaInterna(venta: VentaInterna): Promise<boolea
     nombre: venta.customerName,
     correo: venta.customerEmail,
     empresa: venta.empresa,
+    rut: venta.rut,
     plan: venta.plan,
     monto: venta.amount,
     ordenCompra: venta.buyOrder,
@@ -128,6 +133,7 @@ export async function enviarComprobanteAlCliente(venta: VentaInterna): Promise<b
     codigoAutorizacion: venta.authorizationCode,
     documentosMes: venta.docsPerMonth,
     precioPorDocumento: venta.pricePerDoc,
+    urlClave: venta.urlClave,
   })
   return enviar(
     { to: [venta.customerEmail], ...plantilla, replyTo: "contacto@tecnozero.cl" },

@@ -3,6 +3,7 @@
  * Solo para uso en API routes (servidor). No importar en "use client".
  */
 import bcrypt from "bcryptjs"
+import { randomBytes } from "node:crypto"
 import { getAdminClient, type DBUser } from "@/lib/supabase"
 
 export interface PublicUser {
@@ -98,6 +99,62 @@ export async function updatePassword(email: string, password: string): Promise<b
     return false
   }
   return true
+}
+
+/** Crear la cuenta del comprador apenas Transbank aprueba el pago.
+ *
+ *  La contraseña nace aleatoria y no se guarda ni se imprime en ninguna parte:
+ *  el comprador elige la suya con el enlace que va en el comprobante, así
+ *  ninguna clave viaja por correo. Se devuelve el hash porque con él se firma
+ *  ese enlace (ver `lib/reset-token.ts`). No usarlo para nada que salga al
+ *  navegador.
+ *
+ *  Si el correo ya tiene cuenta, la devuelve sin tocarla: quien compra un
+ *  segundo plan no pierde la contraseña que ya eligió.
+ *
+ *  Hasta el 10 de septiembre de 2026 nadie llamaba a esto y el comprobante
+ *  igual traía un botón "Entrar al panel". El primer cliente real hizo clic y
+ *  no entró a ninguna parte. */
+export async function crearCuentaDeCompra(input: {
+  email: string
+  name?: string
+  empresa?: string
+  rut?: string
+  plan?: string
+}): Promise<{ email: string; name: string; passwordHash: string; yaExistia: boolean } | null> {
+  const email = input.email.toLowerCase().trim()
+  if (!email.includes("@")) return null
+
+  const existente = await getUserParaReset(email)
+  if (existente) return { ...existente, yaExistia: true }
+
+  const db = getAdminClient()
+  const hash = await bcrypt.hash(randomBytes(24).toString("hex"), 10)
+
+  const { data, error } = await db
+    .from("users")
+    .insert({
+      email,
+      password_hash: hash,
+      name: input.name?.trim() || email,
+      empresa: input.empresa?.trim() || null,
+      rut: input.rut?.trim() || null,
+      plan: input.plan?.trim() || "starter",
+    })
+    .select("email, name, password_hash")
+    .single()
+
+  if (error || !data) {
+    // Dos confirmaciones a la vez chocan contra el índice único del correo. La
+    // segunda no puede quedarse sin cuenta: se lee la que acaba de crear la
+    // primera.
+    console.error("[crearCuentaDeCompra]", error)
+    const reintento = await getUserParaReset(email)
+    return reintento ? { ...reintento, yaExistia: true } : null
+  }
+
+  const u = data as DBUser
+  return { email: u.email, name: u.name, passwordHash: u.password_hash, yaExistia: false }
 }
 
 /** Crear usuario nuevo (registro) */

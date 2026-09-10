@@ -363,7 +363,7 @@ function ExitoContent() {
               lineHeight: 1.6,
             }}
           >
-            📧 Te enviamos un email de confirmación con el resumen y los próximos pasos.
+            📧 Te enviamos el comprobante con el resumen, los próximos pasos y el enlace para elegir tu contraseña.
           </motion.p>
         )}
 
@@ -376,8 +376,11 @@ function ExitoContent() {
         >
           {isSuccess ? (
             <>
+              {/* Este botón apuntaba al panel y el comprador llegaba a una
+                  pantalla de login sin contraseña, porque la cuenta nace con
+                  una clave aleatoria que nadie conoce. La define él aquí. */}
               <Link
-                href="/dashboard"
+                href="/recuperar-contrasena"
                 style={{
                   display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
                   padding: "14px",
@@ -387,7 +390,20 @@ function ExitoContent() {
                   boxShadow: `0 4px 20px ${C.blueGlow}`,
                 }}
               >
-                <LayoutDashboard size={17} /> Ir al Dashboard
+                <LayoutDashboard size={17} /> Crear mi contraseña
+              </Link>
+              <Link
+                href="/login"
+                style={{
+                  display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
+                  padding: "12px",
+                  backgroundColor: "transparent",
+                  border: `1px solid ${C.darkBorder}`,
+                  borderRadius: 12, textDecoration: "none",
+                  fontSize: "0.875rem", fontWeight: 500, color: C.textSecondary,
+                }}
+              >
+                Ya tengo cuenta, entrar
               </Link>
               <Link
                 href="/"

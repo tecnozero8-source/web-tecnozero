@@ -201,6 +201,10 @@ function CheckoutContent() {
           customerName: form.name,
           customerEmail: form.email,
           empresa: form.empresa,
+          // El formulario pedía el RUT desde el primer día y lo botaba aquí:
+          // llegaba la venta sin RUT y había que pedírselo al cliente por
+          // correo como si nunca lo hubiera escrito.
+          rut: form.rut,
           ...(clavePrueba ? { testKey: clavePrueba } : {}),
         }),
       })
@@ -654,7 +658,10 @@ function CheckoutContent() {
                 <p style={{ margin: 0, fontSize: "1.65rem", fontWeight: 800, color: C.white, letterSpacing: "-0.04em" }}>
                   {formatCLP(totalCLP)}
                 </p>
-                <p style={{ margin: 0, fontSize: "0.66rem", color: C.textMuted }}>CLP + IVA</p>
+                {/* Este número es el que viaja a Transbank, sin sumarle nada.
+                    Decía "CLP + IVA" y cobraba el total pelado: el cliente veía
+                    un precio y la factura habría salido por otro. */}
+                <p style={{ margin: 0, fontSize: "0.66rem", color: C.textMuted }}>CLP, IVA incluido</p>
               </div>
             </div>
           </div>

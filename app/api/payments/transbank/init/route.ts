@@ -41,10 +41,11 @@ export async function POST(req: NextRequest) {
       customerName: string
       customerEmail: string
       empresa?: string
+      rut?: string          // RUT de la empresa, para la factura
       testKey?: string      // Modo prueba: ver TEST_CHECKOUT_KEY
     }
 
-    const { plan, docsPerMonth, pricePerDoc, customerName, customerEmail, empresa, testKey } = body
+    const { plan, docsPerMonth, pricePerDoc, customerName, customerEmail, empresa, rut, testKey } = body
     let { amount } = body
 
     if (!amount || amount < 1 || !customerEmail) {
@@ -95,6 +96,7 @@ export async function POST(req: NextRequest) {
       customerName,
       customerEmail,
       empresa,
+      rut: rut?.trim() || undefined,
       createdAt: new Date().toISOString(),
     }
     const encryptedMeta = await encryptCookie(checkoutMeta, process.env.NEXTAUTH_SECRET ?? "fallback-change-me")
