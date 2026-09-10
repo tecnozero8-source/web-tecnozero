@@ -468,18 +468,39 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "El archivo está vacío" }, { status: 400 })
     }
 
-    // Determinar fila de headers y datos según tipo
-    // Ingresos: headers fila 2, datos desde fila 3
-    // Bajas: headers fila 3, datos desde fila 4
-    // Anexos: headers fila 2, datos desde fila 3
-    const dataStartRow = uploadType === "bajas" ? 4 : 3
-    const dataRows = rawMatrix.slice(dataStartRow)
+    // Hasta el 10 de septiembre de 2026 esto cortaba por índice fijo:
+    // `rawMatrix.slice(3)` para ingresos y anexos, `slice(4)` para bajas.
+    // El índice estaba mal. Las tres plantillas traen los encabezados en la
+    // fila 4 de Excel, y las filas 1 y 3 no existen en el archivo (el XML
+    // salta de <row r="2"> a <row r="4">). Como `eachRow` solo devuelve las
+    // filas que existen, rawMatrix quedaba así:
+    //
+    //   [0] fila 2 de Excel — el título "FULL ..."
+    //   [1] fila 4 de Excel — los encabezados
+    //   [2] fila 5 de Excel — el PRIMER trabajador
+    //
+    // O sea que el primer trabajador se leía como encabezado y se descartaba.
+    // En bajas se perdían dos. Ahora el encabezado se busca por su contenido,
+    // que es lo único estable entre una plantilla y el archivo que el cliente
+    // devuelve después de abrirlo en Excel, en LibreOffice o en Sheets.
+    const indiceEncabezado = rawMatrix.findIndex(fila =>
+      (fila as unknown[]).some(celda => /^rut(\s|$)/i.test(String(celda ?? "").trim()))
+    )
+
+    if (indiceEncabezado === -1) {
+      return NextResponse.json(
+        { error: "No encontramos la fila de encabezados. Descarga la plantilla oficial y vuelve a intentarlo." },
+        { status: 400 },
+      )
+    }
+
+    const dataRows = rawMatrix.slice(indiceEncabezado + 1)
 
     if (dataRows.length === 0) {
       return NextResponse.json({ error: "El archivo no tiene filas de datos (solo encabezados)" }, { status: 400 })
     }
 
-    const rawHeaders = (rawMatrix[dataStartRow - 1] as string[]).map(String)
+    const rawHeaders = (rawMatrix[indiceEncabezado] as string[]).map(String)
 
     // Parsear según tipo
     let rows: RowIngreso[] | RowBaja[] | RowAnexo[]
