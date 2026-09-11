@@ -1,7 +1,17 @@
 "use client"
 
-import { motion } from "framer-motion"
-import { useState } from "react"
+/**
+ * Documentos — el respaldo del cliente.
+ *
+ * Cada fila es un comprobante que devolvió el Portal DT cuando el equipo
+ * registró a un trabajador. Es lo que el cliente muestra en una fiscalización.
+ *
+ * Hasta el 11 de septiembre de 2026 esta página leía un arreglo vacío llamado
+ * mockDocs escrito dos líneas más arriba: el cliente subía su nómina, el
+ * equipo la procesaba, y acá seguía sin aparecer nada.
+ */
+
+import { useEffect, useState } from "react"
 
 const C = {
   bgCard: "#FFFFFF",
@@ -25,238 +35,213 @@ const card: React.CSSProperties = {
   boxShadow: C.shadow,
 }
 
-type EstadoType = "CONFIRMADO" | "PROCESANDO" | "ERROR"
-
-// Sin datos hardcodeados — los documentos reales vendrán del pipeline de procesamiento
-const mockDocs: {
-  id: string; tipo: string; trabajador: string
-  estado: EstadoType; procesado: string; duracion: string; dt: string
-}[] = []
-
-const BADGE_MAP: Record<EstadoType, { bg: string; color: string }> = {
-  CONFIRMADO: { bg: "#DCFCE7", color: "#16A34A" },
-  PROCESANDO: { bg: "#DBEAFE", color: "#1D4ED8" },
-  ERROR: { bg: "#FEE2E2", color: "#DC2626" },
+interface Documento {
+  id: number
+  cargaId: string
+  tipo: string
+  rut: string | null
+  nombre: string | null
+  numero: string | null
+  estado: "ok" | "error"
+  detalle: string | null
+  fecha: string
 }
 
-function EstadoBadge({ estado }: { estado: EstadoType }) {
-  const s = BADGE_MAP[estado]
+interface CargaEnProceso {
+  id: string
+  tipo: string
+  totalFilas: number
+  estado: string
+  fecha: string
+}
+
+const NOMBRE_TIPO: Record<string, string> = {
+  ingresos: "Contrato",
+  anexos: "Anexo",
+  bajas: "Finiquito",
+}
+
+const NOMBRE_ESTADO_CARGA: Record<string, string> = {
+  recibida: "En cola",
+  procesando: "En proceso",
+  lista: "Lista",
+  error: "Con problemas",
+}
+
+function fecha(iso: string): string {
+  return new Date(iso).toLocaleDateString("es-CL", { day: "2-digit", month: "short", year: "numeric" })
+}
+
+function EstadoBadge({ estado }: { estado: "ok" | "error" }) {
+  const ok = estado === "ok"
   return (
     <span style={{
-      display: "inline-flex",
-      alignItems: "center",
-      gap: 5,
-      fontSize: 11,
-      fontWeight: 700,
-      padding: "3px 9px",
-      borderRadius: 6,
-      backgroundColor: s.bg,
-      color: s.color,
+      display: "inline-flex", alignItems: "center", gap: 5,
+      fontSize: 11, fontWeight: 700, padding: "3px 9px", borderRadius: 6,
+      backgroundColor: ok ? "#DCFCE7" : "#FEE2E2",
+      color: ok ? "#16A34A" : "#DC2626",
       letterSpacing: 0.5,
     }}>
-      {estado === "PROCESANDO" && (
-        <motion.span
-          animate={{ opacity: [1, 0.2, 1] }}
-          transition={{ duration: 1.2, repeat: Infinity }}
-          style={{ width: 6, height: 6, borderRadius: "50%", backgroundColor: s.color, display: "inline-block" }}
-        />
-      )}
-      {estado}
+      {ok ? "CONFIRMADO" : "CON ERROR"}
     </span>
   )
 }
 
-const ESTADO_OPTIONS = ["Todos", "CONFIRMADO", "PROCESANDO", "ERROR"]
-
 export default function DocumentosPage() {
-  const [estadoFilter, setEstadoFilter] = useState("Todos")
+  const [documentos, setDocumentos] = useState<Documento[]>([])
+  const [enProceso, setEnProceso] = useState<CargaEnProceso[]>([])
+  const [filtro, setFiltro] = useState("Todos")
+  const [cargando, setCargando] = useState(true)
+  const [error, setError] = useState<string | null>(null)
 
-  const filtered = mockDocs.filter(
-    (d) => estadoFilter === "Todos" || d.estado === estadoFilter
+  useEffect(() => {
+    let vivo = true
+    fetch("/api/documentos", { cache: "no-store" })
+      .then(r => r.ok ? r.json() : Promise.reject(r.status))
+      .then(d => {
+        if (!vivo) return
+        setDocumentos(d.documentos ?? [])
+        setEnProceso(d.enProceso ?? [])
+      })
+      .catch(() => { if (vivo) setError("No pudimos leer tus documentos. Recarga la página.") })
+      .finally(() => { if (vivo) setCargando(false) })
+    return () => { vivo = false }
+  }, [])
+
+  const visibles = documentos.filter(d =>
+    filtro === "Todos" ||
+    (filtro === "CONFIRMADO" && d.estado === "ok") ||
+    (filtro === "CON ERROR" && d.estado === "error")
   )
 
-  const totalDocs      = mockDocs.length
-  const confirmados    = mockDocs.filter(d => d.estado === "CONFIRMADO").length
-  const errores        = mockDocs.filter(d => d.estado === "ERROR").length
+  const confirmados = documentos.filter(d => d.estado === "ok").length
+  const conError = documentos.filter(d => d.estado === "error").length
+  const filasEnCola = enProceso.reduce((suma, c) => suma + c.totalFilas, 0)
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 28 }}>
-      {/* Header */}
-      <motion.div initial={{ opacity: 0, y: -12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
-        <h1 style={{ fontSize: "1.6rem", fontWeight: 800, color: C.textPrimary, margin: 0, marginBottom: 6, letterSpacing: "-0.04em" }}>
+
+      <div>
+        <h1 style={{ fontSize: "1.6rem", fontWeight: 800, color: C.textPrimary, margin: "0 0 6px", letterSpacing: "-0.04em" }}>
           Documentos
         </h1>
         <p style={{ fontSize: "0.9rem", color: C.textSecondary, margin: 0 }}>
-          Historial completo de documentos procesados
+          Los comprobantes que devolvió la Dirección del Trabajo por cada trabajador.
         </p>
-      </motion.div>
+      </div>
 
-      {/* Summary cards */}
       <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16 }}>
         {[
-          { label: "Total este mes",  value: String(totalDocs),   accentColor: C.blue,  valueColor: C.blue },
-          { label: "Confirmados DT",  value: String(confirmados), accentColor: C.green, valueColor: C.green },
-          { label: "Errores",         value: String(errores),     accentColor: C.red,   valueColor: "#DC2626" },
-        ].map((s, i) => (
-          <motion.div
-            key={i}
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: 0.05 * (i + 1) }}
-            style={{
-              ...card,
-              borderTop: `3px solid ${s.accentColor}`,
-            }}
-          >
+          { label: "Comprobantes", value: documentos.length, accent: C.blue, color: C.blue },
+          { label: "Confirmados DT", value: confirmados, accent: C.green, color: C.green },
+          { label: "Con error", value: conError, accent: C.red, color: "#DC2626" },
+        ].map(s => (
+          <div key={s.label} style={{ ...card, borderTop: `3px solid ${s.accent}` }}>
             <div style={{
-              fontSize: "0.72rem",
-              fontWeight: 700,
-              letterSpacing: "0.1em",
-              textTransform: "uppercase",
-              color: C.textMuted,
-              marginBottom: 10,
-            }}>
-              {s.label}
+              fontSize: "0.72rem", fontWeight: 700, letterSpacing: "0.1em",
+              textTransform: "uppercase", color: C.textMuted, marginBottom: 10,
+            }}>{s.label}</div>
+            <div style={{ fontSize: "2rem", fontWeight: 800, color: s.color }}>
+              {cargando ? "·" : s.value}
             </div>
-            <div style={{ fontSize: "2rem", fontWeight: 800, color: s.valueColor }}>{s.value}</div>
-          </motion.div>
+          </div>
         ))}
       </div>
 
-      {/* Filter bar */}
-      <motion.div
-        initial={{ opacity: 0, y: 12 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4, delay: 0.2 }}
-        style={{
-          ...card,
-          padding: "14px 20px",
-          display: "flex",
-          gap: 12,
-          alignItems: "center",
-          flexWrap: "wrap",
-        }}
-      >
-        {/* Date range */}
-        <div style={{
-          display: "flex",
-          alignItems: "center",
-          gap: 8,
-          border: `1px solid ${C.border}`,
-          borderRadius: 8,
-          padding: "8px 14px",
-          backgroundColor: "#F8FAFF",
-        }}>
-          <span style={{ fontSize: 12, color: C.textMuted }}>Desde</span>
-          <span style={{ fontSize: 13, color: C.textPrimary, fontWeight: 600 }}>01/04/2026</span>
-          <span style={{ fontSize: 12, color: C.textMuted }}>—</span>
-          <span style={{ fontSize: 12, color: C.textMuted }}>Hasta</span>
-          <span style={{ fontSize: 13, color: C.textPrimary, fontWeight: 600 }}>11/04/2026</span>
+      {filasEnCola > 0 && (
+        <div style={{ ...card, borderLeft: `4px solid ${C.amber}`, padding: "18px 22px" }}>
+          <div style={{ fontSize: 14, fontWeight: 700, color: C.textPrimary, marginBottom: 8 }}>
+            {filasEnCola} {filasEnCola === 1 ? "registro" : "registros"} esperando comprobante
+          </div>
+          {enProceso.map(c => (
+            <div key={c.id} style={{ fontSize: 13, color: C.textSecondary, marginTop: 3 }}>
+              {c.totalFilas} de {NOMBRE_TIPO[c.tipo]?.toLowerCase() ?? c.tipo} · recibida el {fecha(c.fecha)} · {NOMBRE_ESTADO_CARGA[c.estado] ?? c.estado}
+            </div>
+          ))}
+          <p style={{ fontSize: 13, color: C.textMuted, margin: "10px 0 0" }}>
+            Te avisamos por correo apenas la DT devuelva los folios.
+          </p>
         </div>
+      )}
 
-        {/* Status dropdown */}
+      {error && (
+        <div style={{ ...card, borderLeft: `4px solid ${C.red}`, padding: "16px 20px", color: C.red, fontSize: 14 }}>
+          {error}
+        </div>
+      )}
+
+      <div style={{ ...card, padding: "14px 20px", display: "flex", gap: 12, alignItems: "center", flexWrap: "wrap" }}>
         <select
-          value={estadoFilter}
-          onChange={(e) => setEstadoFilter(e.target.value)}
+          value={filtro}
+          onChange={e => setFiltro(e.target.value)}
           style={{
-            backgroundColor: "#F8FAFF",
-            border: `1px solid ${C.border}`,
-            borderRadius: 8,
-            padding: "8px 14px",
-            color: C.textPrimary,
-            fontSize: 13,
-            fontWeight: 500,
-            cursor: "pointer",
-            outline: "none",
-            appearance: "none",
-            minWidth: 180,
+            backgroundColor: "#F8FAFF", border: `1px solid ${C.border}`, borderRadius: 8,
+            padding: "8px 14px", color: C.textPrimary, fontSize: 13, fontWeight: 500,
+            cursor: "pointer", outline: "none", minWidth: 180,
           }}
         >
-          {ESTADO_OPTIONS.map((o) => (
-            <option key={o} value={o}>
-              {o === "Todos" ? "Todos los estados" : o}
-            </option>
+          {["Todos", "CONFIRMADO", "CON ERROR"].map(o => (
+            <option key={o} value={o}>{o === "Todos" ? "Todos los estados" : o}</option>
           ))}
         </select>
-
         <span style={{ fontSize: 13, color: C.textMuted, marginLeft: "auto" }}>
-          {filtered.length} documento{filtered.length !== 1 ? "s" : ""}
+          {visibles.length} documento{visibles.length === 1 ? "" : "s"}
         </span>
-      </motion.div>
+      </div>
 
-      {/* Table */}
-      <motion.div
-        initial={{ opacity: 0, y: 16 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.45, delay: 0.25 }}
-        style={card}
-      >
+      <div style={card}>
         <div style={{ overflowX: "auto" }}>
           <table style={{ width: "100%", borderCollapse: "collapse" }}>
             <thead>
               <tr style={{ borderBottom: `2px solid ${C.border}` }}>
-                {["#ID", "Tipo", "Trabajador", "Estado", "Procesado", "Duración", "DT"].map((h) => (
-                  <th
-                    key={h}
-                    style={{
-                      textAlign: "left",
-                      fontSize: 11,
-                      fontWeight: 700,
-                      color: C.textMuted,
-                      paddingBottom: 12,
-                      paddingRight: 20,
-                      textTransform: "uppercase",
-                      letterSpacing: "0.08em",
-                      whiteSpace: "nowrap",
-                    }}
-                  >
-                    {h}
-                  </th>
+                {["Trabajador", "RUT", "Tipo", "Estado", "Fecha", "N° en la DT"].map(h => (
+                  <th key={h} style={{
+                    textAlign: "left", fontSize: 11, fontWeight: 700, color: C.textMuted,
+                    paddingBottom: 12, paddingRight: 20, textTransform: "uppercase",
+                    letterSpacing: "0.08em", whiteSpace: "nowrap",
+                  }}>{h}</th>
                 ))}
               </tr>
             </thead>
             <tbody>
-              {filtered.length > 0 ? filtered.map((doc, i) => (
-                <motion.tr
-                  key={doc.id}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.02 * i }}
-                  style={{ borderBottom: "1px solid #F1F5F9", cursor: "default" }}
-                  onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.backgroundColor = "#F8FAFF" }}
-                  onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.backgroundColor = "transparent" }}
-                >
-                  <td style={{ padding: "12px 20px 12px 0", fontSize: 12, color: C.textMuted, fontVariantNumeric: "tabular-nums", fontFamily: "monospace" }}>
-                    #{doc.id}
+              {visibles.length > 0 ? visibles.map(d => (
+                <tr key={d.id} style={{ borderBottom: "1px solid #F1F5F9" }}>
+                  <td style={{ padding: "12px 20px 12px 0", fontSize: 13, color: C.textPrimary, fontWeight: 500 }}>
+                    {d.nombre || "Sin nombre"}
+                    {d.estado === "error" && d.detalle && (
+                      <div style={{ fontSize: 12, color: C.red, fontWeight: 400, marginTop: 2 }}>{d.detalle}</div>
+                    )}
+                  </td>
+                  <td style={{ padding: "12px 20px 12px 0", fontSize: 13, color: C.textSecondary, whiteSpace: "nowrap", fontVariantNumeric: "tabular-nums" }}>
+                    {d.rut || "—"}
                   </td>
                   <td style={{ padding: "12px 20px 12px 0", fontSize: 13, color: C.textSecondary, whiteSpace: "nowrap" }}>
-                    {doc.tipo}
-                  </td>
-                  <td style={{ padding: "12px 20px 12px 0", fontSize: 13, color: C.textPrimary, fontWeight: 500, whiteSpace: "nowrap" }}>
-                    {doc.trabajador}
+                    {NOMBRE_TIPO[d.tipo] ?? d.tipo}
                   </td>
                   <td style={{ padding: "12px 20px 12px 0" }}>
-                    <EstadoBadge estado={doc.estado} />
+                    <EstadoBadge estado={d.estado} />
                   </td>
-                  <td style={{ padding: "12px 20px 12px 0", fontSize: 12, color: C.textMuted, whiteSpace: "nowrap", fontVariantNumeric: "tabular-nums" }}>
-                    {doc.procesado}
+                  <td style={{ padding: "12px 20px 12px 0", fontSize: 12, color: C.textMuted, whiteSpace: "nowrap" }}>
+                    {fecha(d.fecha)}
                   </td>
-                  <td style={{ padding: "12px 20px 12px 0", fontSize: 13, color: C.textSecondary, fontVariantNumeric: "tabular-nums" }}>
-                    {doc.duracion}
+                  <td style={{ padding: "12px 0", fontSize: 13, fontWeight: 700, color: d.numero ? C.textPrimary : C.textMuted, fontVariantNumeric: "tabular-nums" }}>
+                    {d.numero || "—"}
                   </td>
-                  <td style={{ padding: "12px 0 12px 0", fontSize: 14, color: doc.dt === "✓" ? C.green : doc.dt === "✗" ? C.red : C.textMuted, fontWeight: 700 }}>
-                    {doc.dt}
-                  </td>
-                </motion.tr>
+                </tr>
               )) : (
                 <tr>
-                  <td colSpan={7} style={{ padding: "40px 0", textAlign: "center" }}>
-                    <div style={{ fontSize: 32, marginBottom: 10 }}>📄</div>
+                  <td colSpan={6} style={{ padding: "40px 0", textAlign: "center" }}>
                     <p style={{ fontSize: 14, fontWeight: 600, color: C.textPrimary, margin: "0 0 4px" }}>
-                      No hay documentos procesados aún
+                      {cargando
+                        ? "Buscando tus documentos…"
+                        : filasEnCola > 0
+                          ? "Tu nómina está en proceso"
+                          : "Todavía no hay comprobantes"}
                     </p>
                     <p style={{ fontSize: 13, color: C.textSecondary, margin: 0 }}>
-                      Los documentos aparecerán aquí una vez que el robot los procese.
+                      {filasEnCola > 0
+                        ? "Cada trabajador aparece acá con su número de la DT en cuanto lo registramos."
+                        : "Sube tu nómina en Carga masiva y acá queda el respaldo de cada trabajador."}
                     </p>
                   </td>
                 </tr>
@@ -264,54 +249,7 @@ export default function DocumentosPage() {
             </tbody>
           </table>
         </div>
-
-        {/* Pagination */}
-        <div style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          marginTop: 20,
-          paddingTop: 16,
-          borderTop: `1px solid ${C.border}`,
-        }}>
-          <span style={{ fontSize: 13, color: C.textSecondary }}>
-            {filtered.length > 0
-              ? `Mostrando ${filtered.length} de ${totalDocs} documentos`
-              : "Sin documentos para mostrar"}
-          </span>
-          <div style={{ display: "flex", gap: 8 }}>
-            <button
-              disabled
-              style={{
-                backgroundColor: "transparent",
-                border: `1px solid ${C.border}`,
-                borderRadius: 8,
-                padding: "7px 14px",
-                color: C.textMuted,
-                fontSize: 13,
-                cursor: "not-allowed",
-                fontWeight: 500,
-              }}
-            >
-              ← Anterior
-            </button>
-            <button
-              style={{
-                backgroundColor: C.blue,
-                border: `1px solid ${C.blue}`,
-                borderRadius: 8,
-                padding: "7px 14px",
-                color: "#fff",
-                fontSize: 13,
-                cursor: "pointer",
-                fontWeight: 600,
-              }}
-            >
-              Siguiente →
-            </button>
-          </div>
-        </div>
-      </motion.div>
+      </div>
     </div>
   )
 }

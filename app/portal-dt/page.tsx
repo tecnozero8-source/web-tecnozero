@@ -527,7 +527,7 @@ function OnboardingGuide() {
     { n: "02", title: "Defines tu contraseña", desc: "Ese mismo comprobante trae el enlace. La cuenta ya está creada con tu correo y la clave la eliges tú." },
     { n: "03", title: "Registras tu empresa", desc: "RUT, razón social, nombre del apoderado y correo de facturación. Un formulario, dos minutos." },
     { n: "04", title: "Firmas el mandato", desc: "Autorizas a Tecnozero a operar el Portal DT en representación de tu empresa. Firmas con tu RUT y te queda copia en PDF." },
-    { n: "05", title: "Nos inscribes en MiDT", desc: "Entras a portal.dt.gob.cl con tu ClaveÚnica y nos registras como Representante Laboral Electrónico. Lo haces tú una sola vez: el portal del Estado exige ClaveÚnica y nunca te pedimos la tuya." },
+    { n: "05", title: "Nos inscribes en MiDT", desc: "Entras a midt.dirtrab.cl con tu ClaveÚnica y nos registras como Representante Laboral Electrónico. Lo haces tú una sola vez: el portal del Estado exige ClaveÚnica y nunca te pedimos la tuya." },
     { n: "06", title: "Llenas la plantilla", desc: "Descargas el Excel de Ingresos, Bajas o Anexos y completas RUT, nombre, fechas y tipo de contrato." },
     { n: "07", title: "Subes y confirmas", desc: "Revisamos cada fila y te mostramos qué falta. Confirmas y tu nómina queda en cola con un código que sigues desde el panel." },
     { n: "08", title: "Recibes los comprobantes", desc: "Dejamos los registros en el Portal DT dentro del siguiente día hábil y te mandamos los números de comprobante por correo." },
@@ -1193,7 +1193,7 @@ const FAQS = [
   },
   {
     q: "¿Me van a pedir mi ClaveÚnica?",
-    a: "No, y no la aceptaríamos. Tú nos inscribes como Representante Laboral Electrónico en portal.dt.gob.cl y firmas un mandato con copia en PDF. Con esa autorización operamos, y tu clave se queda contigo.",
+    a: "No, y no la aceptaríamos. Tú nos inscribes como Representante Laboral Electrónico en midt.dirtrab.cl y firmas un mandato con copia en PDF. Con esa autorización operamos, y tu clave se queda contigo.",
   },
   {
     q: "¿Qué hacen con los datos de mis trabajadores?",

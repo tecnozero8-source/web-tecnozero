@@ -230,6 +230,7 @@ export interface CargaInterna {
   filasIncompletas: number
   advertencias: { message: string; count: number }[]
   guardadaEnBase: boolean
+  subidaPor?: string
 }
 
 /**

@@ -651,6 +651,8 @@ export interface DatosCargaInterna {
   filasIncompletas: number
   advertencias: { message: string; count: number }[]
   guardadaEnBase: boolean
+  /** Quién del equipo la subió, cuando la nómina llegó por correo y no por el panel. */
+  subidaPor?: string
 }
 
 /**
@@ -691,6 +693,7 @@ export function emailAvisoCargaInterno(d: DatosCargaInterna): { subject: string;
         ${filaDato("Cliente", d.nombre)}
         ${filaDato("Correo", d.correo)}
         ${filaDato("Archivo", d.archivo)}
+        ${d.subidaPor ? filaDato("Subida por el equipo", d.subidaPor) : ""}
         ${filaDato("Filas completas", d.filasValidas, true)}
         ${filaDato("Filas incompletas", d.filasIncompletas)}
         ${filaDato("Recibida", fechaChile())}
@@ -711,6 +714,7 @@ export function emailAvisoCargaInterno(d: DatosCargaInterna): { subject: string;
     `Empresa: ${d.empresa ?? "sin dato"}`,
     `Correo: ${d.correo}`,
     `Archivo: ${d.archivo ?? "sin dato"}`,
+    d.subidaPor ? `Subida por el equipo: ${d.subidaPor}` : "",
     `Filas completas: ${d.filasValidas}`,
     `Filas incompletas: ${d.filasIncompletas}`,
     `Recibida: ${fechaChile()}`,
@@ -936,7 +940,7 @@ export function emailAvisoMandatoInterno(d: DatosMandatoInterno): { subject: str
 
   const queHacer = firmo
     ? "Todavía no hay nada que hacer. Cuando el cliente marque que ya nos inscribió en MiDT llega el segundo aviso."
-    : "Entra a portal.dt.gob.cl con la ClaveÚnica del representante y revisa si este empleador aparece en la lista. Si está, marca la autorización como verificada en el panel."
+    : "Entra a midt.dirtrab.cl con la ClaveÚnica del representante y revisa si este empleador aparece en la lista. Si está, marca la autorización como verificada en el panel."
 
   const cuerpo = `
     ${seccion(`

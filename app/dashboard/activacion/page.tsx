@@ -37,6 +37,30 @@ function formatDate(iso?: string): string {
   return d.toLocaleDateString("es-CL", { day: "2-digit", month: "long", year: "numeric" })
 }
 
+/**
+ * Manda el mandato al servidor.
+ *
+ * El localStorage sigue siendo la copia rápida del navegador; esta es la que
+ * queda como respaldo de Tecnozero y la que ve el equipo. Hasta el 10 de
+ * septiembre de 2026 no existía: el cliente firmaba, cambiaba de computador y
+ * su firma desaparecía.
+ *
+ * No bloquea el flujo. Si el servidor no responde, el cliente avanza igual y
+ * el siguiente paso vuelve a intentarlo con el mandato ya actualizado.
+ */
+async function persistirMandato(auth: AuthData): Promise<void> {
+  try {
+    const r = await fetch("/api/activacion", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ authData: auth }),
+    })
+    if (!r.ok) console.warn("[activacion] el servidor no guardó el mandato:", r.status)
+  } catch (err) {
+    console.warn("[activacion] no pude guardar el mandato:", err)
+  }
+}
+
 // ─── Progress Bar ─────────────────────────────────────────────────────────────
 function ProgressBar({ step }: { step: 1 | 2 | 3 | 4 }) {
   const steps = [
@@ -498,7 +522,7 @@ function Step2({
 
 En Santiago, a ${formatDate()}, ${company.nombreApoderado}, RUT ${company.rutApoderado}, en su calidad de ${company.cargoApoderado} de ${company.razonSocial}, RUT ${company.rutEmpresa}, en adelante "el Mandante", otorga mandato especial a:
 
-TECNOZERO SpA, RUT 77.234.567-8, representada por Ignacio Andrés González Vargas, RUT 18.456.789-3, correo rle@tecnozero.cl, en adelante "el Mandatario"
+TECNOZERO SpA, RUT ${TZ_RLE.rutEmpresa}, representada por ${TZ_RLE.nombre}, RUT ${TZ_RLE.rut}, correo ${TZ_RLE.email}, en adelante "el Mandatario"
 
 FACULTADES OTORGADAS:
 El Mandatario queda facultado para actuar como Representante Laboral Electrónico (RLE) del Mandante ante el portal de la Dirección del Trabajo (www.dt.gob.cl), con el objeto exclusivo de realizar los siguientes trámites:
@@ -537,6 +561,7 @@ Timestamp: ${authData.timestamp}`
       hash,
     }
     saveAuthData(updated)
+    await persistirMandato(updated)
     setLoading(false)
     onNext()
   }
@@ -782,7 +807,7 @@ function Step3({
   const instructions = [
     {
       icon: "🌐",
-      text: "Ve a portal.dt.gob.cl con tu ClaveÚnica o RUT+Clave",
+      text: "Ve a midt.dirtrab.cl con tu ClaveÚnica o RUT+Clave",
     },
     {
       icon: "📋",
@@ -804,13 +829,16 @@ function Step3({
     { label: "Correo electrónico", value: TZ_RLE.email },
   ]
 
-  const handleContinue = () => {
+  const handleContinue = async () => {
     const updated: AuthData = {
       ...authData,
       status: "registered",
       registeredAt: new Date().toISOString(),
     }
     saveAuthData(updated)
+    // Este es el aviso que abre trabajo: alguien tiene que entrar al Portal DT
+    // a confirmar que el empleador quedó en la lista del representante.
+    await persistirMandato(updated)
     onNext()
   }
 
@@ -995,6 +1023,18 @@ function Step3({
 }
 
 // ─── Step 4 ────────────────────────────────────────────────────────────────────
+/**
+ * Antes esta pantalla era un teatro: un setTimeout avanzaba cuatro pasos
+ * ("Conectando con portal DT…", "RLE encontrado", "Robot activado") y a los
+ * cinco segundos escribía status: "verified" sin comprobar nada. El cliente
+ * salía convencido de que su empresa estaba inscrita y nosotros no teníamos
+ * cómo saber si era cierto.
+ *
+ * Ahora dice lo que pasa de verdad: recibimos el aviso, alguien del equipo
+ * entra al Portal DT con la ClaveÚnica del representante y confirma que el
+ * empleador quedó en su lista. El estado "verified" lo escribe ese alguien
+ * desde el panel interno, nunca esta pantalla.
+ */
 function Step4({
   authData,
   onComplete,
@@ -1003,333 +1043,232 @@ function Step4({
   onComplete: () => void
 }) {
   const router = useRouter()
-  const [verifyStep, setVerifyStep] = useState(0)
-  const [verifyDone, setVerifyDone] = useState(false)
-  const [progress, setProgress] = useState(0)
-
-  const checks = [
-    { pending: "Validando token de autorización...", done: "Token válido" },
-    { pending: "Conectando con portal DT...", done: "Conexión establecida" },
-    { pending: "Verificando RLE registrado...", done: "RLE encontrado" },
-    { pending: "Activando robot...", done: "Robot activado" },
-  ]
+  const verificada = authData.status === "verified"
 
   useEffect(() => {
-    // Advance verification steps
-    const timers: ReturnType<typeof setTimeout>[] = []
-    for (let i = 1; i <= 4; i++) {
-      timers.push(
-        setTimeout(() => {
-          setVerifyStep(i)
-          if (i === 4) {
-            setTimeout(() => {
-              const updated: AuthData = {
-                ...authData,
-                status: "verified",
-                verifiedAt: new Date().toISOString(),
-              }
-              saveAuthData(updated)
-              setVerifyDone(true)
-              onComplete()
-            }, 600)
-          }
-        }, i * 1200)
-      )
-    }
-
-    // Progress bar
-    const start = Date.now()
-    const duration = 4800
-    const raf = (id: { v: number }) => {
-      id.v = requestAnimationFrame(() => {
-        const elapsed = Date.now() - start
-        const pct = Math.min((elapsed / duration) * 100, 100)
-        setProgress(pct)
-        if (pct < 100) raf(id)
-      })
-    }
-    const rafId = { v: 0 }
-    raf(rafId)
-
-    return () => {
-      timers.forEach(clearTimeout)
-      cancelAnimationFrame(rafId.v)
-    }
+    onComplete()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  const loQueSigue = [
+    {
+      titulo: "Revisamos tu inscripción en el Portal DT",
+      detalle:
+        "Entramos con la ClaveÚnica de nuestro representante y confirmamos que tu empresa aparece asociada.",
+    },
+    {
+      titulo: "Te escribimos con el resultado",
+      detalle:
+        "Dentro del día hábil siguiente. Si algo quedó a medias te decimos qué falta y cómo arreglarlo.",
+    },
+    {
+      titulo: "Ahí queda habilitada tu primera nómina",
+      detalle:
+        "Puedes ir llenando la plantilla mientras tanto. Descarga el Excel de Ingresos, Bajas o Anexos y complétalo.",
+    },
+  ]
+
+  if (verificada) {
+    return (
+      <Card maxWidth={520}>
+        <div style={{ textAlign: "center" }}>
+          <div
+            style={{
+              width: 56,
+              height: 56,
+              borderRadius: 16,
+              backgroundColor: "#DCFCE7",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              margin: "0 auto 20px",
+            }}
+          >
+            <CheckCircle2 size={28} color={C.GREEN} />
+          </div>
+
+          <h2 style={{ margin: "0 0 10px 0", fontSize: "1.35rem", fontWeight: 700, color: C.TEXT_PRIMARY }}>
+            Autorización confirmada
+          </h2>
+
+          <p style={{ margin: "0 0 24px 0", fontSize: "0.95rem", color: C.TEXT_SECONDARY, lineHeight: 1.7 }}>
+            Revisamos el Portal DT y {authData.company.razonSocial} quedó asociada a nuestro representante
+            laboral electrónico. Ya puedes subir nóminas.
+          </p>
+
+          <div
+            style={{
+              backgroundColor: C.BG_PAGE,
+              borderRadius: 12,
+              padding: "14px 18px",
+              marginBottom: 24,
+              textAlign: "left",
+              fontSize: "0.85rem",
+              color: C.TEXT_SECONDARY,
+              lineHeight: 1.8,
+            }}
+          >
+            <div>Confirmada el {formatDate(authData.verifiedAt)}</div>
+            {authData.verificadaPor && <div>Revisada por {authData.verificadaPor}</div>}
+            <div>Código de autorización: {authData.token}</div>
+          </div>
+
+          <button
+            onClick={() => router.push("/dashboard/carga")}
+            style={{
+              width: "100%",
+              padding: "14px 20px",
+              borderRadius: 12,
+              border: "none",
+              backgroundColor: C.BLUE,
+              color: "#FFFFFF",
+              fontWeight: 700,
+              fontSize: "0.95rem",
+              cursor: "pointer",
+            }}
+          >
+            Subir mi primera nómina →
+          </button>
+        </div>
+      </Card>
+    )
+  }
+
   return (
-    <Card maxWidth={480}>
-      <div style={{ textAlign: "center" }}>
-        <AnimatePresence mode="wait">
-          {!verifyDone ? (
-            <motion.div
-              key="verifying"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              style={{ textAlign: "left" }}
+    <Card maxWidth={560}>
+      <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 18 }}>
+        <div
+          style={{
+            width: 40,
+            height: 40,
+            borderRadius: 10,
+            backgroundColor: "#EEF4FF",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            flexShrink: 0,
+          }}
+        >
+          <Shield size={20} color={C.BLUE} />
+        </div>
+        <div>
+          <h2 style={{ margin: 0, fontSize: "1.25rem", fontWeight: 700, color: C.TEXT_PRIMARY }}>
+            Recibimos tu aviso
+          </h2>
+          <p style={{ margin: "2px 0 0 0", fontSize: "0.85rem", color: C.TEXT_SECONDARY }}>
+            Paso 4 de 4 · Confirmación
+          </p>
+        </div>
+      </div>
+
+      <p style={{ margin: "0 0 24px 0", fontSize: "0.95rem", color: C.TEXT_SECONDARY, lineHeight: 1.7 }}>
+        Nos avisaste que ya registraste a Tecnozero como tu representante laboral electrónico. Falta que lo
+        confirmemos de nuestro lado, y eso lo hace una persona del equipo.
+      </p>
+
+      <div style={{ display: "flex", flexDirection: "column", gap: 14, marginBottom: 24 }}>
+        {loQueSigue.map((paso, i) => (
+          <div key={i} style={{ display: "flex", gap: 12, alignItems: "flex-start" }}>
+            <div
+              style={{
+                width: 24,
+                height: 24,
+                borderRadius: 8,
+                backgroundColor: C.BG_PAGE,
+                color: C.BLUE,
+                fontSize: "0.75rem",
+                fontWeight: 800,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                flexShrink: 0,
+                marginTop: 2,
+              }}
             >
-              <h2
-                style={{
-                  margin: "0 0 6px 0",
-                  fontSize: "1.15rem",
-                  fontWeight: 700,
-                  color: C.TEXT_PRIMARY,
-                  textAlign: "center",
-                }}
-              >
-                Verificando autorización...
-              </h2>
-              <p
-                style={{
-                  margin: "0 0 24px 0",
-                  fontSize: "0.82rem",
-                  color: C.TEXT_SECONDARY,
-                  textAlign: "center",
-                }}
-              >
-                Este proceso toma unos segundos
-              </p>
-
-              {/* Progress bar */}
-              <div
-                style={{
-                  height: 6,
-                  backgroundColor: "#E8EFF8",
-                  borderRadius: 3,
-                  overflow: "hidden",
-                  marginBottom: 28,
-                }}
-              >
-                <div
-                  style={{
-                    height: "100%",
-                    width: `${progress}%`,
-                    backgroundColor: C.BLUE,
-                    borderRadius: 3,
-                    transition: "width 0.1s linear",
-                  }}
-                />
+              {i + 1}
+            </div>
+            <div>
+              <div style={{ fontSize: "0.92rem", fontWeight: 600, color: C.TEXT_PRIMARY, marginBottom: 2 }}>
+                {paso.titulo}
               </div>
-
-              {/* Check items */}
-              <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-                {checks.map((check, i) => {
-                  const done = verifyStep > i
-                  const active = verifyStep === i
-                  return (
-                    <div
-                      key={i}
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        gap: 12,
-                        opacity: verifyStep >= i ? 1 : 0.35,
-                        transition: "opacity 0.3s",
-                      }}
-                    >
-                      <div
-                        style={{
-                          width: 28,
-                          height: 28,
-                          borderRadius: "50%",
-                          backgroundColor: done ? "#F0FDF4" : active ? "#EEF4FF" : "#F1F5F9",
-                          border: `1.5px solid ${done ? "#BBF7D0" : active ? "#C7D9F8" : "#E2E8F0"}`,
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          flexShrink: 0,
-                          transition: "all 0.3s",
-                        }}
-                      >
-                        {done ? (
-                          <Check size={13} color={C.GREEN} strokeWidth={3} />
-                        ) : active ? (
-                          <Loader2
-                            size={13}
-                            color={C.BLUE}
-                            style={{ animation: "spin 1s linear infinite" }}
-                          />
-                        ) : (
-                          <div
-                            style={{
-                              width: 6,
-                              height: 6,
-                              borderRadius: "50%",
-                              backgroundColor: "#CBD5E1",
-                            }}
-                          />
-                        )}
-                      </div>
-                      <span
-                        style={{
-                          fontSize: "0.88rem",
-                          color: done ? C.GREEN : active ? C.BLUE : C.TEXT_SECONDARY,
-                          fontWeight: done || active ? 600 : 400,
-                          transition: "color 0.3s",
-                        }}
-                      >
-                        {done ? check.done : check.pending}
-                      </span>
-                    </div>
-                  )
-                })}
+              <div style={{ fontSize: "0.85rem", color: C.TEXT_SECONDARY, lineHeight: 1.6 }}>
+                {paso.detalle}
               </div>
-            </motion.div>
-          ) : (
-            <motion.div
-              key="success"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.4 }}
-            >
-              {/* Big green check */}
-              <motion.div
-                initial={{ scale: 0.4, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                transition={{ type: "spring", stiffness: 260, damping: 20 }}
-                style={{
-                  width: 72,
-                  height: 72,
-                  borderRadius: "50%",
-                  backgroundColor: "#F0FDF4",
-                  border: `3px solid #BBF7D0`,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  margin: "0 auto 20px auto",
-                }}
-              >
-                <CheckCircle2 size={36} color={C.GREEN} />
-              </motion.div>
+            </div>
+          </div>
+        ))}
+      </div>
 
-              <h2
-                style={{
-                  margin: "0 0 6px 0",
-                  fontSize: "1.3rem",
-                  fontWeight: 700,
-                  color: C.TEXT_PRIMARY,
-                }}
-              >
-                ¡Autorización completada!
-              </h2>
-              <p style={{ margin: "0 0 20px 0", fontSize: "0.88rem", color: C.TEXT_SECONDARY }}>
-                Tu robot está listo para operar
-              </p>
+      <div
+        style={{
+          backgroundColor: "#FFFBEB",
+          border: "1px solid #FCD34D",
+          borderRadius: 12,
+          padding: "14px 18px",
+          marginBottom: 24,
+          fontSize: "0.87rem",
+          color: "#92400E",
+          lineHeight: 1.7,
+        }}
+      >
+        Si subes una nómina antes de que confirmemos, no se pierde: queda en cola y la procesamos apenas la
+        autorización esté lista.
+      </div>
 
-              {/* Token + date */}
-              <div
-                style={{
-                  backgroundColor: "#F0F5FF",
-                  border: `1px solid #D4E4FF`,
-                  borderRadius: 10,
-                  padding: "14px 20px",
-                  marginBottom: 24,
-                  textAlign: "left",
-                }}
-              >
-                <div style={{ marginBottom: 8 }}>
-                  <span
-                    style={{ fontSize: "0.72rem", color: C.TEXT_SECONDARY, display: "block" }}
-                  >
-                    Token de autorización
-                  </span>
-                  <span
-                    style={{
-                      fontSize: "0.82rem",
-                      fontFamily: "monospace",
-                      color: C.BLUE,
-                      fontWeight: 600,
-                    }}
-                  >
-                    {authData.token}
-                  </span>
-                </div>
-                <div>
-                  <span
-                    style={{ fontSize: "0.72rem", color: C.TEXT_SECONDARY, display: "block" }}
-                  >
-                    Fecha
-                  </span>
-                  <span style={{ fontSize: "0.82rem", color: C.TEXT_PRIMARY, fontWeight: 500 }}>
-                    {formatDate()}
-                  </span>
-                </div>
-              </div>
+      <div
+        style={{
+          backgroundColor: C.BG_PAGE,
+          borderRadius: 12,
+          padding: "14px 18px",
+          marginBottom: 24,
+          fontSize: "0.85rem",
+          color: C.TEXT_SECONDARY,
+          lineHeight: 1.8,
+        }}
+      >
+        <div>{authData.company.razonSocial} · RUT {authData.company.rutEmpresa}</div>
+        <div>Mandato firmado el {formatDate(authData.signedAt ?? authData.timestamp)}</div>
+        <div>Código de autorización: {authData.token}</div>
+      </div>
 
-              {/* Summary cards */}
-              <div
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "1fr 1fr 1fr",
-                  gap: 10,
-                  marginBottom: 28,
-                }}
-              >
-                {[
-                  { label: "Robot activo", value: "Sí", color: C.GREEN, bg: "#F0FDF4", border: "#BBF7D0" },
-                  { label: "Documentos procesados", value: "0", color: C.BLUE, bg: "#EEF4FF", border: "#C7D9F8" },
-                  { label: "SLA garantizado", value: "99.5%", color: "#7C3AED", bg: "#F5F3FF", border: "#DDD6FE" },
-                ].map((card) => (
-                  <div
-                    key={card.label}
-                    style={{
-                      backgroundColor: card.bg,
-                      border: `1px solid ${card.border}`,
-                      borderRadius: 10,
-                      padding: "12px 10px",
-                      textAlign: "center",
-                    }}
-                  >
-                    <div
-                      style={{
-                        fontSize: "1.1rem",
-                        fontWeight: 700,
-                        color: card.color,
-                        marginBottom: 2,
-                      }}
-                    >
-                      {card.value}
-                    </div>
-                    <div style={{ fontSize: "0.68rem", color: C.TEXT_SECONDARY, lineHeight: 1.3 }}>
-                      {card.label}
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              {/* CTA */}
-              <button
-                onClick={() => router.push("/dashboard")}
-                style={{
-                  width: "100%",
-                  padding: "14px 0",
-                  borderRadius: 10,
-                  border: "none",
-                  backgroundColor: "#D4F040",
-                  color: C.TEXT_PRIMARY,
-                  fontWeight: 700,
-                  fontSize: "0.95rem",
-                  cursor: "pointer",
-                  transition: "opacity 0.2s",
-                }}
-                onMouseEnter={(e) =>
-                  ((e.currentTarget as HTMLButtonElement).style.opacity = "0.88")
-                }
-                onMouseLeave={(e) =>
-                  ((e.currentTarget as HTMLButtonElement).style.opacity = "1")
-                }
-              >
-                Ir al Dashboard →
-              </button>
-            </motion.div>
-          )}
-        </AnimatePresence>
+      <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+        <button
+          onClick={() => router.push("/dashboard/carga")}
+          style={{
+            flex: "1 1 200px",
+            padding: "14px 20px",
+            borderRadius: 12,
+            border: "none",
+            backgroundColor: C.BLUE,
+            color: "#FFFFFF",
+            fontWeight: 700,
+            fontSize: "0.95rem",
+            cursor: "pointer",
+          }}
+        >
+          Ir a llenar mi nómina →
+        </button>
+        <button
+          onClick={() => router.push("/dashboard")}
+          style={{
+            flex: "1 1 160px",
+            padding: "14px 20px",
+            borderRadius: 12,
+            border: `1px solid ${C.BORDER}`,
+            backgroundColor: C.BG_CARD,
+            color: C.TEXT_SECONDARY,
+            fontWeight: 600,
+            fontSize: "0.95rem",
+            cursor: "pointer",
+          }}
+        >
+          Volver al panel
+        </button>
       </div>
     </Card>
   )
 }
+
 
 // ─── Main page ─────────────────────────────────────────────────────────────────
 export default function ActivacionPage() {
@@ -1366,6 +1305,7 @@ export default function ActivacionPage() {
       company,
     }
     saveAuthData(data)
+    void persistirMandato(data)
     setAuthData(data)
     setStep(2)
   }

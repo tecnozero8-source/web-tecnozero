@@ -189,3 +189,77 @@ export async function createUser(input: {
   const u = data as DBUser
   return { id: u.id, email: u.email, name: u.name, empresa: u.empresa ?? "", plan: u.plan, rut: u.rut ?? "" }
 }
+export interface EmpresaDeCliente {
+  id: string
+  razonSocial: string
+  rutEmpresa: string
+}
+
+export interface ClienteConCuenta {
+  id: string
+  email: string
+  nombre: string
+  empresa: string | null
+  empresas: EmpresaDeCliente[]
+}
+
+/**
+ * Todos los clientes con cuenta, cada uno con su cartera de empresas.
+ *
+ * Lo usa el panel interno para subir una nómina en nombre de alguien. Hasta el
+ * 11 de septiembre de 2026 no había forma: /dashboard/carga guarda la nómina
+ * bajo la empresa de quien tiene la sesión, así que un Excel que el cliente
+ * mandara por correo no lo podía cargar nadie del equipo.
+ *
+ * Dos consultas en vez de un join, igual que en mandatosParaRevisar: así no
+ * depende de cómo se llame la relación en PostgREST.
+ */
+export async function clientesConCuenta(): Promise<ClienteConCuenta[]> {
+  try {
+    const db = getAdminClient()
+
+    const { data: usuarios, error } = await db
+      .from("users")
+      .select("id, email, name, empresa, created_at")
+      .order("created_at", { ascending: false })
+
+    if (error || !usuarios) {
+      console.error("[clientesConCuenta] no pude leer users:", error)
+      return []
+    }
+
+    const { data: empresas } = await db
+      .from("companies")
+      .select("id, user_id, razon_social, rut_empresa")
+
+    const porUsuario = new Map<string, EmpresaDeCliente[]>()
+    for (const e of empresas ?? []) {
+      const fila = e as { id: string; user_id: string; razon_social: string; rut_empresa: string }
+      if (!fila.user_id) continue
+      const lista = porUsuario.get(fila.user_id) ?? []
+      lista.push({ id: fila.id, razonSocial: fila.razon_social, rutEmpresa: fila.rut_empresa })
+      porUsuario.set(fila.user_id, lista)
+    }
+
+    return usuarios.map(u => {
+      const fila = u as { id: string; email: string; name: string; empresa: string | null }
+      return {
+        id: fila.id,
+        email: fila.email,
+        nombre: fila.name,
+        empresa: fila.empresa,
+        empresas: porUsuario.get(fila.id) ?? [],
+      }
+    })
+  } catch (err) {
+    console.error("[clientesConCuenta]", err)
+    return []
+  }
+}
+
+/** Un cliente por su correo, para llenar la carga con su nombre y su empresa. */
+export async function clientePorCorreo(email: string): Promise<ClienteConCuenta | null> {
+  const limpio = email.toLowerCase().trim()
+  const todos = await clientesConCuenta()
+  return todos.find(c => c.email.toLowerCase() === limpio) ?? null
+}

@@ -181,6 +181,8 @@ export default function PanelCargas() {
           >{cargando ? "Actualizando…" : "Actualizar"}</button>
         </div>
 
+        <SubirPorElCliente alGuardar={traer} />
+
         <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 20 }}>
           {pestanas.map(p => {
             const n = p === "todas" ? cargas.length : (conteo[p] ?? 0)
@@ -239,6 +241,11 @@ export default function PanelCargas() {
                     )}
                     {" · "}{fecha(c.created_at)}
                   </div>
+                  {c.notas?.startsWith("Subida por") && (
+                    <div style={{ fontSize: 12, color: C.textMuted, marginTop: 4 }}>
+                      Subida por el equipo, no por el cliente
+                    </div>
+                  )}
                 </div>
                 <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
                   <code style={{ fontSize: 11, color: C.textMuted }}>{c.id}</code>
@@ -474,6 +481,346 @@ function Detalle({ id, alGuardar }: { id: string; alGuardar: () => void }) {
           {mensaje.texto}
         </p>
       )}
+    </div>
+  )
+}
+// ─── Subir una nómina por el cliente ─────────────────────────────────────────
+
+interface EmpresaDeCliente {
+  id: string
+  razonSocial: string
+  rutEmpresa: string
+}
+
+interface ClienteConCuenta {
+  id: string
+  email: string
+  nombre: string
+  empresa: string | null
+  empresas: EmpresaDeCliente[]
+}
+
+interface Lectura {
+  filas: Record<string, unknown>[]
+  archivo: string
+  validas: number
+  incompletas: number
+  advertencias: { message: string; count: number }[]
+}
+
+const TIPOS_NOMINA: { valor: string; etiqueta: string }[] = [
+  { valor: "ingresos", etiqueta: "Ingresos (contratos nuevos)" },
+  { valor: "anexos", etiqueta: "Anexos de contrato" },
+  { valor: "bajas", etiqueta: "Bajas y finiquitos" },
+]
+
+const etiqueta: React.CSSProperties = {
+  display: "block", fontSize: 12, fontWeight: 700, color: C.textSecondary,
+  letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: 6,
+}
+
+const campo: React.CSSProperties = {
+  width: "100%", boxSizing: "border-box", border: `1px solid ${C.border}`,
+  borderRadius: 10, padding: "10px 12px", fontSize: 14, color: C.textPrimary,
+  backgroundColor: "#FFFFFF", fontFamily: "inherit",
+}
+
+/**
+ * El archivo que el cliente mandó por correo, cargado a su nombre.
+ *
+ * /dashboard/carga guarda la nómina bajo la empresa de quien tiene la sesión,
+ * así que hasta el 11 de septiembre de 2026 un Excel que llegara por correo se
+ * quedaba fuera del sistema: el ingeniero lo procesaba a mano y el cliente
+ * nunca veía sus comprobantes en el panel.
+ *
+ * El archivo se lee con el mismo endpoint que usa el cliente,
+ * /api/upload/excel, para que las dos vías interpreten igual la planilla y las
+ * advertencias salgan de la misma regla.
+ */
+function SubirPorElCliente({ alGuardar }: { alGuardar: () => void }) {
+  const [abierto, setAbierto] = useState(false)
+  const [clientes, setClientes] = useState<ClienteConCuenta[]>([])
+  const [correo, setCorreo] = useState("")
+  const [empresaId, setEmpresaId] = useState("")
+  const [tipo, setTipo] = useState("ingresos")
+  const [archivo, setArchivo] = useState<File | null>(null)
+  const [llave, setLlave] = useState(0)
+  const [leyendo, setLeyendo] = useState(false)
+  const [lectura, setLectura] = useState<Lectura | null>(null)
+  const [nota, setNota] = useState("")
+  const [avisar, setAvisar] = useState(true)
+  const [guardando, setGuardando] = useState(false)
+  const [mensaje, setMensaje] = useState<{ texto: string; ok: boolean } | null>(null)
+
+  useEffect(() => {
+    if (!abierto || clientes.length > 0) return
+    let vivo = true
+    fetch("/api/admin/clientes", { cache: "no-store" })
+      .then(r => r.ok ? r.json() : Promise.reject(r.status))
+      .then(d => { if (vivo) setClientes(d.clientes ?? []) })
+      .catch(() => { if (vivo) setMensaje({ texto: "No pude leer la lista de clientes.", ok: false }) })
+    return () => { vivo = false }
+  }, [abierto, clientes.length])
+
+  const cliente = clientes.find(c => c.email === correo) ?? null
+
+  const leer = useCallback(async (f: File, comoTipo: string) => {
+    setLeyendo(true)
+    setMensaje(null)
+    try {
+      const fd = new FormData()
+      fd.append("file", f)
+      fd.append("uploadType", comoTipo)
+      const r = await fetch("/api/upload/excel", { method: "POST", body: fd })
+      const d = await r.json()
+      if (!r.ok) {
+        setLectura(null)
+        setMensaje({ texto: d.error ?? "No pude leer el archivo.", ok: false })
+        return
+      }
+      setLectura({
+        filas: d.rows ?? [],
+        archivo: d.stats?.fileName ?? f.name,
+        validas: d.stats?.validRows ?? (d.rows ?? []).length,
+        incompletas: d.stats?.incompleteRows ?? 0,
+        advertencias: (d.stats?.conditionalIssues ?? []).map((a: { message?: string; count?: number }) => ({
+          message: String(a.message ?? ""),
+          count: Number(a.count) || 0,
+        })),
+      })
+    } catch {
+      setLectura(null)
+      setMensaje({ texto: "No pude leer el archivo. Revisa que sea .xlsx o .csv.", ok: false })
+    } finally {
+      setLeyendo(false)
+    }
+  }, [])
+
+  const cambiarTipo = (nuevo: string) => {
+    setTipo(nuevo)
+    if (archivo) leer(archivo, nuevo)
+  }
+
+  const elegirArchivo = (f: File | null) => {
+    setArchivo(f)
+    setLectura(null)
+    if (f) leer(f, tipo)
+  }
+
+  const guardar = async () => {
+    if (!cliente || !lectura) return
+    setGuardando(true)
+    setMensaje(null)
+    try {
+      const r = await fetch("/api/admin/cargas", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          clienteEmail: cliente.email,
+          empresaId: empresaId || null,
+          tipo,
+          archivo: lectura.archivo,
+          filas: lectura.filas,
+          filasValidas: lectura.validas,
+          filasIncompletas: lectura.incompletas,
+          advertencias: lectura.advertencias,
+          nota: nota.trim(),
+          avisarAlCliente: avisar,
+        }),
+      })
+      const d = await r.json()
+      if (!r.ok) {
+        setMensaje({ texto: d.error ?? `El servidor respondió ${r.status}.`, ok: false })
+        return
+      }
+      setMensaje({
+        texto: `Guardada: ${lectura.filas.length} filas a nombre de ${cliente.nombre}.` +
+          (d.avisadoAlCliente ? " Le llegó el acuse por correo." : ""),
+        ok: true,
+      })
+      setArchivo(null)
+      setLectura(null)
+      setNota("")
+      setLlave(k => k + 1)
+      alGuardar()
+    } catch {
+      setMensaje({ texto: "No pude guardar la nómina. Inténtalo otra vez.", ok: false })
+    } finally {
+      setGuardando(false)
+    }
+  }
+
+  if (!abierto) {
+    return (
+      <div style={{ marginBottom: 20 }}>
+        <button
+          onClick={() => setAbierto(true)}
+          style={{
+            border: `1px dashed ${C.blue}`, backgroundColor: "#F2F7FF", color: C.blue,
+            borderRadius: 12, padding: "12px 18px", fontSize: 14, fontWeight: 700, cursor: "pointer",
+          }}
+        >Subir una nómina por el cliente</button>
+        <span style={{ fontSize: 13, color: C.textMuted, marginLeft: 12 }}>
+          Para el archivo que llegó por correo en vez del panel.
+        </span>
+      </div>
+    )
+  }
+
+  const listo = Boolean(cliente) && Boolean(lectura) && !guardando && !leyendo
+
+  return (
+    <div style={{ ...card, marginBottom: 20 }}>
+      <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: 12, marginBottom: 18 }}>
+        <div>
+          <h2 style={{ fontSize: 18, fontWeight: 800, color: C.textPrimary, margin: 0 }}>
+            Subir una nómina por el cliente
+          </h2>
+          <p style={{ fontSize: 13, color: C.textSecondary, margin: "5px 0 0" }}>
+            Queda igual que si la hubiera subido él: mismo panel, mismo historial, mismos comprobantes.
+          </p>
+        </div>
+        <button
+          onClick={() => setAbierto(false)}
+          style={{ border: "none", background: "none", color: C.textMuted, fontSize: 13, cursor: "pointer" }}
+        >Cerrar</button>
+      </div>
+
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 16, marginBottom: 16 }}>
+        <div>
+          <label style={etiqueta}>Cliente</label>
+          <select
+            value={correo}
+            onChange={e => { setCorreo(e.target.value); setEmpresaId("") }}
+            style={campo}
+          >
+            <option value="">Elige a quién pertenece</option>
+            {clientes.map(c => (
+              <option key={c.id} value={c.email}>
+                {c.nombre}{c.empresa ? ` · ${c.empresa}` : ""} · {c.email}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div>
+          <label style={etiqueta}>Empresa de su cartera</label>
+          <select
+            value={empresaId}
+            onChange={e => setEmpresaId(e.target.value)}
+            disabled={!cliente || cliente.empresas.length === 0}
+            style={{ ...campo, opacity: cliente && cliente.empresas.length > 0 ? 1 : 0.55 }}
+          >
+            <option value="">
+              {cliente && cliente.empresas.length > 0 ? "Sin especificar" : "El cliente no tiene cartera"}
+            </option>
+            {(cliente?.empresas ?? []).map(e => (
+              <option key={e.id} value={e.id}>{e.razonSocial} · {e.rutEmpresa}</option>
+            ))}
+          </select>
+        </div>
+
+        <div>
+          <label style={etiqueta}>Tipo de nómina</label>
+          <select value={tipo} onChange={e => cambiarTipo(e.target.value)} style={campo}>
+            {TIPOS_NOMINA.map(t => (
+              <option key={t.valor} value={t.valor}>{t.etiqueta}</option>
+            ))}
+          </select>
+        </div>
+      </div>
+
+      <div style={{ marginBottom: 16 }}>
+        <label style={etiqueta}>Archivo del cliente</label>
+        <input
+          key={llave}
+          type="file"
+          accept=".xlsx,.csv"
+          onChange={e => elegirArchivo(e.target.files?.[0] ?? null)}
+          style={{ ...campo, padding: "9px 12px" }}
+        />
+        <p style={{ fontSize: 12, color: C.textMuted, margin: "6px 0 0" }}>
+          El mismo .xlsx que él habría subido. El .xls no sirve: se guarda como .xlsx en Excel.
+        </p>
+      </div>
+
+      {leyendo && (
+        <p style={{ fontSize: 14, color: C.blue, margin: "0 0 16px" }}>Leyendo el archivo…</p>
+      )}
+
+      {lectura && (
+        <div style={{
+          border: `1px solid ${C.border}`, borderRadius: 12, padding: 16,
+          backgroundColor: "#F8FBFF", marginBottom: 16,
+        }}>
+          <div style={{ display: "flex", gap: 24, flexWrap: "wrap", marginBottom: lectura.advertencias.length ? 12 : 0 }}>
+            <DatoLectura titulo="Archivo" valor={lectura.archivo} />
+            <DatoLectura titulo="Filas" valor={String(lectura.filas.length)} />
+            <DatoLectura titulo="Completas" valor={String(lectura.validas)} />
+            <DatoLectura titulo="Incompletas" valor={String(lectura.incompletas)} />
+          </div>
+          {lectura.advertencias.length > 0 && (
+            <div style={{ borderTop: `1px solid ${C.border}`, paddingTop: 12 }}>
+              <div style={{ fontSize: 12, fontWeight: 700, color: C.amber, marginBottom: 6 }}>
+                Filas que la DT puede rechazar
+              </div>
+              {lectura.advertencias.map((a, i) => (
+                <div key={i} style={{ fontSize: 13, color: C.textSecondary }}>
+                  {a.message} · {a.count} fila{a.count === 1 ? "" : "s"}
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+
+      <div style={{ marginBottom: 16 }}>
+        <label style={etiqueta}>Nota interna</label>
+        <input
+          value={nota}
+          onChange={e => setNota(e.target.value)}
+          placeholder="De dónde salió el archivo. Ej: lo mandó por correo el 12-sep."
+          style={campo}
+        />
+        <p style={{ fontSize: 12, color: C.textMuted, margin: "6px 0 0" }}>
+          Se guarda con tu nombre adelante y se ve en la carga.
+        </p>
+      </div>
+
+      <label style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 14, color: C.textSecondary, marginBottom: 18, cursor: "pointer" }}>
+        <input type="checkbox" checked={avisar} onChange={e => setAvisar(e.target.checked)} />
+        Avisarle al cliente que la recibimos
+      </label>
+
+      {mensaje && (
+        <div style={{
+          borderRadius: 10, padding: "10px 14px", marginBottom: 16, fontSize: 14,
+          backgroundColor: mensaje.ok ? "#EFFBF3" : "#FEF2F2",
+          color: mensaje.ok ? "#15803D" : C.red,
+        }}>{mensaje.texto}</div>
+      )}
+
+      <button
+        onClick={guardar}
+        disabled={!listo}
+        style={{
+          border: "none", borderRadius: 10, padding: "12px 22px", fontSize: 14, fontWeight: 700,
+          color: "#FFFFFF",
+          backgroundColor: listo ? C.blue : "#CBD5E1",
+          cursor: listo ? "pointer" : "not-allowed",
+        }}
+      >{guardando ? "Guardando…" : "Guardar la nómina"}</button>
+    </div>
+  )
+}
+
+function DatoLectura({ titulo, valor }: { titulo: string; valor: string }) {
+  return (
+    <div>
+      <div style={{ fontSize: 11, fontWeight: 700, color: C.textMuted, letterSpacing: "0.06em", textTransform: "uppercase" }}>
+        {titulo}
+      </div>
+      <div style={{ fontSize: 14, color: C.textPrimary, fontWeight: 600, marginTop: 2 }}>{valor}</div>
     </div>
   )
 }

@@ -21,6 +21,8 @@ export interface CargaNueva {
   filasIncompletas: number
   filas: unknown[]
   advertencias: unknown[]
+  /** Nota interna. La escribe el equipo cuando sube la nómina por el cliente. */
+  notas?: string | null
 }
 
 export interface CargaGuardada extends CargaNueva {
@@ -58,6 +60,7 @@ export async function guardarCarga(carga: CargaNueva): Promise<CargaGuardada | n
         filas_incompletas: carga.filasIncompletas,
         filas: carga.filas,
         advertencias: carga.advertencias,
+        notas: carga.notas ?? null,
         estado: "recibida",
       })
       .select("id, estado, created_at")
@@ -280,5 +283,110 @@ export async function comprobantesDeCarga(cargaId: string): Promise<Comprobante[
   } catch (err) {
     console.error("[comprobantesDeCarga]", err)
     return []
+  }
+}
+// ─── Lo que ve el cliente en /dashboard/documentos ───────────────────────────
+
+export interface DocumentoDelCliente {
+  id: number
+  cargaId: string
+  tipo: string
+  rut: string | null
+  nombre: string | null
+  numero: string | null
+  estado: "ok" | "error"
+  detalle: string | null
+  fecha: string
+}
+
+export interface CargaEnProceso {
+  id: string
+  tipo: string
+  totalFilas: number
+  estado: string
+  fecha: string
+}
+
+/**
+ * Los comprobantes del Portal DT de un cliente, más lo que todavía está en
+ * cola. Es el respaldo que le sirve en una fiscalización.
+ *
+ * Hasta el 11 de septiembre de 2026 /dashboard/documentos leía un arreglo
+ * vacío llamado mockDocs: el cliente subía su nómina, el equipo la procesaba,
+ * y su pantalla seguía diciendo que no había nada.
+ *
+ * Si la tabla comprobantes todavía no existe (la migración la crea), la
+ * consulta falla y se devuelven cero documentos con las cargas en proceso.
+ * Así el cliente ve su nómina en cola en vez de una página rota.
+ */
+export async function documentosDelUsuario(
+  email: string,
+  limite = 100,
+): Promise<{ documentos: DocumentoDelCliente[]; enProceso: CargaEnProceso[] }> {
+  const vacio = { documentos: [], enProceso: [] }
+  try {
+    const db = getAdminClient()
+
+    const { data: cargas, error } = await db
+      .from("cargas")
+      .select("id, tipo, total_filas, estado, created_at")
+      .eq("user_email", email.toLowerCase().trim())
+      .order("created_at", { ascending: false })
+      .limit(limite)
+
+    if (error || !cargas || cargas.length === 0) {
+      if (error) console.error("[documentosDelUsuario] cargas:", error)
+      return vacio
+    }
+
+    const porCarga = new Map<string, { tipo: string; totalFilas: number; estado: string; fecha: string }>()
+    for (const c of cargas) {
+      const fila = c as { id: string; tipo: string; total_filas: number; estado: string; created_at: string }
+      porCarga.set(fila.id, {
+        tipo: fila.tipo,
+        totalFilas: fila.total_filas,
+        estado: fila.estado,
+        fecha: fila.created_at,
+      })
+    }
+
+    const { data: comprobantes, error: errorComprobantes } = await db
+      .from("comprobantes")
+      .select("id, carga_id, rut, nombre, numero, estado, detalle, created_at")
+      .in("carga_id", [...porCarga.keys()])
+      .order("created_at", { ascending: false })
+
+    if (errorComprobantes) {
+      console.warn("[documentosDelUsuario] sin tabla comprobantes todavía:", errorComprobantes.message)
+    }
+
+    const conComprobante = new Set<string>()
+    const documentos: DocumentoDelCliente[] = (comprobantes ?? []).map(c => {
+      const fila = c as {
+        id: number; carga_id: string; rut: string | null; nombre: string | null
+        numero: string | null; estado: "ok" | "error"; detalle: string | null; created_at: string
+      }
+      conComprobante.add(fila.carga_id)
+      return {
+        id: fila.id,
+        cargaId: fila.carga_id,
+        tipo: porCarga.get(fila.carga_id)?.tipo ?? "",
+        rut: fila.rut,
+        nombre: fila.nombre,
+        numero: fila.numero,
+        estado: fila.estado,
+        detalle: fila.detalle,
+        fecha: fila.created_at,
+      }
+    })
+
+    const enProceso: CargaEnProceso[] = [...porCarga.entries()]
+      .filter(([id]) => !conComprobante.has(id))
+      .map(([id, c]) => ({ id, tipo: c.tipo, totalFilas: c.totalFilas, estado: c.estado, fecha: c.fecha }))
+
+    return { documentos, enProceso }
+  } catch (err) {
+    console.error("[documentosDelUsuario]", err)
+    return vacio
   }
 }

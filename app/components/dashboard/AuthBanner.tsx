@@ -1,128 +1,153 @@
 "use client"
 
+/**
+ * El aviso de autorización en el dashboard.
+ *
+ * Dos correcciones del 11 de septiembre de 2026:
+ *
+ * 1. Leía el estado solo del localStorage, así que un cliente que firmaba en
+ *    la oficina y entraba desde la casa veía "Paso 1 de 4" otra vez. Ahora
+ *    pregunta por el mandato guardado en la base y usa el navegador como
+ *    copia rápida mientras responde.
+ *
+ * 2. Con el mandato ya registrado decía "Verificando autorización", como si
+ *    una máquina estuviera comprobando algo. No hay tal máquina: alguien del
+ *    equipo entra a midt.dirtrab.cl, mira la lista del representante y marca.
+ */
+
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
-import { motion, AnimatePresence } from "framer-motion"
-import { AlertTriangle, CheckCircle2, ArrowRight, X } from "lucide-react"
+import { AlertTriangle, CheckCircle2, Clock, ArrowRight, X } from "lucide-react"
 import { getAuthData, type AuthStatus } from "@/lib/auth-status"
 
-const STEPS: Record<AuthStatus, { label: string; pct: number }> = {
-  pending:    { label: "Paso 1 de 4 — Identifica tu empresa",              pct: 0  },
-  signed:     { label: "Paso 2 completado — Falta registrar el RLE",        pct: 50 },
-  registered: { label: "Paso 3 completado — Verificando autorización",      pct: 75 },
-  verified:   { label: "Autorización completada — Robot activo",            pct: 100 },
+const PASO: Record<AuthStatus, { label: string; pct: number }> = {
+  pending:    { label: "Paso 1 de 4 — Identifica tu empresa",            pct: 0   },
+  signed:     { label: "Falta que nos registres en midt.dirtrab.cl",     pct: 50  },
+  registered: { label: "Lo estamos confirmando en el Portal DT",         pct: 75  },
+  verified:   { label: "Autorización confirmada",                        pct: 100 },
+}
+
+/**
+ * El estado del mandato. La base manda; el navegador solo adelanta lo último
+ * que vio este computador para que el aviso no parpadee mientras carga.
+ */
+function useEstadoAutorizacion(): AuthStatus | null {
+  const [status, setStatus] = useState<AuthStatus | null>(null)
+
+  useEffect(() => {
+    let vivo = true
+    const local = getAuthData()?.status ?? null
+    if (local) setStatus(local)
+
+    fetch("/api/activacion", { cache: "no-store" })
+      .then(r => r.ok ? r.json() : null)
+      .then(d => {
+        if (!vivo) return
+        const enBase = d?.mandato?.status as AuthStatus | undefined
+        if (enBase) setStatus(enBase)
+        else if (!local) setStatus("pending")
+      })
+      .catch(() => { if (vivo && !local) setStatus("pending") })
+
+    return () => { vivo = false }
+  }, [])
+
+  return status
 }
 
 export function AuthBanner() {
   const router = useRouter()
-  const [status, setStatus] = useState<AuthStatus | null>(null)
+  const status = useEstadoAutorizacion()
   const [dismissed, setDismissed] = useState(false)
 
-  useEffect(() => {
-    const data = getAuthData()
-    setStatus(data?.status ?? "pending")
-  }, [])
+  if (dismissed || status === null || status === "verified") return null
 
-  if (dismissed || status === null) return null
-  if (status === "verified") return null // No banner cuando está activo
+  const paso = PASO[status]
+  const enManosDelEquipo = status === "registered"
 
-  const step = STEPS[status]
+  const fondo = enManosDelEquipo ? "#EFF6FF" : "#FFFBEB"
+  const borde = enManosDelEquipo ? "#BFDBFE" : "#FCD34D"
+  const acento = enManosDelEquipo ? "#0957C3" : "#F59E0B"
+  const texto = enManosDelEquipo ? "#1E40AF" : "#92400E"
+  const pista = enManosDelEquipo ? "#1D4ED8" : "#B45309"
 
   return (
-    <AnimatePresence>
-      <motion.div
-        initial={{ opacity: 0, y: -12 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: -12 }}
-        transition={{ type: "spring", stiffness: 120, damping: 20 }}
+    <div
+      style={{
+        backgroundColor: fondo,
+        border: `1px solid ${borde}`,
+        borderLeft: `4px solid ${acento}`,
+        borderRadius: 12,
+        padding: "14px 20px",
+        marginBottom: 24,
+        display: "flex",
+        alignItems: "center",
+        gap: 16,
+        flexWrap: "wrap" as const,
+      }}
+    >
+      <div style={{
+        width: 36, height: 36, borderRadius: 10,
+        backgroundColor: enManosDelEquipo ? "#DBEAFE" : "#FEF3C7",
+        display: "flex", alignItems: "center", justifyContent: "center",
+        flexShrink: 0,
+      }}>
+        {enManosDelEquipo
+          ? <Clock size={18} color={acento} />
+          : <AlertTriangle size={18} color="#D97706" />}
+      </div>
+
+      <div style={{ flex: 1, minWidth: 200 }}>
+        <p style={{ fontSize: "0.88rem", fontWeight: 700, color: texto, margin: "0 0 6px" }}>
+          {enManosDelEquipo
+            ? "Recibimos tu aviso. Te escribimos cuando quede confirmada."
+            : "Tu autorización todavía no está completa"}
+        </p>
+        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+          <div style={{
+            flex: 1, height: 5, borderRadius: 99, maxWidth: 200,
+            backgroundColor: enManosDelEquipo ? "#BFDBFE" : "#FDE68A",
+          }}>
+            <div style={{
+              width: `${paso.pct}%`, height: "100%", borderRadius: 99, backgroundColor: acento,
+            }} />
+          </div>
+          <span style={{ fontSize: "0.75rem", color: pista, whiteSpace: "nowrap" as const }}>
+            {paso.label}
+          </span>
+        </div>
+      </div>
+
+      <button
+        onClick={() => router.push("/dashboard/activacion")}
         style={{
-          backgroundColor: "#FFFBEB",
-          border: "1px solid #FCD34D",
-          borderLeft: "4px solid #F59E0B",
-          borderRadius: 12,
-          padding: "14px 20px",
-          marginBottom: 24,
-          display: "flex",
-          alignItems: "center",
-          gap: 16,
-          flexWrap: "wrap" as const,
+          display: "inline-flex", alignItems: "center", gap: 6,
+          padding: "9px 18px",
+          backgroundColor: acento, color: "#FFFFFF",
+          fontSize: "0.85rem", fontWeight: 700,
+          borderRadius: 99, border: "none", cursor: "pointer",
+          whiteSpace: "nowrap" as const,
         }}
       >
-        {/* Icon */}
-        <div style={{
-          width: 36, height: 36, borderRadius: 10,
-          backgroundColor: "#FEF3C7",
-          display: "flex", alignItems: "center", justifyContent: "center",
-          flexShrink: 0,
-        }}>
-          <AlertTriangle size={18} color="#D97706" />
-        </div>
+        {enManosDelEquipo ? "Ver el estado" : "Completar autorización"} <ArrowRight size={14} />
+      </button>
 
-        {/* Text + progress */}
-        <div style={{ flex: 1, minWidth: 200 }}>
-          <p style={{ fontSize: "0.88rem", fontWeight: 700, color: "#92400E", margin: "0 0 6px" }}>
-            Activa tu robot — Autorización pendiente
-          </p>
-          <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-            {/* Progress bar */}
-            <div style={{
-              flex: 1, height: 5, borderRadius: 99,
-              backgroundColor: "#FDE68A", maxWidth: 200,
-            }}>
-              <motion.div
-                initial={{ width: 0 }}
-                animate={{ width: `${step.pct}%` }}
-                transition={{ duration: 0.8, ease: "easeOut" }}
-                style={{ height: "100%", borderRadius: 99, backgroundColor: "#F59E0B" }}
-              />
-            </div>
-            <span style={{ fontSize: "0.75rem", color: "#B45309", whiteSpace: "nowrap" as const }}>
-              {step.label}
-            </span>
-          </div>
-        </div>
-
-        {/* CTA */}
-        <motion.button
-          whileHover={{ scale: 1.03 }}
-          whileTap={{ scale: 0.97 }}
-          onClick={() => router.push("/dashboard/activacion")}
-          style={{
-            display: "inline-flex", alignItems: "center", gap: 6,
-            padding: "9px 18px",
-            backgroundColor: "#F59E0B", color: "#FFFFFF",
-            fontSize: "0.85rem", fontWeight: 700,
-            borderRadius: 99, border: "none", cursor: "pointer",
-            whiteSpace: "nowrap" as const,
-            boxShadow: "0 2px 8px rgba(245,158,11,0.35)",
-          }}
-        >
-          Completar autorización <ArrowRight size={14} />
-        </motion.button>
-
-        {/* Dismiss */}
-        <button
-          onClick={() => setDismissed(true)}
-          style={{
-            background: "none", border: "none", cursor: "pointer",
-            color: "#D97706", padding: 4, display: "flex",
-          }}
-        >
-          <X size={16} />
-        </button>
-      </motion.div>
-    </AnimatePresence>
+      <button
+        onClick={() => setDismissed(true)}
+        style={{
+          background: "none", border: "none", cursor: "pointer",
+          color: acento, padding: 4, display: "flex",
+        }}
+      >
+        <X size={16} />
+      </button>
+    </div>
   )
 }
 
 /** Versión compacta para el sidebar */
 export function AuthStatusBadge() {
-  const [status, setStatus] = useState<AuthStatus | null>(null)
-
-  useEffect(() => {
-    setStatus(getAuthData()?.status ?? "pending")
-  }, [])
-
+  const status = useEstadoAutorizacion()
   if (!status) return null
 
   if (status === "verified") {
@@ -135,7 +160,22 @@ export function AuthStatusBadge() {
         marginTop: 4,
       }}>
         <CheckCircle2 size={11} color="#22C55E" />
-        <span style={{ fontSize: "0.68rem", fontWeight: 700, color: "#22C55E" }}>Robot activo</span>
+        <span style={{ fontSize: "0.68rem", fontWeight: 700, color: "#22C55E" }}>Autorización confirmada</span>
+      </div>
+    )
+  }
+
+  if (status === "registered") {
+    return (
+      <div style={{
+        display: "flex", alignItems: "center", gap: 6,
+        padding: "6px 10px", borderRadius: 8,
+        backgroundColor: "rgba(9,87,195,0.08)",
+        border: "1px solid rgba(9,87,195,0.2)",
+        marginTop: 4,
+      }}>
+        <Clock size={11} color="#0957C3" />
+        <span style={{ fontSize: "0.68rem", fontWeight: 700, color: "#0957C3" }}>Confirmando en el Portal DT</span>
       </div>
     )
   }
