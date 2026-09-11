@@ -798,3 +798,291 @@ export function emailCargaRecibida(d: DatosCargaCliente): { subject: string; htm
     text,
   }
 }
+
+// ─── Carga procesada: los comprobantes al cliente ────────────────────────────
+
+export interface ComprobanteCliente {
+  rut: string | null
+  nombre: string | null
+  numero: string | null
+  estado: string
+}
+
+export interface DatosCargaProcesada {
+  id: string
+  nombre?: string
+  tipo: string
+  totalFilas: number
+  comprobantes: ComprobanteCliente[]
+}
+
+/**
+ * El correo que cierra el ciclo: los folios que devolvió el Portal DT.
+ *
+ * Hasta el 10 de septiembre de 2026 este correo lo escribía un ingeniero a
+ * mano, uno por carga, pegando los números desde la ventana del robot. Ahora
+ * sale solo cuando alguien marca la carga como lista en el panel interno.
+ *
+ * Las filas con error van arriba y en ámbar. Un cliente que abre esto en el
+ * teléfono tiene que ver primero lo que le falta, no lo que ya salió bien.
+ */
+export function emailCargaProcesada(d: DatosCargaProcesada): { subject: string; html: string; text: string } {
+  const tipoLegible = (NOMBRE_TIPO[d.tipo] ?? d.tipo).toLowerCase()
+  const ok = d.comprobantes.filter(c => c.estado !== "error")
+  const fallidos = d.comprobantes.filter(c => c.estado === "error")
+
+  const filaComprobante = (c: ComprobanteCliente, error: boolean) => `
+    <tr>
+      <td style="padding:9px 12px;border-bottom:1px solid ${C.linea};font-family:${FUENTE};font-size:13px;color:${C.tinta};white-space:nowrap;">${esc(c.rut ?? "—")}</td>
+      <td style="padding:9px 12px;border-bottom:1px solid ${C.linea};font-family:${FUENTE};font-size:13px;color:${C.texto};">${esc(c.nombre ?? "")}</td>
+      <td style="padding:9px 12px;border-bottom:1px solid ${C.linea};font-family:${FUENTE};font-size:13px;font-weight:700;color:${error ? C.ambar : C.verde};white-space:nowrap;">${esc(c.numero ?? (error ? "sin registrar" : "—"))}</td>
+    </tr>`
+
+  const tabla = (titulo: string, lista: ComprobanteCliente[], error: boolean) => lista.length === 0 ? "" : `
+    ${encabezadoSeccion(titulo)}
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;border:1px solid ${C.linea};border-radius:10px;overflow:hidden;">
+      <tr style="background-color:${C.fondo};">
+        <th align="left" style="padding:9px 12px;font-family:${FUENTE};font-size:11px;font-weight:700;color:${C.suave};letter-spacing:0.08em;text-transform:uppercase;">RUT</th>
+        <th align="left" style="padding:9px 12px;font-family:${FUENTE};font-size:11px;font-weight:700;color:${C.suave};letter-spacing:0.08em;text-transform:uppercase;">Trabajador</th>
+        <th align="left" style="padding:9px 12px;font-family:${FUENTE};font-size:11px;font-weight:700;color:${C.suave};letter-spacing:0.08em;text-transform:uppercase;">Comprobante DT</th>
+      </tr>
+      ${lista.map(c => filaComprobante(c, error)).join("")}
+    </table>`
+
+  const cuerpo = `
+    ${seccion(`
+      <div style="font-family:${FUENTE};font-size:12px;font-weight:700;color:${C.verde};letter-spacing:0.12em;text-transform:uppercase;padding-bottom:8px;">Registrado en el Portal DT</div>
+      ${titulo(`${ok.length} de ${d.totalFilas} registro${d.totalFilas === 1 ? "" : "s"} quedaron en el Portal DT`, 25)}
+      <div style="height:12px;line-height:12px;font-size:0;">&nbsp;</div>
+      ${parrafo(`${d.nombre ? esc(d.nombre) + ", tu" : "Tu"} carga de ${esc(tipoLegible)} (${esc(d.id)}) ya está procesada. Abajo va el número de comprobante de cada trabajador. Guárdalo: es el respaldo que pide la Dirección del Trabajo en una fiscalización.`)}
+    `, "30px 32px 22px 32px")}
+
+    ${fallidos.length > 0 ? seccion(`
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;background-color:${C.ambarFondo};border-radius:10px;">
+        <tr><td style="padding:16px 18px;font-family:${FUENTE};font-size:14px;color:${C.ambar};line-height:1.7;">
+          <strong>${fallidos.length} registro${fallidos.length === 1 ? " no pudo" : "s no pudieron"} entrar.</strong>
+          Te escribimos por separado con el motivo de cada uno. No los vuelvas a cargar todavía.
+        </td></tr>
+      </table>
+    `) : ""}
+
+    ${fallidos.length > 0 ? seccion(tabla("Los que quedaron pendientes", fallidos, true)) : ""}
+    ${ok.length > 0 ? seccion(tabla("Comprobantes DT", ok, false)) : ""}
+
+    ${seccion(`
+      ${boton("Ver mis cargas", `${SITIO}/dashboard/procesos`, "azul")}
+    `)}
+  `
+
+  const text = [
+    `${ok.length} de ${d.totalFilas} registros quedaron en el Portal DT.`,
+    "",
+    `Carga: ${d.id}`,
+    "",
+    ...(fallidos.length > 0
+      ? [
+          `${fallidos.length} registro(s) no pudo entrar. Te escribimos por separado con el motivo.`,
+          ...fallidos.map(c => `  ${c.rut ?? "—"} ${c.nombre ?? ""} — sin registrar`),
+          "",
+        ]
+      : []),
+    "Comprobantes DT:",
+    ...ok.map(c => `  ${c.rut ?? "—"} ${c.nombre ?? ""} — ${c.numero ?? "—"}`),
+    "",
+    `Tus cargas: ${SITIO}/dashboard/procesos`,
+    "Dudas: responde este correo o escribe a contacto@tecnozero.cl",
+  ].join("\n")
+
+  return {
+    subject: fallidos.length > 0
+      ? `Tu carga ${d.id}: ${ok.length} registrados, ${fallidos.length} pendientes`
+      : `Listo: ${ok.length} registro${ok.length === 1 ? "" : "s"} en el Portal DT · ${d.id}`,
+    html: layout({
+      preheader: `Los comprobantes DT de tu carga ${d.id}.`,
+      antetitulo: "Carga procesada",
+      cuerpo,
+      pie: "Tecnozero SpA · contacto@tecnozero.cl",
+    }),
+    text,
+  }
+}
+
+// ─── Mandato: aviso al equipo ────────────────────────────────────────────────
+
+export interface DatosMandatoInterno {
+  estado: "signed" | "registered"
+  correo: string
+  nombre?: string
+  razonSocial: string
+  rutEmpresa: string
+  nombreApoderado: string
+  rutApoderado: string
+  token: string
+  hash: string
+  companyId: string
+}
+
+/**
+ * Le avisa al equipo que un cliente firmó el mandato o que dice haber
+ * inscrito a Tecnozero en MiDT.
+ *
+ * El segundo caso es el que manda: es la señal para entrar al Portal DT con
+ * la ClaveÚnica del representante y confirmar que el empleador aparece en su
+ * lista. Hasta hoy nadie se enteraba de nada: el cliente veía una pantalla que
+ * decía "RLE encontrado" a los cinco segundos y ahí terminaba todo.
+ */
+export function emailAvisoMandatoInterno(d: DatosMandatoInterno): { subject: string; html: string; text: string } {
+  const firmo = d.estado === "signed"
+
+  const queHacer = firmo
+    ? "Todavía no hay nada que hacer. Cuando el cliente marque que ya nos inscribió en MiDT llega el segundo aviso."
+    : "Entra a portal.dt.gob.cl con la ClaveÚnica del representante y revisa si este empleador aparece en la lista. Si está, marca la autorización como verificada en el panel."
+
+  const cuerpo = `
+    ${seccion(`
+      <div style="font-family:${FUENTE};font-size:12px;font-weight:700;color:${firmo ? C.azul : C.verde};letter-spacing:0.12em;text-transform:uppercase;padding-bottom:8px;">${firmo ? "Mandato firmado" : "Dice que ya nos inscribió"}</div>
+      ${titulo(esc(d.razonSocial), 24)}
+      <div style="height:6px;line-height:6px;font-size:0;">&nbsp;</div>
+      <div style="font-family:${FUENTE};font-size:15px;color:${C.texto};">RUT ${esc(d.rutEmpresa)}</div>
+    `, "30px 32px 22px 32px")}
+
+    ${seccion(`
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
+        ${filaDato("Apoderado", d.nombreApoderado)}
+        ${filaDato("RUT apoderado", d.rutApoderado)}
+        ${filaDato("Cuenta", d.correo)}
+        ${filaDato("Empresa en la base", d.companyId)}
+        ${filaDato("Token", d.token)}
+        ${filaDato("Firma (SHA-256)", d.hash.slice(0, 24) + "…")}
+        ${filaDato("Momento", fechaChile(), true)}
+      </table>
+    `)}
+
+    ${seccion(`
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;background-color:${firmo ? C.fondo : C.ambarFondo};border-radius:10px;">
+        <tr><td style="padding:16px 18px;font-family:${FUENTE};font-size:14px;color:${firmo ? C.texto : C.ambar};line-height:1.7;">
+          ${queHacer}
+        </td></tr>
+      </table>
+    `)}
+
+    ${seccion(boton("Abrir el panel", `${SITIO}/admin/cargas`, "azul"))}
+  `
+
+  const text = [
+    firmo ? "Mandato firmado" : "Un cliente dice que ya nos inscribió en MiDT",
+    "",
+    `${d.razonSocial} · RUT ${d.rutEmpresa}`,
+    `Apoderado: ${d.nombreApoderado} (${d.rutApoderado})`,
+    `Cuenta: ${d.correo}`,
+    `Empresa en la base: ${d.companyId}`,
+    `Token: ${d.token}`,
+    "",
+    queHacer,
+  ].join("\n")
+
+  return {
+    subject: firmo
+      ? `Mandato firmado: ${d.razonSocial}`
+      : `Revisar en el Portal DT: ${d.razonSocial} dice que ya nos inscribió`,
+    html: layout({
+      preheader: firmo ? "Un cliente firmó el mandato." : "Hay que confirmar una inscripción en el Portal DT.",
+      antetitulo: "Activación",
+      cuerpo,
+      pie: "Aviso interno · Tecnozero",
+    }),
+    text,
+  }
+}
+
+// ─── Autorización verificada: el correo que cierra la activación ─────────────
+
+export interface DatosAutorizacionVerificada {
+  nombre?: string
+  razonSocial: string
+  rutEmpresa: string
+  token: string
+  verificadaPor: string
+  fecha: string
+}
+
+/**
+ * Lo escribe el panel interno cuando alguien del equipo entró al Portal DT y
+ * vio al empleador en la lista del representante.
+ *
+ * Antes este momento no existía: la pantalla de activación ponía "verified"
+ * sola, con un temporizador de cinco segundos, y el cliente nunca recibía una
+ * confirmación de una persona que hubiera mirado.
+ */
+export function emailAutorizacionVerificada(
+  d: DatosAutorizacionVerificada,
+): { subject: string; html: string; text: string } {
+  const cuerpo = `
+    ${seccion(`
+      <div style="font-family:${FUENTE};font-size:12px;font-weight:700;color:${C.verde};letter-spacing:0.12em;text-transform:uppercase;padding-bottom:8px;">Autorización confirmada</div>
+      ${titulo("Ya podemos operar por ti en el Portal DT", 26)}
+      <div style="height:12px;line-height:12px;font-size:0;">&nbsp;</div>
+      ${parrafo(`${d.nombre ? esc(d.nombre) + ", entramos" : "Entramos"} al Portal DT con la ClaveÚnica de nuestro representante y ${esc(d.razonSocial)} aparece en la lista. Revisó ${esc(d.verificadaPor)} el ${esc(d.fecha)}.`)}
+    `, "30px 32px 22px 32px")}
+
+    ${seccion(`
+      ${encabezadoSeccion("Tu autorización")}
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
+        ${filaDato("Empresa", d.razonSocial)}
+        ${filaDato("RUT", d.rutEmpresa)}
+        ${filaDato("Código", d.token, true)}
+      </table>
+    `)}
+
+    ${seccion(`
+      ${encabezadoSeccion("Qué puedes hacer ahora")}
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
+        ${paso(1, "Subir tu primera nómina", "Descarga la plantilla de Ingresos, Bajas o Anexos, complétala y súbela desde tu panel.")}
+        ${paso(2, "Nosotros la registramos", "Un ingeniero revisa la planilla y el robot carga a cada trabajador en el Portal DT.")}
+        ${paso(3, "Te llegan los comprobantes", "El número de comprobante DT de cada registro, por correo, para tu respaldo ante una fiscalización.")}
+      </table>
+    `)}
+
+    ${seccion(`
+      ${boton("Subir mi nómina", "https://www.tecnozero.cl/dashboard/carga", "azul")}
+    `)}
+
+    ${seccion(`
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;background-color:${C.fondo};border-radius:10px;">
+        <tr><td style="padding:16px 18px;font-family:${FUENTE};font-size:14px;color:${C.texto};line-height:1.7;">
+          Si dejaste una nómina en cola mientras esperabas, ya entró a proceso. No hace falta que la subas de nuevo.
+        </td></tr>
+      </table>
+    `)}
+  `
+
+  const text = [
+    "Ya podemos operar por ti en el Portal DT.",
+    "",
+    `Entramos con la ClaveÚnica de nuestro representante y ${d.razonSocial} aparece en la lista. Revisó ${d.verificadaPor} el ${d.fecha}.`,
+    "",
+    `Empresa: ${d.razonSocial}`,
+    `RUT: ${d.rutEmpresa}`,
+    `Código de autorización: ${d.token}`,
+    "",
+    "Qué puedes hacer ahora:",
+    "1. Subir tu primera nómina desde https://www.tecnozero.cl/dashboard/carga",
+    "2. Un ingeniero la revisa y el robot registra a cada trabajador.",
+    "3. Te llegan los comprobantes DT por correo.",
+    "",
+    "Si dejaste una nómina en cola mientras esperabas, ya entró a proceso.",
+    "",
+    "Dudas: responde este correo o escribe a contacto@tecnozero.cl",
+  ].join("\n")
+
+  return {
+    subject: `Autorización confirmada · ${d.razonSocial}`,
+    html: layout({
+      preheader: "Revisamos el Portal DT y tu empresa quedó asociada a nuestro representante.",
+      antetitulo: "Autorización confirmada",
+      cuerpo,
+      pie: "Tecnozero SpA · contacto@tecnozero.cl",
+    }),
+    text,
+  }
+}

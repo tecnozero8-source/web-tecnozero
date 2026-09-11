@@ -18,6 +18,9 @@ export interface AuthData {
   registeredAt?: string
   verifiedAt?: string
   ip?: string
+  /** Quién del equipo confirmó la inscripción en el Portal DT. Solo lo
+   *  escribe el panel interno: el cliente nunca se verifica a sí mismo. */
+  verificadaPor?: string
 }
 
 // Datos del RLE de Tecnozero (representante que el cliente debe registrar en MiDT)

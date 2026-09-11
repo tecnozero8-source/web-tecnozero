@@ -2,13 +2,14 @@ import { NextRequest, NextResponse } from "next/server"
 import { getServerSession } from "next-auth/next"
 import { authOptions } from "@/lib/auth"
 import { validateExcel } from "@/lib/excel-validator"
+import { COLUMNAS, type TipoCarga } from "@/lib/excel-columnas"
 
 export const runtime = "nodejs"
 export const maxDuration = 60
 
 // ─── Tipos públicos ────────────────────────────────────────────────────────────
 
-export type UploadType = "ingresos" | "bajas" | "anexos"
+export type UploadType = TipoCarga
 
 export interface RowIngreso {
   comunaCelebracion: string
@@ -136,130 +137,33 @@ function num(v: any): number | null {
   return isNaN(n) ? null : n
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function parseIngresos(rows: any[]): RowIngreso[] {
-  // Headers en fila 2 (índice 2), datos desde fila 3
-  // Usamos índice de columna basado en el orden exacto de la plantilla
-  return rows.map((r) => ({
-    comunaCelebracion:    str(r[0]),
-    fechaCelebracion:     str(r[1]),
-    rut:                  str(r[2]),
-    nacionalidad:         str(r[3]),
-    email:                str(r[4]),
-    telefono:             str(r[5]),
-    region:               str(r[6]),
-    comuna:               str(r[7]),
-    calle:                str(r[8]),
-    numero:               str(r[9]),
-    departamento:         str(r[10]),
-    cambioDomicilio:      str(r[11]),
-    regionProcedencia:    str(r[12]),
-    comunaProcedencia:    str(r[13]),
-    discapacidad:         str(r[14]),
-    fechaDiscapacidad:    str(r[15]),
-    pensionInvalidez:     str(r[16]),
-    fechaPensionInvalidez: str(r[17]),
-    cargo:                str(r[18]),
-    funciones:            str(r[19]),
-    tipoPrestacion:       str(r[20]),
-    rutEmpresaUsuaria:    str(r[21]),
-    regionPrestacion:     str(r[22]),
-    comunaPrestacion:     str(r[23]),
-    callePrestacion:      str(r[24]),
-    numeroPrestacion:     str(r[25]),
-    dptoPrestacion:       str(r[26]),
-    sueldoBase:           num(r[27]),
-    totalImponible:       num(r[28]),
-    totalNoImponible:     num(r[29]),
-    periodoPago:          str(r[30]),
-    formaPago:            str(r[31]),
-    gratificacion:        str(r[32]),
-    detalleRemuneraciones: str(r[33]),
-    tipoJornada:          str(r[34]),
-    duracionJornada:      str(r[35]),
-    numeroDias:           str(r[36]),
-    horariosTurnos:       str(r[37]),
-    detalleJornada:       str(r[38]),
-    domingosFestivos:     str(r[39]),
-    diasTrabajan:         str(r[40]),
-    numeroResolucion:     str(r[41]),
-    fechaResolucion:      str(r[42]),
-    otrosComentarios:     str(r[43]),
-    tipoContrato:         str(r[44]),
-    fechaInicio:          str(r[45]),
-    fechaFin:             str(r[46]),
-  })).filter(r => r.rut || r.email)
-}
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function parseBajas(rows: any[]): RowBaja[] {
-  // Headers en fila 3 (índice 3), datos desde fila 4
-  return rows.map((r) => ({
-    rut:         str(r[0]),
-    fechaTermino: str(r[1]),
-    causal:      str(r[2]),
-    motivos:     str(r[3]),
-    descuentoAFC: str(r[4]),
-  })).filter(r => r.rut)
-}
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function parseAnexos(rows: any[]): RowAnexo[] {
-  // Headers en fila 2 (índice 2), datos desde fila 3
-  return rows.map((r) => ({
-    comunaCelebracion:    str(r[0]),
-    fechaCelebracion:     str(r[1]),
-    rut:                  str(r[2]),
-    antecedentesWorker:   str(r[3]),
-    email:                str(r[4]),
-    telefono:             str(r[5]),
-    region:               str(r[6]),
-    comuna:               str(r[7]),
-    calle:                str(r[8]),
-    numero:               str(r[9]),
-    departamento:         str(r[10]),
-    cambioDomicilio:      str(r[11]),
-    regionProcedencia:    str(r[12]),
-    comunaProcedencia:    str(r[13]),
-    inclusiónLaboral:     str(r[14]),
-    discapacidad:         str(r[15]),
-    fechaDiscapacidad:    str(r[16]),
-    pensionInvalidez:     str(r[17]),
-    fechaPensionInvalidez: str(r[18]),
-    naturalezaServicios:  str(r[19]),
-    cargo:                str(r[20]),
-    funciones:            str(r[21]),
-    lugarPrestaciones:    str(r[22]),
-    tipoPrestacion:       str(r[23]),
-    rutEmpresaUsuaria:    str(r[24]),
-    regionPrestacion:     str(r[25]),
-    comunaPrestacion:     str(r[26]),
-    callePrestacion:      str(r[27]),
-    numeroPrestacion:     str(r[28]),
-    dptoPrestacion:       str(r[29]),
-    remuneraciones:       str(r[30]),
-    sueldoBase:           num(r[31]),
-    totalImponible:       num(r[32]),
-    totalNoImponible:     num(r[33]),
-    periodo:              str(r[34]),
-    formaPago:            str(r[35]),
-    gratificacion:        str(r[36]),
-    detalle:              str(r[37]),
-    jornadaTrabajo:       str(r[38]),
-    tipoJornada:          str(r[39]),
-    duracion:             str(r[40]),
-    numeroDias:           str(r[41]),
-    horariosTurnos:       str(r[42]),
-    detalleJornada:       str(r[43]),
-    domingosFestivos:     str(r[44]),
-    dias:                 str(r[45]),
-    numeroResolucion:     str(r[46]),
-    fechaResolucion:      str(r[47]),
-    otros:                str(r[48]),
-    contrato:             str(r[49]),
-    tipoContrato:         str(r[50]),
-    fechaFin:             str(r[51]),
-  })).filter(r => r.rut || r.email)
+/**
+ * Convierte las filas crudas del Excel en objetos, usando el orden de columnas
+ * de `lib/excel-columnas.ts`.
+ *
+ * Antes había tres funciones con las posiciones escritas a mano, y el
+ * generador del Excel que come el robot habría necesitado una cuarta copia.
+ * Cuatro listas del mismo orden es una que se desincroniza el día que alguien
+ * agregue una columna a la plantilla.
+ *
+ * El filtro deja fuera las filas sin RUT ni correo: son las líneas en blanco
+ * que quedan al final de casi toda planilla. En bajas no hay columna de
+ * correo, así que el filtro se reduce al RUT, que es lo que hacía antes.
+ */
+function parseFilas<T>(rows: unknown[][], tipo: TipoCarga): T[] {
+  const columnas = COLUMNAS[tipo]
+  return rows
+    .map((r) => {
+      const fila: Record<string, unknown> = {}
+      columnas.forEach((c, i) => {
+        fila[c.campo] = c.tipo === "numero" ? num(r[i]) : str(r[i])
+      })
+      return fila as T
+    })
+    .filter((fila) => {
+      const o = fila as Record<string, unknown>
+      return Boolean(o.rut) || Boolean(o.email)
+    })
 }
 
 // ─── Validación condicional ───────────────────────────────────────────────────
@@ -271,6 +175,21 @@ export interface ConditionalIssue {
   affectedRuts: string[]
 }
 
+/**
+ * Antes bastaba con que el campo no viniera vacío para contar como "informado",
+ * así que un trabajador que escribía literalmente "NO" en Discapacidad o en
+ * Pensión de Invalidez igual disparaba la advertencia pidiendo la fecha. Pasó
+ * con las 35 filas de la primera carga real (Jorge Farías / KAWA AUSTRAL,
+ * 11-sep-2026): los 35 traían "NO" en ambas columnas y el aviso interno leyó
+ * "35 filas con discapacidad informada" como si fuera una alarma de la DT.
+ * Ahora solo cuenta si el texto no es una de las formas de decir que no.
+ */
+function esRespuestaAfirmativa(valor: string): boolean {
+  const texto = valor.trim().toLowerCase()
+  if (!texto) return false
+  return !/^(no|n\/a|na|-|s\/i|sin informar|ninguna?)$/i.test(texto)
+}
+
 function conditionalIngresos(rows: RowIngreso[]): ConditionalIssue[] {
   const issues: ConditionalIssue[] = []
 
@@ -279,11 +198,11 @@ function conditionalIngresos(rows: RowIngreso[]): ConditionalIssue[] {
   if (cambioDom.length) issues.push({ rule: "cambioDomicilio", message: "Cambio domicilio = Sí, pero falta Región y/o Comuna de procedencia", count: cambioDom.length, affectedRuts: cambioDom.map(r => r.rut) })
 
   // Discapacidad → fecha discapacidad requerida
-  const discap = rows.filter(r => r.discapacidad && r.discapacidad.trim() && !r.fechaDiscapacidad)
+  const discap = rows.filter(r => esRespuestaAfirmativa(r.discapacidad) && !r.fechaDiscapacidad)
   if (discap.length) issues.push({ rule: "discapacidad", message: "Tiene discapacidad informada pero falta Fecha de Discapacidad", count: discap.length, affectedRuts: discap.map(r => r.rut) })
 
   // Pensión de invalidez → fecha pensión requerida
-  const pension = rows.filter(r => r.pensionInvalidez && r.pensionInvalidez.trim() && !r.fechaPensionInvalidez)
+  const pension = rows.filter(r => esRespuestaAfirmativa(r.pensionInvalidez) && !r.fechaPensionInvalidez)
   if (pension.length) issues.push({ rule: "pensionInvalidez", message: "Tiene Pensión de Invalidez informada pero falta Fecha de Pensión", count: pension.length, affectedRuts: pension.map(r => r.rut) })
 
   // EST / Subcontratación → RUT empresa usuaria requerido
@@ -330,11 +249,11 @@ function conditionalAnexos(rows: RowAnexo[]): ConditionalIssue[] {
   if (cambioDom.length) issues.push({ rule: "cambioDomicilio", message: "Cambio domicilio = Sí, pero falta Región y/o Comuna de procedencia", count: cambioDom.length, affectedRuts: cambioDom.map(r => r.rut) })
 
   // Discapacidad → fecha discapacidad requerida
-  const discap = rows.filter(r => r.discapacidad && r.discapacidad.trim() && !r.fechaDiscapacidad)
+  const discap = rows.filter(r => esRespuestaAfirmativa(r.discapacidad) && !r.fechaDiscapacidad)
   if (discap.length) issues.push({ rule: "discapacidad", message: "Tiene discapacidad informada pero falta Fecha de Discapacidad", count: discap.length, affectedRuts: discap.map(r => r.rut) })
 
   // Pensión de invalidez → fecha pensión requerida
-  const pension = rows.filter(r => r.pensionInvalidez && r.pensionInvalidez.trim() && !r.fechaPensionInvalidez)
+  const pension = rows.filter(r => esRespuestaAfirmativa(r.pensionInvalidez) && !r.fechaPensionInvalidez)
   if (pension.length) issues.push({ rule: "pensionInvalidez", message: "Tiene Pensión de Invalidez informada pero falta Fecha de Pensión", count: pension.length, affectedRuts: pension.map(r => r.rut) })
 
   // EST / Subcontratación → RUT empresa usuaria requerido
@@ -348,6 +267,7 @@ function conditionalAnexos(rows: RowAnexo[]): ConditionalIssue[] {
   // Jornada Parcial → duración de jornada requerida
   const parcial = rows.filter(r => /parcial/i.test(r.tipoJornada) && !r.duracion)
   if (parcial.length) issues.push({ rule: "jornadaParcial", message: "Jornada Parcial requiere Duración de Jornada", count: parcial.length, affectedRuts: parcial.map(r => r.rut) })
+
 
   // Contrato plazo fijo → fecha fin requerida
   const plazoFijo = rows.filter(r => /plazo fijo/i.test(r.tipoContrato) && !r.fechaFin)
@@ -456,6 +376,12 @@ export async function POST(req: NextRequest) {
             rowData[col - 1] = `${v.getDate().toString().padStart(2, "0")}/${(v.getMonth() + 1).toString().padStart(2, "0")}/${v.getFullYear()}`
           } else if (typeof v === "object" && "richText" in v) {
             rowData[col - 1] = (v as { richText: { text: string }[] }).richText.map(r => r.text).join("")
+          } else if (typeof v === "object" && "text" in v) {
+            // Celda con hipervínculo (típico en columnas de correo): ExcelJS la
+            // entrega como { text, hyperlink } y sin este caso se guardaba el
+            // string "[object Object]" en vez del correo. Visto en la primera
+            // carga real, la de Jorge Farías / KAWA AUSTRAL del 11-sep-2026.
+            rowData[col - 1] = (v as { text: unknown }).text ?? ""
           } else {
             rowData[col - 1] = v
           }
@@ -509,17 +435,17 @@ export async function POST(req: NextRequest) {
     let conditionalIssues: ConditionalIssue[] = []
 
     if (uploadType === "ingresos") {
-      const parsed = parseIngresos(dataRows)
+      const parsed = parseFilas<RowIngreso>(dataRows, "ingresos")
       rows = parsed
       statsData = statsIngresos(parsed)
       conditionalIssues = conditionalIngresos(parsed)
     } else if (uploadType === "bajas") {
-      const parsed = parseBajas(dataRows)
+      const parsed = parseFilas<RowBaja>(dataRows, "bajas")
       rows = parsed
       statsData = statsBajas(parsed)
       conditionalIssues = conditionalBajas(parsed)
     } else {
-      const parsed = parseAnexos(dataRows)
+      const parsed = parseFilas<RowAnexo>(dataRows, "anexos")
       rows = parsed
       statsData = statsAnexos(parsed)
       conditionalIssues = conditionalAnexos(parsed)

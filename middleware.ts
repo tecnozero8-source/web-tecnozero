@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server"
 import type { NextRequest } from "next/server"
 import { getToken } from "next-auth/jwt"
+import { esAdmin } from "@/lib/admin"
 
 // Simple in-memory rate limiter (per Edge worker instance)
 const rateMap = new Map<string, { count: number; resetAt: number }>()
@@ -98,6 +99,21 @@ export async function middleware(req: NextRequest) {
       const loginUrl = new URL("/login", req.url)
       loginUrl.searchParams.set("callbackUrl", pathname)
       return NextResponse.redirect(loginUrl)
+    }
+  }
+
+  // Panel interno — además de sesión, estar en ADMIN_EMAILS.
+  // Un cliente que adivine la URL ve el dashboard suyo, no la cola de todos.
+  // La puerta de verdad la ponen las rutas /api/admin con esAdmin(); esto
+  // evita que la página se pinte y después se quede vacía.
+  if (pathname.startsWith("/admin")) {
+    if (!token) {
+      const loginUrl = new URL("/login", req.url)
+      loginUrl.searchParams.set("callbackUrl", pathname)
+      return NextResponse.redirect(loginUrl)
+    }
+    if (!esAdmin(token.email as string | undefined)) {
+      return NextResponse.redirect(new URL("/dashboard", req.url))
     }
   }
 

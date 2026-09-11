@@ -24,6 +24,16 @@ const CSP = [
 
 const nextConfig: NextConfig = {
   /**
+   * /api/admin/cargas/[id]/excel lee las plantillas de public/templates con
+   * fs para rearmar el Excel del robot. En Vercel una función serverless no
+   * ve public/ salvo que se declare aquí: sin esto la ruta funciona en local
+   * y devuelve ENOENT en producción.
+   */
+  outputFileTracingIncludes: {
+    "/api/admin/cargas/[id]/excel": ["./public/templates/**"],
+  },
+
+  /**
    * Rutas del WordPress anterior que Google todavía tiene en su índice.
    * Sin esto devuelven 404 y se pierde lo poco que quede de su autoridad.
    * Los patrones `category` y `tag` cubren de una vez el resto del archivo

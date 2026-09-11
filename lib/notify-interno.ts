@@ -21,6 +21,11 @@ import {
   emailRecuperarClave,
   emailAvisoCargaInterno,
   emailCargaRecibida,
+  emailCargaProcesada,
+  emailAvisoMandatoInterno,
+  emailAutorizacionVerificada,
+  type DatosMandatoInterno,
+  type DatosAutorizacionVerificada,
 } from "@/lib/email-templates"
 
 const DESTINATARIOS_POR_DEFECTO = [
@@ -263,5 +268,75 @@ export async function enviarAcuseDeCarga(datos: {
     { to: [datos.correo], ...plantilla, replyTo: "contacto@tecnozero.cl" },
     "Acuse carga",
     { id: datos.id, correo: datos.correo },
+  )
+}
+
+/**
+ * El correo que cierra el ciclo: los folios que devolvió el Portal DT.
+ *
+ * Hasta hoy este correo lo escribía un ingeniero a mano, uno por carga,
+ * copiando los números desde la ventana del robot. Ahora sale cuando alguien
+ * marca la carga como lista en el panel interno.
+ *
+ * Devuelve false en vez de lanzar. El PATCH que lo llama ya guardó los
+ * comprobantes en la base: si el correo no sale, el cliente los ve igual en
+ * /dashboard/documentos y el ingeniero puede reenviarlo desde el panel.
+ */
+export async function enviarCargaProcesada(datos: {
+  id: string
+  correo: string
+  nombre?: string
+  tipo: string
+  totalFilas: number
+  comprobantes: { rut: string | null; nombre: string | null; numero: string | null; estado: string }[]
+}): Promise<boolean> {
+  const plantilla = emailCargaProcesada({
+    id: datos.id,
+    nombre: datos.nombre,
+    tipo: datos.tipo,
+    totalFilas: datos.totalFilas,
+    comprobantes: datos.comprobantes,
+  })
+  return enviar(
+    { to: [datos.correo], ...plantilla, replyTo: "contacto@tecnozero.cl" },
+    "Carga procesada",
+    { id: datos.id, correo: datos.correo, comprobantes: datos.comprobantes.length },
+  )
+}
+
+/**
+ * Aviso al equipo cuando un cliente firma el mandato o dice que ya nos
+ * inscribió como representante en MiDT.
+ *
+ * El segundo caso es el que abre trabajo: alguien tiene que entrar al Portal
+ * DT con la ClaveÚnica del representante y confirmar que el empleador quedó
+ * en su lista. Sin este correo, esa confirmación depende de que alguien se
+ * acuerde de mirar.
+ */
+export async function notificarMandato(datos: DatosMandatoInterno): Promise<boolean> {
+  const plantilla = emailAvisoMandatoInterno(datos)
+  return enviar(
+    { to: destinatariosInternos(), ...plantilla, replyTo: datos.correo },
+    "Aviso mandato",
+    datos,
+  )
+}
+/**
+ * Le avisa al cliente que su autorización quedó confirmada.
+ *
+ * Sale del panel interno, después de que alguien del equipo entró al Portal DT
+ * y vio al empleador en la lista del representante. Es el único correo del
+ * flujo de activación que confirma algo: los anteriores dicen "recibimos" y
+ * "estamos revisando".
+ */
+export async function enviarAutorizacionVerificada(
+  correo: string,
+  datos: DatosAutorizacionVerificada,
+): Promise<boolean> {
+  const plantilla = emailAutorizacionVerificada(datos)
+  return enviar(
+    { to: [correo], ...plantilla, replyTo: "contacto@tecnozero.cl" },
+    "Autorización verificada",
+    { correo, empresa: datos.razonSocial, quien: datos.verificadaPor },
   )
 }
