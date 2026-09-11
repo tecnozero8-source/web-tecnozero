@@ -1,4 +1,5 @@
 import { NextAuthOptions } from "next-auth"
+import { esAdmin as estaEnLaListaDeAdmins } from "@/lib/admin"
 import CredentialsProvider from "next-auth/providers/credentials"
 
 // ─── Tipos de autorización RLE ────────────────────────────────────────────────
@@ -90,6 +91,10 @@ declare module "next-auth" {
       empresa: string
       plan: string
       rut: string
+      /** Su correo está en ADMIN_EMAILS. Lo decide el servidor en cada lectura
+       *  de la sesión, así que quitar a alguien de la lista lo deja fuera sin
+       *  que tenga que cerrar sesión. */
+      esAdmin: boolean
     }
   }
 }
@@ -173,6 +178,9 @@ export const authOptions: NextAuthOptions = {
       session.user.empresa = token.empresa
       session.user.plan = token.plan
       session.user.rut = token.rut
+      // No va en el JWT a propósito: si fuera parte del token, revocarle el
+      // acceso a alguien obligaría a esperar a que su sesión caduque.
+      session.user.esAdmin = estaEnLaListaDeAdmins(session.user.email)
       return session
     },
   },

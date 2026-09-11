@@ -16,6 +16,8 @@ import {
   Building2,
   Upload,
   HardDriveDownload,
+  Inbox,
+  ShieldCheck,
 } from "lucide-react"
 import { CompanySwitcher } from "./CompanySwitcher"
 
@@ -29,6 +31,16 @@ const navItems = [
   { label: "Facturación", href: "/dashboard/facturacion", icon: Receipt },
   { label: "Backup", href: "/dashboard/backup", icon: HardDriveDownload },
   { label: "Soporte", href: "/dashboard/soporte", icon: Headphones },
+]
+
+/**
+ * Las dos pantallas internas. Solo aparecen si el correo de la sesión está en
+ * ADMIN_EMAILS: quien no es del equipo no ve que existan, y si adivina la URL
+ * el middleware y la API lo devuelven igual.
+ */
+const itemsEquipo = [
+  { label: "Cola de nóminas", href: "/admin/cargas", icon: Inbox },
+  { label: "Autorizaciones", href: "/admin/mandatos", icon: ShieldCheck },
 ]
 
 function NavItem({ item, isActive }: { item: typeof navItems[number]; isActive: boolean }) {
@@ -230,9 +242,33 @@ export function DashboardSidebar() {
           />
         </div>
 
-        {navItems.slice(4).map((item) => (
+        {navItems.slice(5).map((item) => (
           <NavItem key={item.href} item={item} isActive={isActive(item.href)} />
         ))}
+
+        {mounted && session?.user?.esAdmin && (
+          <>
+            <div style={{ padding: "14px 14px 6px", display: "flex", alignItems: "center", gap: 8 }}>
+              <span
+                style={{
+                  fontSize: "0.6875rem",
+                  fontWeight: 700,
+                  letterSpacing: "0.14em",
+                  color: "rgba(212,240,64,0.5)",
+                  fontFamily: "var(--font-display), system-ui, sans-serif",
+                  textTransform: "uppercase",
+                }}
+              >
+                Equipo Tecnozero
+              </span>
+              <div style={{ flex: 1, height: 1, backgroundColor: "rgba(212,240,64,0.15)" }} />
+            </div>
+
+            {itemsEquipo.map((item) => (
+              <NavItem key={item.href} item={item} isActive={isActive(item.href)} />
+            ))}
+          </>
+        )}
       </nav>
 
       {/* Bottom section */}
