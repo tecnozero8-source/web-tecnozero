@@ -26,6 +26,7 @@ const empresa = [
   { label: "Blog", href: "/blog" },
   { label: "Casos de éxito", href: "/nosotros#casos" },
   { label: "Hablar con un especialista", href: "/contacto" },
+  { label: "Entrar a mi cuenta", href: "/login" },
 ]
 
 const stats = [

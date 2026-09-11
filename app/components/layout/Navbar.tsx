@@ -3,7 +3,8 @@
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
-import { Menu, X } from "lucide-react"
+import { Menu, X, UserRound } from "lucide-react"
+import { useSession } from "next-auth/react"
 import { motion, AnimatePresence } from "framer-motion"
 
 const navLinks = [
@@ -20,6 +21,13 @@ const navLinks = [
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
+  const { status } = useSession()
+
+  // Un cliente que ya pagó entra por acá. Hasta el 11 de septiembre de 2026 la
+  // web no tenía ninguna puerta: había que saberse /login de memoria.
+  const conSesion = status === "authenticated"
+  const destinoCliente = conSesion ? "/dashboard" : "/login"
+  const textoCliente = conSesion ? "Mi panel" : "Entrar"
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60)
@@ -29,7 +37,7 @@ export function Navbar() {
 
   // Close mobile menu on resize to desktop
   useEffect(() => {
-    const onResize = () => { if (window.innerWidth >= 1090) setMobileOpen(false) }
+    const onResize = () => { if (window.innerWidth >= 1180) setMobileOpen(false) }
     window.addEventListener("resize", onResize)
     return () => window.removeEventListener("resize", onResize)
   }, [])
@@ -133,6 +141,29 @@ export function Navbar() {
 
         {/* CTA + HAMBURGER */}
         <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+          <Link
+            href={destinoCliente}
+            className="tz-acceso tz-acceso-desktop"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "7px",
+              padding: "8px 16px",
+              border: `1px solid ${scrolled ? "rgba(255,255,255,0.18)" : "rgba(255,255,255,0.35)"}`,
+              borderRadius: "99px",
+              color: scrolled ? "#E2E8F0" : "#FFFFFF",
+              fontSize: "0.875rem",
+              fontWeight: 600,
+              whiteSpace: "nowrap",
+              transition: "background-color 0.2s ease, border-color 0.2s ease",
+            }}
+            onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = "rgba(255,255,255,0.12)" }}
+            onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = "transparent" }}
+          >
+            <UserRound size={15} />
+            {textoCliente}
+          </Link>
+
           <Link
             href="/contacto"
             className="tz-cta tz-cta-desktop"
@@ -245,6 +276,28 @@ export function Navbar() {
               </motion.div>
             ))}
 
+            <div style={{ padding: "8px 0 0" }}>
+              <Link
+                href={destinoCliente}
+                onClick={() => setMobileOpen(false)}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: "8px",
+                  padding: "13px",
+                  border: "1px solid rgba(255,255,255,0.22)",
+                  color: "#E2E8F0",
+                  fontSize: "0.95rem",
+                  fontWeight: 600,
+                  borderRadius: "12px",
+                }}
+              >
+                <UserRound size={16} />
+                {conSesion ? "Ir a mi panel" : "Entrar a mi espacio cliente"}
+              </Link>
+            </div>
+
             <div style={{ padding: "8px 0 4px" }}>
               <Link
                 href="/contacto"
@@ -269,14 +322,16 @@ export function Navbar() {
         )}
       </AnimatePresence>
 
-      {/* Responsive: hamburger bajo 1090px (7 links no caben en la píldora), CTA visible hasta 560px */}
+      {/* Responsive: hamburger bajo 1180px (ocho links más el acceso no caben),
+          CTA y acceso visibles hasta 560px; bajo eso los lleva el menú */}
       <style>{`
-        @media (max-width: 1089px) {
+        @media (max-width: 1179px) {
           #nav-hamburger { display: flex !important; }
           nav { display: none !important; }
         }
         @media (max-width: 560px) {
           .tz-cta-desktop { display: none !important; }
+          .tz-acceso-desktop { display: none !important; }
         }
       `}</style>
     </>

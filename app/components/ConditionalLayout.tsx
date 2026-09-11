@@ -3,12 +3,14 @@
 import { usePathname } from "next/navigation"
 import { Navbar } from "./layout/Navbar"
 import { Footer } from "./layout/Footer"
+import { BotonArriba } from "./shared/BotonArriba"
 
 export function ConditionalLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
 
   const hidePublicLayout =
     pathname.startsWith("/dashboard") ||
+    pathname.startsWith("/admin") ||
     pathname === "/login" ||
     pathname === "/registro"
 
@@ -23,6 +25,7 @@ export function ConditionalLayout({ children }: { children: React.ReactNode }) {
       <Navbar />
       <main>{children}</main>
       <Footer />
+      <BotonArriba />
     </>
   )
 }
