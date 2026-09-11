@@ -7,6 +7,7 @@ import { NextRequest, NextResponse } from "next/server"
 import { WebpayPlus, Options, Environment, IntegrationCommerceCodes, IntegrationApiKeys } from "transbank-sdk"
 import { encryptCookie } from "@/lib/cookie-crypto"
 import { getSiteOrigin } from "@/lib/site-url"
+import { validarEntradaCheckout } from "@/lib/validacion-checkout"
 import {
   getPriceTier,
   MIN_DOCS_POR_CARGA,
@@ -39,25 +40,18 @@ function getTbkTransaction() {
 
 export async function POST(req: NextRequest) {
   try {
-    const body = await req.json() as {
-      amount: number        // Monto en CLP (entero)
-      plan: string          // Nombre del plan
-      docsPerMonth: number
-      pricePerDoc: number
-      customerName: string
-      customerEmail: string
-      empresa?: string
-      rut?: string          // RUT de la empresa, para la factura
-      addons?: string[]     // Ids de servicios adicionales: ver PRECIOS_ADDON
-      testKey?: string      // Modo prueba: ver TEST_CHECKOUT_KEY
-    }
+    const body = await req.json().catch(() => null)
 
-    const { plan, docsPerMonth, customerName, customerEmail, empresa, rut, testKey, addons } = body
-    let { amount, pricePerDoc, docsPerMonth: docsFinal } = body
-
-    if (!amount || amount < 1 || !customerEmail) {
-      return NextResponse.json({ error: "Parámetros inválidos" }, { status: 400 })
+    // Forma y largo de todo lo que entra. Ver `lib/validacion-checkout.ts`:
+    // hasta el 11 de septiembre de 2026 esta ruta solo miraba el monto y que el
+    // campo del correo no estuviera vacío.
+    const validacion = validarEntradaCheckout(body)
+    if (!validacion.ok) {
+      return NextResponse.json({ error: validacion.error }, { status: 400 })
     }
+    const { plan, customerName, customerEmail, empresa, rut, testKey, addons } = validacion.datos
+    let { amount, pricePerDoc, docsPerMonth: docsFinal } = validacion.datos
+    const docsPerMonth = validacion.datos.docsPerMonth
 
     // ── El monto lo decide el servidor ───────────────────────────────────────
     // Hasta el 10 de septiembre de 2026 se cobraba el `amount` que mandaba el
@@ -74,13 +68,13 @@ export async function POST(req: NextRequest) {
       }
 
       const tramo = getPriceTier(docs)
-      const extras = Array.isArray(addons) ? addons : []
-      const totalAddons = extras.reduce((suma: number, id: unknown) => {
-        const precio = PRECIOS_ADDON[String(id)]
+      const extras = addons
+      const totalAddons = extras.reduce((suma: number, id: string) => {
+        const precio = PRECIOS_ADDON[id]
         return suma + (precio ?? 0)
       }, 0)
 
-      const desconocidos = extras.filter(id => PRECIOS_ADDON[String(id)] === undefined)
+      const desconocidos = extras.filter(id => PRECIOS_ADDON[id] === undefined)
       if (desconocidos.length) {
         return NextResponse.json({ error: "Servicio adicional no reconocido." }, { status: 400 })
       }
@@ -157,8 +151,13 @@ export async function POST(req: NextRequest) {
 
     return nextRes
   } catch (err: unknown) {
+    // El detalle se queda en el registro. Al navegador va un mensaje fijo: el
+    // error del SDK o de la red puede nombrar hosts, credenciales o versiones,
+    // y al comprador no le sirve de nada.
     console.error("[Transbank Init]", err)
-    const msg = err instanceof Error ? err.message : "Error desconocido"
-    return NextResponse.json({ error: msg }, { status: 500 })
+    return NextResponse.json(
+      { error: "No pudimos iniciar el pago. Inténtalo otra vez o escríbenos a contacto@tecnozero.cl." },
+      { status: 500 },
+    )
   }
 }

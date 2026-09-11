@@ -58,6 +58,21 @@ function esc(s?: string | number): string {
     .replace(/"/g, "&quot;").replace(/'/g, "&#39;")
 }
 
+/** Escapa una dirección antes de meterla en un `href`, y descarta los esquemas
+ *  que no usamos.
+ *
+ *  Los botones reciben `mailto:${correo}` con el correo que el comprador
+ *  escribió en el checkout. Hasta el 11 de septiembre de 2026 eso entraba sin
+ *  escapar, así que una comilla en ese campo cerraba el atributo y dejaba meter
+ *  etiquetas propias en el aviso que lee el equipo. Los clientes de correo no
+ *  ejecutan scripts, pero sí pintan un enlace disfrazado. */
+function escUrl(url?: string): string {
+  const limpia = (url ?? "").trim()
+  if (!limpia) return "#"
+  if (!/^(https?:|mailto:|#|\/)/i.test(limpia)) return "#"
+  return esc(limpia)
+}
+
 // ─── Piezas ───────────────────────────────────────────────────────────────────
 
 /** Barra de marca en tres celdas. Los degradados CSS no existen en Outlook. */
@@ -77,7 +92,7 @@ function boton(texto: string, url: string, tono: "lima" | "azul" = "lima"): stri
   return `<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="border-collapse:separate;">
     <tr>
       <td align="center" bgcolor="${fondo}" style="border-radius:8px;">
-        <a href="${url}" style="display:inline-block;padding:13px 26px;font-family:${FUENTE};font-size:15px;font-weight:700;color:${tinta};text-decoration:none;border-radius:8px;letter-spacing:-0.01em;">${texto}</a>
+        <a href="${escUrl(url)}" style="display:inline-block;padding:13px 26px;font-family:${FUENTE};font-size:15px;font-weight:700;color:${tinta};text-decoration:none;border-radius:8px;letter-spacing:-0.01em;">${esc(texto)}</a>
       </td>
     </tr>
   </table>`
@@ -112,7 +127,7 @@ function bloqueValor(antetitulo: string, titulo: string, texto: string, enlaceTe
       <div style="font-size:11px;font-weight:700;color:${C.azul};letter-spacing:0.12em;text-transform:uppercase;margin-bottom:8px;">${esc(antetitulo)}</div>
       <div style="font-size:17px;font-weight:700;color:${C.tinta};line-height:1.35;margin-bottom:8px;letter-spacing:-0.01em;">${esc(titulo)}</div>
       <div style="font-size:14px;color:${C.texto};line-height:1.65;margin-bottom:14px;">${esc(texto)}</div>
-      <a href="${url}" style="font-size:14px;font-weight:700;color:${C.azul};text-decoration:none;">${esc(enlaceTexto)} &rarr;</a>
+      <a href="${escUrl(url)}" style="font-size:14px;font-weight:700;color:${C.azul};text-decoration:none;">${esc(enlaceTexto)} &rarr;</a>
     </td></tr>
   </table>`
 }

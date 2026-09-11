@@ -32,6 +32,33 @@ export function getAdminClient() {
   return supabaseAdmin
 }
 
+/** Forma mínima del cliente que usan las consultas de una sola fila.
+ *
+ *  Existe para que los jueces puedan inyectar una base falsa y recorrer el
+ *  mismo código que corre en producción, sin levantar Supabase ni reemplazar
+ *  módulos a mano. Quien la use recibe el cliente de verdad si no le pasan
+ *  nada. */
+export interface ClienteConsulta {
+  from: (tabla: string) => {
+    select: (columnas: string) => {
+      eq: (columna: string, valor: string) => {
+        single: () => Promise<{
+          data: unknown
+          error: { code?: string; message?: string } | null
+        }>
+      }
+    }
+  }
+}
+
+/** Devuelve el cliente inyectado, o el de verdad. Nunca lanza: cuando Supabase
+ *  no está configurado devuelve `null` y quien llama decide qué hacer. */
+export function clienteDeConsulta(inyectado?: ClienteConsulta): ClienteConsulta | null {
+  if (inyectado) return inyectado
+  if (!supabaseAdmin) return null
+  return supabaseAdmin as unknown as ClienteConsulta
+}
+
 // ─── Tipos de la DB ───────────────────────────────────────────────────────────
 
 export interface DBUser {

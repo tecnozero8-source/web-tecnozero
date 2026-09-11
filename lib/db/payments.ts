@@ -2,7 +2,9 @@
  * DB — Pagos / CRM
  * Solo para uso en API routes (servidor). No importar en "use client".
  */
-import { getAdminClient, type DBPayment } from "@/lib/supabase"
+import { getAdminClient, clienteDeConsulta, type DBPayment, type ClienteConsulta } from "@/lib/supabase"
+
+export type { ClienteConsulta }
 import type { CRMRecord } from "@/lib/crm"
 
 // ─── Conversión DB ↔ App ──────────────────────────────────────────────────────
@@ -99,15 +101,50 @@ export async function getPaymentsByEmail(email: string): Promise<CRMRecord[]> {
 
 /** Buscar por paymentId (para evitar doble procesamiento) */
 export async function findPaymentById(paymentId: string): Promise<CRMRecord | null> {
-  const db = getAdminClient()
-  const { data, error } = await db
-    .from("payments")
-    .select("*")
-    .eq("payment_id", paymentId)
-    .single()
+  const resultado = await buscarPagoPorOrden(paymentId)
+  return resultado.estado === "encontrado" ? resultado.pago : null
+}
 
-  if (error || !data) return null
-  return dbToRecord(data as DBPayment)
+/** Las tres respuestas posibles de buscar una orden. */
+export type BusquedaPago =
+  | { estado: "encontrado"; pago: CRMRecord }
+  | { estado: "sin-registro" }
+  | { estado: "base-caida"; detalle: string }
+
+/** Busca una orden y dice cuál de las tres cosas pasó.
+ *
+ *  `findPaymentById` devolvía `null` tanto cuando el pago no existía como
+ *  cuando Supabase respondía con error, y el confirm leía ese `null` como
+ *  «primera vez». Con la base caída la idempotencia desaparecía sin que nadie
+ *  se enterara. Aquí se separan los dos casos: quien llama decide qué hacer con
+ *  cada uno, y «no sé» deja de disfrazarse de «no existe».
+ *
+ *  Postgrest devuelve `PGRST116` cuando `.single()` no encuentra fila. Ese es
+ *  el único error que significa «no está»; cualquier otro es la base. */
+export async function buscarPagoPorOrden(
+  paymentId: string,
+  cliente?: ClienteConsulta,
+): Promise<BusquedaPago> {
+  const db = clienteDeConsulta(cliente)
+  if (!db) return { estado: "base-caida", detalle: "Supabase no configurado" }
+
+  try {
+    const { data, error } = await db
+      .from("payments")
+      .select("*")
+      .eq("payment_id", paymentId)
+      .single()
+
+    if (error) {
+      if (error.code === "PGRST116") return { estado: "sin-registro" }
+      return { estado: "base-caida", detalle: error.message ?? error.code ?? "error sin detalle" }
+    }
+    if (!data) return { estado: "sin-registro" }
+    return { estado: "encontrado", pago: dbToRecord(data as DBPayment) }
+  } catch (err) {
+    // Una caída de red no llega como `error`: lanza.
+    return { estado: "base-caida", detalle: err instanceof Error ? err.message : "error desconocido" }
+  }
 }
 
 /** Todos los pagos aprobados (para reportes) */

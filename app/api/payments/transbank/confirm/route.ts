@@ -9,11 +9,11 @@
  * handler que solo miraba `TBK_TOKEN`, ignoró el token bueno y mandó al
  * comprador de vuelta al checkout con la compra sin confirmar.
  */
-import { NextRequest, NextResponse } from "next/server"
+import { NextRequest, NextResponse, after } from "next/server"
 import { WebpayPlus, Options, Environment, IntegrationCommerceCodes, IntegrationApiKeys } from "transbank-sdk"
 import { saveCRMRecord } from "@/lib/crm"
 import { decryptCookie } from "@/lib/cookie-crypto"
-import { findPaymentById } from "@/lib/db/payments"
+import { buscarPagoPorOrden } from "@/lib/db/payments"
 import { crearCuentaDeCompra } from "@/lib/db/users"
 import { crearTokenReset } from "@/lib/reset-token"
 import { getSiteOrigin } from "@/lib/site-url"
@@ -82,12 +82,28 @@ async function procesarRetorno(
     })
 
     // ── Idempotencia: evitar doble procesamiento ────────────────────────────
-    const existing = await findPaymentById(commit.buy_order).catch(() => null)
-    if (existing) {
+    // Tres respuestas, no dos. Antes, `null` significaba a la vez «no existe» y
+    // «la base no contestó», así que con Supabase caído la idempotencia se
+    // apagaba sin que nadie se enterara. Ahora «no sé» se dice en voz alta.
+    const busqueda = await buscarPagoPorOrden(commit.buy_order)
+
+    if (busqueda.estado === "encontrado") {
       console.warn("[Transbank Confirm] Pago ya procesado:", commit.buy_order)
       const yaHecho = NextResponse.redirect(`${BASE_URL}/checkout/exito?${params.toString()}`)
       yaHecho.cookies.delete("tbk_checkout")
       return yaHecho
+    }
+
+    // Base caída: seguimos. El comprador ya pagó y el daño de dejarlo sin
+    // comprobante es mayor que el de mandarle uno repetido. El único cinturón
+    // que queda es que Transbank no deja hacer `commit` dos veces del mismo
+    // token, y ese no es nuestro. Queda escrito para que se vea en el registro
+    // y, cuando exista el vigía, para que dispare la alerta.
+    if (busqueda.estado === "base-caida") {
+      console.error(
+        "[Transbank Confirm] IDEMPOTENCIA A CIEGAS: la base no respondió y no se pudo comprobar si esta orden ya estaba procesada.",
+        JSON.stringify({ buyOrder: commit.buy_order, detalle: busqueda.detalle }),
+      )
     }
 
     // ── CRM ─────────────────────────────────────────────────────────────────
@@ -168,9 +184,14 @@ async function procesarRetorno(
     }
 
     // ── Correos ─────────────────────────────────────────────────────────────
-    // Los dos salen de plantillas fijas por Resend, sin esperar a que
-    // terminen: el cliente ya pagó y no tiene por qué mirar una pantalla en
-    // blanco mientras se despachan.
+    // Los dos salen de plantillas fijas por Resend. El comprador no espera a
+    // que terminen: se despachan después de que la respuesta ya salió.
+    //
+    // Hasta el 11 de septiembre de 2026 esto eran dos promesas sueltas con un
+    // `.catch()` colgando. En una función serverless la instancia se puede
+    // congelar en cuanto responde, y una promesa viva en ese momento muere sin
+    // ejecutarse: el comprador paga y no recibe nada. `after()` le dice al
+    // entorno que mantenga la función viva hasta que el bloque termine.
     const datosCorreo = {
       buyOrder: commit.buy_order,
       authorizationCode: commit.authorization_code,
@@ -186,11 +207,26 @@ async function procesarRetorno(
       urlClave,
     }
 
-    notificarVentaInterna(datosCorreo)
-      .catch(err => console.error("[Aviso venta]", err))
-
-    enviarComprobanteAlCliente(datosCorreo)
-      .catch(err => console.error("[Comprobante]", err))
+    after(async () => {
+      // Los dos, aunque uno falle: el aviso interno es la constancia de la
+      // venta y el comprobante es lo que el comprador espera.
+      const [aviso, comprobante] = await Promise.all([
+        notificarVentaInterna(datosCorreo).catch(err => {
+          console.error("[Aviso venta]", err)
+          return false
+        }),
+        enviarComprobanteAlCliente(datosCorreo).catch(err => {
+          console.error("[Comprobante]", err)
+          return false
+        }),
+      ])
+      if (!aviso || !comprobante) {
+        console.error(
+          "[Transbank Confirm] CORREO SIN SALIR:",
+          JSON.stringify({ buyOrder: commit.buy_order, aviso, comprobante }),
+        )
+      }
+    })
 
     const redirect = NextResponse.redirect(`${BASE_URL}/checkout/exito?${params.toString()}`)
     redirect.cookies.delete("tbk_checkout")
