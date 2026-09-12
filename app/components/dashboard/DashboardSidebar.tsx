@@ -148,10 +148,10 @@ export function DashboardSidebar() {
     .slice(0, 2) || "TZ"
 
   return (
-    <motion.div
-      initial={{ x: -20, opacity: 0 }}
-      animate={{ x: 0, opacity: 1 }}
-      transition={{ duration: 0.35, ease: "easeOut" }}
+    // Sin animación de entrada: el menú entraba con opacity 0 y solo aparecía
+    // cuando hidrataba el JS, así que la primera pintada dejaba la columna en
+    // blanco y el panel interno sin salida visible.
+    <div
       style={{
         width: 240,
         height: "100%",
@@ -341,6 +341,6 @@ export function DashboardSidebar() {
 
         <SignOutButton />
       </div>
-    </motion.div>
+    </div>
   )
 }

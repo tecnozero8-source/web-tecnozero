@@ -3,11 +3,14 @@
 import { useState, useEffect } from "react"
 import { usePathname } from "next/navigation"
 import { useSession } from "next-auth/react"
-import { motion, AnimatePresence } from "framer-motion"
+import { motion } from "framer-motion"
 import { Bell } from "lucide-react"
 
 const routeLabels: Record<string, string> = {
   dashboard: "Dashboard",
+  admin: "Panel interno",
+  cargas: "Cola de nóminas",
+  mandatos: "Autorizaciones",
   robots: "Mis Robots",
   documentos: "Documentos",
   procesos: "Procesos",
@@ -160,10 +163,8 @@ export function DashboardTopBar() {
   }, [])
 
   return (
-    <motion.div
-      initial={{ y: -10, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.3, ease: "easeOut" }}
+    // Misma razón que el menú lateral: sin JS la barra quedaba invisible.
+    <div
       style={{
         height: 60,
         backgroundColor: "#FFFFFF",
@@ -179,17 +180,7 @@ export function DashboardTopBar() {
       }}
     >
       {/* Left — Breadcrumb */}
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={pathname}
-          initial={{ opacity: 0, y: 4 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -4 }}
-          transition={{ duration: 0.2 }}
-        >
-          <Breadcrumb pathname={pathname} />
-        </motion.div>
-      </AnimatePresence>
+      <Breadcrumb pathname={pathname} />
 
       {/* Right — Status + Bell + Avatar */}
       <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
@@ -223,6 +214,6 @@ export function DashboardTopBar() {
 
         {mounted && <UserAvatar name={session?.user?.name} />}
       </div>
-    </motion.div>
+    </div>
   )
 }

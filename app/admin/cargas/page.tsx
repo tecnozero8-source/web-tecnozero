@@ -151,19 +151,8 @@ export default function PanelCargas() {
   const pestanas = ["todas", "recibida", "procesando", "lista", "error"]
 
   return (
-    <div style={{ minHeight: "100vh", backgroundColor: C.bgPage, padding: "32px 24px" }}>
-      <div style={{ maxWidth: 1180, margin: "0 auto" }}>
-
-        <div style={{ display: "flex", gap: 8, marginBottom: 20 }}>
-          <span style={{
-            fontSize: 13, fontWeight: 700, color: "#FFFFFF",
-            padding: "8px 14px", borderRadius: 999, backgroundColor: C.blue,
-          }}>Cola de nóminas</span>
-          <a href="/admin/mandatos" style={{
-            fontSize: 13, fontWeight: 600, color: C.textSecondary, textDecoration: "none",
-            padding: "8px 14px", borderRadius: 999, border: `1px solid ${C.border}`, backgroundColor: C.bgCard,
-          }}>Autorizaciones</a>
-        </div>
+    <div>
+      <div style={{ maxWidth: 1180 }}>
 
         <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", flexWrap: "wrap", gap: 12, marginBottom: 24 }}>
           <div>
