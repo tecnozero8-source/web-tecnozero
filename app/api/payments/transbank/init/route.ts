@@ -4,39 +4,17 @@
  * Retorna { token, url } para redirigir al usuario a Transbank.
  */
 import { NextRequest, NextResponse } from "next/server"
-import { WebpayPlus, Options, Environment, IntegrationCommerceCodes, IntegrationApiKeys } from "transbank-sdk"
 import { encryptCookie } from "@/lib/cookie-crypto"
 import { getSiteOrigin } from "@/lib/site-url"
+import { getTbkTransaction } from "@/lib/transbank"
 import { validarEntradaCheckout } from "@/lib/validacion-checkout"
+import { crearIntento } from "@/lib/db/intentos"
 import {
   getPriceTier,
   MIN_DOCS_POR_CARGA,
   MAX_DOCS_POR_CARGA,
   PRECIOS_ADDON,
 } from "@/lib/auth"
-
-function getTbkTransaction() {
-  const isProduction = process.env.NODE_ENV === "production" && process.env.TBK_COMMERCE_CODE
-
-  if (isProduction) {
-    return new WebpayPlus.Transaction(
-      new Options(
-        process.env.TBK_COMMERCE_CODE!,
-        process.env.TBK_API_KEY!,
-        Environment.Production
-      )
-    )
-  }
-
-  // Integración (testing)
-  return new WebpayPlus.Transaction(
-    new Options(
-      IntegrationCommerceCodes.WEBPAY_PLUS,
-      IntegrationApiKeys.WEBPAY,
-      Environment.Integration
-    )
-  )
-}
 
 export async function POST(req: NextRequest) {
   try {
@@ -68,16 +46,27 @@ export async function POST(req: NextRequest) {
       }
 
       const tramo = getPriceTier(docs)
-      const extras = addons
-      const totalAddons = extras.reduce((suma: number, id: string) => {
-        const precio = PRECIOS_ADDON[id]
-        return suma + (precio ?? 0)
-      }, 0)
 
-      const desconocidos = extras.filter(id => PRECIOS_ADDON[id] === undefined)
+      // ── Los servicios adicionales ──────────────────────────────────────────
+      // Se comprueban antes de sumarlos, y la búsqueda mira solo las claves
+      // propias de la tabla.
+      //
+      // `PRECIOS_ADDON[id]` subía por el prototipo. Con `addons:
+      // ["constructor"]` la búsqueda devolvía la función `Object`, que no es
+      // `undefined`, así que el filtro de desconocidos no cortaba y el `reduce`
+      // calculaba `0 + Object`: el total se convertía en texto, `amount` dejaba
+      // de ser un número y la ruta respondía 500 con la transacción ya creada en
+      // Transbank. `hasOwnProperty` no sube por el prototipo.
+      const desconocidos = addons.filter(
+        id => !Object.prototype.hasOwnProperty.call(PRECIOS_ADDON, id),
+      )
       if (desconocidos.length) {
         return NextResponse.json({ error: "Servicio adicional no reconocido." }, { status: 400 })
       }
+
+      // `validarEntradaCheckout` ya los dejó sin repetidos, así que cada id
+      // entra una sola vez al total.
+      const totalAddons = addons.reduce((suma: number, id: string) => suma + PRECIOS_ADDON[id], 0)
 
       const calculado = docs * tramo.priceCLP + totalAddons
 
@@ -116,6 +105,31 @@ export async function POST(req: NextRequest) {
 
     const tx = getTbkTransaction()
     const response = await tx.create(buyOrder, sessionId, amount, returnUrl)
+
+    // ── La fila de intención ─────────────────────────────────────────────────
+    // Se escribe aquí, con el token ya en la mano y antes de responderle al
+    // navegador. Es el único rastro que queda si el comprador no vuelve.
+    //
+    // Se espera a propósito: el comprador puede volver del banco en segundos y
+    // el confirm tiene que encontrar la fila ya escrita. Lo que no hace es
+    // mandar. Su resultado no cambia nada de lo que pasa abajo, porque
+    // `crearIntento` nunca lanza y deja dicho en el registro cuando el rastro
+    // no quedó. Un Supabase caído cuesta el seguimiento, nunca el cobro.
+    await crearIntento({
+      buyOrder,
+      tokenWs: response.token,
+      sessionId,
+      amount,
+      plan,
+      docsPerMonth: docsFinal,
+      pricePerDoc,
+      addons,
+      modoPrueba: testKey !== undefined,
+      customerName,
+      customerEmail,
+      empresa,
+      rut: rut?.trim() || undefined,
+    })
 
     // Guardar datos de la sesión temporalmente (en producción: Redis/DB)
     // Aquí usamos headers del response para pasar datos al confirm vía cookie

@@ -5,6 +5,7 @@ import { useSearchParams } from "next/navigation"
 import Link from "next/link"
 import { motion, AnimatePresence } from "framer-motion"
 import { PRICING_TIERS, PRECIOS_ADDON, MIN_DOCS_POR_CARGA, MAX_DOCS_POR_CARGA } from "@/lib/auth"
+import { rutValido } from "@/lib/validacion-checkout"
 import {
   ArrowLeft,
   Check,
@@ -109,10 +110,10 @@ interface CustomerForm {
 
 // ─── Input Field ──────────────────────────────────────────────────────────────
 function InputField({
-  label, value, onChange, type = "text", placeholder, required,
+  label, value, onChange, type = "text", placeholder, required, error, onBlur,
 }: {
   label: string; value: string; onChange: (v: string) => void
-  type?: string; placeholder?: string; required?: boolean
+  type?: string; placeholder?: string; required?: boolean; error?: string; onBlur?: () => void
 }) {
   const [focused, setFocused] = useState(false)
   return (
@@ -123,17 +124,21 @@ function InputField({
       <input
         type={type} value={value}
         onChange={e => onChange(e.target.value)}
-        onFocus={() => setFocused(true)} onBlur={() => setFocused(false)}
+        onFocus={() => setFocused(true)}
+        onBlur={() => { setFocused(false); onBlur?.() }}
         placeholder={placeholder}
         style={{
           padding: "11px 14px", borderRadius: 10,
-          border: `1px solid ${focused ? C.blue : C.darkBorder}`,
+          border: `1px solid ${error ? C.red : focused ? C.blue : C.darkBorder}`,
           backgroundColor: focused ? "rgba(9,87,195,0.06)" : "rgba(255,255,255,0.04)",
           color: C.white, fontSize: 14, outline: "none",
           transition: "border-color 0.15s, background-color 0.15s",
           width: "100%",
         }}
       />
+      {error && (
+        <span style={{ fontSize: "0.7rem", color: "#FCA5A5" }}>{error}</span>
+      )}
     </div>
   )
 }
@@ -159,6 +164,7 @@ function CheckoutContent() {
 
   // Form state
   const [form, setForm] = useState<CustomerForm>({ name: "", email: "", empresa: "", rut: "" })
+  const [rutTocado, setRutTocado] = useState(false)
   const [loading, setLoading] = useState(false)
 
   // Derived values
@@ -175,7 +181,9 @@ function CheckoutContent() {
     : isCustom
     ? `${activeDocs} docs/mes personalizado`
     : `${selectedPreset.name} — ${selectedPreset.docs} docs/mes`
-  const formValid = form.name.trim().length > 0 && form.email.includes("@") && form.empresa.trim().length > 0
+  const rutEsValido = rutValido(form.rut)
+  const formValid = form.name.trim().length > 0 && form.email.includes("@")
+    && form.empresa.trim().length > 0 && rutEsValido
 
   const toggleAddon = (id: string) => {
     setSelectedAddons(prev => {
@@ -555,11 +563,16 @@ function CheckoutContent() {
             border: `1px solid ${C.darkBorder}`,
             borderRadius: 16, padding: 24,
           }}>
-            <p style={{ margin: "0 0 18px", fontSize: "0.875rem", fontWeight: 700, color: C.white }}>
+            <p style={{ margin: "0 0 6px", fontSize: "0.875rem", fontWeight: 700, color: C.white }}>
               Tus datos{" "}
               <span style={{ fontSize: "0.75rem", fontWeight: 400, color: C.textMuted }}>
                 — para emitir la factura y activar tu cuenta
               </span>
+            </p>
+            <p style={{ margin: "0 0 18px", fontSize: "0.73rem", color: C.textMuted }}>
+              Tecnozero factura solo a empresas. Si compras a nombre propio, escríbenos a{" "}
+              <a href="mailto:contacto@tecnozero.cl" style={{ color: C.cyan }}>contacto@tecnozero.cl</a>{" "}
+              antes de pagar.
             </p>
             <div className="checkout-form-grid" style={{
               display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14,
@@ -580,9 +593,13 @@ function CheckoutContent() {
                 placeholder="Contabilidad Flores SpA" required
               />
               <InputField
-                label="RUT empresa (opcional)" value={form.rut}
+                label="RUT de la empresa" value={form.rut}
                 onChange={v => setForm(f => ({ ...f, rut: v }))}
-                placeholder="76.123.456-7"
+                onBlur={() => setRutTocado(true)}
+                placeholder="76.123.456-7" required
+                error={rutTocado && form.rut.trim() !== "" && !rutEsValido
+                  ? "El RUT no es válido. Revisa el dígito verificador."
+                  : undefined}
               />
             </div>
           </div>

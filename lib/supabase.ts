@@ -59,6 +59,101 @@ export function clienteDeConsulta(inyectado?: ClienteConsulta): ClienteConsulta 
   return supabaseAdmin as unknown as ClienteConsulta
 }
 
+// ─── Costura para las intenciones de compra ───────────────────────────────────
+
+export interface ErrorBase { code?: string; message?: string }
+
+/** Lo que devuelve `.update(...).eq(...)`: ya se puede esperar, y además acepta
+ *  otro `.eq()` encima para condicionar la escritura.
+ *
+ *  supabase-js devuelve el mismo constructor encadenable en los dos casos, así
+ *  que esto calca la forma real. Sirve para escribir «mueve esta fila solo si
+ *  sigue en este estado» sin leerla antes: un `update ... where buy_order = X
+ *  and estado = 'iniciada'` no tiene la carrera que sí tiene leer, decidir y
+ *  escribir.
+ *
+ *  Hereda de `Promise` porque así el espía de las pruebas queda simple. El
+ *  cliente de verdad no calza con esta forma (su constructor tiene `then` y le
+ *  faltan `catch`, `finally` y `Symbol.toStringTag`), y eso lo confronta
+ *  `_comprobarLaCadenaDeSupabase`, más abajo. */
+export interface EscrituraFiltrada extends Promise<{ error: ErrorBase | null }> {
+  eq: (columna: string, valor: string) => EscrituraFiltrada
+}
+
+/** La forma del cliente que necesita `checkout_intents`: escribe, actualiza,
+ *  lee una fila y lista las pendientes. Es más ancha que `ClienteConsulta`
+ *  porque esa tabla se escribe, no solo se consulta.
+ *
+ *  Calca el encadenado real de supabase-js, así que el juez recorre el mismo
+ *  código que corre en producción. Quien sostiene ese «calca» es
+ *  `_comprobarLaCadenaDeSupabase`, unas líneas más abajo. */
+export interface ClienteIntentos {
+  from: (tabla: string) => {
+    insert: (fila: Record<string, unknown>) => Promise<{ error: ErrorBase | null }>
+    update: (campos: Record<string, unknown>) => {
+      eq: (columna: string, valor: string) => EscrituraFiltrada
+    }
+    select: (columnas: string) => {
+      eq: (columna: string, valor: string) => {
+        single: () => Promise<{ data: unknown; error: ErrorBase | null }>
+        lt: (columna: string, valor: string) => {
+          order: (columna: string, opciones: { ascending: boolean }) => {
+            limit: (cuantas: number) => Promise<{ data: unknown[] | null; error: ErrorBase | null }>
+          }
+        }
+      }
+    }
+  }
+}
+
+/** La comprobación que le da sentido a `ClienteIntentos`. **Nunca se llama.**
+ *
+ *  `clienteDeIntentos` devuelve el cliente real con una doble aserción, y una
+ *  doble aserción por `unknown` es siempre legal: no compara ni una propiedad.
+ *  Así que la interfaz de arriba, sola, no garantizaba nada sobre el SDK. El día
+ *  que supabase-js renombrara o moviera `insert`, `update`, `eq`, `single`, `lt`,
+ *  `order` o `limit`, `tsc` habría seguido limpio y el choque habría aparecido
+ *  en producción, la primera vez que alguien comprara.
+ *
+ *  Esta función cierra ese hueco. Recorre las cuatro cadenas que `lib/db/
+ *  intentos.ts` usa de verdad y guarda cada resultado en el tipo que la interfaz
+ *  promete. Si alguna cadena cambia, el error sale aquí, nombrando el método.
+ *
+ *  Los objetivos piden `PromiseLike` y no `Promise` porque el constructor de
+ *  supabase-js tiene `then` y le faltan `catch`, `finally` y
+ *  `Symbol.toStringTag`. Eso es también la razón de que la aserción de abajo no
+ *  se pueda quitar: el cliente real no es estructuralmente un `ClienteIntentos`,
+ *  aunque responda a todas las llamadas que le hacemos. */
+function _comprobarLaCadenaDeSupabase(db: NonNullable<typeof supabaseAdmin>) {
+  const tabla = db.from("checkout_intents")
+
+  const insertar: PromiseLike<{ error: ErrorBase | null }> = tabla.insert({})
+  const mover: PromiseLike<{ error: ErrorBase | null }> = tabla.update({}).eq("buy_order", "TZ-1")
+  const moverSiAcaso: PromiseLike<{ error: ErrorBase | null }> = tabla
+    .update({}).eq("buy_order", "TZ-1").eq("estado", "iniciada")
+  const unaFila: PromiseLike<{ data: unknown; error: ErrorBase | null }> = tabla
+    .select("*").eq("buy_order", "TZ-1").single()
+  const lasColgadas: PromiseLike<{ data: unknown[] | null; error: ErrorBase | null }> = tabla
+    .select("*").eq("estado", "iniciada").lt("created_at", "2026-01-01")
+    .order("created_at", { ascending: true }).limit(50)
+
+  return [insertar, mover, moverSiAcaso, unaFila, lasColgadas]
+}
+void _comprobarLaCadenaDeSupabase
+
+/** Mismo trato que `clienteDeConsulta`: el inyectado manda, si no el de verdad,
+ *  y `null` cuando Supabase no está configurado.
+ *
+ *  La aserción se queda porque el cliente real trae mucho más de lo que pide la
+ *  interfaz y su constructor no es un `Promise` entero. Lo que la hacía
+ *  peligrosa era ser la ÚNICA costura: la función de arriba ya confronta los
+ *  dos tipos en cada compilación. */
+export function clienteDeIntentos(inyectado?: ClienteIntentos): ClienteIntentos | null {
+  if (inyectado) return inyectado
+  if (!supabaseAdmin) return null
+  return supabaseAdmin as unknown as ClienteIntentos
+}
+
 // ─── Tipos de la DB ───────────────────────────────────────────────────────────
 
 export interface DBUser {
@@ -117,6 +212,29 @@ export interface DBPayment {
   notes: string | null
   tags: string[] | null
   created_at: string
+}
+
+export interface DBCheckoutIntent {
+  buy_order: string
+  token_ws: string | null
+  session_id: string | null
+  amount: number
+  plan: string | null
+  docs_per_month: number | null
+  price_per_doc: number | null
+  addons: string[] | null
+  modo_prueba: boolean
+  customer_name: string | null
+  customer_email: string | null
+  empresa: string | null
+  rut: string | null
+  estado: string
+  authorization_code: string | null
+  detalle: string | null
+  intentos: number
+  created_at: string
+  confirmed_at: string | null
+  last_checked_at: string | null
 }
 
 export interface DBContact {

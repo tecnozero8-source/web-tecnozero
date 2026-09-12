@@ -31,7 +31,18 @@ export async function middleware(req: NextRequest) {
       )
     }
   }
-  if (pathname.startsWith("/api/payments/transbank") && req.method === "POST") {
+  // Pagos: el tope va sobre el `init`, nunca sobre el `confirm`.
+  //
+  // Los dos cuelgan de `/api/payments/transbank`, y hasta el 12-sep-2026 este
+  // `startsWith` los metía en la misma bolsa de 3 por minuto por IP. Lo que
+  // cambia entre ellos es quién llama: el `init` lo pide el checkout, y el
+  // `confirm` lo hace el navegador del comprador volviendo del banco con la
+  // plata ya cobrada. Cuatro POST en el mismo minuto desde una oficina detrás
+  // de un solo NAT alcanzaban para que el 429 cayera sobre una vuelta de
+  // Transbank: el comprador paga, el `confirm` no corre, y no hay fila, ni
+  // correo, ni cuenta. El `confirm` tiene su propio portero y es mejor que una
+  // IP: sin un `token_ws` que Transbank reconozca, `tx.commit` falla.
+  if (pathname === "/api/payments/transbank/init" && req.method === "POST") {
     if (!rateLimit(`payment:${ip}`, 3, 60_000)) {
       return NextResponse.json(
         { error: "Demasiadas solicitudes de pago. Intenta en 1 minuto." },
